@@ -8,7 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from qt import *
+from PyQt4.QtGui import *
 
 image0_data = [
 "32 32 16 1",
@@ -166,85 +166,85 @@ image2_data = [
 ]
 
 class NewUserDialog(QDialog):
-    def __init__(self,parent = None,name = None,modal = 0,fl = 0):
-        QDialog.__init__(self,parent,name,modal,fl)
-
-        self.image0 = QPixmap(image0_data)
-        self.image1 = QPixmap(image1_data)
-        self.image2 = QPixmap(image2_data)
-
-        if not name:
-            self.setName("NewUserDialog")
-
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,QSizePolicy.Preferred,0,0,self.sizePolicy().hasHeightForWidth()))
-        self.setIcon(self.image0)
-
-        NewUserDialogLayout = QVBoxLayout(self,11,6,"NewUserDialogLayout")
-
-        layout14 = QVBoxLayout(None,0,6,"layout14")
-
-        self.textLabel1 = QLabel(self,"textLabel1")
-        self.textLabel1.setAlignment(QLabel.WordBreak | QLabel.AlignVCenter)
-        layout14.addWidget(self.textLabel1)
-
-        layout13 = QGridLayout(None,1,1,0,6,"layout13")
-
-        self.pixmapLabel2 = QLabel(self,"pixmapLabel2")
-        self.pixmapLabel2.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed,0,0,self.pixmapLabel2.sizePolicy().hasHeightForWidth()))
-        self.pixmapLabel2.setPixmap(self.image1)
-        self.pixmapLabel2.setScaledContents(1)
-
-        layout13.addWidget(self.pixmapLabel2,1,1)
-
-        self.textLabel4 = QLabel(self,"textLabel4")
-
-        layout13.addWidget(self.textLabel4,1,0)
-
-        self.pixmapLabel1 = QLabel(self,"pixmapLabel1")
-        self.pixmapLabel1.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed,0,0,self.pixmapLabel1.sizePolicy().hasHeightForWidth()))
-        self.pixmapLabel1.setPixmap(self.image2)
-        self.pixmapLabel1.setScaledContents(1)
-
-        layout13.addWidget(self.pixmapLabel1,0,1)
-
-        self.textLabel3 = QLabel(self,"textLabel3")
-
-        layout13.addWidget(self.textLabel3,0,0)
-        layout14.addLayout(layout13)
-        NewUserDialogLayout.addLayout(layout14)
-
-        layout15 = QHBoxLayout(None,0,6,"layout15")
-        spacer10 = QSpacerItem(241,21,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        layout15.addItem(spacer10)
-
-        self.okButton = QPushButton(self,"okButton")
-        self.okButton.setDefault(1)
-        layout15.addWidget(self.okButton)
-        NewUserDialogLayout.addLayout(layout15)
-
-        self.languageChange()
-
-        self.resize(QSize(338,326).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
-
-        self.connect(self.okButton,SIGNAL("clicked()"),self.accept)
-
-
-    def languageChange(self):
-        self.setCaption(self.__tr("Kodos new user information"))
-        self.textLabel1.setText(self.__tr("<h3>Welcome to Kodos.</h3>\n"
-"<p></p>\n"
-"It appears that this is your first time using \n"
-"Kodos - The Python Regular Expression Debugger.\n"
-"<p></p>\n"
-"In order to help you familiarize yourself with Kodos, you may wish to explore\n"
-"the Regex Library.  Additionally, Kodos contains a Python Regex Reference Guide. \n"
-"You can access these tools by clicking on the appropriate toolbar icon."))
-        self.textLabel4.setText(self.__tr("<b>Regex Reference Guide</b>"))
-        self.textLabel3.setText(self.__tr("<b>Regex Library</b>"))
-        self.okButton.setText(self.__tr("&OK"))
-        self.okButton.setAccel(self.__tr("Alt+O"))
-
-
-    def __tr(self,s,c = None):
-        return qApp.translate("NewUserDialog",s,c)
+    def __init__(self,parent = None):
+        QDialog.__init__(self,parent)
+# 
+#         self.image0 = QPixmap(image0_data)
+#         self.image1 = QPixmap(image1_data)
+#         self.image2 = QPixmap(image2_data)
+# 
+#         if not name:
+#             self.setName("NewUserDialog")
+# 
+#         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,QSizePolicy.Preferred,0,0,self.sizePolicy().hasHeightForWidth()))
+#         self.setIcon(self.image0)
+# 
+#         NewUserDialogLayout = QVBoxLayout(self,11,6,"NewUserDialogLayout")
+# 
+#         layout14 = QVBoxLayout(None,0,6,"layout14")
+# 
+#         self.textLabel1 = QLabel(self,"textLabel1")
+#         self.textLabel1.setAlignment(QLabel.WordBreak | QLabel.AlignVCenter)
+#         layout14.addWidget(self.textLabel1)
+# 
+#         layout13 = QGridLayout(None,1,1,0,6,"layout13")
+# 
+#         self.pixmapLabel2 = QLabel(self,"pixmapLabel2")
+#         self.pixmapLabel2.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed,0,0,self.pixmapLabel2.sizePolicy().hasHeightForWidth()))
+#         self.pixmapLabel2.setPixmap(self.image1)
+#         self.pixmapLabel2.setScaledContents(1)
+# 
+#         layout13.addWidget(self.pixmapLabel2,1,1)
+# 
+#         self.textLabel4 = QLabel(self,"textLabel4")
+# 
+#         layout13.addWidget(self.textLabel4,1,0)
+# 
+#         self.pixmapLabel1 = QLabel(self,"pixmapLabel1")
+#         self.pixmapLabel1.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed,0,0,self.pixmapLabel1.sizePolicy().hasHeightForWidth()))
+#         self.pixmapLabel1.setPixmap(self.image2)
+#         self.pixmapLabel1.setScaledContents(1)
+# 
+#         layout13.addWidget(self.pixmapLabel1,0,1)
+# 
+#         self.textLabel3 = QLabel(self,"textLabel3")
+# 
+#         layout13.addWidget(self.textLabel3,0,0)
+#         layout14.addLayout(layout13)
+#         NewUserDialogLayout.addLayout(layout14)
+# 
+#         layout15 = QHBoxLayout(None,0,6,"layout15")
+#         spacer10 = QSpacerItem(241,21,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         layout15.addItem(spacer10)
+# 
+#         self.okButton = QPushButton(self,"okButton")
+#         self.okButton.setDefault(1)
+#         layout15.addWidget(self.okButton)
+#         NewUserDialogLayout.addLayout(layout15)
+# 
+#         self.languageChange()
+# 
+#         self.resize(QSize(338,326).expandedTo(self.minimumSizeHint()))
+#         self.clearWState(Qt.WState_Polished)
+# 
+#         self.connect(self.okButton,SIGNAL("clicked()"),self.accept)
+# 
+# 
+#     def languageChange(self):
+#         self.setCaption(self.__tr("Kodos new user information"))
+#         self.textLabel1.setText(self.__tr("<h3>Welcome to Kodos.</h3>\n"
+# "<p></p>\n"
+# "It appears that this is your first time using \n"
+# "Kodos - The Python Regular Expression Debugger.\n"
+# "<p></p>\n"
+# "In order to help you familiarize yourself with Kodos, you may wish to explore\n"
+# "the Regex Library.  Additionally, Kodos contains a Python Regex Reference Guide. \n"
+# "You can access these tools by clicking on the appropriate toolbar icon."))
+#         self.textLabel4.setText(self.__tr("<b>Regex Reference Guide</b>"))
+#         self.textLabel3.setText(self.__tr("<b>Regex Library</b>"))
+#         self.okButton.setText(self.__tr("&OK"))
+#         self.okButton.setAccel(self.__tr("Alt+O"))
+# 
+# 
+#     def __tr(self,s,c = None):
+#         return qApp.translate("NewUserDialog",s,c)

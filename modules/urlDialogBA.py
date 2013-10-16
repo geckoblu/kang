@@ -8,7 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from qt import *
+from PyQt4.QtGui import *
 
 image0_data = [
 "32 32 16 1",
@@ -66,76 +66,76 @@ class URLDialogBA(QDialog):
     def __init__(self,parent = None,name = None,modal = 0,fl = 0):
         QDialog.__init__(self,parent,name,modal,fl)
 
-        self.image0 = QPixmap(image0_data)
-
-        if not name:
-            self.setName("URLDialogBA")
-
-        self.setIcon(self.image0)
-        self.setSizeGripEnabled(1)
-
-        URLDialogBALayout = QGridLayout(self,1,1,11,6,"URLDialogBALayout")
-
-        Layout1 = QHBoxLayout(None,0,6,"Layout1")
-
-        self.buttonHelp = QPushButton(self,"buttonHelp")
-        self.buttonHelp.setAutoDefault(1)
-        Layout1.addWidget(self.buttonHelp)
-        Horizontal_Spacing2 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        Layout1.addItem(Horizontal_Spacing2)
-
-        self.buttonOk = QPushButton(self,"buttonOk")
-        self.buttonOk.setAutoDefault(1)
-        self.buttonOk.setDefault(1)
-        Layout1.addWidget(self.buttonOk)
-
-        self.buttonCancel = QPushButton(self,"buttonCancel")
-        self.buttonCancel.setAutoDefault(1)
-        Layout1.addWidget(self.buttonCancel)
-
-        URLDialogBALayout.addLayout(Layout1,1,0)
-
-        self.groupBox1 = QGroupBox(self,"groupBox1")
-        self.groupBox1.setColumnLayout(0,Qt.Vertical)
-        self.groupBox1.layout().setSpacing(6)
-        self.groupBox1.layout().setMargin(11)
-        groupBox1Layout = QGridLayout(self.groupBox1.layout())
-        groupBox1Layout.setAlignment(Qt.AlignTop)
-
-        self.URLTextEdit = QTextEdit(self.groupBox1,"URLTextEdit")
-        self.URLTextEdit.setWordWrap(QTextEdit.WidgetWidth)
-
-        groupBox1Layout.addWidget(self.URLTextEdit,0,0)
-
-        URLDialogBALayout.addWidget(self.groupBox1,0,0)
-
-        self.languageChange()
-
-        self.resize(QSize(443,170).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
-
-        self.connect(self.buttonOk,SIGNAL("clicked()"),self.ok_slot)
-        self.connect(self.buttonCancel,SIGNAL("clicked()"),self.reject)
-        self.connect(self.buttonHelp,SIGNAL("clicked()"),self.help_slot)
-
-
-    def languageChange(self):
-        self.setCaption(self.__tr("Import URL"))
-        self.buttonHelp.setText(self.__tr("&Help"))
-        self.buttonHelp.setAccel(self.__tr("F1"))
-        self.buttonOk.setText(self.__tr("&OK"))
-        self.buttonOk.setAccel(QString.null)
-        self.buttonCancel.setText(self.__tr("&Cancel"))
-        self.buttonCancel.setAccel(QString.null)
-        self.groupBox1.setTitle(self.__tr("Enter URL to import"))
-        self.URLTextEdit.setText(self.__tr("http://kodos.sourceforge.net"))
-
-
-    def help_slot(self):
-        print "URLDialogBA.help_slot(): Not implemented yet"
-
-    def ok_slot(self):
-        print "URLDialogBA.ok_slot(): Not implemented yet"
-
-    def __tr(self,s,c = None):
-        return qApp.translate("URLDialogBA",s,c)
+#         self.image0 = QPixmap(image0_data)
+# 
+#         if not name:
+#             self.setName("URLDialogBA")
+# 
+#         self.setIcon(self.image0)
+#         self.setSizeGripEnabled(1)
+# 
+#         URLDialogBALayout = QGridLayout(self,1,1,11,6,"URLDialogBALayout")
+# 
+#         Layout1 = QHBoxLayout(None,0,6,"Layout1")
+# 
+#         self.buttonHelp = QPushButton(self,"buttonHelp")
+#         self.buttonHelp.setAutoDefault(1)
+#         Layout1.addWidget(self.buttonHelp)
+#         Horizontal_Spacing2 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         Layout1.addItem(Horizontal_Spacing2)
+# 
+#         self.buttonOk = QPushButton(self,"buttonOk")
+#         self.buttonOk.setAutoDefault(1)
+#         self.buttonOk.setDefault(1)
+#         Layout1.addWidget(self.buttonOk)
+# 
+#         self.buttonCancel = QPushButton(self,"buttonCancel")
+#         self.buttonCancel.setAutoDefault(1)
+#         Layout1.addWidget(self.buttonCancel)
+# 
+#         URLDialogBALayout.addLayout(Layout1,1,0)
+# 
+#         self.groupBox1 = QGroupBox(self,"groupBox1")
+#         self.groupBox1.setColumnLayout(0,Qt.Vertical)
+#         self.groupBox1.layout().setSpacing(6)
+#         self.groupBox1.layout().setMargin(11)
+#         groupBox1Layout = QGridLayout(self.groupBox1.layout())
+#         groupBox1Layout.setAlignment(Qt.AlignTop)
+# 
+#         self.URLTextEdit = QTextEdit(self.groupBox1,"URLTextEdit")
+#         self.URLTextEdit.setWordWrap(QTextEdit.WidgetWidth)
+# 
+#         groupBox1Layout.addWidget(self.URLTextEdit,0,0)
+# 
+#         URLDialogBALayout.addWidget(self.groupBox1,0,0)
+# 
+#         self.languageChange()
+# 
+#         self.resize(QSize(443,170).expandedTo(self.minimumSizeHint()))
+#         self.clearWState(Qt.WState_Polished)
+# 
+#         self.connect(self.buttonOk,SIGNAL("clicked()"),self.ok_slot)
+#         self.connect(self.buttonCancel,SIGNAL("clicked()"),self.reject)
+#         self.connect(self.buttonHelp,SIGNAL("clicked()"),self.help_slot)
+# 
+# 
+#     def languageChange(self):
+#         self.setCaption(self.__tr("Import URL"))
+#         self.buttonHelp.setText(self.__tr("&Help"))
+#         self.buttonHelp.setAccel(self.__tr("F1"))
+#         self.buttonOk.setText(self.__tr("&OK"))
+#         self.buttonOk.setAccel(QString.null)
+#         self.buttonCancel.setText(self.__tr("&Cancel"))
+#         self.buttonCancel.setAccel(QString.null)
+#         self.groupBox1.setTitle(self.__tr("Enter URL to import"))
+#         self.URLTextEdit.setText(self.__tr("http://kodos.sourceforge.net"))
+# 
+# 
+#     def help_slot(self):
+#         print "URLDialogBA.help_slot(): Not implemented yet"
+# 
+#     def ok_slot(self):
+#         print "URLDialogBA.ok_slot(): Not implemented yet"
+# 
+#     def __tr(self,s,c = None):
+#         return qApp.translate("URLDialogBA",s,c)

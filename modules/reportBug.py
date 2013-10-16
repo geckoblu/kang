@@ -2,7 +2,7 @@
 
 from reportBugBA import reportBugBA
 from util import *
-import qt 
+import PyQt4.QtCore
 import sys
 import string
 import smtplib
@@ -23,7 +23,7 @@ class reportBug(reportBugBA):
         self.OSEdit.setText(sys.platform)
         pyvers = string.replace(sys.version, "\n", " - ")
         self.pythonVersionEdit.setText(pyvers)
-        self.PyQtVersionEdit.setText(qt.QT_VERSION_STR)
+        self.PyQtVersionEdit.setText(PyQt4.QtCore.QT_VERSION_STR)
         self.regexMultiLineEdit.setText(self.kodos_main.regexMultiLineEdit.text())
         self.stringMultiLineEdit.setText(self.kodos_main.stringMultiLineEdit.text())
 
@@ -92,11 +92,13 @@ class reportBugWindow(QMainWindow):
 
 
     def createMenu(self):
-        self.filemenu = QPopupMenu()
-        id = self.filemenu.insertItem(self.tr("&Close"), self, SLOT("close()"))
-
-        self.menubar = QMenuBar(self)
-        self.menubar.insertItem(self.tr("&File"), self.filemenu)
+        pass
+# TODO: Review this
+#         self.filemenu = QPopupMenu()
+#         id = self.filemenu.insertItem(self.tr("&Close"), self, SLOT("close()"))
+# 
+#         self.menubar = QMenuBar(self)
+#         self.menubar.insertItem(self.tr("&File"), self.filemenu)
 
 
     def createToolBar(self):

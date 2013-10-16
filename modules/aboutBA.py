@@ -8,7 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from qt import *
+from PyQt4.QtGui import *
 
 image0_data = \
     "\x89\x50\x4e\x47\x0d\x0a\x1a\x0a\x00\x00\x00\x0d" \
@@ -2314,177 +2314,178 @@ image0_data = \
 
 class AboutBA(QDialog):
     def __init__(self,parent = None,name = None,modal = 0,fl = 0):
-        QDialog.__init__(self,parent,name,modal,fl)
-
-        self.image0 = QPixmap()
-        self.image0.loadFromData(image0_data,"PNG")
-        if not name:
-            self.setName("AboutBA")
-
-        pal = QPalette()
-        cg = QColorGroup()
-        cg.setColor(QColorGroup.Foreground,Qt.black)
-        cg.setColor(QColorGroup.Button,QColor(214,214,214))
-        cg.setColor(QColorGroup.Light,Qt.white)
-        cg.setColor(QColorGroup.Midlight,QColor(234,234,234))
-        cg.setColor(QColorGroup.Dark,QColor(107,107,107))
-        cg.setColor(QColorGroup.Mid,QColor(142,142,142))
-        cg.setColor(QColorGroup.Text,Qt.black)
-        cg.setColor(QColorGroup.BrightText,Qt.white)
-        cg.setColor(QColorGroup.ButtonText,Qt.black)
-        cg.setColor(QColorGroup.Base,Qt.white)
-        cg.setColor(QColorGroup.Background,Qt.white)
-        cg.setColor(QColorGroup.Shadow,Qt.black)
-        cg.setColor(QColorGroup.Highlight,QColor(0,0,156))
-        cg.setColor(QColorGroup.HighlightedText,Qt.white)
-        cg.setColor(QColorGroup.Link,Qt.black)
-        cg.setColor(QColorGroup.LinkVisited,Qt.black)
-        pal.setActive(cg)
-        cg.setColor(QColorGroup.Foreground,Qt.black)
-        cg.setColor(QColorGroup.Button,QColor(214,214,214))
-        cg.setColor(QColorGroup.Light,Qt.white)
-        cg.setColor(QColorGroup.Midlight,QColor(246,246,246))
-        cg.setColor(QColorGroup.Dark,QColor(107,107,107))
-        cg.setColor(QColorGroup.Mid,QColor(142,142,142))
-        cg.setColor(QColorGroup.Text,Qt.black)
-        cg.setColor(QColorGroup.BrightText,Qt.white)
-        cg.setColor(QColorGroup.ButtonText,Qt.black)
-        cg.setColor(QColorGroup.Base,Qt.white)
-        cg.setColor(QColorGroup.Background,Qt.white)
-        cg.setColor(QColorGroup.Shadow,Qt.black)
-        cg.setColor(QColorGroup.Highlight,QColor(0,0,156))
-        cg.setColor(QColorGroup.HighlightedText,Qt.white)
-        cg.setColor(QColorGroup.Link,Qt.black)
-        cg.setColor(QColorGroup.LinkVisited,Qt.black)
-        pal.setInactive(cg)
-        cg.setColor(QColorGroup.Foreground,QColor(128,128,128))
-        cg.setColor(QColorGroup.Button,QColor(214,214,214))
-        cg.setColor(QColorGroup.Light,Qt.white)
-        cg.setColor(QColorGroup.Midlight,QColor(246,246,246))
-        cg.setColor(QColorGroup.Dark,QColor(107,107,107))
-        cg.setColor(QColorGroup.Mid,QColor(142,142,142))
-        cg.setColor(QColorGroup.Text,Qt.black)
-        cg.setColor(QColorGroup.BrightText,Qt.white)
-        cg.setColor(QColorGroup.ButtonText,QColor(128,128,128))
-        cg.setColor(QColorGroup.Base,Qt.white)
-        cg.setColor(QColorGroup.Background,Qt.white)
-        cg.setColor(QColorGroup.Shadow,Qt.black)
-        cg.setColor(QColorGroup.Highlight,QColor(0,0,156))
-        cg.setColor(QColorGroup.HighlightedText,Qt.white)
-        cg.setColor(QColorGroup.Link,Qt.black)
-        cg.setColor(QColorGroup.LinkVisited,Qt.black)
-        pal.setDisabled(cg)
-        self.setPalette(pal)
-        self.setSizeGripEnabled(1)
-
-        AboutBALayout = QGridLayout(self,1,1,11,6,"AboutBALayout")
-
-        self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__ = QGroupBox(self,"GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__")
-        self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.setColumnLayout(0,Qt.Vertical)
-        self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.layout().setSpacing(6)
-        self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.layout().setMargin(11)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout = QGridLayout(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.layout())
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.setAlignment(Qt.AlignTop)
-
-        layout3 = QHBoxLayout(None,0,6,"layout3")
-
-        self.TextLabel1_2 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"TextLabel1_2")
-        layout3.addWidget(self.TextLabel1_2)
-
-        self.versionLabel = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"versionLabel")
-        layout3.addWidget(self.versionLabel)
-
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addMultiCellLayout(layout3,0,0,3,4)
-        spacer2 = QSpacerItem(181,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer2,0,2)
-
-        self.TextLabel1 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"TextLabel1")
-        self.TextLabel1.setSizePolicy(QSizePolicy(QSizePolicy.Expanding,QSizePolicy.Minimum,0,0,self.TextLabel1.sizePolicy().hasHeightForWidth()))
-        TextLabel1_font = QFont(self.TextLabel1.font())
-        TextLabel1_font.setFamily("helvetic")
-        self.TextLabel1.setFont(TextLabel1_font)
-
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addMultiCellWidget(self.TextLabel1,0,0,0,1)
-        spacer3 = QSpacerItem(26,16,QSizePolicy.Minimum,QSizePolicy.Preferred)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer3,3,2)
-        spacer8 = QSpacerItem(36,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer8,4,0)
-
-        layout5 = QVBoxLayout(None,0,6,"layout5")
-
-        self.textLabel3 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"textLabel3")
-        layout5.addWidget(self.textLabel3)
-
-        self.textLabel4 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"textLabel4")
-        layout5.addWidget(self.textLabel4)
-
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addMultiCellLayout(layout5,1,2,1,3)
-        spacer4 = QSpacerItem(40,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer4,1,4)
-        spacer5 = QSpacerItem(35,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer5,2,4)
-        spacer6 = QSpacerItem(41,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer6,1,0)
-        spacer7 = QSpacerItem(41,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer7,2,0)
-
-        layout6 = QGridLayout(None,1,1,0,6,"layout6")
-
-        self.textLabel1 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"textLabel1")
-
-        layout6.addWidget(self.textLabel1,0,0)
-
-        self.textLabel2 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"textLabel2")
-
-        layout6.addWidget(self.textLabel2,1,0)
-
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addMultiCellLayout(layout6,4,5,1,3)
-        spacer10 = QSpacerItem(70,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer10,4,4)
-        spacer11 = QSpacerItem(55,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer11,5,4)
-        spacer9 = QSpacerItem(50,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer9,5,0)
-
-        AboutBALayout.addWidget(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,1,0)
-
-        self.PixmapLabel1 = QLabel(self,"PixmapLabel1")
-        self.PixmapLabel1.setPixmap(self.image0)
-        self.PixmapLabel1.setScaledContents(1)
-
-        AboutBALayout.addWidget(self.PixmapLabel1,0,0)
-
-        Layout1 = QHBoxLayout(None,0,6,"Layout1")
-        Horizontal_Spacing2 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        Layout1.addItem(Horizontal_Spacing2)
-
-        self.buttonOk = QPushButton(self,"buttonOk")
-        self.buttonOk.setAutoDefault(1)
-        self.buttonOk.setDefault(1)
-        Layout1.addWidget(self.buttonOk)
-
-        AboutBALayout.addLayout(Layout1,2,0)
-
-        self.languageChange()
-
-        self.resize(QSize(474,496).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
-
-        self.connect(self.buttonOk,SIGNAL("clicked()"),self.accept)
-
-
-    def languageChange(self):
-        self.setCaption(self.__tr("About Kodos"))
-        self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.setTitle(self.__tr("About..."))
-        self.TextLabel1_2.setText(self.__tr("Version:"))
-        self.versionLabel.setText(self.__tr("0.8"))
-        self.TextLabel1.setText(self.__tr("Kodos"))
-        self.textLabel3.setText(self.__tr("Developed by: Phil Schwartz"))
-        self.textLabel4.setText(self.__tr("phil_schwartz@users.sourceforge.net"))
-        self.textLabel1.setText(self.__tr("Logo designed by: Konstantin Ryabitsev"))
-        self.textLabel2.setText(self.__tr("icon@fedoraproject.org"))
-        self.buttonOk.setText(self.__tr("&OK"))
-
-
-    def __tr(self,s,c = None):
-        return qApp.translate("AboutBA",s,c)
+        pass
+#         QDialog.__init__(self,parent,name,modal,fl)
+# 
+#         self.image0 = QPixmap()
+#         self.image0.loadFromData(image0_data,"PNG")
+#         if not name:
+#             self.setName("AboutBA")
+# 
+#         pal = QPalette()
+#         cg = QColorGroup()
+#         cg.setColor(QColorGroup.Foreground,Qt.black)
+#         cg.setColor(QColorGroup.Button,QColor(214,214,214))
+#         cg.setColor(QColorGroup.Light,Qt.white)
+#         cg.setColor(QColorGroup.Midlight,QColor(234,234,234))
+#         cg.setColor(QColorGroup.Dark,QColor(107,107,107))
+#         cg.setColor(QColorGroup.Mid,QColor(142,142,142))
+#         cg.setColor(QColorGroup.Text,Qt.black)
+#         cg.setColor(QColorGroup.BrightText,Qt.white)
+#         cg.setColor(QColorGroup.ButtonText,Qt.black)
+#         cg.setColor(QColorGroup.Base,Qt.white)
+#         cg.setColor(QColorGroup.Background,Qt.white)
+#         cg.setColor(QColorGroup.Shadow,Qt.black)
+#         cg.setColor(QColorGroup.Highlight,QColor(0,0,156))
+#         cg.setColor(QColorGroup.HighlightedText,Qt.white)
+#         cg.setColor(QColorGroup.Link,Qt.black)
+#         cg.setColor(QColorGroup.LinkVisited,Qt.black)
+#         pal.setActive(cg)
+#         cg.setColor(QColorGroup.Foreground,Qt.black)
+#         cg.setColor(QColorGroup.Button,QColor(214,214,214))
+#         cg.setColor(QColorGroup.Light,Qt.white)
+#         cg.setColor(QColorGroup.Midlight,QColor(246,246,246))
+#         cg.setColor(QColorGroup.Dark,QColor(107,107,107))
+#         cg.setColor(QColorGroup.Mid,QColor(142,142,142))
+#         cg.setColor(QColorGroup.Text,Qt.black)
+#         cg.setColor(QColorGroup.BrightText,Qt.white)
+#         cg.setColor(QColorGroup.ButtonText,Qt.black)
+#         cg.setColor(QColorGroup.Base,Qt.white)
+#         cg.setColor(QColorGroup.Background,Qt.white)
+#         cg.setColor(QColorGroup.Shadow,Qt.black)
+#         cg.setColor(QColorGroup.Highlight,QColor(0,0,156))
+#         cg.setColor(QColorGroup.HighlightedText,Qt.white)
+#         cg.setColor(QColorGroup.Link,Qt.black)
+#         cg.setColor(QColorGroup.LinkVisited,Qt.black)
+#         pal.setInactive(cg)
+#         cg.setColor(QColorGroup.Foreground,QColor(128,128,128))
+#         cg.setColor(QColorGroup.Button,QColor(214,214,214))
+#         cg.setColor(QColorGroup.Light,Qt.white)
+#         cg.setColor(QColorGroup.Midlight,QColor(246,246,246))
+#         cg.setColor(QColorGroup.Dark,QColor(107,107,107))
+#         cg.setColor(QColorGroup.Mid,QColor(142,142,142))
+#         cg.setColor(QColorGroup.Text,Qt.black)
+#         cg.setColor(QColorGroup.BrightText,Qt.white)
+#         cg.setColor(QColorGroup.ButtonText,QColor(128,128,128))
+#         cg.setColor(QColorGroup.Base,Qt.white)
+#         cg.setColor(QColorGroup.Background,Qt.white)
+#         cg.setColor(QColorGroup.Shadow,Qt.black)
+#         cg.setColor(QColorGroup.Highlight,QColor(0,0,156))
+#         cg.setColor(QColorGroup.HighlightedText,Qt.white)
+#         cg.setColor(QColorGroup.Link,Qt.black)
+#         cg.setColor(QColorGroup.LinkVisited,Qt.black)
+#         pal.setDisabled(cg)
+#         self.setPalette(pal)
+#         self.setSizeGripEnabled(1)
+# 
+#         AboutBALayout = QGridLayout(self,1,1,11,6,"AboutBALayout")
+# 
+#         self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__ = QGroupBox(self,"GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__")
+#         self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.setColumnLayout(0,Qt.Vertical)
+#         self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.layout().setSpacing(6)
+#         self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.layout().setMargin(11)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout = QGridLayout(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.layout())
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.setAlignment(Qt.AlignTop)
+# 
+#         layout3 = QHBoxLayout(None,0,6,"layout3")
+# 
+#         self.TextLabel1_2 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"TextLabel1_2")
+#         layout3.addWidget(self.TextLabel1_2)
+# 
+#         self.versionLabel = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"versionLabel")
+#         layout3.addWidget(self.versionLabel)
+# 
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addMultiCellLayout(layout3,0,0,3,4)
+#         spacer2 = QSpacerItem(181,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer2,0,2)
+# 
+#         self.TextLabel1 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"TextLabel1")
+#         self.TextLabel1.setSizePolicy(QSizePolicy(QSizePolicy.Expanding,QSizePolicy.Minimum,0,0,self.TextLabel1.sizePolicy().hasHeightForWidth()))
+#         TextLabel1_font = QFont(self.TextLabel1.font())
+#         TextLabel1_font.setFamily("helvetic")
+#         self.TextLabel1.setFont(TextLabel1_font)
+# 
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addMultiCellWidget(self.TextLabel1,0,0,0,1)
+#         spacer3 = QSpacerItem(26,16,QSizePolicy.Minimum,QSizePolicy.Preferred)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer3,3,2)
+#         spacer8 = QSpacerItem(36,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer8,4,0)
+# 
+#         layout5 = QVBoxLayout(None,0,6,"layout5")
+# 
+#         self.textLabel3 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"textLabel3")
+#         layout5.addWidget(self.textLabel3)
+# 
+#         self.textLabel4 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"textLabel4")
+#         layout5.addWidget(self.textLabel4)
+# 
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addMultiCellLayout(layout5,1,2,1,3)
+#         spacer4 = QSpacerItem(40,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer4,1,4)
+#         spacer5 = QSpacerItem(35,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer5,2,4)
+#         spacer6 = QSpacerItem(41,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer6,1,0)
+#         spacer7 = QSpacerItem(41,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer7,2,0)
+# 
+#         layout6 = QGridLayout(None,1,1,0,6,"layout6")
+# 
+#         self.textLabel1 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"textLabel1")
+# 
+#         layout6.addWidget(self.textLabel1,0,0)
+# 
+#         self.textLabel2 = QLabel(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,"textLabel2")
+# 
+#         layout6.addWidget(self.textLabel2,1,0)
+# 
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addMultiCellLayout(layout6,4,5,1,3)
+#         spacer10 = QSpacerItem(70,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer10,4,4)
+#         spacer11 = QSpacerItem(55,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer11,5,4)
+#         spacer9 = QSpacerItem(50,16,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__Layout.addItem(spacer9,5,0)
+# 
+#         AboutBALayout.addWidget(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,1,0)
+# 
+#         self.PixmapLabel1 = QLabel(self,"PixmapLabel1")
+#         self.PixmapLabel1.setPixmap(self.image0)
+#         self.PixmapLabel1.setScaledContents(1)
+# 
+#         AboutBALayout.addWidget(self.PixmapLabel1,0,0)
+# 
+#         Layout1 = QHBoxLayout(None,0,6,"Layout1")
+#         Horizontal_Spacing2 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+#         Layout1.addItem(Horizontal_Spacing2)
+# 
+#         self.buttonOk = QPushButton(self,"buttonOk")
+#         self.buttonOk.setAutoDefault(1)
+#         self.buttonOk.setDefault(1)
+#         Layout1.addWidget(self.buttonOk)
+# 
+#         AboutBALayout.addLayout(Layout1,2,0)
+# 
+#         self.languageChange()
+# 
+#         self.resize(QSize(474,496).expandedTo(self.minimumSizeHint()))
+#         self.clearWState(Qt.WState_Polished)
+# 
+#         self.connect(self.buttonOk,SIGNAL("clicked()"),self.accept)
+# 
+# 
+#     def languageChange(self):
+#         self.setCaption(self.__tr("About Kodos"))
+#         self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.setTitle(self.__tr("About..."))
+#         self.TextLabel1_2.setText(self.__tr("Version:"))
+#         self.versionLabel.setText(self.__tr("0.8"))
+#         self.TextLabel1.setText(self.__tr("Kodos"))
+#         self.textLabel3.setText(self.__tr("Developed by: Phil Schwartz"))
+#         self.textLabel4.setText(self.__tr("phil_schwartz@users.sourceforge.net"))
+#         self.textLabel1.setText(self.__tr("Logo designed by: Konstantin Ryabitsev"))
+#         self.textLabel2.setText(self.__tr("icon@fedoraproject.org"))
+#         self.buttonOk.setText(self.__tr("&OK"))
+# 
+# 
+#     def __tr(self,s,c = None):
+#         return qApp.translate("AboutBA",s,c)

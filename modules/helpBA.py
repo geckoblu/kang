@@ -8,7 +8,8 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from qt import *
+from PyQt4.QtGui import *
+
 
 image0_data = \
     "\x89\x50\x4e\x47\x0d\x0a\x1a\x0a\x00\x00\x00\x0d" \
@@ -392,94 +393,95 @@ image3_data = \
 
 class HelpBA(QMainWindow):
     def __init__(self,parent = None,name = None,fl = 0):
-        QMainWindow.__init__(self,parent,name,fl)
-        self.statusBar()
-
-        self.image0 = QPixmap()
-        self.image0.loadFromData(image0_data,"PNG")
-        self.image1 = QPixmap()
-        self.image1.loadFromData(image1_data,"PNG")
-        self.image2 = QPixmap()
-        self.image2.loadFromData(image2_data,"PNG")
-        self.image3 = QPixmap()
-        self.image3.loadFromData(image3_data,"PNG")
-        if not name:
-            self.setName("HelpBA")
-
-
-
-        self.fileHomeAction = QAction(self,"fileHomeAction")
-        self.fileHomeAction.setIconSet(QIconSet(self.image0))
-        self.fileBackAction = QAction(self,"fileBackAction")
-        self.fileBackAction.setIconSet(QIconSet(self.image1))
-        self.fileForwardAction = QAction(self,"fileForwardAction")
-        self.fileForwardAction.setIconSet(QIconSet(self.image2))
-        self.fileExitAction = QAction(self,"fileExitAction")
-        self.fileExitAction.setIconSet(QIconSet(self.image3))
-
-
-        self.toolBar = QToolBar(QString(""),self,Qt.DockTop)
-
-        self.fileBackAction.addTo(self.toolBar)
-        self.fileForwardAction.addTo(self.toolBar)
-        self.toolBar.addSeparator()
-        self.fileHomeAction.addTo(self.toolBar)
-
-
-        self.menubar = QMenuBar(self,"menubar")
-
-
-        self.fileMenu = QPopupMenu(self)
-        self.fileMenu.insertSeparator()
-        self.fileHomeAction.addTo(self.fileMenu)
-        self.fileBackAction.addTo(self.fileMenu)
-        self.fileForwardAction.addTo(self.fileMenu)
-        self.fileMenu.insertSeparator()
-        self.fileExitAction.addTo(self.fileMenu)
-        self.menubar.insertItem(QString(""),self.fileMenu,1)
-
-
-        self.languageChange()
-
-        self.resize(QSize(494,585).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
-
-        self.connect(self.fileExitAction,SIGNAL("activated()"),self.exitSlot)
-        self.connect(self.fileBackAction,SIGNAL("activated()"),self.backSlot)
-        self.connect(self.fileForwardAction,SIGNAL("activated()"),self.forwardSlot)
-        self.connect(self.fileHomeAction,SIGNAL("activated()"),self.homeSlot)
-
-
-    def languageChange(self):
-        self.setCaption(self.__tr("MainWindow"))
-        self.fileHomeAction.setText(self.__tr("Home"))
-        self.fileHomeAction.setMenuText(self.__tr("Home"))
-        self.fileHomeAction.setAccel(self.__tr("Ctrl+H"))
-        self.fileBackAction.setText(self.__tr("Back"))
-        self.fileBackAction.setMenuText(self.__tr("Back"))
-        self.fileBackAction.setAccel(self.__tr("Ctrl+B"))
-        self.fileForwardAction.setText(self.__tr("Forward"))
-        self.fileForwardAction.setMenuText(self.__tr("Forward"))
-        self.fileForwardAction.setAccel(self.__tr("Ctrl+F"))
-        self.fileExitAction.setText(self.__tr("Exit"))
-        self.fileExitAction.setMenuText(self.__tr("Exit"))
-        self.fileExitAction.setAccel(self.__tr("Ctrl+Q"))
-        self.toolBar.setLabel(self.__tr("Tools"))
-        if self.menubar.findItem(1):
-            self.menubar.findItem(1).setText(self.__tr("&File"))
-
-
-    def exitSlot(self):
-        print "HelpBA.exitSlot(): Not implemented yet"
-
-    def forwardSlot(self):
-        print "HelpBA.forwardSlot(): Not implemented yet"
-
-    def backSlot(self):
-        print "HelpBA.backSlot(): Not implemented yet"
-
-    def homeSlot(self):
-        print "HelpBA.homeSlot(): Not implemented yet"
-
-    def __tr(self,s,c = None):
-        return qApp.translate("HelpBA",s,c)
+        pass
+#         QMainWindow.__init__(self,parent,name,fl)
+#         self.statusBar()
+# 
+#         self.image0 = QPixmap()
+#         self.image0.loadFromData(image0_data,"PNG")
+#         self.image1 = QPixmap()
+#         self.image1.loadFromData(image1_data,"PNG")
+#         self.image2 = QPixmap()
+#         self.image2.loadFromData(image2_data,"PNG")
+#         self.image3 = QPixmap()
+#         self.image3.loadFromData(image3_data,"PNG")
+#         if not name:
+#             self.setName("HelpBA")
+# 
+# 
+# 
+#         self.fileHomeAction = QAction(self,"fileHomeAction")
+#         self.fileHomeAction.setIconSet(QIconSet(self.image0))
+#         self.fileBackAction = QAction(self,"fileBackAction")
+#         self.fileBackAction.setIconSet(QIconSet(self.image1))
+#         self.fileForwardAction = QAction(self,"fileForwardAction")
+#         self.fileForwardAction.setIconSet(QIconSet(self.image2))
+#         self.fileExitAction = QAction(self,"fileExitAction")
+#         self.fileExitAction.setIconSet(QIconSet(self.image3))
+# 
+# 
+#         self.toolBar = QToolBar(QString(""),self,Qt.DockTop)
+# 
+#         self.fileBackAction.addTo(self.toolBar)
+#         self.fileForwardAction.addTo(self.toolBar)
+#         self.toolBar.addSeparator()
+#         self.fileHomeAction.addTo(self.toolBar)
+# 
+# 
+#         self.menubar = QMenuBar(self,"menubar")
+# 
+# 
+#         self.fileMenu = QPopupMenu(self)
+#         self.fileMenu.insertSeparator()
+#         self.fileHomeAction.addTo(self.fileMenu)
+#         self.fileBackAction.addTo(self.fileMenu)
+#         self.fileForwardAction.addTo(self.fileMenu)
+#         self.fileMenu.insertSeparator()
+#         self.fileExitAction.addTo(self.fileMenu)
+#         self.menubar.insertItem(QString(""),self.fileMenu,1)
+# 
+# 
+#         self.languageChange()
+# 
+#         self.resize(QSize(494,585).expandedTo(self.minimumSizeHint()))
+#         self.clearWState(Qt.WState_Polished)
+# 
+#         self.connect(self.fileExitAction,SIGNAL("activated()"),self.exitSlot)
+#         self.connect(self.fileBackAction,SIGNAL("activated()"),self.backSlot)
+#         self.connect(self.fileForwardAction,SIGNAL("activated()"),self.forwardSlot)
+#         self.connect(self.fileHomeAction,SIGNAL("activated()"),self.homeSlot)
+# 
+# 
+#     def languageChange(self):
+#         self.setCaption(self.__tr("MainWindow"))
+#         self.fileHomeAction.setText(self.__tr("Home"))
+#         self.fileHomeAction.setMenuText(self.__tr("Home"))
+#         self.fileHomeAction.setAccel(self.__tr("Ctrl+H"))
+#         self.fileBackAction.setText(self.__tr("Back"))
+#         self.fileBackAction.setMenuText(self.__tr("Back"))
+#         self.fileBackAction.setAccel(self.__tr("Ctrl+B"))
+#         self.fileForwardAction.setText(self.__tr("Forward"))
+#         self.fileForwardAction.setMenuText(self.__tr("Forward"))
+#         self.fileForwardAction.setAccel(self.__tr("Ctrl+F"))
+#         self.fileExitAction.setText(self.__tr("Exit"))
+#         self.fileExitAction.setMenuText(self.__tr("Exit"))
+#         self.fileExitAction.setAccel(self.__tr("Ctrl+Q"))
+#         self.toolBar.setLabel(self.__tr("Tools"))
+#         if self.menubar.findItem(1):
+#             self.menubar.findItem(1).setText(self.__tr("&File"))
+# 
+# 
+#     def exitSlot(self):
+#         print "HelpBA.exitSlot(): Not implemented yet"
+# 
+#     def forwardSlot(self):
+#         print "HelpBA.forwardSlot(): Not implemented yet"
+# 
+#     def backSlot(self):
+#         print "HelpBA.backSlot(): Not implemented yet"
+# 
+#     def homeSlot(self):
+#         print "HelpBA.homeSlot(): Not implemented yet"
+# 
+#     def __tr(self,s,c = None):
+#         return qApp.translate("HelpBA",s,c)

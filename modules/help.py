@@ -1,6 +1,6 @@
 #  help.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from qt import *
+from PyQt4.QtGui import *
 from util import *
 import xpm
 from webbrowser import launch_browser

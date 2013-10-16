@@ -11,7 +11,7 @@ class Status_Bar:
 
         self.parent.connect(self.__statusTimer, SIGNAL("timeout()"), self.reset_message)
         
-        self.__statusLabel = QLabel(self.statusBar, "msg")
+        self.__statusLabel = QLabel(self.statusBar)
         self.tooltip = Tooltip('')
         self.tooltip.addWidget(self.__statusLabel)
         
@@ -22,11 +22,11 @@ class Status_Bar:
         self.pixmapLabel = QLabel("image", self.statusBar)
         self.pixmapLabel.setPixmap(pixmap)
         
-        self.statusBar.addWidget(self.pixmapLabel, 0, TRUE)
-        self.statusBar.addWidget(self.__statusLabel, 1, TRUE)
+        self.statusBar.addWidget(self.pixmapLabel, 0)
+        self.statusBar.addWidget(self.__statusLabel, 1)
         if progress_bar:
             self.progressBar = QProgressBar(self.statusBar)
-            self.statusBar.addWidget(self.progressBar, 1, TRUE)
+            self.statusBar.addWidget(self.progressBar, 1)
 
         if message:
             self.set_message(message)

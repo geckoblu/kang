@@ -5,7 +5,8 @@ import os.path
 import sys
 import time
 import string
-from qt import *
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 from debug import *
 import xpm
 
@@ -165,7 +166,8 @@ def kodos_toolbar_logo(toolbar):
     # hack to move logo to right
 
     blanklabel = QLabel("", toolbar)
-    toolbar.setStretchableWidget(blanklabel)
+# TODO: review this    
+#     toolbar.setStretchableWidget(blanklabel)
     
     #banner = getPixmap("kodos_text_logo.gif", "GIF")
     

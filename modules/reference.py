@@ -1,6 +1,6 @@
 #  reference.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from qt import *
+from PyQt4.QtGui import *
 from referenceBA import *
 from util import *
 import xpm
@@ -29,7 +29,8 @@ class Reference(ReferenceBA):
             return
         
         symbol = str(list_view_item.text(0))
-        self.parent.emit(PYSIGNAL('pasteSymbol()'), (symbol,))
+        # TODO: Review this
+        self.parent.emit(SIGNAL('pasteSymbol()'), (symbol,))
 
 
     def help_slot(self):

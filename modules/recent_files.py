@@ -2,7 +2,7 @@
 from util import getHomeDirectory
 import os
 import string
-from qt import *
+from PyQt4.QtGui import *
 import xpm
 
 MAX_SIZE = 50 # max number of files to retain
@@ -67,13 +67,14 @@ class RecentFiles:
 
         # add applicable items to menu
         num = min(self.numShown, len(self.__recent_files))
-        for i in range(num):
-            filename = self.__recent_files[i]
-            idx = self.parent.fileMenu.insertItem(
-                QIconSet(QPixmap(xpm.newIcon)),
-                filename)
-
-            self.__indecies.insert(0, idx)
+# TODO: Fix this
+#         for i in range(num):
+#             filename = self.__recent_files[i]
+#             idx = self.parent.fileMenu.insertItem(
+#                 QIconSet(QPixmap(xpm.newIcon)),
+#                 filename)
+# 
+#             self.__indecies.insert(0, idx)
         
 
     def setNumShown(self, numShown):
@@ -95,10 +96,11 @@ class RecentFiles:
         menu = self.parent.fileMenu
         idx = menu.indexOf(self.__indecies[0])
         menu.removeItem(menuid)
-        menu.insertItem(QIconSet(QPixmap(xpm.newIcon)),
-                        filename,
-                        -1,
-                        idx)
+# TODO: Fix this        
+#         menu.insertItem(QIconSet(QPixmap(xpm.newIcon)),
+#                         filename,
+#                         -1,
+#                         idx)
         try:
             self.__recent_files.remove(filename)
         except:

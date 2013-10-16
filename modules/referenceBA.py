@@ -8,7 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from qt import *
+from PyQt4.QtGui import *
 
 image0_data = \
     "\x89\x50\x4e\x47\x0d\x0a\x1a\x0a\x00\x00\x00\x0d" \
@@ -564,321 +564,321 @@ class ReferenceBA(QMainWindow):
 
         ReferenceBALayout.addWidget(self.referenceListView,0,0)
 
-        self.fileNewAction = QAction(self,"fileNewAction")
-        self.fileNewAction.setIconSet(QIconSet(self.image1))
-        self.fileOpenAction = QAction(self,"fileOpenAction")
-        self.fileOpenAction.setIconSet(QIconSet(self.image2))
-        self.fileSaveAction = QAction(self,"fileSaveAction")
-        self.fileSaveAction.setIconSet(QIconSet(self.image3))
-        self.fileSaveAsAction = QAction(self,"fileSaveAsAction")
-        self.filePrintAction = QAction(self,"filePrintAction")
-        self.filePrintAction.setIconSet(QIconSet(self.image4))
-        self.fileExitAction = QAction(self,"fileExitAction")
-        self.fileExitAction.setIconSet(QIconSet(self.image5))
-        self.editUndoAction = QAction(self,"editUndoAction")
-        self.editUndoAction.setIconSet(QIconSet(self.image6))
-        self.editRedoAction = QAction(self,"editRedoAction")
-        self.editRedoAction.setIconSet(QIconSet(self.image7))
-        self.editCutAction = QAction(self,"editCutAction")
-        self.editCutAction.setIconSet(QIconSet(self.image8))
-        self.editCopyAction = QAction(self,"editCopyAction")
-        self.editCopyAction.setIconSet(QIconSet(self.image9))
-        self.editPasteAction = QAction(self,"editPasteAction")
-        self.editPasteAction.setIconSet(QIconSet(self.image10))
-        self.editFindAction = QAction(self,"editFindAction")
-        self.editFindAction.setIconSet(QIconSet(self.image11))
-        self.helpContentsAction = QAction(self,"helpContentsAction")
-        self.helpIndexAction = QAction(self,"helpIndexAction")
-        self.helpAboutAction = QAction(self,"helpAboutAction")
-        self.helpAction = QAction(self,"helpAction")
-        self.helpAction.setIconSet(QIconSet(self.image12))
-        self.helpPythonAction = QAction(self,"helpPythonAction")
-
-
-        self.toolBar = QToolBar(QString(""),self,Qt.DockTop)
-
-        self.fileExitAction.addTo(self.toolBar)
-        self.editPasteAction.addTo(self.toolBar)
-        self.helpContentsAction.addTo(self.toolBar)
-
-
-        self.MenuBar = QMenuBar(self,"MenuBar")
-
-
-        self.fileMenu = QPopupMenu(self)
-        self.fileMenu.insertSeparator()
-        self.fileExitAction.addTo(self.fileMenu)
-        self.MenuBar.insertItem(QString(""),self.fileMenu,1)
-
-        self.editMenu = QPopupMenu(self)
-        self.editPasteAction.addTo(self.editMenu)
-        self.editMenu.insertSeparator()
-        self.MenuBar.insertItem(QString(""),self.editMenu,2)
-
-        self.helpMenu = QPopupMenu(self)
-        self.helpAction.addTo(self.helpMenu)
-        self.helpPythonAction.addTo(self.helpMenu)
-        self.MenuBar.insertItem(QString(""),self.helpMenu,3)
-
-
-        self.languageChange()
-
-        self.resize(QSize(600,605).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
-
-        self.connect(self.fileExitAction,SIGNAL("activated()"),self.close)
-        self.connect(self.editPasteAction,SIGNAL("activated()"),self.editPaste)
-        self.connect(self.helpAction,SIGNAL("activated()"),self.help_slot)
-        self.connect(self.referenceListView,SIGNAL("doubleClicked(QListViewItem*)"),self.editPaste)
-        self.connect(self.helpPythonAction,SIGNAL("activated()"),self.help_python_slot)
-
-
-    def languageChange(self):
-        self.setCaption(self.__tr("Kodos - Regex Reference Guide"))
-        self.referenceListView.header().setLabel(0,self.__tr("Symbol"))
-        self.referenceListView.header().setLabel(1,self.__tr("Definition"))
-        self.referenceListView.clear()
-        item = QListViewItem(self.referenceListView,None)
-        item.setText(0,self.__tr("."))
-        item.setText(1,self.__tr("Matches any character"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("*"))
-        item.setText(1,self.__tr("Matches 0 or more repetition of preceeding RE"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("+"))
-        item.setText(1,self.__tr("Matches 1 or more repetition of preceeding RE"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("?"))
-        item.setText(1,self.__tr("Matches 0 or 1 repetition of preceeding RE"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("^"))
-        item.setText(1,self.__tr("Matches start of string"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("$"))
-        item.setText(1,self.__tr("Matches the end of the string"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\A"))
-        item.setText(1,self.__tr("Matches only at the start of the string"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\B"))
-        item.setText(1,self.__tr("Matches the empty string, but only when it is not at the beginning or end of a  word"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\b"))
-        item.setText(1,self.__tr("Matches the empty string, but only at the beginning or end of a word"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\d"))
-        item.setText(1,self.__tr("Matches any decimal digit"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\D"))
-        item.setText(1,self.__tr("Matches any non-digit character"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\z"))
-        item.setText(1,self.__tr("Matches only at the end of the string"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\W"))
-        item.setText(1,self.__tr("Matches any non-word"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\w"))
-        item.setText(1,self.__tr("Matches any word"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\S"))
-        item.setText(1,self.__tr("Matches any non-whitespace character"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\s"))
-        item.setText(1,self.__tr("Matches any whitespace character"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\\\"))
-        item.setText(1,self.__tr("Matches a literal backslash"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("??"))
-        item.setText(1,self.__tr("Non-greedy ?"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("*?"))
-        item.setText(1,self.__tr("Non-greedy *"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("+?"))
-        item.setText(1,self.__tr("Non-greedy +"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("()"))
-        item.setText(1,self.__tr("Capturing Parenthesis"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("(?:)"))
-        item.setText(1,self.__tr("Non-capturing Parenthesis"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("[]"))
-        item.setText(1,self.__tr("Character class"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("{m,n}"))
-        item.setText(1,self.__tr("match from m to n repetitions of the preceding RE, attempting to match as many repetitions as possible. "))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("{m,n}?"))
-        item.setText(1,self.__tr("match from m to n repetitions of the preceding RE, attempting to match as few repetitions as possible. "))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("(?P<name>...)"))
-        item.setText(1,self.__tr("Similar to regular parentheses, but the substring matched by the group is accessible via the symbolic group name name."))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("(?P=name)"))
-        item.setText(1,self.__tr("Matches whatever text was matched by the earlier group named name. "))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("\\number "))
-        item.setText(1,self.__tr("Matches the contents of the group of the same number. Groups are numbered starting from 1."))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("(?<=...)"))
-        item.setText(1,self.__tr("Matches if the current position in the string is preceded by a match for ... that ends at the current position. This is called a positive lookbehind assertion."))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("(?<!...)"))
-        item.setText(1,self.__tr("Matches if the current position in the string is not preceded by a match for .... This is called a negative lookbehind assertion."))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("(?=...) "))
-        item.setText(1,self.__tr("Matches if ... matches next, but doesn't consume any of the string. This is called a lookahead assertion."))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("(?!...)"))
-        item.setText(1,self.__tr("Matches if ... doesn't match next. This is a negative lookahead assertion"))
-
-        item = QListViewItem(self.referenceListView,item)
-        item.setText(0,self.__tr("(?#...) "))
-        item.setText(1,self.__tr("A comment; the contents of the parentheses are simply ignored.  "))
-
-        self.fileNewAction.setText(self.__tr("New"))
-        self.fileNewAction.setMenuText(self.__tr("&New"))
-        self.fileNewAction.setAccel(self.__tr("Ctrl+N"))
-        self.fileOpenAction.setText(self.__tr("Open"))
-        self.fileOpenAction.setMenuText(self.__tr("&Open..."))
-        self.fileOpenAction.setAccel(self.__tr("Ctrl+O"))
-        self.fileSaveAction.setText(self.__tr("Save"))
-        self.fileSaveAction.setMenuText(self.__tr("&Save"))
-        self.fileSaveAction.setAccel(self.__tr("Ctrl+S"))
-        self.fileSaveAsAction.setText(self.__tr("Save As"))
-        self.fileSaveAsAction.setMenuText(self.__tr("Save &As..."))
-        self.fileSaveAsAction.setAccel(QString.null)
-        self.filePrintAction.setText(self.__tr("Print"))
-        self.filePrintAction.setMenuText(self.__tr("&Print..."))
-        self.filePrintAction.setAccel(self.__tr("Ctrl+P"))
-        self.fileExitAction.setText(self.__tr("Exit"))
-        self.fileExitAction.setMenuText(self.__tr("E&xit"))
-        self.fileExitAction.setAccel(QString.null)
-        self.editUndoAction.setText(self.__tr("Undo"))
-        self.editUndoAction.setMenuText(self.__tr("&Undo"))
-        self.editUndoAction.setAccel(self.__tr("Ctrl+Z"))
-        self.editRedoAction.setText(self.__tr("Redo"))
-        self.editRedoAction.setMenuText(self.__tr("&Redo"))
-        self.editRedoAction.setAccel(self.__tr("Ctrl+Y"))
-        self.editCutAction.setText(self.__tr("Cut"))
-        self.editCutAction.setMenuText(self.__tr("&Cut"))
-        self.editCutAction.setAccel(self.__tr("Ctrl+X"))
-        self.editCopyAction.setText(self.__tr("Copy"))
-        self.editCopyAction.setMenuText(self.__tr("C&opy"))
-        self.editCopyAction.setAccel(self.__tr("Ctrl+C"))
-        self.editPasteAction.setText(self.__tr("Paste"))
-        self.editPasteAction.setMenuText(self.__tr("&Paste"))
-        self.editPasteAction.setToolTip(self.__tr("Paste selection into Kodos"))
-        self.editPasteAction.setAccel(self.__tr("Ctrl+V"))
-        self.editFindAction.setText(self.__tr("Find"))
-        self.editFindAction.setMenuText(self.__tr("&Find..."))
-        self.editFindAction.setAccel(self.__tr("Ctrl+F"))
-        self.helpContentsAction.setText(self.__tr("Contents"))
-        self.helpContentsAction.setMenuText(self.__tr("&Contents..."))
-        self.helpContentsAction.setAccel(QString.null)
-        self.helpIndexAction.setText(self.__tr("Index"))
-        self.helpIndexAction.setMenuText(self.__tr("&Index..."))
-        self.helpIndexAction.setAccel(QString.null)
-        self.helpAboutAction.setText(self.__tr("About"))
-        self.helpAboutAction.setMenuText(self.__tr("&About"))
-        self.helpAboutAction.setAccel(QString.null)
-        self.helpAction.setText(self.__tr("Help"))
-        self.helpAction.setMenuText(self.__tr("&Help"))
-        self.helpPythonAction.setText(self.__tr("Python Regex Help"))
-        self.helpPythonAction.setMenuText(self.__tr("&Python Regex Help"))
-        self.toolBar.setLabel(self.__tr("Tools"))
-        if self.MenuBar.findItem(1):
-            self.MenuBar.findItem(1).setText(self.__tr("&File"))
-        if self.MenuBar.findItem(2):
-            self.MenuBar.findItem(2).setText(self.__tr("&Edit"))
-        if self.MenuBar.findItem(3):
-            self.MenuBar.findItem(3).setText(self.__tr("&Help"))
-
-
-    def fileNew(self):
-        print "ReferenceBA.fileNew(): Not implemented yet"
-
-    def fileOpen(self):
-        print "ReferenceBA.fileOpen(): Not implemented yet"
-
-    def fileSave(self):
-        print "ReferenceBA.fileSave(): Not implemented yet"
-
-    def fileSaveAs(self):
-        print "ReferenceBA.fileSaveAs(): Not implemented yet"
-
-    def filePrint(self):
-        print "ReferenceBA.filePrint(): Not implemented yet"
-
-    def fileExit(self):
-        print "ReferenceBA.fileExit(): Not implemented yet"
-
-    def editUndo(self):
-        print "ReferenceBA.editUndo(): Not implemented yet"
-
-    def editRedo(self):
-        print "ReferenceBA.editRedo(): Not implemented yet"
-
-    def editCut(self):
-        print "ReferenceBA.editCut(): Not implemented yet"
-
-    def editCopy(self):
-        print "ReferenceBA.editCopy(): Not implemented yet"
-
-    def editPaste(self):
-        print "ReferenceBA.editPaste(): Not implemented yet"
-
-    def editFind(self):
-        print "ReferenceBA.editFind(): Not implemented yet"
-
-    def helpIndex(self):
-        print "ReferenceBA.helpIndex(): Not implemented yet"
-
-    def helpContents(self):
-        print "ReferenceBA.helpContents(): Not implemented yet"
-
-    def helpAbout(self):
-        print "ReferenceBA.helpAbout(): Not implemented yet"
-
-    def help_slot(self):
-        print "ReferenceBA.help_slot(): Not implemented yet"
-
-    def help_python_slot(self):
-        print "ReferenceBA.help_python_slot(): Not implemented yet"
-
-    def __tr(self,s,c = None):
-        return qApp.translate("ReferenceBA",s,c)
+#         self.fileNewAction = QAction(self,"fileNewAction")
+#         self.fileNewAction.setIconSet(QIconSet(self.image1))
+#         self.fileOpenAction = QAction(self,"fileOpenAction")
+#         self.fileOpenAction.setIconSet(QIconSet(self.image2))
+#         self.fileSaveAction = QAction(self,"fileSaveAction")
+#         self.fileSaveAction.setIconSet(QIconSet(self.image3))
+#         self.fileSaveAsAction = QAction(self,"fileSaveAsAction")
+#         self.filePrintAction = QAction(self,"filePrintAction")
+#         self.filePrintAction.setIconSet(QIconSet(self.image4))
+#         self.fileExitAction = QAction(self,"fileExitAction")
+#         self.fileExitAction.setIconSet(QIconSet(self.image5))
+#         self.editUndoAction = QAction(self,"editUndoAction")
+#         self.editUndoAction.setIconSet(QIconSet(self.image6))
+#         self.editRedoAction = QAction(self,"editRedoAction")
+#         self.editRedoAction.setIconSet(QIconSet(self.image7))
+#         self.editCutAction = QAction(self,"editCutAction")
+#         self.editCutAction.setIconSet(QIconSet(self.image8))
+#         self.editCopyAction = QAction(self,"editCopyAction")
+#         self.editCopyAction.setIconSet(QIconSet(self.image9))
+#         self.editPasteAction = QAction(self,"editPasteAction")
+#         self.editPasteAction.setIconSet(QIconSet(self.image10))
+#         self.editFindAction = QAction(self,"editFindAction")
+#         self.editFindAction.setIconSet(QIconSet(self.image11))
+#         self.helpContentsAction = QAction(self,"helpContentsAction")
+#         self.helpIndexAction = QAction(self,"helpIndexAction")
+#         self.helpAboutAction = QAction(self,"helpAboutAction")
+#         self.helpAction = QAction(self,"helpAction")
+#         self.helpAction.setIconSet(QIconSet(self.image12))
+#         self.helpPythonAction = QAction(self,"helpPythonAction")
+# 
+# 
+#         self.toolBar = QToolBar(QString(""),self,Qt.DockTop)
+# 
+#         self.fileExitAction.addTo(self.toolBar)
+#         self.editPasteAction.addTo(self.toolBar)
+#         self.helpContentsAction.addTo(self.toolBar)
+# 
+# 
+#         self.MenuBar = QMenuBar(self,"MenuBar")
+# 
+# 
+#         self.fileMenu = QPopupMenu(self)
+#         self.fileMenu.insertSeparator()
+#         self.fileExitAction.addTo(self.fileMenu)
+#         self.MenuBar.insertItem(QString(""),self.fileMenu,1)
+# 
+#         self.editMenu = QPopupMenu(self)
+#         self.editPasteAction.addTo(self.editMenu)
+#         self.editMenu.insertSeparator()
+#         self.MenuBar.insertItem(QString(""),self.editMenu,2)
+# 
+#         self.helpMenu = QPopupMenu(self)
+#         self.helpAction.addTo(self.helpMenu)
+#         self.helpPythonAction.addTo(self.helpMenu)
+#         self.MenuBar.insertItem(QString(""),self.helpMenu,3)
+# 
+# 
+#         self.languageChange()
+# 
+#         self.resize(QSize(600,605).expandedTo(self.minimumSizeHint()))
+#         self.clearWState(Qt.WState_Polished)
+# 
+#         self.connect(self.fileExitAction,SIGNAL("activated()"),self.close)
+#         self.connect(self.editPasteAction,SIGNAL("activated()"),self.editPaste)
+#         self.connect(self.helpAction,SIGNAL("activated()"),self.help_slot)
+#         self.connect(self.referenceListView,SIGNAL("doubleClicked(QListViewItem*)"),self.editPaste)
+#         self.connect(self.helpPythonAction,SIGNAL("activated()"),self.help_python_slot)
+# 
+# 
+#     def languageChange(self):
+#         self.setCaption(self.__tr("Kodos - Regex Reference Guide"))
+#         self.referenceListView.header().setLabel(0,self.__tr("Symbol"))
+#         self.referenceListView.header().setLabel(1,self.__tr("Definition"))
+#         self.referenceListView.clear()
+#         item = QListViewItem(self.referenceListView,None)
+#         item.setText(0,self.__tr("."))
+#         item.setText(1,self.__tr("Matches any character"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("*"))
+#         item.setText(1,self.__tr("Matches 0 or more repetition of preceeding RE"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("+"))
+#         item.setText(1,self.__tr("Matches 1 or more repetition of preceeding RE"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("?"))
+#         item.setText(1,self.__tr("Matches 0 or 1 repetition of preceeding RE"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("^"))
+#         item.setText(1,self.__tr("Matches start of string"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("$"))
+#         item.setText(1,self.__tr("Matches the end of the string"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\A"))
+#         item.setText(1,self.__tr("Matches only at the start of the string"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\B"))
+#         item.setText(1,self.__tr("Matches the empty string, but only when it is not at the beginning or end of a  word"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\b"))
+#         item.setText(1,self.__tr("Matches the empty string, but only at the beginning or end of a word"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\d"))
+#         item.setText(1,self.__tr("Matches any decimal digit"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\D"))
+#         item.setText(1,self.__tr("Matches any non-digit character"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\z"))
+#         item.setText(1,self.__tr("Matches only at the end of the string"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\W"))
+#         item.setText(1,self.__tr("Matches any non-word"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\w"))
+#         item.setText(1,self.__tr("Matches any word"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\S"))
+#         item.setText(1,self.__tr("Matches any non-whitespace character"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\s"))
+#         item.setText(1,self.__tr("Matches any whitespace character"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\\\"))
+#         item.setText(1,self.__tr("Matches a literal backslash"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("??"))
+#         item.setText(1,self.__tr("Non-greedy ?"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("*?"))
+#         item.setText(1,self.__tr("Non-greedy *"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("+?"))
+#         item.setText(1,self.__tr("Non-greedy +"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("()"))
+#         item.setText(1,self.__tr("Capturing Parenthesis"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("(?:)"))
+#         item.setText(1,self.__tr("Non-capturing Parenthesis"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("[]"))
+#         item.setText(1,self.__tr("Character class"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("{m,n}"))
+#         item.setText(1,self.__tr("match from m to n repetitions of the preceding RE, attempting to match as many repetitions as possible. "))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("{m,n}?"))
+#         item.setText(1,self.__tr("match from m to n repetitions of the preceding RE, attempting to match as few repetitions as possible. "))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("(?P<name>...)"))
+#         item.setText(1,self.__tr("Similar to regular parentheses, but the substring matched by the group is accessible via the symbolic group name name."))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("(?P=name)"))
+#         item.setText(1,self.__tr("Matches whatever text was matched by the earlier group named name. "))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("\\number "))
+#         item.setText(1,self.__tr("Matches the contents of the group of the same number. Groups are numbered starting from 1."))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("(?<=...)"))
+#         item.setText(1,self.__tr("Matches if the current position in the string is preceded by a match for ... that ends at the current position. This is called a positive lookbehind assertion."))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("(?<!...)"))
+#         item.setText(1,self.__tr("Matches if the current position in the string is not preceded by a match for .... This is called a negative lookbehind assertion."))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("(?=...) "))
+#         item.setText(1,self.__tr("Matches if ... matches next, but doesn't consume any of the string. This is called a lookahead assertion."))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("(?!...)"))
+#         item.setText(1,self.__tr("Matches if ... doesn't match next. This is a negative lookahead assertion"))
+# 
+#         item = QListViewItem(self.referenceListView,item)
+#         item.setText(0,self.__tr("(?#...) "))
+#         item.setText(1,self.__tr("A comment; the contents of the parentheses are simply ignored.  "))
+# 
+#         self.fileNewAction.setText(self.__tr("New"))
+#         self.fileNewAction.setMenuText(self.__tr("&New"))
+#         self.fileNewAction.setAccel(self.__tr("Ctrl+N"))
+#         self.fileOpenAction.setText(self.__tr("Open"))
+#         self.fileOpenAction.setMenuText(self.__tr("&Open..."))
+#         self.fileOpenAction.setAccel(self.__tr("Ctrl+O"))
+#         self.fileSaveAction.setText(self.__tr("Save"))
+#         self.fileSaveAction.setMenuText(self.__tr("&Save"))
+#         self.fileSaveAction.setAccel(self.__tr("Ctrl+S"))
+#         self.fileSaveAsAction.setText(self.__tr("Save As"))
+#         self.fileSaveAsAction.setMenuText(self.__tr("Save &As..."))
+#         self.fileSaveAsAction.setAccel(QString.null)
+#         self.filePrintAction.setText(self.__tr("Print"))
+#         self.filePrintAction.setMenuText(self.__tr("&Print..."))
+#         self.filePrintAction.setAccel(self.__tr("Ctrl+P"))
+#         self.fileExitAction.setText(self.__tr("Exit"))
+#         self.fileExitAction.setMenuText(self.__tr("E&xit"))
+#         self.fileExitAction.setAccel(QString.null)
+#         self.editUndoAction.setText(self.__tr("Undo"))
+#         self.editUndoAction.setMenuText(self.__tr("&Undo"))
+#         self.editUndoAction.setAccel(self.__tr("Ctrl+Z"))
+#         self.editRedoAction.setText(self.__tr("Redo"))
+#         self.editRedoAction.setMenuText(self.__tr("&Redo"))
+#         self.editRedoAction.setAccel(self.__tr("Ctrl+Y"))
+#         self.editCutAction.setText(self.__tr("Cut"))
+#         self.editCutAction.setMenuText(self.__tr("&Cut"))
+#         self.editCutAction.setAccel(self.__tr("Ctrl+X"))
+#         self.editCopyAction.setText(self.__tr("Copy"))
+#         self.editCopyAction.setMenuText(self.__tr("C&opy"))
+#         self.editCopyAction.setAccel(self.__tr("Ctrl+C"))
+#         self.editPasteAction.setText(self.__tr("Paste"))
+#         self.editPasteAction.setMenuText(self.__tr("&Paste"))
+#         self.editPasteAction.setToolTip(self.__tr("Paste selection into Kodos"))
+#         self.editPasteAction.setAccel(self.__tr("Ctrl+V"))
+#         self.editFindAction.setText(self.__tr("Find"))
+#         self.editFindAction.setMenuText(self.__tr("&Find..."))
+#         self.editFindAction.setAccel(self.__tr("Ctrl+F"))
+#         self.helpContentsAction.setText(self.__tr("Contents"))
+#         self.helpContentsAction.setMenuText(self.__tr("&Contents..."))
+#         self.helpContentsAction.setAccel(QString.null)
+#         self.helpIndexAction.setText(self.__tr("Index"))
+#         self.helpIndexAction.setMenuText(self.__tr("&Index..."))
+#         self.helpIndexAction.setAccel(QString.null)
+#         self.helpAboutAction.setText(self.__tr("About"))
+#         self.helpAboutAction.setMenuText(self.__tr("&About"))
+#         self.helpAboutAction.setAccel(QString.null)
+#         self.helpAction.setText(self.__tr("Help"))
+#         self.helpAction.setMenuText(self.__tr("&Help"))
+#         self.helpPythonAction.setText(self.__tr("Python Regex Help"))
+#         self.helpPythonAction.setMenuText(self.__tr("&Python Regex Help"))
+#         self.toolBar.setLabel(self.__tr("Tools"))
+#         if self.MenuBar.findItem(1):
+#             self.MenuBar.findItem(1).setText(self.__tr("&File"))
+#         if self.MenuBar.findItem(2):
+#             self.MenuBar.findItem(2).setText(self.__tr("&Edit"))
+#         if self.MenuBar.findItem(3):
+#             self.MenuBar.findItem(3).setText(self.__tr("&Help"))
+# 
+# 
+#     def fileNew(self):
+#         print "ReferenceBA.fileNew(): Not implemented yet"
+# 
+#     def fileOpen(self):
+#         print "ReferenceBA.fileOpen(): Not implemented yet"
+# 
+#     def fileSave(self):
+#         print "ReferenceBA.fileSave(): Not implemented yet"
+# 
+#     def fileSaveAs(self):
+#         print "ReferenceBA.fileSaveAs(): Not implemented yet"
+# 
+#     def filePrint(self):
+#         print "ReferenceBA.filePrint(): Not implemented yet"
+# 
+#     def fileExit(self):
+#         print "ReferenceBA.fileExit(): Not implemented yet"
+# 
+#     def editUndo(self):
+#         print "ReferenceBA.editUndo(): Not implemented yet"
+# 
+#     def editRedo(self):
+#         print "ReferenceBA.editRedo(): Not implemented yet"
+# 
+#     def editCut(self):
+#         print "ReferenceBA.editCut(): Not implemented yet"
+# 
+#     def editCopy(self):
+#         print "ReferenceBA.editCopy(): Not implemented yet"
+# 
+#     def editPaste(self):
+#         print "ReferenceBA.editPaste(): Not implemented yet"
+# 
+#     def editFind(self):
+#         print "ReferenceBA.editFind(): Not implemented yet"
+# 
+#     def helpIndex(self):
+#         print "ReferenceBA.helpIndex(): Not implemented yet"
+# 
+#     def helpContents(self):
+#         print "ReferenceBA.helpContents(): Not implemented yet"
+# 
+#     def helpAbout(self):
+#         print "ReferenceBA.helpAbout(): Not implemented yet"
+# 
+#     def help_slot(self):
+#         print "ReferenceBA.help_slot(): Not implemented yet"
+# 
+#     def help_python_slot(self):
+#         print "ReferenceBA.help_python_slot(): Not implemented yet"
+# 
+#     def __tr(self,s,c = None):
+#         return qApp.translate("ReferenceBA",s,c)

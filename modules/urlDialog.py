@@ -1,6 +1,7 @@
 from urlDialogBA import URLDialogBA
 import help
-from qt import *
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 import urllib
 
 
@@ -29,6 +30,7 @@ class URLDialog(URLDialogBA):
 
         html = ''.join(lines)
 
-        self.parent.emit(PYSIGNAL('urlImported()'), (html, url))
+        # TODO: Review this
+        self.parent.emit(SIGNAL('urlImported()'), (html, url))
         
         URLDialogBA.accept(self)

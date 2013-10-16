@@ -1,9 +1,10 @@
 from regexLibraryBA import RegexLibraryBA
 from parseRegexLib import ParseRegexLib
-from qt import *
 from util import restoreWindowSettings, saveWindowSettings, kodos_toolbar_logo
 
 import os
+
+from PyQt4.QtCore import SIGNAL
 
 GEO = "regex-lib_geometry"
 
@@ -52,7 +53,7 @@ class RegexLibrary(RegexLibraryBA):
         
     def editPaste(self):
         if self.selected:
-            self.parent.emit(PYSIGNAL('pasteRegexLib()'), (self.selected,) )
+            self.parent.emit(SIGNAL('pasteRegexLib()'), (self.selected,) )
 
 
 

@@ -13,7 +13,9 @@ import urllib
 import signal
 
 try:
-    from qt import *
+    from PyQt4.QtCore import *
+    from PyQt4.QtGui import *
+    from PyQt4.Qt import *
 except:
     print """Could not locate the PyQt module.  Please make sure that
 you have installed PyQt for the version of Python that you are running."""
@@ -140,26 +142,30 @@ class Kodos(KodosBA):
                                         self.prefs.recentFilesSpinBox.value(),
                                         self.debug)
 
-        self.matchTextBrowser.setTextFormat(QTextEdit.PlainText)
+# TODO: Review this
+#         self.matchTextBrowser.setTextFormat(QTextEdit.PlainText)
 
         if filename and self.openFile(filename):
             qApp.processEvents()
 
-        self.connect(self, PYSIGNAL('prefsSaved()'), self.prefsSaved)
-
-        self.connect(self.fileMenu,
-                     SIGNAL('activated(int)'),
-                     self.fileMenuHandler)
-        
-        self.connect(self, PYSIGNAL('pasteSymbol()'), self.paste_symbol)
-
-        self.connect(self, PYSIGNAL('urlImported()'), self.urlImported)
-
-        self.connect(self, PYSIGNAL('pasteRegexLib()'), self.pasteFromRegexLib)
+# TODO: Review
+#         self.connect(self, SIGNAL('prefsSaved()'), self.prefsSaved)
+# 
+#         self.connect(self.fileMenu,
+#                      SIGNAL('activated(int)'),
+#                      self.fileMenuHandler)
+#         
+#         self.connect(self, SIGNAL('pasteSymbol()'), self.paste_symbol)
+# 
+#         self.connect(self, SIGNAL('urlImported()'), self.urlImported)
+# 
+#         self.connect(self, SIGNAL('pasteRegexLib()'), self.pasteFromRegexLib)
 
         kodos_toolbar_logo(self.toolBar)
-        if self.replace:  self.show_replace_widgets()
-        else:             self.hide_replace_widgets()
+        if self.replace:  
+            self.show_replace_widgets()
+        else:             
+            self.hide_replace_widgets()
 
         self.checkForKodosDir()
 
@@ -399,11 +405,13 @@ class Kodos(KodosBA):
 
 
     def hide_replace_widgets(self):
-        self.spacerLabel.hide()
-        self.replaceLabel.hide()
-        self.replaceNumberSpinBox.hide()
-        self.replaceTextBrowser.clear()
-        self.replaceTextBrowser.setDisabled(TRUE)
+        pass
+# TODO: Review this    
+#         self.spacerLabel.hide()
+#         self.replaceLabel.hide()
+#         self.replaceNumberSpinBox.hide()
+#         self.replaceTextBrowser.clear()
+#         self.replaceTextBrowser.setDisabled(TRUE)
 
     def show_replace_widgets(self):
         self.spacerLabel.show()
@@ -433,14 +441,15 @@ class Kodos(KodosBA):
         # deprecated as of 2.4.0 - now uses QTable instead of QListView
         self.groupListView.clear()
 
-        num_cols = 3
-        for t in tuples:
-            item = QListViewItem(self.groupListView)
-            for col in range(num_cols):
-                try:
-                    item.setText(col, str(t[col]))
-                except UnicodeError:
-                    item.setText(col, unicode(t[col]))
+# TODO: Fix this
+#         num_cols = 3
+#         for t in tuples:
+#             item = QListViewItem(self.groupListView)
+#             for col in range(num_cols):
+#                 try:
+#                     item.setText(col, str(t[col]))
+#                 except UnicodeError:
+#                     item.setText(col, unicode(t[col]))
 
 
     def populate_group_table(self, tuples):
@@ -1110,7 +1119,6 @@ class Kodos(KodosBA):
         self.aboutWindow = About()
         self.aboutWindow.show()
 
-
     def kodos_website(self):
         self.launch_browser_wrapper("http://kodos.sourceforge.net")
 
@@ -1245,10 +1253,12 @@ def main():
         qApp.installTranslator(translator)
 
     kodos = Kodos(filename, debug)
+    kodos.show()
 
-    qApp.setMainWidget(kodos)
+    #qApp.setMainWidget(kodos)
 
-    qApp.exec_loop()    
+    #qApp.exec_loop()
+    sys.exit(qApp.exec_())   
 
 
 

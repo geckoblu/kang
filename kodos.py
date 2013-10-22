@@ -13,9 +13,8 @@ import urllib
 import signal
 
 try:
-    from PyQt4.QtCore import *
+    from PyQt4.QtCore import Qt
     from PyQt4.QtGui import *
-    from PyQt4.Qt import *
 except:
     print """Could not locate the PyQt module.  Please make sure that
 you have installed PyQt for the version of Python that you are running."""
@@ -389,18 +388,18 @@ class Kodos(KodosBA):
 
     def regex_changed_slot(self):
         try:
-            self.regex = str(self.regexMultiLineEdit.text())
+            self.regex = str(self.regexMultiLineEdit.toPlainText())
         except UnicodeError:
-            self.regex = unicode(self.regexMultiLineEdit.text())
+            self.regex = unicode(self.regexMultiLineEdit.toPlainText())
             
         self.process_regex()
 
 
     def string_changed_slot(self):
         try:
-            self.matchstring = str(self.stringMultiLineEdit.text())
+            self.matchstring = str(self.stringMultiLineEdit.toPlainText())
         except UnicodeError:
-            self.matchstring = unicode(self.stringMultiLineEdit.text())
+            self.matchstring = unicode(self.stringMultiLineEdit.toPlainText())
         self.process_regex()
 
 
@@ -422,9 +421,9 @@ class Kodos(KodosBA):
 
     def replace_changed_slot(self):
         try:
-            self.replace = str(self.replaceTextEdit.text())
+            self.replace = str(self.replaceTextEdit.toPlainText())
         except UnicodeError:
-            self.replace = unicode(self.replaceTextEdit.text())
+            self.replace = unicode(self.replaceTextEdit.toPlainText())
             
         self.process_regex()
         if not self.replace:
@@ -527,14 +526,15 @@ class Kodos(KodosBA):
 
         colors = (QColor(Qt.black), QColor(Qt.blue) )
         i = 0
-        pos = widget.getCursorPosition()
+        pos = widget.textCursor()
         for s in strings:
-            widget.setColor(colors[i%2])            
-            widget.insert(s)
-            if i == cursorOffset: pos = widget.getCursorPosition()
+            widget.setTextColor(colors[i%2])            
+            widget.insertPlainText(s)
+            if i == cursorOffset: 
+                pos = widget.textCursor()
             i += 1
             
-        widget.setCursorPosition(pos[0], pos[1])
+        widget.setTextCursor(pos)
         
 
     def populate_match_textbrowser(self, startpos, endpos):
@@ -562,7 +562,7 @@ class Kodos(KodosBA):
         if num == 0: num = nummatches
         text = self.matchstring
         
-        replace_text = unicode(self.replaceTextEdit.text())
+        replace_text = unicode(self.replaceTextEdit.toPlainText())
         if RX_BACKREF.search(replace_text):
             # if the replace string contains a backref we just use the
             # python regex methods for the substitution
@@ -617,8 +617,9 @@ class Kodos(KodosBA):
 
         
     def clear_results(self):
+        # TODO: review this
         #self.groupListView.clear()
-        self.groupTable.setNumRows(0)
+        #self.groupTable.setNumRows(0)
         self.codeTextBrowser.setText("")
         self.matchTextBrowser.setText("")
         self.matchNumberSpinBox.setEnabled(FALSE)
@@ -652,9 +653,9 @@ class Kodos(KodosBA):
 
             replace_spans = []
             if allmatches and len(allmatches):
-                self.matchNumberSpinBox.setMaxValue(len(allmatches))
+                self.matchNumberSpinBox.setMaximum(len(allmatches))
                 self.matchNumberSpinBox.setEnabled(TRUE)
-                self.replaceNumberSpinBox.setMaxValue(len(allmatches))
+                self.replaceNumberSpinBox.setMaximum(len(allmatches))
                 self.replaceNumberSpinBox.setEnabled(TRUE)
             else:
                 self.matchNumberSpinBox.setEnabled(FALSE)
@@ -987,6 +988,9 @@ class Kodos(KodosBA):
 
 
     def checkEditState(self, noButtonStr=None):
+        # TODO: reactivate checkEditState
+        return 
+    
         if not noButtonStr: noButtonStr = self.tr("&No")
         
         if self.editstate == STATE_EDITED:
@@ -1106,7 +1110,7 @@ class Kodos(KodosBA):
     def helpPythonRegex(self):
         self.helpWindow = help.Help(self,
                                     "python" + os.sep + "module-re.html",
-                                    str(self.prefs.browserEdit.text()))
+                                    str(self.prefs.browserEdit.toPlainText()))
         
 
     def helpRegexLib(self):
@@ -1167,7 +1171,7 @@ class Kodos(KodosBA):
 
 
     def launch_browser_wrapper(self, url, caption=None, message=None):
-        browser = str(self.prefs.browserEdit.text())
+        browser = str(self.prefs.browserEdit.toPlainText())
         if launch_browser(browser, url, caption, message):
             self.status_bar.set_message(self.tr("Launching web browser"),
                                         3,

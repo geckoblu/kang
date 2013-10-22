@@ -18,7 +18,7 @@ class URLDialog(URLDialogBA):
         self.helpWindow = help.Help(self, "importURL.html")
 
     def ok_slot(self):
-        url = str(self.URLTextEdit.text())
+        url = str(self.URLTextEdit.toPlainText())
         try:
             fp = urllib.urlopen(url)
             lines = fp.readlines()

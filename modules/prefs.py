@@ -67,9 +67,9 @@ class Preferences(PrefsBA):
                   f.bold(), f.italic(),
                   f.underline(), f.strikeOut()))
 
-        fp.write("Web Browser: %s\n" % str(self.browserEdit.text()))
-        fp.write("Email Server: %s\n" % str(self.emailServerEdit.text()))
-        fp.write("Recent Files: %s\n" % str(self.recentFilesSpinBox.text()))
+        fp.write("Web Browser: %s\n" % str(self.browserEdit.toPlainText()))
+        fp.write("Email Server: %s\n" % str(self.emailServerEdit.toPlainText()))
+        fp.write("Recent Files: %s\n" % str(self.recentFilesSpinBox.toPlainText()))
         fp.close()
         self.parent.emit(PYSIGNAL('prefsSaved()'), () )
 
@@ -118,7 +118,7 @@ class Preferences(PrefsBA):
             self.setFontButtonText(self.fontButtonMatch, font)        
 
     def browser_slot(self):
-        fn = QFileDialog.getOpenFileName(self.browserEdit.text(), "All (*)",
+        fn = QFileDialog.getOpenFileName(self.browserEdit.toPlainText(), "All (*)",
                                          self, "Choose Web Browser")
         if not fn.isEmpty():
             self.browserEdit.setText(fn)

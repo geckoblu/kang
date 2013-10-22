@@ -24,15 +24,15 @@ class reportBug(reportBugBA):
         pyvers = string.replace(sys.version, "\n", " - ")
         self.pythonVersionEdit.setText(pyvers)
         self.PyQtVersionEdit.setText(PyQt4.QtCore.QT_VERSION_STR)
-        self.regexMultiLineEdit.setText(self.kodos_main.regexMultiLineEdit.text())
-        self.stringMultiLineEdit.setText(self.kodos_main.stringMultiLineEdit.text())
+        self.regexMultiLineEdit.setText(self.kodos_main.regexMultiLineEdit.toPlainText())
+        self.stringMultiLineEdit.setText(self.kodos_main.stringMultiLineEdit.toPlainText())
 
 
     def cancel_slot(self):
         self.parent.close()
 
     def submit_slot(self):
-        addr = str(self.emailAddressEdit.text())
+        addr = str(self.emailAddressEdit.toPlainText())
         if not addr:
             msg = self.tr(
                 "An email address is necessary so that the author "
@@ -46,16 +46,16 @@ class reportBug(reportBugBA):
 
         msg = "Subject: Kodos bug report\n\n"
         msg += "Kodos Version: %s\n" % VERSION
-        msg += "Operating System: %s\n" % unicode(self.OSEdit.text())
-        msg += "Python Version: %s\n" % unicode(self.pythonVersionEdit.text())
-        msg += "PyQt Version: %s\n" % unicode(self.PyQtVersionEdit.text())
+        msg += "Operating System: %s\n" % unicode(self.OSEdit.toPlainText())
+        msg += "Python Version: %s\n" % unicode(self.pythonVersionEdit.toPlainText())
+        msg += "PyQt Version: %s\n" % unicode(self.PyQtVersionEdit.toPlainText())
         msg += "\n" + "=" * 70 + "\n"
-        msg += "Regex:\n%s\n" % unicode(self.regexMultiLineEdit.text())
+        msg += "Regex:\n%s\n" % unicode(self.regexMultiLineEdit.toPlainText())
         msg += "=" * 70 + "\n"
-        msg += "String:\n%s\n" % unicode(self.stringMultiLineEdit.text())
+        msg += "String:\n%s\n" % unicode(self.stringMultiLineEdit.toPlainText())
         msg += "=" * 70 + "\n"
-        msg += "Comments:\n%s\n" % unicode(self.commentsMultiLineEdit.text())
-        email_server = unicode(self.kodos_main.prefs.emailServerEdit.text()) or "localhost"
+        msg += "Comments:\n%s\n" % unicode(self.commentsMultiLineEdit.toPlainText())
+        email_server = unicode(self.kodos_main.prefs.emailServerEdit.toPlainText()) or "localhost"
         try:
             server = smtplib.SMTP(email_server)
             server.sendmail(addr, AUTHOR_ADDR, msg)

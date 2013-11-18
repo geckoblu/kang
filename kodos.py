@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 #  kodos.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
+# pyuic4 -w kodosBA4.ui > kodosBA.py
+
 import sys
 import os
 import string
@@ -118,6 +120,8 @@ class Kodos(KodosBA):
         self.regex_embedded_flags_removed = ""
 
         self.createStatusBar()
+        
+        self.loadToolbarIcons()
 
         self.MSG_NA     = self.tr("Enter a regular expression and a string to match against")
         self.MSG_PAUSED = self.tr("Kodos regex processing is paused.  Click the pause icon to unpause")
@@ -827,11 +831,11 @@ class Kodos(KodosBA):
 
         
     def fileOpen(self):       
-        fn = QFileDialog.getOpenFileName(self.filename,
+        fn = QFileDialog.getOpenFileName(self,
+                                         self.tr("Open Kodos File"),
+                                         self.filename,                                         
                                          "*.kds\nAll (*)",
-                                         self,
-                                         "Open",
-                                         self.tr("Open Kodos File"))        
+                                         )        
         if not fn.isEmpty():
             filename = str(fn)
             if self.openFile(filename):
@@ -1189,6 +1193,26 @@ class Kodos(KodosBA):
 
     def report_bug(self):
         self.bug_report_win = reportBugWindow(self)
+        
+    def loadToolbarIcons(self):
+        fileopenicon = QIcon.fromTheme("document-open", QIcon("images/document-open.png"));
+        self.fileOpenAction.setIcon(fileopenicon)
+        filesaveicon = QIcon.fromTheme("document-save", QIcon("images/document-save.png"));
+        self.fileSaveAction.setIcon(filesaveicon)
+        editcuticon = QIcon.fromTheme("edit-cut", QIcon("images/edit-cut.png"));
+        self.editCutAction.setIcon(editcuticon)
+        editcopyicon = QIcon.fromTheme("edit-copy", QIcon("images/edit-copy.png"));
+        self.editCopyAction.setIcon(editcopyicon)
+        editpasteicon = QIcon.fromTheme("edit-paste", QIcon("images/edit-paste.png"));
+        self.editPasteAction.setIcon(editpasteicon)
+        editpauseicon = QIcon.fromTheme("media-playback-pause", QIcon("images/pause_toolbar.png"));
+        self.editPauseAction.setIcon(editpauseicon)
+        examineicon = QIcon.fromTheme("edit-find", QIcon("images/examine.png"));
+        self.examineAction.setIcon(examineicon)
+        helpRegexReferenceicon = QIcon.fromTheme("helpregexreference", QIcon("images/book.png"));
+        self.helpRegexReferenceAction.setIcon(helpRegexReferenceicon)
+        helpRegexLibActionicon = QIcon.fromTheme("helpregexLib", QIcon("images/library.png"));
+        self.helpRegexLibAction.setIcon(helpRegexLibActionicon)
         
 
 ##############################################################################

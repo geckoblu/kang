@@ -19,86 +19,94 @@
   <widget class="QWidget" name="widget">
    <layout class="QGridLayout">
     <item row="1" column="0">
-     <widget class="QGroupBox" name="groupBox2" native="true">
-      <property name="title" stdset="0">
+     <widget class="QGroupBox" name="groupBox2">
+      <property name="title">
        <string>Flags</string>
       </property>
-     <widget class="QButtonGroup" name="buttonGroup2" native="true">
-      <layout class="QHBoxLayout">
-       <item>
-        <widget class="QCheckBox" name="ignorecaseCheckBox">
-         <property name="toolTip">
-          <string>Perform case-insensitive matching; expressions like [A-Z] will match
+      <widget class="QButtonGroup" name="buttonGroup2" native="true">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>568</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout">
+        <item>
+         <widget class="QCheckBox" name="ignorecaseCheckBox">
+          <property name="toolTip">
+           <string>Perform case-insensitive matching; expressions like [A-Z] will match
 lowercase letters, too. This is not affected by the current locale.</string>
-         </property>
-         <property name="text">
-          <string>Ignore Case</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="multilineCheckBox">
-         <property name="toolTip">
-          <string>When specified, the pattern character &quot;^&quot; matches at the beginning of the 
+          </property>
+          <property name="text">
+           <string>Ignore Case</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="multilineCheckBox">
+          <property name="toolTip">
+           <string>When specified, the pattern character &quot;^&quot; matches at the beginning of the 
 string and at the beginning of each line (immediately following each newline); 
 and the pattern character &quot;$&quot; matches at the end of the string and at the end 
 of each line (immediately preceding each newline). By default, &quot;^&quot; matches 
 only at the beginning of the string, and &quot;$&quot; only at the end of the string and 
 immediately before the newline (if any) at the end of the string.</string>
-         </property>
-         <property name="text">
-          <string>Multi Line</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="dotallCheckBox">
-         <property name="toolTip">
-          <string>Make the &quot;.&quot; special character match any character at all, including a 
+          </property>
+          <property name="text">
+           <string>Multi Line</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="dotallCheckBox">
+          <property name="toolTip">
+           <string>Make the &quot;.&quot; special character match any character at all, including a 
 newline; without this flag, &quot;.&quot; will match anything except a newline.</string>
-         </property>
-         <property name="text">
-          <string>Dot All</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="verboseCheckBox">
-         <property name="toolTip">
-          <string>This flag allows you to write regular expressions that look nicer. Whitespace 
+          </property>
+          <property name="text">
+           <string>Dot All</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="verboseCheckBox">
+          <property name="toolTip">
+           <string>This flag allows you to write regular expressions that look nicer. Whitespace 
 within the pattern is ignored, except when in a character class or preceded by 
 an unescaped backslash, and, when a line contains a &quot;#&quot; neither in a character
 class or preceded by an unescaped backslash, all characters from the leftmost 
 such &quot;#&quot; through the end of the line are ignored.</string>
-         </property>
-         <property name="text">
-          <string>Verbose</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="localeCheckBox">
-         <property name="toolTip">
-          <string>Make \w, \W, \b, and \B dependent on the current locale.</string>
-         </property>
-         <property name="text">
-          <string>Locale</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="unicodeCheckBox">
-         <property name="toolTip">
-          <string>&quot;Make \w, \W, \b, and \B dependent on the Unicode character properties 
+          </property>
+          <property name="text">
+           <string>Verbose</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="localeCheckBox">
+          <property name="toolTip">
+           <string>Make \w, \W, \b, and \B dependent on the current locale.</string>
+          </property>
+          <property name="text">
+           <string>Locale</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="unicodeCheckBox">
+          <property name="toolTip">
+           <string>&quot;Make \w, \W, \b, and \B dependent on the Unicode character properties 
 database. New in Python version 2.0.</string>
-         </property>
-         <property name="text">
-          <string>Unicode</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+          </property>
+          <property name="text">
+           <string>Unicode</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item row="0" column="0">
@@ -394,10 +402,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="fileOpenAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image3</normaloff>image3</iconset>
-   </property>
    <property name="text">
     <string>&amp;Open...</string>
    </property>
@@ -412,10 +416,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="fileSaveAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image4</normaloff>image4</iconset>
-   </property>
    <property name="text">
     <string>&amp;Save</string>
    </property>
@@ -494,10 +494,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="editCutAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image7</normaloff>image7</iconset>
-   </property>
    <property name="text">
     <string>&amp;Cut</string>
    </property>
@@ -512,10 +508,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="editCopyAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image8</normaloff>image8</iconset>
-   </property>
    <property name="text">
     <string>C&amp;opy</string>
    </property>
@@ -530,10 +522,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="editPasteAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image9</normaloff>image9</iconset>
-   </property>
    <property name="text">
     <string>&amp;Paste</string>
    </property>
@@ -550,10 +538,6 @@ database. New in Python version 2.0.</string>
   <action name="examineAction">
    <property name="checkable">
     <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>image10</normaloff>image10</iconset>
    </property>
    <property name="text">
     <string>E&amp;xamine Regex</string>
@@ -596,10 +580,6 @@ database. New in Python version 2.0.</string>
   <action name="editPauseAction">
    <property name="checkable">
     <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>image11</normaloff>image11</iconset>
    </property>
    <property name="text">
     <string>Pause Processing</string>
@@ -655,10 +635,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="helpRegexReferenceAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image13</normaloff>image13</iconset>
-   </property>
    <property name="text">
     <string>&amp;Regex Reference Guide</string>
    </property>
@@ -750,10 +726,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="helpRegexLibAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image16</normaloff>image16</iconset>
-   </property>
    <property name="text">
     <string>Regex &amp;Library</string>
    </property>
@@ -1022,7 +994,7 @@ database. New in Python version 2.0.</string>
      <y>20</y>
     </hint>
    </hints>
-  </connection>  
+  </connection>
   <connection>
    <sender>ignorecaseCheckBox</sender>
    <signal>toggled(bool)</signal>

@@ -889,44 +889,23 @@ class Kodos(KodosBA):
 
 
     def fileSaveAs(self):
-        while 1:
-            self.filedialog = QFileDialog(self.filename,
-                                          "*.kds\nAll (*)",
-                                          self,
-                                          "Save",
-                                          TRUE)
-            self.filedialog.setCaption(self.tr("Save Kodos File"))
-            self.filedialog.setMode(QFileDialog.AnyFile)
-            #self.filedialog.show()
-            ok = self.filedialog.exec_loop()
+        fn = QFileDialog.getSaveFileName(self,
+                                         self.tr("Save Kodos File"),
+                                         self.filename,                                         
+                                         "*.kds\nAll (*)"
+                                         )
+        filename = unicode(fn)
+        if not filename:
+            self.updateStatus(self.tr("No file selected to save"), -1, 5, TRUE)
+            return
+        filename = os.path.normcase(filename)
 
-            filename = unicode(self.filedialog.selectedFile())
-            if not ok or not filename:
-                self.updateStatus(self.tr("No file selected to save"), -1, 5, TRUE)
-                return
-            filename = os.path.normcase(filename)
+        basename = os.path.basename(filename)
+        if basename.find(".") == -1:
+            filename += ".kds"
 
-            basename = os.path.basename(filename)
-            if basename.find(".") == -1:
-                filename += ".kds"
-
-            if os.access(filename, os.F_OK):
-                message = "%s, %s %s\n%s" % (unicode(self.tr("The file")),
-                                         filename,
-                                         unicode(self.tr("already exists.")),
-                                         unicode(self.tr("Would you like to replace it?")))
-                cancel = QMessageBox.information(None,
-                                                 self.tr("Replace file?"),
-                                                 message,
-                                                 self.tr("&Replace"),
-                                                 self.tr("&Cancel"))
-                if cancel:
-                    # allow user to choose another filename
-                    continue
-
-            self.filename = filename
-            self.fileSave()
-            break
+        self.filename = filename
+        self.fileSave()
 
 
     def fileSave(self):

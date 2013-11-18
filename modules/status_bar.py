@@ -48,7 +48,7 @@ class Status_Bar:
         self.__statusLabel.setText(message)
 
         if duration > 0:
-            self.__statusTimer.start(1000 * duration, TRUE)
+            self.__statusTimer.start(1000 * duration)
 
         if tooltip:
             self.tooltip.set_tooltip(tooltip)

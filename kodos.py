@@ -346,7 +346,6 @@ class Kodos(KodosBA):
             regex = self.regex
             self.regex_saved = self.regex
             length = len(regex)
-            found = 0
             self.regexMultiLineEdit.setReadOnly(1)
             self.stringMultiLineEdit.setReadOnly(1)
             self.replaceTextEdit.setReadOnly(1)
@@ -374,7 +373,9 @@ class Kodos(KodosBA):
             
 
     def __refresh_regex_widget(self, base_qcolor, regex):
-        self.regexMultiLineEdit.setPaletteBackgroundColor(base_qcolor)
+        p = self.regexMultiLineEdit.palette()
+        p.setColor(QtGui.QPalette.Base, base_qcolor)
+        self.regexMultiLineEdit.setPalette(p)
         
         self.regexMultiLineEdit.blockSignals(1)
         self.regexMultiLineEdit.clear()

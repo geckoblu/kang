@@ -338,7 +338,8 @@ class Kodos(KodosBA):
 
     def examine(self):
         self.is_examined = not self.is_examined
-        if self.debug: print "is_examined:", self.is_examined
+        if self.debug: 
+            print "is_examined:", self.is_examined
         
         if self.is_examined:
             color = QCOLOR_YELLOW
@@ -355,7 +356,8 @@ class Kodos(KodosBA):
                 try:
                     m = re.search(regex, self.matchstring, self.flags)
                     if m:
-                        if self.debug: print "examined regex:", regex
+                        if self.debug: 
+                            print "examined regex:", regex
                         self.__refresh_regex_widget(color, regex)
                         return
                 except:

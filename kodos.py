@@ -191,10 +191,10 @@ class Kodos(KodosBA):
         self.status_bar = Status_Bar(self, FALSE, "")
 
 
-    def updateStatus(self, status_string, status_value, duration=0, replace=FALSE, tooltip=''):
+    def updateStatus(self, status_string, status_value, duration=0, replace=FALSE):
         pixmap = self.statusPixmapsDict.get(status_value)
 
-        self.status_bar.set_message(status_string, duration, replace, tooltip, pixmap)
+        self.status_bar.set_message(status_string, duration, replace, pixmap)
 
 
     def fileMenuHandler(self, menuid):

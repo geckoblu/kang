@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>713</height>
+    <width>497</width>
+    <height>718</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,15 +23,10 @@
       <property name="title">
        <string>Flags</string>
       </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
       <widget class="QButtonGroup" name="buttonGroup2" native="true">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>568</width>
-         <height>40</height>
-        </rect>
-       </property>
        <layout class="QHBoxLayout">
         <item>
          <widget class="QCheckBox" name="ignorecaseCheckBox">
@@ -120,6 +115,9 @@ database. New in Python version 2.0.</string>
       <property name="title">
        <string>Regular Expression Pattern</string>
       </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
       <property name="lineWidth" stdset="0">
        <number>1</number>
       </property>
@@ -148,7 +146,25 @@ database. New in Python version 2.0.</string>
        <attribute name="title">
         <string>Group</string>
        </attribute>
-       <layout class="QGridLayout"/>
+       <layout class="QGridLayout">
+        <item row="0" column="0">
+         <widget class="QTableWidget" name="groupTable">
+          <property name="columnCount">
+           <number>2</number>
+          </property>
+          <column>
+           <property name="text">
+            <string>Group Name</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Match</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -325,7 +341,7 @@ database. New in Python version 2.0.</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>497</width>
      <height>27</height>
     </rect>
    </property>

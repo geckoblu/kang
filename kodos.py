@@ -77,8 +77,8 @@ QCOLOR_YELLOW = QColor(255,255,127)  # examine
 
 QT_VERS = int(QT_VERSION_STR[0])
 
-if QT_VERS < 3:
-    print "Qt versions prior to 3.0 are no longer supported"
+if QT_VERS < 4:
+    print "Qt versions prior to 4.0 are no longer supported"
     sys.exit(0)
 
 try:
@@ -111,6 +111,10 @@ class Kodos(KodosBA):
         self.url = None
         self.group_tuples = None
         self.editstate = STATE_UNEDITED
+        
+        header = self.groupTable.horizontalHeader()
+        header.setResizeMode(QHeaderView.Stretch)
+        #header.setStretchLastSection(True)
 
         self.ref_win = None
         self.regexlibwin = None
@@ -442,36 +446,15 @@ class Kodos(KodosBA):
     def update_results(self, msg, val):
         self.updateStatus(msg, val)
 
-
-    def populate_group_listview(self, tuples):
-        # deprecated as of 2.4.0 - now uses QTable instead of QListView
-        self.groupListView.clear()
-
-# TODO: Fix this
-#         num_cols = 3
-#         for t in tuples:
-#             item = QListViewItem(self.groupListView)
-#             for col in range(num_cols):
-#                 try:
-#                     item.setText(col, str(t[col]))
-#                 except UnicodeError:
-#                     item.setText(col, unicode(t[col]))
-
-
     def populate_group_table(self, tuples):
-        self.groupTable.setNumRows(len(tuples))
+        self.groupTable.setRowCount(len(tuples))
 
         row = 0
         for t in tuples:
-            self.groupTable.setText(row, 0, unicode(t[1]))
-            self.groupTable.setText(row, 1, unicode(t[2]))
-            self.groupTable.adjustRow(row)
+            self.groupTable.setItem(row, 0, QTableWidgetItem(unicode(t[1])));
+            self.groupTable.setItem(row, 1, QTableWidgetItem(unicode(t[2])));
             row += 1
             
-        self.groupTable.adjustColumn(0)
-        self.groupTable.adjustColumn(1)
-
-
     def populate_code_textbrowser(self):
         self.codeTextBrowser.setText("")
 
@@ -723,9 +706,7 @@ class Kodos(KodosBA):
             else:
                 self.group_tuples.append( (1, group_nums.get(1, ""), g) )
                         
-            #print group_tuples
             self.populate_group_table(self.group_tuples)
-            #self.populate_group_listview(self.group_tuples)
 
         str_pattern_matches = unicode(self.tr("Pattern matches"))
         str_found = unicode(self.tr("found"))

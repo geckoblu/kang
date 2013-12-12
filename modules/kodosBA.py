@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'kodosBA4.ui'
 #
-# Created: Thu Nov  7 15:43:26 2013
+# Created: Thu Dec 12 09:00:59 2013
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,12 +26,13 @@ except AttributeError:
 class Ui_KodosBA(object):
     def setupUi(self, KodosBA):
         KodosBA.setObjectName(_fromUtf8("KodosBA"))
-        KodosBA.resize(600, 713)
+        KodosBA.resize(497, 718)
         self.widget = QtGui.QWidget(KodosBA)
         self.widget.setObjectName(_fromUtf8("widget"))
         self.gridlayout = QtGui.QGridLayout(self.widget)
         self.gridlayout.setObjectName(_fromUtf8("gridlayout"))
         self.groupBox2 = QtGui.QGroupBox(self.widget)
+        self.groupBox2.setCheckable(False)
         self.groupBox2.setObjectName(_fromUtf8("groupBox2"))
         self.buttonGroup2 = QtGui.QButtonGroup(self.groupBox2)
         self.buttonGroup2.setObjectName(_fromUtf8("buttonGroup2"))
@@ -62,6 +63,7 @@ class Ui_KodosBA(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.groupBox1.sizePolicy().hasHeightForWidth())
         self.groupBox1.setSizePolicy(sizePolicy)
+        self.groupBox1.setCheckable(False)
         self.groupBox1.setProperty("lineWidth", 1)
         self.groupBox1.setObjectName(_fromUtf8("groupBox1"))
         self.gridlayout1 = QtGui.QGridLayout(self.groupBox1)
@@ -80,6 +82,15 @@ class Ui_KodosBA(object):
         self.tab.setObjectName(_fromUtf8("tab"))
         self.gridlayout2 = QtGui.QGridLayout(self.tab)
         self.gridlayout2.setObjectName(_fromUtf8("gridlayout2"))
+        self.groupTable = QtGui.QTableWidget(self.tab)
+        self.groupTable.setColumnCount(2)
+        self.groupTable.setObjectName(_fromUtf8("groupTable"))
+        self.groupTable.setRowCount(0)
+        item = QtGui.QTableWidgetItem()
+        self.groupTable.setHorizontalHeaderItem(0, item)
+        item = QtGui.QTableWidgetItem()
+        self.groupTable.setHorizontalHeaderItem(1, item)
+        self.gridlayout2.addWidget(self.groupTable, 0, 0, 1, 1)
         self.resultTabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab1 = QtGui.QWidget()
         self.tab1.setObjectName(_fromUtf8("tab1"))
@@ -166,7 +177,7 @@ class Ui_KodosBA(object):
         self.toolBar.setObjectName(_fromUtf8("toolBar"))
         KodosBA.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.menubar = QtGui.QMenuBar(KodosBA)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 600, 27))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 497, 27))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.fileMenu = QtGui.QMenu(self.menubar)
         self.fileMenu.setObjectName(_fromUtf8("fileMenu"))
@@ -418,6 +429,10 @@ class Ui_KodosBA(object):
 "database. New in Python version 2.0.", None))
         self.unicodeCheckBox.setText(_translate("KodosBA", "Unicode", None))
         self.groupBox1.setTitle(_translate("KodosBA", "Regular Expression Pattern", None))
+        item = self.groupTable.horizontalHeaderItem(0)
+        item.setText(_translate("KodosBA", "Group Name", None))
+        item = self.groupTable.horizontalHeaderItem(1)
+        item.setText(_translate("KodosBA", "Match", None))
         self.resultTabWidget.setTabText(self.resultTabWidget.indexOf(self.tab), _translate("KodosBA", "Group", None))
         self.resultTabWidget.setTabText(self.resultTabWidget.indexOf(self.tab1), _translate("KodosBA", "Match", None))
         self.resultTabWidget.setTabText(self.resultTabWidget.indexOf(self.TabPage), _translate("KodosBA", "Match All", None))

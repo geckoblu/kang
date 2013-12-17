@@ -165,8 +165,8 @@ class Kodos(KodosBA):
 #         self.connect(self, SIGNAL('pasteSymbol()'), self.paste_symbol)
 # 
 #         self.connect(self, SIGNAL('urlImported()'), self.urlImported)
-# 
-#         self.connect(self, SIGNAL('pasteRegexLib()'), self.pasteFromRegexLib)
+ 
+        self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
         kodos_toolbar_logo(self.toolBar)
         if self.replace:  
@@ -978,9 +978,9 @@ class Kodos(KodosBA):
         self.filename = ""
         self.checkEditState()
 
-        self.regexMultiLineEdit.setText(d.get('regex'), "")
-        self.stringMultiLineEdit.setText(d.get('text'), "")
-        self.replaceTextEdit.setText(d.get('replace'), "")
+        self.regexMultiLineEdit.setPlainText(d.get('regex'))
+        self.stringMultiLineEdit.setPlainText(d.get('text'))
+        self.replaceTextEdit.setPlainText(d.get('replace'))
 
         try:
             # set the current page if applicable

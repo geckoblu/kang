@@ -163,20 +163,22 @@ def escapeSQLq(qstr):
 
 
 def kodos_toolbar_logo(toolbar):
-    # hack to move logo to right
-
-    blanklabel = QLabel("", toolbar)
-# TODO: review this    
-#     toolbar.setStretchableWidget(blanklabel)
-    
-    #banner = getPixmap("kodos_text_logo.gif", "GIF")
-    
-    logolabel = QLabel("kodos_logo", toolbar)
-    #logolabel.setPixmap(banner)
-    
-    logolabel.setPixmap(QPixmap(xpm.kodosIcon))
-    #logolabel.setPixmap(getPixmap("kodos_icon.png", "PNG"))
-    return logolabel
+    pass
+# TODO: CHECK THIS
+#     # hack to move logo to right
+# 
+#     blanklabel = QLabel("", toolbar)
+# # TODO: review this    
+# #     toolbar.setStretchableWidget(blanklabel)
+#     
+#     #banner = getPixmap("kodos_text_logo.gif", "GIF")
+#     
+#     logolabel = QLabel("kodos_logo", toolbar)
+#     #logolabel.setPixmap(banner)
+#     
+#     logolabel.setPixmap(QPixmap(xpm.kodosIcon))
+#     #logolabel.setPixmap(getPixmap("kodos_icon.png", "PNG"))
+#     return logolabel
 
 
 def getSavedWindowSettings(path):

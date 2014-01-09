@@ -384,7 +384,7 @@ class Kodos(KodosBA):
         self.regexMultiLineEdit.blockSignals(1)
         self.regexMultiLineEdit.clear()
         self.regexMultiLineEdit.blockSignals(0)
-        self.regexMultiLineEdit.setText(regex)
+        self.regexMultiLineEdit.setPlainText(regex)
 
 
     def match_num_slot(self, num):
@@ -456,7 +456,7 @@ class Kodos(KodosBA):
             row += 1
             
     def populate_code_textbrowser(self):
-        self.codeTextBrowser.setText("")
+        self.codeTextBrowser.setPlainText("")
 
         code =  "import re\n\n"
         code += "# common variables\n\n"
@@ -508,7 +508,7 @@ class Kodos(KodosBA):
                                                                self.replace_num)
         
 
-        self.codeTextBrowser.setText(code)
+        self.codeTextBrowser.setPlainText(code)
 
 
     def colorize_strings(self, strings, widget, cursorOffset=0):
@@ -557,7 +557,7 @@ class Kodos(KodosBA):
             # if the replace string contains a backref we just use the
             # python regex methods for the substitution
             replaced = compile_obj.subn(replace_text, text, num)[0]
-            self.replaceTextBrowser.setText(replaced)
+            self.replaceTextBrowser.setPlainText(replaced)
             return
         
         numreplaced = idx = 0
@@ -610,12 +610,12 @@ class Kodos(KodosBA):
         # TODO: review this
         #self.groupListView.clear()
         #self.groupTable.setNumRows(0)
-        self.codeTextBrowser.setText("")
-        self.matchTextBrowser.setText("")
+        self.codeTextBrowser.setPlainText("")
+        self.matchTextBrowser.setPlainText("")
         self.matchNumberSpinBox.setEnabled(FALSE)
         self.replaceNumberSpinBox.setEnabled(FALSE)
-        self.replaceTextBrowser.setText("")
-        self.matchAllTextBrowser.setText("")
+        self.replaceTextBrowser.setPlainText("")
+        self.matchAllTextBrowser.setPlainText("")
         
 
     def process_regex(self):
@@ -773,9 +773,9 @@ class Kodos(KodosBA):
         self.checkEditState()
         self.filename = ""
         
-        self.regexMultiLineEdit.setText("")
-        self.stringMultiLineEdit.setText("")
-        self.replaceTextEdit.setText("")
+        self.regexMultiLineEdit.setPlainText("")
+        self.stringMultiLineEdit.setPlainText("")
+        self.replaceTextEdit.setPlainText("")
         self.set_flags(0)
         self.editstate = 0
 
@@ -786,6 +786,7 @@ class Kodos(KodosBA):
 
     def urlImported(self, html, url):
         self.url = url
+        # TODO: Review .setText(
         self.stringMultiLineEdit.setText(html)
         
 
@@ -811,7 +812,7 @@ class Kodos(KodosBA):
         
         data = fp.read()
         fp.close()
-        self.stringMultiLineEdit.setText(data)
+        self.stringMultiLineEdit.setPlainText(data)
 
         
     def fileOpen(self):       
@@ -842,10 +843,10 @@ class Kodos(KodosBA):
             u = cPickle.Unpickler(fp)
             self.matchNumberSpinBox.setValue(1)
             self.regex = u.load()
-            self.regexMultiLineEdit.setText(self.regex)
+            self.regexMultiLineEdit.setPlainText(self.regex)
 
             self.matchstring = u.load()
-            self.stringMultiLineEdit.setText(self.matchstring)
+            self.stringMultiLineEdit.setPlainText(self.matchstring)
             
             flags = u.load()
             self.set_flags(flags)
@@ -857,7 +858,7 @@ class Kodos(KodosBA):
                 # so kds files saved w/ these versions will throw exception
                 # here.
                 replace = ""
-            self.replaceTextEdit.setText(replace)
+            self.replaceTextEdit.setPlainText(replace)
             
             self.filename = filename
             msg = "%s %s" % (filename, unicode(self.tr("loaded successfully")))

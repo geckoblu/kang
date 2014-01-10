@@ -161,8 +161,8 @@ class Kodos(KodosBA):
 #         self.connect(self.fileMenu,
 #                      SIGNAL('activated(int)'),
 #                      self.fileMenuHandler)
-#         
-#         self.connect(self, SIGNAL('pasteSymbol()'), self.paste_symbol)
+        
+        self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.paste_symbol)
 # 
 #         self.connect(self, SIGNAL('urlImported()'), self.urlImported)
  
@@ -921,7 +921,7 @@ class Kodos(KodosBA):
 
 
     def paste_symbol(self, symbol):
-        self.regexMultiLineEdit.insert(symbol)
+        self.regexMultiLineEdit.insertPlainText(symbol)
 
 
     def process_embedded_flags(self, regex):

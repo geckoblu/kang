@@ -8,17 +8,16 @@ from PyQt4.QtGui import QIcon
 GEO = "regex-lib_geometry"
 
 class RegexLibrary(RegexLibraryBA):
-    def __init__(self, parent, filename):
+    def __init__(self, parent):
         RegexLibraryBA.__init__(self, None)
         self.parent = parent
-        self.filename = filename
         self.selected = None
 
         self.parseXML()
 
         self.populateListBox()
         
-        editpasteicon = QIcon.fromTheme("edit-paste", QIcon("images/edit-paste.png"));
+        editpasteicon = QIcon.fromTheme("edit-paste", QIcon(":/images/edit-paste.png"));
         self.editPasteAction.setIcon(editpasteicon)
         
         kodos_toolbar_logo(self.toolBar)
@@ -31,7 +30,7 @@ class RegexLibrary(RegexLibraryBA):
 
 
     def parseXML(self):
-        parser = ParseRegexLib(self.filename)
+        parser = ParseRegexLib()
         self.xml_dicts = parser.parse()
 
         

@@ -16,7 +16,7 @@ class Reference(ReferenceBA):
         
         self.populateTable()
             
-        editpasteicon = QIcon.fromTheme("edit-paste", QIcon("images/edit-paste.png"));
+        editpasteicon = QIcon.fromTheme("edit-paste", QIcon(":/images/edit-paste.png"));
         self.editPasteAction.setIcon(editpasteicon)
 
     def populateTable(self):

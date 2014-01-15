@@ -108,6 +108,7 @@ class Kodos(KodosBA):
         self.flags = 0
         self.is_paused = 0
         self.is_examined = 0
+        self.importFilename = ""
         self.filename = ""
         self.match_num = 1 # matches are labeled 1..n
         self.replace_num = 0 # replace all
@@ -794,14 +795,10 @@ class Kodos(KodosBA):
         
 
     def importFile(self):
-        fn = QFileDialog.getOpenFileName(self.filename, "All (*)",
-                                         self, "Import File")
+        fn = QFileDialog.getOpenFileName(self, self.tr("Import File"), self.importFilename, "All (*)")
         
         if fn.isEmpty():
-            self.updateStatus(self.tr("A file was not selected for import"),
-                              -1,
-                              5,
-                              TRUE)
+            self.updateStatus(self.tr("A file was not selected for import"), -1, 5, TRUE)
             return None
 
         filename = str(fn)
@@ -813,6 +810,7 @@ class Kodos(KodosBA):
             self.updateStatus(msg, -1, 5, TRUE)
             return None
         
+        self.importFilename = filename
         data = fp.read()
         fp.close()
         self.stringMultiLineEdit.setPlainText(data)

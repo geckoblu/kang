@@ -30,7 +30,6 @@ class URLDialog(URLDialogBA):
 
         html = ''.join(lines)
 
-        # TODO: Review this
-        self.parent.emit(SIGNAL('urlImported()'), (html, url))
+        self.parent.emit(SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), html, url)
         
         URLDialogBA.accept(self)

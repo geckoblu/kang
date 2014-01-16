@@ -112,7 +112,7 @@ class Kodos(KodosBA):
         self.filename = ""
         self.match_num = 1 # matches are labeled 1..n
         self.replace_num = 0 # replace all
-        self.url = None
+        self.url = "http://kodos.sourceforge.net"
         self.group_tuples = None
         self.editstate = STATE_UNEDITED
         
@@ -159,16 +159,16 @@ class Kodos(KodosBA):
         if filename and self.openFile(filename):
             qApp.processEvents()
 
+        self.connect(self, SIGNAL('prefsSaved()'), self.prefsSaved)
+
 # TODO: Review
-#         self.connect(self, SIGNAL('prefsSaved()'), self.prefsSaved)
-# 
 #         self.connect(self.fileMenu,
 #                      SIGNAL('activated(int)'),
 #                      self.fileMenuHandler)
         
         self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.paste_symbol)
-# 
-#         self.connect(self, SIGNAL('urlImported()'), self.urlImported)
+ 
+        self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
  
         self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
@@ -790,8 +790,7 @@ class Kodos(KodosBA):
 
     def urlImported(self, html, url):
         self.url = url
-        # TODO: Review .setText(
-        self.stringMultiLineEdit.setText(html)
+        self.stringMultiLineEdit.setPlainText(html)
         
 
     def importFile(self):

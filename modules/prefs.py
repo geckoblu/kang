@@ -71,7 +71,7 @@ class Preferences(PrefsBA):
         fp.write("Email Server: %s\n" % str(self.emailServerEdit.text()))
         fp.write("Recent Files: %s\n" % str(self.recentFilesSpinBox.cleanText()))
         fp.close()
-        self.parent.emit(SIGNAL('prefsSaved()'), () )
+        self.parent.emit(SIGNAL('prefsSaved()'))
 
 
     def parseFontStr(self, fontstr, meth):

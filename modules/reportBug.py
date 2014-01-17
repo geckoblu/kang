@@ -55,7 +55,7 @@ class reportBug(reportBugBA):
         msg += "String:\n%s\n" % unicode(self.stringMultiLineEdit.toPlainText())
         msg += "=" * 70 + "\n"
         msg += "Comments:\n%s\n" % unicode(self.commentsMultiLineEdit.toPlainText())
-        email_server = unicode(self.kodos_main.prefs.emailServerEdit.toPlainText()) or "localhost"
+        email_server = unicode(self.kodos_main.prefs.emailServerEdit.text()) or "localhost"
         try:
             server = smtplib.SMTP(email_server)
             server.sendmail(addr, AUTHOR_ADDR, msg)

@@ -1078,7 +1078,7 @@ class Kodos(KodosBA):
     def helpPythonRegex(self):
         self.helpWindow = help.Help(self,
                                     "python" + os.sep + "module-re.html",
-                                    str(self.prefs.browserEdit.toPlainText()))
+                                    str(self.prefs.browserEdit.text()))
         
 
     def helpRegexLib(self):
@@ -1107,7 +1107,8 @@ class Kodos(KodosBA):
         lines = fp.readlines()
         html = string.join(lines)
 
-        rawstr = r"""kodos-(?P<version>.*?)\<"""
+        rawstr = r"""kodos-(?P<version>.*?).zip"""
+        #rawstr = r"""kodos-(?P<version>.*?)\<"""
         #rawstr = r"""release_id=.*\">.*(kodos-)(?P<version>.*?)</[aA]>"""
         match_obj = re.search(rawstr, html)
         if match_obj:
@@ -1138,7 +1139,7 @@ class Kodos(KodosBA):
 
 
     def launch_browser_wrapper(self, url, caption=None, message=None):
-        browser = str(self.prefs.browserEdit.toPlainText())
+        browser = str(self.prefs.browserEdit.text())
         if launch_browser(browser, url, caption, message):
             self.status_bar.set_message(self.tr("Launching web browser"),
                                         3,

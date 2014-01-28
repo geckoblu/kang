@@ -1,171 +1,197 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/phil/work/kodos/modules/reportBugBA.ui'
+# Form implementation generated from reading ui file 'reportBugBA4.ui'
 #
-# Created: Sun Nov 27 07:14:37 2005
-#      by: The PyQt User Interface Compiler (pyuic) 3.14.1
+# Created: Tue Jan 28 09:14:55 2014
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 
+from PyQt4 import QtCore, QtGui
 
-from PyQt4.QtGui import *
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
+
+class Ui_reportBugBA(object):
+    def setupUi(self, reportBugBA):
+        reportBugBA.setObjectName(_fromUtf8("reportBugBA"))
+        reportBugBA.resize(800, 617)
+        self.reportWidget = QtGui.QWidget(reportBugBA)
+        self.reportWidget.setObjectName(_fromUtf8("reportWidget"))
+        self.gridlayout = QtGui.QGridLayout(self.reportWidget)
+        self.gridlayout.setMargin(11)
+        self.gridlayout.setSpacing(6)
+        self.gridlayout.setObjectName(_fromUtf8("gridlayout"))
+        self.hboxlayout = QtGui.QHBoxLayout()
+        self.hboxlayout.setSpacing(6)
+        self.hboxlayout.setMargin(0)
+        self.hboxlayout.setObjectName(_fromUtf8("hboxlayout"))
+        spacerItem = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.hboxlayout.addItem(spacerItem)
+        self.submitButton = QtGui.QPushButton(self.reportWidget)
+        self.submitButton.setObjectName(_fromUtf8("submitButton"))
+        self.hboxlayout.addWidget(self.submitButton)
+        self.cancelButton = QtGui.QPushButton(self.reportWidget)
+        self.cancelButton.setObjectName(_fromUtf8("cancelButton"))
+        self.hboxlayout.addWidget(self.cancelButton)
+        self.gridlayout.addLayout(self.hboxlayout, 3, 0, 1, 1)
+        self.GroupBox6 = QtGui.QGroupBox(self.reportWidget)
+        self.GroupBox6.setObjectName(_fromUtf8("GroupBox6"))
+        self.gridlayout1 = QtGui.QGridLayout(self.GroupBox6)
+        self.gridlayout1.setMargin(11)
+        self.gridlayout1.setSpacing(6)
+        self.gridlayout1.setObjectName(_fromUtf8("gridlayout1"))
+        self.vboxlayout = QtGui.QVBoxLayout()
+        self.vboxlayout.setSpacing(6)
+        self.vboxlayout.setMargin(0)
+        self.vboxlayout.setObjectName(_fromUtf8("vboxlayout"))
+        self.TextLabel4 = QtGui.QLabel(self.GroupBox6)
+        self.TextLabel4.setWordWrap(False)
+        self.TextLabel4.setObjectName(_fromUtf8("TextLabel4"))
+        self.vboxlayout.addWidget(self.TextLabel4)
+        self.TextLabel5 = QtGui.QLabel(self.GroupBox6)
+        self.TextLabel5.setWordWrap(False)
+        self.TextLabel5.setObjectName(_fromUtf8("TextLabel5"))
+        self.vboxlayout.addWidget(self.TextLabel5)
+        self.gridlayout1.addLayout(self.vboxlayout, 0, 0, 1, 1)
+        self.vboxlayout1 = QtGui.QVBoxLayout()
+        self.vboxlayout1.setSpacing(6)
+        self.vboxlayout1.setMargin(0)
+        self.vboxlayout1.setObjectName(_fromUtf8("vboxlayout1"))
+        self.regexMultiLineEdit = QtGui.QTextEdit(self.GroupBox6)
+        self.regexMultiLineEdit.setReadOnly(True)
+        self.regexMultiLineEdit.setObjectName(_fromUtf8("regexMultiLineEdit"))
+        self.vboxlayout1.addWidget(self.regexMultiLineEdit)
+        self.stringMultiLineEdit = QtGui.QTextEdit(self.GroupBox6)
+        self.stringMultiLineEdit.setReadOnly(True)
+        self.stringMultiLineEdit.setObjectName(_fromUtf8("stringMultiLineEdit"))
+        self.vboxlayout1.addWidget(self.stringMultiLineEdit)
+        self.gridlayout1.addLayout(self.vboxlayout1, 0, 1, 1, 1)
+        self.gridlayout.addWidget(self.GroupBox6, 1, 0, 1, 1)
+        self.GroupBox5 = QtGui.QGroupBox(self.reportWidget)
+        self.GroupBox5.setObjectName(_fromUtf8("GroupBox5"))
+        self.gridlayout2 = QtGui.QGridLayout(self.GroupBox5)
+        self.gridlayout2.setMargin(11)
+        self.gridlayout2.setSpacing(6)
+        self.gridlayout2.setObjectName(_fromUtf8("gridlayout2"))
+        self.TextLabel1 = QtGui.QLabel(self.GroupBox5)
+        self.TextLabel1.setWordWrap(False)
+        self.TextLabel1.setObjectName(_fromUtf8("TextLabel1"))
+        self.gridlayout2.addWidget(self.TextLabel1, 0, 0, 1, 1)
+        self.TextLabel3 = QtGui.QLabel(self.GroupBox5)
+        self.TextLabel3.setWordWrap(False)
+        self.TextLabel3.setObjectName(_fromUtf8("TextLabel3"))
+        self.gridlayout2.addWidget(self.TextLabel3, 2, 0, 1, 1)
+        self.TextLabel2 = QtGui.QLabel(self.GroupBox5)
+        self.TextLabel2.setWordWrap(False)
+        self.TextLabel2.setObjectName(_fromUtf8("TextLabel2"))
+        self.gridlayout2.addWidget(self.TextLabel2, 1, 0, 1, 1)
+        self.OSEdit = QtGui.QLineEdit(self.GroupBox5)
+        self.OSEdit.setObjectName(_fromUtf8("OSEdit"))
+        self.gridlayout2.addWidget(self.OSEdit, 0, 1, 1, 1)
+        self.pythonVersionEdit = QtGui.QLineEdit(self.GroupBox5)
+        self.pythonVersionEdit.setObjectName(_fromUtf8("pythonVersionEdit"))
+        self.gridlayout2.addWidget(self.pythonVersionEdit, 1, 1, 1, 1)
+        self.pyQtVersionEdit = QtGui.QLineEdit(self.GroupBox5)
+        self.pyQtVersionEdit.setObjectName(_fromUtf8("pyQtVersionEdit"))
+        self.gridlayout2.addWidget(self.pyQtVersionEdit, 2, 1, 1, 1)
+        self.gridlayout.addWidget(self.GroupBox5, 0, 0, 1, 1)
+        self.GroupBox7 = QtGui.QGroupBox(self.reportWidget)
+        self.GroupBox7.setObjectName(_fromUtf8("GroupBox7"))
+        self.gridlayout3 = QtGui.QGridLayout(self.GroupBox7)
+        self.gridlayout3.setMargin(11)
+        self.gridlayout3.setSpacing(6)
+        self.gridlayout3.setObjectName(_fromUtf8("gridlayout3"))
+        self.gridlayout4 = QtGui.QGridLayout()
+        self.gridlayout4.setMargin(0)
+        self.gridlayout4.setSpacing(6)
+        self.gridlayout4.setObjectName(_fromUtf8("gridlayout4"))
+        self.commentsMultiLineEdit = QtGui.QTextEdit(self.GroupBox7)
+        self.commentsMultiLineEdit.setObjectName(_fromUtf8("commentsMultiLineEdit"))
+        self.gridlayout4.addWidget(self.commentsMultiLineEdit, 1, 1, 1, 1)
+        self.TextLabel3_2 = QtGui.QLabel(self.GroupBox7)
+        self.TextLabel3_2.setWordWrap(False)
+        self.TextLabel3_2.setObjectName(_fromUtf8("TextLabel3_2"))
+        self.gridlayout4.addWidget(self.TextLabel3_2, 1, 0, 1, 1)
+        self.emailAddressEdit = QtGui.QLineEdit(self.GroupBox7)
+        self.emailAddressEdit.setObjectName(_fromUtf8("emailAddressEdit"))
+        self.gridlayout4.addWidget(self.emailAddressEdit, 0, 1, 1, 1)
+        self.TextLabel2_2 = QtGui.QLabel(self.GroupBox7)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.TextLabel2_2.sizePolicy().hasHeightForWidth())
+        self.TextLabel2_2.setSizePolicy(sizePolicy)
+        self.TextLabel2_2.setWordWrap(False)
+        self.TextLabel2_2.setObjectName(_fromUtf8("TextLabel2_2"))
+        self.gridlayout4.addWidget(self.TextLabel2_2, 0, 0, 1, 1)
+        self.gridlayout3.addLayout(self.gridlayout4, 0, 0, 1, 1)
+        self.gridlayout.addWidget(self.GroupBox7, 2, 0, 1, 1)
+        reportBugBA.setCentralWidget(self.reportWidget)
+        self.menubar = QtGui.QMenuBar(reportBugBA)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 27))
+        self.menubar.setObjectName(_fromUtf8("menubar"))
+        self.menuFile = QtGui.QMenu(self.menubar)
+        self.menuFile.setObjectName(_fromUtf8("menuFile"))
+        reportBugBA.setMenuBar(self.menubar)
+        self.toolBar = QtGui.QToolBar(reportBugBA)
+        self.toolBar.setObjectName(_fromUtf8("toolBar"))
+        reportBugBA.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
+        self.closeAction = QtGui.QAction(reportBugBA)
+        self.closeAction.setObjectName(_fromUtf8("closeAction"))
+        self.menuFile.addAction(self.closeAction)
+        self.menubar.addAction(self.menuFile.menuAction())
+        self.toolBar.addAction(self.closeAction)
+
+        self.retranslateUi(reportBugBA)
+        QtCore.QObject.connect(self.cancelButton, QtCore.SIGNAL(_fromUtf8("clicked()")), reportBugBA.close)
+        QtCore.QObject.connect(self.closeAction, QtCore.SIGNAL(_fromUtf8("activated()")), reportBugBA.close)
+        QtCore.QObject.connect(self.submitButton, QtCore.SIGNAL(_fromUtf8("clicked()")), reportBugBA.submit)
+        QtCore.QMetaObject.connectSlotsByName(reportBugBA)
+        reportBugBA.setTabOrder(self.OSEdit, self.pythonVersionEdit)
+        reportBugBA.setTabOrder(self.pythonVersionEdit, self.pyQtVersionEdit)
+        reportBugBA.setTabOrder(self.pyQtVersionEdit, self.emailAddressEdit)
+        reportBugBA.setTabOrder(self.emailAddressEdit, self.commentsMultiLineEdit)
+        reportBugBA.setTabOrder(self.commentsMultiLineEdit, self.submitButton)
+        reportBugBA.setTabOrder(self.submitButton, self.cancelButton)
+        reportBugBA.setTabOrder(self.cancelButton, self.regexMultiLineEdit)
+        reportBugBA.setTabOrder(self.regexMultiLineEdit, self.stringMultiLineEdit)
+
+    def retranslateUi(self, reportBugBA):
+        reportBugBA.setWindowTitle(_translate("reportBugBA", "MainWindow", None))
+        self.reportWidget.setWindowTitle(_translate("reportBugBA", "Form1", None))
+        self.submitButton.setText(_translate("reportBugBA", "Submit Bug Report", None))
+        self.cancelButton.setText(_translate("reportBugBA", "Cancel", None))
+        self.GroupBox6.setTitle(_translate("reportBugBA", "Kodos State Information", None))
+        self.TextLabel4.setText(_translate("reportBugBA", "Regular Expression:", None))
+        self.TextLabel5.setText(_translate("reportBugBA", "Match String:", None))
+        self.GroupBox5.setTitle(_translate("reportBugBA", "System Information", None))
+        self.TextLabel1.setText(_translate("reportBugBA", "Operating System:", None))
+        self.TextLabel3.setText(_translate("reportBugBA", "PyQt Version:", None))
+        self.TextLabel2.setText(_translate("reportBugBA", "Python Version:", None))
+        self.GroupBox7.setTitle(_translate("reportBugBA", "Comments", None))
+        self.TextLabel3_2.setText(_translate("reportBugBA", "Comments:", None))
+        self.TextLabel2_2.setText(_translate("reportBugBA", "Email address:", None))
+        self.menuFile.setTitle(_translate("reportBugBA", "File", None))
+        self.toolBar.setWindowTitle(_translate("reportBugBA", "toolBar", None))
+        self.closeAction.setText(_translate("reportBugBA", "Close", None))
+        self.closeAction.setToolTip(_translate("reportBugBA", "Close", None))
 
 
-class reportBugBA(QWidget):
-    def __init__(self,parent = None,name = None,fl = 0):
-        QWidget.__init__(self,parent,name,fl)
+class reportBugBA(QtGui.QMainWindow, Ui_reportBugBA):
+    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
+        QtGui.QMainWindow.__init__(self, parent, f)
 
-#         if not name:
-#             self.setName("reportBugBA")
-# 
-# 
-#         reportBugBALayout = QGridLayout(self,1,1,11,6,"reportBugBALayout")
-# 
-#         Layout8 = QHBoxLayout(None,0,6,"Layout8")
-#         Spacer1 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-#         Layout8.addItem(Spacer1)
-# 
-#         self.submitButton = QPushButton(self,"submitButton")
-#         Layout8.addWidget(self.submitButton)
-# 
-#         self.cancelButton = QPushButton(self,"cancelButton")
-#         Layout8.addWidget(self.cancelButton)
-# 
-#         reportBugBALayout.addLayout(Layout8,3,0)
-# 
-#         self.GroupBox6 = QGroupBox(self,"GroupBox6")
-#         self.GroupBox6.setColumnLayout(0,Qt.Vertical)
-#         self.GroupBox6.layout().setSpacing(6)
-#         self.GroupBox6.layout().setMargin(11)
-#         GroupBox6Layout = QGridLayout(self.GroupBox6.layout())
-#         GroupBox6Layout.setAlignment(Qt.AlignTop)
-# 
-#         Layout10 = QVBoxLayout(None,0,6,"Layout10")
-# 
-#         self.TextLabel4 = QLabel(self.GroupBox6,"TextLabel4")
-#         Layout10.addWidget(self.TextLabel4)
-# 
-#         self.TextLabel5 = QLabel(self.GroupBox6,"TextLabel5")
-#         Layout10.addWidget(self.TextLabel5)
-# 
-#         GroupBox6Layout.addLayout(Layout10,0,0)
-# 
-#         Layout11 = QVBoxLayout(None,0,6,"Layout11")
-# 
-#         self.regexMultiLineEdit = QMultiLineEdit(self.GroupBox6,"regexMultiLineEdit")
-#         self.regexMultiLineEdit.setReadOnly(1)
-#         Layout11.addWidget(self.regexMultiLineEdit)
-# 
-#         self.stringMultiLineEdit = QMultiLineEdit(self.GroupBox6,"stringMultiLineEdit")
-#         self.stringMultiLineEdit.setReadOnly(1)
-#         Layout11.addWidget(self.stringMultiLineEdit)
-# 
-#         GroupBox6Layout.addLayout(Layout11,0,1)
-# 
-#         reportBugBALayout.addWidget(self.GroupBox6,1,0)
-# 
-#         self.GroupBox5 = QGroupBox(self,"GroupBox5")
-#         self.GroupBox5.setColumnLayout(0,Qt.Vertical)
-#         self.GroupBox5.layout().setSpacing(6)
-#         self.GroupBox5.layout().setMargin(11)
-#         GroupBox5Layout = QGridLayout(self.GroupBox5.layout())
-#         GroupBox5Layout.setAlignment(Qt.AlignTop)
-# 
-#         self.TextLabel1 = QLabel(self.GroupBox5,"TextLabel1")
-# 
-#         GroupBox5Layout.addWidget(self.TextLabel1,0,0)
-# 
-#         self.TextLabel3 = QLabel(self.GroupBox5,"TextLabel3")
-# 
-#         GroupBox5Layout.addWidget(self.TextLabel3,2,0)
-# 
-#         self.TextLabel2 = QLabel(self.GroupBox5,"TextLabel2")
-# 
-#         GroupBox5Layout.addWidget(self.TextLabel2,1,0)
-# 
-#         self.OSEdit = QLineEdit(self.GroupBox5,"OSEdit")
-# 
-#         GroupBox5Layout.addWidget(self.OSEdit,0,1)
-# 
-#         self.pythonVersionEdit = QLineEdit(self.GroupBox5,"pythonVersionEdit")
-# 
-#         GroupBox5Layout.addWidget(self.pythonVersionEdit,1,1)
-# 
-#         self.PyQtVersionEdit = QLineEdit(self.GroupBox5,"PyQtVersionEdit")
-# 
-#         GroupBox5Layout.addWidget(self.PyQtVersionEdit,2,1)
-# 
-#         reportBugBALayout.addWidget(self.GroupBox5,0,0)
-# 
-#         self.GroupBox7 = QGroupBox(self,"GroupBox7")
-#         self.GroupBox7.setColumnLayout(0,Qt.Vertical)
-#         self.GroupBox7.layout().setSpacing(6)
-#         self.GroupBox7.layout().setMargin(11)
-#         GroupBox7Layout = QGridLayout(self.GroupBox7.layout())
-#         GroupBox7Layout.setAlignment(Qt.AlignTop)
-# 
-#         Layout22 = QGridLayout(None,1,1,0,6,"Layout22")
-# 
-#         self.commentsMultiLineEdit = QMultiLineEdit(self.GroupBox7,"commentsMultiLineEdit")
-# 
-#         Layout22.addWidget(self.commentsMultiLineEdit,1,1)
-# 
-#         self.TextLabel3_2 = QLabel(self.GroupBox7,"TextLabel3_2")
-# 
-#         Layout22.addWidget(self.TextLabel3_2,1,0)
-# 
-#         self.emailAddressEdit = QLineEdit(self.GroupBox7,"emailAddressEdit")
-# 
-#         Layout22.addWidget(self.emailAddressEdit,0,1)
-# 
-#         self.TextLabel2_2 = QLabel(self.GroupBox7,"TextLabel2_2")
-#         self.TextLabel2_2.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,QSizePolicy.Fixed,0,0,self.TextLabel2_2.sizePolicy().hasHeightForWidth()))
-# 
-#         Layout22.addWidget(self.TextLabel2_2,0,0)
-# 
-#         GroupBox7Layout.addLayout(Layout22,0,0)
-# 
-#         reportBugBALayout.addWidget(self.GroupBox7,2,0)
-# 
-#         self.languageChange()
-# 
-#         self.resize(QSize(750,653).expandedTo(self.minimumSizeHint()))
-#         self.clearWState(Qt.WState_Polished)
-# 
-#         self.connect(self.submitButton,SIGNAL("clicked()"),self.submit_slot)
-#         self.connect(self.cancelButton,SIGNAL("clicked()"),self.cancel_slot)
-# 
-#         self.setTabOrder(self.OSEdit,self.pythonVersionEdit)
-#         self.setTabOrder(self.pythonVersionEdit,self.PyQtVersionEdit)
-#         self.setTabOrder(self.PyQtVersionEdit,self.emailAddressEdit)
-#         self.setTabOrder(self.emailAddressEdit,self.commentsMultiLineEdit)
-#         self.setTabOrder(self.commentsMultiLineEdit,self.submitButton)
-#         self.setTabOrder(self.submitButton,self.cancelButton)
-#         self.setTabOrder(self.cancelButton,self.regexMultiLineEdit)
-#         self.setTabOrder(self.regexMultiLineEdit,self.stringMultiLineEdit)
-# 
-# 
-#     def languageChange(self):
-#         self.setCaption(self.__tr("Form1"))
-#         self.submitButton.setText(self.__tr("Submit Bug Report"))
-#         self.cancelButton.setText(self.__tr("Cancel"))
-#         self.GroupBox6.setTitle(self.__tr("Kodos State Information"))
-#         self.TextLabel4.setText(self.__tr("Regular Expression:"))
-#         self.TextLabel5.setText(self.__tr("Match String:"))
-#         self.GroupBox5.setTitle(self.__tr("System Information"))
-#         self.TextLabel1.setText(self.__tr("Operating System:"))
-#         self.TextLabel3.setText(self.__tr("PyQt Version:"))
-#         self.TextLabel2.setText(self.__tr("Python Version:"))
-#         self.GroupBox7.setTitle(self.__tr("Comments"))
-#         self.TextLabel3_2.setText(self.__tr("Comments:"))
-#         self.TextLabel2_2.setText(self.__tr("Email address:"))
-# 
-# 
-#     def cancel_slot(self):
-#         print "reportBugBA.cancel_slot(): Not implemented yet"
-# 
-#     def submit_slot(self):
-#         print "reportBugBA.submit_slot(): Not implemented yet"
-# 
-#     def __tr(self,s,c = None):
-#         return qApp.translate("reportBugBA",s,c)
+        self.setupUi(self)
+

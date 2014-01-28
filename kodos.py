@@ -40,7 +40,7 @@ from modules.status_bar import *
 from modules.reference import *
 from modules.prefs import *
 from modules.webbrowser import launch_browser
-from modules.reportBug import reportBugWindow
+from modules.reportBug import reportBug
 from modules.version import VERSION
 from modules.recent_files import RecentFiles
 import modules.xpm as xpm
@@ -1156,7 +1156,8 @@ class Kodos(KodosBA):
         
 
     def report_bug(self):
-        self.bug_report_win = reportBugWindow(self)
+        self.bug_report_win = reportBug(self)
+        self.bug_report_win.show()
         
     def loadToolbarIcons(self):
         fileopenicon = QIcon.fromTheme("document-open", QIcon(":/images/document-open.png"));

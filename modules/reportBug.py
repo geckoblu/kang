@@ -1,38 +1,43 @@
 #  reportBug.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
+import PyQt4.QtCore
+import smtplib
+import string
+import sys
+
 from reportBugBA import reportBugBA
 from util import *
-import PyQt4.QtCore
-import sys
-import string
-import smtplib
 from version import VERSION
 import xpm
+
 
 AUTHOR_ADDR = "phil_schwartz@users.sourceforge.net"
 
 class reportBug(reportBugBA):
-    def __init__(self, parent=None, name=None):
-        reportBugBA.__init__(self, parent, name)
+    def __init__(self, parent=None):
+        reportBugBA.__init__(self, parent)
         self.parent = parent
-        self.kodos_main = parent.kodos_main
+        self.kodos_main = parent
         self.populate()
+        
+        closeicon = QIcon.fromTheme("window-close", QIcon(":/images/document-exit.png"));
+        self.closeAction.setIcon(closeicon)
         
 
     def populate(self):
         self.OSEdit.setText(sys.platform)
         pyvers = string.replace(sys.version, "\n", " - ")
         self.pythonVersionEdit.setText(pyvers)
-        self.PyQtVersionEdit.setText(PyQt4.QtCore.QT_VERSION_STR)
+        self.pyQtVersionEdit.setText(PyQt4.QtCore.QT_VERSION_STR)
         self.regexMultiLineEdit.setText(self.kodos_main.regexMultiLineEdit.toPlainText())
         self.stringMultiLineEdit.setText(self.kodos_main.stringMultiLineEdit.toPlainText())
 
 
-    def cancel_slot(self):
-        self.parent.close()
+#     def cancel_slot(self):
+#         self.parent.close()
 
-    def submit_slot(self):
-        addr = str(self.emailAddressEdit.toPlainText())
+    def submit(self):
+        addr = str(self.emailAddressEdit.text())
         if not addr:
             msg = self.tr(
                 "An email address is necessary so that the author "
@@ -46,9 +51,9 @@ class reportBug(reportBugBA):
 
         msg = "Subject: Kodos bug report\n\n"
         msg += "Kodos Version: %s\n" % VERSION
-        msg += "Operating System: %s\n" % unicode(self.OSEdit.toPlainText())
-        msg += "Python Version: %s\n" % unicode(self.pythonVersionEdit.toPlainText())
-        msg += "PyQt Version: %s\n" % unicode(self.PyQtVersionEdit.toPlainText())
+        msg += "Operating System: %s\n" % unicode(self.OSEdit.text())
+        msg += "Python Version: %s\n" % unicode(self.pythonVersionEdit.text())
+        msg += "PyQt Version: %s\n" % unicode(self.pyQtVersionEdit.text())
         msg += "\n" + "=" * 70 + "\n"
         msg += "Regex:\n%s\n" % unicode(self.regexMultiLineEdit.toPlainText())
         msg += "=" * 70 + "\n"
@@ -70,39 +75,37 @@ class reportBug(reportBugBA):
                                     str(e))
         
 
-class reportBugWindow(QMainWindow):
-    def __init__(self, kodos_main):
-        self.kodos_main = kodos_main
-
-        QMainWindow.__init__(self, None, None,
-                             Qt.WType_TopLevel | Qt.WDestructiveClose)
-        
-        self.setGeometry(100, 50, 800, 600)
-        self.setCaption(self.tr("Report a Bug"))
-        #self.setIcon(getPixmap("kodos_icon.png", "PNG"))
-        self.setIcon(QPixmap(xpm.kodosIcon))
-        self.bug_report = reportBug(self)
-        self.setCentralWidget(self.bug_report)
-
-        
-        self.createMenu()
-        self.createToolBar()
-
-        self.show()
-
-
-    def createMenu(self):
-        pass
-# TODO: Review this
-#         self.filemenu = QPopupMenu()
-#         id = self.filemenu.insertItem(self.tr("&Close"), self, SLOT("close()"))
+# class reportBugWindow(QMainWindow):
+#     def __init__(self, kodos_main):
+#         self.kodos_main = kodos_main
+#         
+#         QMainWindow.__init__(self, None, Qt.WindowFlags(Qt.Window | Qt.WA_DeleteOnClose))
+#         
+#         self.setGeometry(100, 50, 800, 600)
+#         self.setWindowTitle(self.tr("Report a Bug"))
+#         self.setWindowIcon(QIcon(QPixmap(xpm.kodosIcon)))
+#         self.bug_report = reportBug(self)
+#         self.setCentralWidget(self.bug_report)
 # 
-#         self.menubar = QMenuBar(self)
-#         self.menubar.insertItem(self.tr("&File"), self.filemenu)
-
-
-    def createToolBar(self):
-        toolbar = QToolBar(self)
-        toolbar.setStretchableWidget(self.menubar)
-        self.logolabel = kodos_toolbar_logo(toolbar)
+#         
+#         self.createMenu()
+#         self.createToolBar()
+# 
+#         self.show()
+# 
+# 
+#     def createMenu(self):
+#         pass
+# # TODO: Review this
+# #         self.filemenu = QPopupMenu()
+# #         id = self.filemenu.insertItem(self.tr("&Close"), self, SLOT("close()"))
+# # 
+# #         self.menubar = QMenuBar(self)
+# #         self.menubar.insertItem(self.tr("&File"), self.filemenu)
+# 
+# 
+#     def createToolBar(self):
+#         toolbar = QToolBar(self)
+#         #toolbar.setStretchableWidget(self.menubar)
+#         self.logolabel = kodos_toolbar_logo(toolbar)
  

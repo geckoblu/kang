@@ -44,15 +44,16 @@ def getAppPath():
     return path
 
 
-def getPixmap(fileStr, fileType="PNG", dir="images"):
+def getPixmap(fileStr, fileType="PNG", d="images"):
     """Return a QPixmap instance for the file fileStr relative
     to the binary location and residing in it's 'images' subdirectory"""
 
-    image = getAppPath() + os.sep + dir + os.sep + fileStr
+    #image = getAppPath() + os.sep + dir + os.sep + fileStr
+    imagepath = findFile(os.path.join(d, fileStr))
 
-    if debug & DEBUG_PIXMAP: print "image:", image
+    if debug & DEBUG_PIXMAP: print "image:", imagepath
     
-    pixmap = QPixmap(image, fileType)
+    pixmap = QPixmap(imagepath, fileType)
     pixmap.setMask(pixmap.createHeuristicMask(1))
     
     return pixmap

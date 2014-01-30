@@ -160,16 +160,8 @@ class Kodos(KodosBA):
             qApp.processEvents()
 
         self.connect(self, SIGNAL('prefsSaved()'), self.prefsSaved)
-
-# TODO: Review
-#         self.connect(self.fileMenu,
-#                      SIGNAL('activated(int)'),
-#                      self.fileMenuHandler)
-        
         self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.paste_symbol)
- 
         self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
- 
         self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
         kodos_toolbar_logo(self.toolBar)
@@ -205,11 +197,9 @@ class Kodos(KodosBA):
         self.status_bar.set_message(status_string, duration, replace, pixmap)
 
 
-    def fileMenuHandler(self, menuid):
-        if self.recent_files.isRecentFile(menuid):
-            fn = str(self.fileMenu.text(menuid))
-            self.recent_files.add(fn)
-            self.openFile(fn)
+    def fileMenuHandler(self, fn):
+        self.recent_files.add(fn)
+        self.openFile(fn)
 
     def prefsSaved(self):
         if self.debug: print "prefsSaved slot"

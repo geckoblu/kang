@@ -96,7 +96,6 @@ class reportBug(reportBugBA):
 # 
 #     def createMenu(self):
 #         pass
-# # TODO: Review this
 # #         self.filemenu = QPopupMenu()
 # #         id = self.filemenu.insertItem(self.tr("&Close"), self, SLOT("close()"))
 # # 

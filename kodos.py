@@ -396,7 +396,6 @@ class Kodos(KodosBA):
             self.regex = str(self.regexMultiLineEdit.toPlainText())
         except UnicodeError:
             self.regex = unicode(self.regexMultiLineEdit.toPlainText())
-            
         self.process_regex()
 
 
@@ -601,9 +600,8 @@ class Kodos(KodosBA):
 
         
     def clear_results(self):
-        # TODO: review this
-        #self.groupListView.clear()
-        #self.groupTable.setNumRows(0)
+        self.groupTable.clearContents()
+        self.groupTable.setRowCount(0)
         self.codeTextBrowser.setPlainText("")
         self.matchTextBrowser.setPlainText("")
         self.matchNumberSpinBox.setEnabled(FALSE)
@@ -700,7 +698,7 @@ class Kodos(KodosBA):
             else:
                 self.group_tuples.append( (1, group_nums.get(1, ""), g) )
                         
-            self.populate_group_table(self.group_tuples)
+        self.populate_group_table(self.group_tuples)
 
         str_pattern_matches = unicode(self.tr("Pattern matches"))
         str_found = unicode(self.tr("found"))

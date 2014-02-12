@@ -1,6 +1,6 @@
 from regexLibraryBA import RegexLibraryBA
 from parseRegexLib import ParseRegexLib
-from util import restoreWindowSettings, saveWindowSettings, kodos_toolbar_logo
+from util import restoreWindowSettings, saveWindowSettings
 
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QIcon
@@ -20,7 +20,7 @@ class RegexLibrary(RegexLibraryBA):
         editpasteicon = QIcon.fromTheme("edit-paste", QIcon(":/images/edit-paste.png"));
         self.editPasteAction.setIcon(editpasteicon)
         
-        kodos_toolbar_logo(self.toolBar)
+        #kodos_toolbar_logo(self.toolBar)
 
         restoreWindowSettings(self, GEO) 
 

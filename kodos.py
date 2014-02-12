@@ -161,7 +161,7 @@ class Kodos(KodosBA):
         self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
         self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
-        kodos_toolbar_logo(self.toolBar)
+        #kodos_toolbar_logo(self.toolBar)
         if self.replace:  
             self.show_replace_widgets()
         else:             

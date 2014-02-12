@@ -163,14 +163,11 @@ def escapeSQLq(qstr):
     return escapeSQL(s)
 
 
-def kodos_toolbar_logo(toolbar):
-    pass
-# TODO: kodos_toolbar_logo
+# def kodos_toolbar_logo(toolbar):
 #     # hack to move logo to right
 # 
 #     blanklabel = QLabel("", toolbar)
-# # TODO: review this    
-# #     toolbar.setStretchableWidget(blanklabel)
+#     toolbar.setStretchableWidget(blanklabel)
 #     
 #     #banner = getPixmap("kodos_text_logo.gif", "GIF")
 #     

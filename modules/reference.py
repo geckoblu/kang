@@ -12,7 +12,7 @@ class Reference(ReferenceBA):
         self.parent = parent
 
         restoreWindowSettings(self, GEO)
-        kodos_toolbar_logo(self.toolBar)
+        #kodos_toolbar_logo(self.toolBar)
         
         self.populateTable()
             

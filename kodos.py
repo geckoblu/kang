@@ -408,13 +408,11 @@ class Kodos(KodosBA):
 
 
     def hide_replace_widgets(self):
-        pass
-# TODO: Review this    
-#         self.spacerLabel.hide()
-#         self.replaceLabel.hide()
-#         self.replaceNumberSpinBox.hide()
-#         self.replaceTextBrowser.clear()
-#         self.replaceTextBrowser.setDisabled(TRUE)
+        self.spacerLabel.hide()
+        self.replaceLabel.hide()
+        self.replaceNumberSpinBox.hide()
+        self.replaceTextBrowser.clear()
+        self.replaceTextBrowser.setDisabled(TRUE)
 
     def show_replace_widgets(self):
         self.spacerLabel.show()

@@ -165,7 +165,7 @@ def escapeSQLq(qstr):
 
 def kodos_toolbar_logo(toolbar):
     pass
-# TODO: CHECK THIS
+# TODO: kodos_toolbar_logo
 #     # hack to move logo to right
 # 
 #     blanklabel = QLabel("", toolbar)
@@ -247,7 +247,6 @@ def restoreWindowSettings(window, filename):
     
 
 def findFile(filename):
-    # TODO: review findFile method
     dirs = [getAppPath(),
             os.path.join("/", "usr", "share", "kodos"),
             os.path.join("/", "usr", "local", "kodos")]

@@ -153,9 +153,6 @@ class Kodos(KodosBA):
                                         self.prefs.recentFilesSpinBox.value(),
                                         self.debug)
 
-# TODO: Review this
-#         self.matchTextBrowser.setTextFormat(QTextEdit.PlainText)
-
         if filename and self.openFile(filename):
             qApp.processEvents()
 

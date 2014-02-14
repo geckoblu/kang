@@ -47,7 +47,7 @@ import modules.xpm as xpm
 from modules.urlDialog import URLDialog
 from modules.migrate_settings import MigrateSettings
 from modules.regexLibrary import RegexLibrary
-from modules.newUserDialogBA import NewUserDialog
+from modules.newUserDialog import NewUserDialog
 import modules.resources
 
 

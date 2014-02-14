@@ -1,14 +1,14 @@
 #  util.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-import os
-import os.path
-import sys
-import time
-import string
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from debug import *
-import xpm
+import os.path
+import string
+import sys
+import time
+
+from debug import DEBUG_PIXMAP
+
 
 # QT constants that should be defined
 FALSE = 0
@@ -63,33 +63,32 @@ def getPixmap(fileStr, fileType="PNG", d="images"):
 def dictList_to_CSV(filename, keyList, dictList):
     "creates a file of comma-seperated-values using the keysList as the first line"
     try:
-        file = open(filename, "w")
+        f = open(filename, "w")
     except:
-        QMessageBox.warning(None, "Warning",
-                            "Could not write file: %s" % filename)
+        QMessageBox.warning(None, "Warning", "Could not write file: %s" % filename)
         return 0
     
     # output the line of headers 
     i = 0
     numKeys = len(keyList)
     for i in range(numKeys):
-        file.write('"%s"' % keyList[i])
+        f.write('"%s"' % keyList[i])
         if i < numKeys - 1:
-            file.write(',')
+            f.write(',')
         else:
-            file.write('\n')
+            f.write('\n')
 
     # output the rows of data
-    for dict in dictList:
+    for d in dictList:
         i = 0
         for i in range(numKeys):
-            file.write('"%s"' % dict[keyList[i]])
+            f.write('"%s"' % d[keyList[i]])
             if i < numKeys - 1:
-                file.write(',')
+                f.write(',')
             else:
-                file.write('\n')
+                f.write('\n')
 
-    file.close()
+    f.close()
     return 1
 
 
@@ -97,19 +96,18 @@ def dictList_to_XML(filename, keyList, dictList):
     """creates a file consisting of XML.  keylist is a list of the columns (keys)
     in dictList.  Each dict in dictList is written as an item-node"""
     try:
-        file = open(filename, "w")
+        f = open(filename, "w")
     except:
-        QMessageBox.warning(None, "Warning",
-                            "Could not write file: %s" % filename)
+        QMessageBox.warning(None, "Warning", "Could not write file: %s" % filename)
         return 0
 
-    for dict in dictList:
-        file.write("<ITEM>\n")
+    for d in dictList:
+        f.write("<ITEM>\n")
         for key in keyList:
-            file.write("\t<%s>%s</%s>\n" % (key, dict[key], key))
-        file.write("</ITEM>\n")
+            f.write("\t<%s>%s</%s>\n" % (key, d[key], key))
+        f.write("</ITEM>\n")
                 
-    file.close()
+    f.close()
     return 1
 
 

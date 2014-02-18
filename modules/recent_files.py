@@ -1,9 +1,19 @@
 
-from util import getHomeDirectory
+from PyQt4 import QtCore
 import os
 import string
-from qt import *
+import sys
+
+from util import getHomeDirectory
 import xpm
+
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
 
 MAX_SIZE = 50 # max number of files to retain
 
@@ -14,7 +24,7 @@ class RecentFiles:
         self.debug = debug
         self.filename = getHomeDirectory() + os.sep + ".kodos" + os.sep + "recent_files"
         self.__recent_files = []
-        self.__indecies = []
+        self.__actions = []
         self.load()
 
 
@@ -23,7 +33,7 @@ class RecentFiles:
             fp = open(self.filename, "r")
             self.__recent_files = map(string.strip, fp.readlines())
         except Exception, e:
-            #print "Warning: ", str(e)
+            #sys.stderr.write("Warning: %s\n" % str(e))
             return
         
         if self.debug: print "recent_files:", self.__recent_files
@@ -39,7 +49,7 @@ class RecentFiles:
                 fp.write("%s\n" % f)
             fp.close()
         except Exception, e:
-            print "Could not save recent file list", str(e)
+            sys.stderr.write("Could not save recent file list %s\n" & str(e))
             
 
     def add(self, filename):
@@ -55,11 +65,11 @@ class RecentFiles:
 
     def clearMenu(self):
         # clear each menu entry...
-        for idx in self.__indecies:
-            self.parent.fileMenu.removeItem(idx)
+        for act in self.__actions:
+            self.parent.fileMenu.removeAction(act)
 
         # clear list of menu entry indecies
-        self.__indecies = []
+        self.__actions = []
 
         
     def addToMenu(self, clear=1):
@@ -69,12 +79,14 @@ class RecentFiles:
         num = min(self.numShown, len(self.__recent_files))
         for i in range(num):
             filename = self.__recent_files[i]
-            idx = self.parent.fileMenu.insertItem(
-                QIconSet(QPixmap(xpm.newIcon)),
-                filename)
-
-            self.__indecies.insert(0, idx)
+            act = self.parent.fileMenu.addAction(filename)
+            QtCore.QObject.connect(act, QtCore.SIGNAL(_fromUtf8('triggered()')), lambda fn=filename: self.openfile(fn));
+            self.__actions.append(act)
+            
         
+    def openfile(self, filename):
+        self.parent.fileMenuHandler(filename)
+
 
     def setNumShown(self, numShown):
         ns = int(numShown)
@@ -86,22 +98,18 @@ class RecentFiles:
         self.addToMenu(0)
 
 
-    def isRecentFile(self, menuid):
-        return menuid in self.__indecies
-
-
-    def move(self, filename, menuid):
-        # fix me....
-        menu = self.parent.fileMenu
-        idx = menu.indexOf(self.__indecies[0])
-        menu.removeItem(menuid)
-        menu.insertItem(QIconSet(QPixmap(xpm.newIcon)),
-                        filename,
-                        -1,
-                        idx)
-        try:
-            self.__recent_files.remove(filename)
-        except:
-            pass
-        self.__indecies.insert(0, filename)
+#     def move(self, filename, menuid):
+#         # fix me....
+#         menu = self.parent.fileMenu
+#         idx = menu.indexOf(self.__indecies[0])
+#         menu.removeItem(menuid)
+# #         menu.insertItem(QIconSet(QPixmap(xpm.newIcon)),
+# #                         filename,
+# #                         -1,
+# #                         idx)
+#         try:
+#             self.__recent_files.remove(filename)
+#         except:
+#             pass
+#         self.__indecies.insert(0, filename)
 

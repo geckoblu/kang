@@ -1,10 +1,9 @@
-import re
+from PyQt4.QtCore import QFile, QTextStream, QIODevice
 import os
-from util import findFile
+import re
 
 
 rx_entry = re.compile(r"<entry>(?P<content>.*?)</entry>", re.DOTALL)
-
 rx_desc = re.compile(r"<desc>(.*)</desc>", re.DOTALL)
 rx_regex = re.compile(r"<regex>(.*)</regex>", re.DOTALL)
 rx_tab = re.compile(r"<tab>(.*)</tab>", re.DOTALL)
@@ -23,13 +22,11 @@ RX_DICT = {'desc': rx_desc,
 
 
 class ParseRegexLib:
-    def __init__(self, filename):
-        if filename:
-            path = findFile(os.path.join("help", "regex-lib.xml"))
-            data = open(path).read()
-            self.data = data
-        else:
-            self.data = ""
+    def __init__(self):
+        f = QFile(':/help/regex-lib.xml')
+        f.open(QIODevice.ReadOnly | QIODevice.Text)
+        self.data = QTextStream(f).readAll()
+        f.close()
 
     def parse(self, data=""):
         if not data: data = self.data
@@ -50,8 +47,11 @@ class ParseRegexLib:
 
         return dicts
             
+            
+            
 if __name__ == '__main__':
-
+    
+    from util import findFile
     path = findFile(os.path.join("help", "regex-lib.xml"))
     x = ParseRegexLib(path)
 

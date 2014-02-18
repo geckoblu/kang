@@ -1,6 +1,7 @@
 from urlDialogBA import URLDialogBA
 import help
-from qt import *
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 import urllib
 
 
@@ -17,7 +18,7 @@ class URLDialog(URLDialogBA):
         self.helpWindow = help.Help(self, "importURL.html")
 
     def ok_slot(self):
-        url = str(self.URLTextEdit.text())
+        url = str(self.URLTextEdit.toPlainText())
         try:
             fp = urllib.urlopen(url)
             lines = fp.readlines()
@@ -29,6 +30,6 @@ class URLDialog(URLDialogBA):
 
         html = ''.join(lines)
 
-        self.parent.emit(PYSIGNAL('urlImported()'), (html, url))
+        self.parent.emit(SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), html, url)
         
         URLDialogBA.accept(self)

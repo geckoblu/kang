@@ -1,31 +1,35 @@
 #  tooltip.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from qt import *
+from PyQt4.QtGui import *
+from PyQt4.Qt import *
 from util import *
 
 class Tooltip(QLabel):
     def __init__(self, text, bgcolor="#ffd700",fgcolor="#000000",delay=1000):
         self.delay = delay
-        QLabel.__init__(self, None, "tooltip", Qt.WStyle_StaysOnTop
-                        | Qt.WStyle_Customize
-                        | Qt.WStyle_NoBorder
-                        | Qt.WStyle_Tool)
+        QLabel.__init__(self, "tooltip", None,  
+#                         Qt.WStyle_StaysOnTop
+#                         | Qt.WStyle_Customize
+#                         | Qt.WStyle_NoBorder
+#                         | Qt.WStyle_Tool
+                        )
         self.setMargin(1)
         self.setIndent(0)
-        self.setAutoMask(FALSE)
+#         self.setAutoMask(FALSE)
         self.setFrameStyle(QFrame.Plain | QFrame.Box)
         self.setLineWidth(1)
-        self.polish()
+#         self.polish()
         self.setText(text)
         self.adjustSize()
 
         # set the pallete...
         pal = QPalette()
-        cg = QColorGroup()
-        cg.setColor(QColorGroup.Background, QColor(bgcolor))
-        cg.setColor(QColorGroup.Foreground, QColor(fgcolor))
-        pal.setActive(cg)
-        pal.setInactive(cg)
+# TODO: Fix this
+#         cg = QColorGroup()
+#         cg.setColor(QColorGroup.Background, QColor(bgcolor))
+#         cg.setColor(QColorGroup.Foreground, QColor(fgcolor))
+#         pal.setActive(cg)
+#         pal.setInactive(cg)
         self.setPalette(pal)
 
         self.enter_timer_id = None

@@ -1,19 +1,18 @@
 #  util.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-import os
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 import os.path
+import string
 import sys
 import time
-import string
-from qt import *
-from debug import *
-import xpm
+
+import debug
+
 
 # QT constants that should be defined
 FALSE = 0
 TRUE = 1
-
-global debug
 
 
 def get_time(timestr):
@@ -43,15 +42,16 @@ def getAppPath():
     return path
 
 
-def getPixmap(fileStr, fileType="PNG", dir="images"):
+def getPixmap(fileStr, fileType="PNG", d="images"):
     """Return a QPixmap instance for the file fileStr relative
     to the binary location and residing in it's 'images' subdirectory"""
 
-    image = getAppPath() + os.sep + dir + os.sep + fileStr
+    #image = getAppPath() + os.sep + dir + os.sep + fileStr
+    imagepath = findFile(os.path.join(d, fileStr))
 
-    if debug & DEBUG_PIXMAP: print "image:", image
+    if debug.debug & debug.DEBUG_PIXMAP: print "image:", imagepath
     
-    pixmap = QPixmap(image, fileType)
+    pixmap = QPixmap(imagepath, fileType)
     pixmap.setMask(pixmap.createHeuristicMask(1))
     
     return pixmap
@@ -61,33 +61,32 @@ def getPixmap(fileStr, fileType="PNG", dir="images"):
 def dictList_to_CSV(filename, keyList, dictList):
     "creates a file of comma-seperated-values using the keysList as the first line"
     try:
-        file = open(filename, "w")
+        f = open(filename, "w")
     except:
-        QMessageBox.warning(None, "Warning",
-                            "Could not write file: %s" % filename)
+        QMessageBox.warning(None, "Warning", "Could not write file: %s" % filename)
         return 0
     
     # output the line of headers 
     i = 0
     numKeys = len(keyList)
     for i in range(numKeys):
-        file.write('"%s"' % keyList[i])
+        f.write('"%s"' % keyList[i])
         if i < numKeys - 1:
-            file.write(',')
+            f.write(',')
         else:
-            file.write('\n')
+            f.write('\n')
 
     # output the rows of data
-    for dict in dictList:
+    for d in dictList:
         i = 0
         for i in range(numKeys):
-            file.write('"%s"' % dict[keyList[i]])
+            f.write('"%s"' % d[keyList[i]])
             if i < numKeys - 1:
-                file.write(',')
+                f.write(',')
             else:
-                file.write('\n')
+                f.write('\n')
 
-    file.close()
+    f.close()
     return 1
 
 
@@ -95,19 +94,18 @@ def dictList_to_XML(filename, keyList, dictList):
     """creates a file consisting of XML.  keylist is a list of the columns (keys)
     in dictList.  Each dict in dictList is written as an item-node"""
     try:
-        file = open(filename, "w")
+        f = open(filename, "w")
     except:
-        QMessageBox.warning(None, "Warning",
-                            "Could not write file: %s" % filename)
+        QMessageBox.warning(None, "Warning", "Could not write file: %s" % filename)
         return 0
 
-    for dict in dictList:
-        file.write("<ITEM>\n")
+    for d in dictList:
+        f.write("<ITEM>\n")
         for key in keyList:
-            file.write("\t<%s>%s</%s>\n" % (key, dict[key], key))
-        file.write("</ITEM>\n")
+            f.write("\t<%s>%s</%s>\n" % (key, d[key], key))
+        f.write("</ITEM>\n")
                 
-    file.close()
+    f.close()
     return 1
 
 
@@ -161,20 +159,20 @@ def escapeSQLq(qstr):
     return escapeSQL(s)
 
 
-def kodos_toolbar_logo(toolbar):
-    # hack to move logo to right
-
-    blanklabel = QLabel("", toolbar)
-    toolbar.setStretchableWidget(blanklabel)
-    
-    #banner = getPixmap("kodos_text_logo.gif", "GIF")
-    
-    logolabel = QLabel("kodos_logo", toolbar)
-    #logolabel.setPixmap(banner)
-    
-    logolabel.setPixmap(QPixmap(xpm.kodosIcon))
-    #logolabel.setPixmap(getPixmap("kodos_icon.png", "PNG"))
-    return logolabel
+# def kodos_toolbar_logo(toolbar):
+#     # hack to move logo to right
+# 
+#     blanklabel = QLabel("", toolbar)
+#     toolbar.setStretchableWidget(blanklabel)
+#     
+#     #banner = getPixmap("kodos_text_logo.gif", "GIF")
+#     
+#     logolabel = QLabel("kodos_logo", toolbar)
+#     #logolabel.setPixmap(banner)
+#     
+#     logolabel.setPixmap(QPixmap(xpm.kodosIcon))
+#     #logolabel.setPixmap(getPixmap("kodos_icon.png", "PNG"))
+#     return logolabel
 
 
 def getSavedWindowSettings(path):
@@ -247,6 +245,10 @@ def findFile(filename):
             os.path.join("/", "usr", "local", "kodos")]
 
     for d in dirs:
+        path = os.path.join(d, filename)
+        if os.access(path, os.R_OK): return path
+        
+    for d in sys.path:
         path = os.path.join(d, filename)
         if os.access(path, os.R_OK): return path
 

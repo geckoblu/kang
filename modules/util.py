@@ -1,12 +1,14 @@
 #  util.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from PyQt4 import QtCore, QtGui
-import os.path
+from PyQt4.QtCore import QSize
+from PyQt4.QtGui import QMessageBox, QPixmap
+import os
 import string
 import sys
 import time
 
 import debug
+
 
 # QT constants that should be defined
 FALSE = 0
@@ -49,7 +51,7 @@ def getPixmap(fileStr, fileType="PNG", d="images"):
 
     if debug.debug & debug.DEBUG_PIXMAP: print "image:", imagepath
     
-    pixmap = QtGui.QPixmap(imagepath, fileType)
+    pixmap = QPixmap(imagepath, fileType)
     pixmap.setMask(pixmap.createHeuristicMask(1))
     
     return pixmap
@@ -61,7 +63,7 @@ def dictList_to_CSV(filename, keyList, dictList):
     try:
         f = open(filename, "w")
     except:
-        QtGui.QMessageBox.warning(None, "Warning", "Could not write file: %s" % filename)
+        QMessageBox.warning(None, "Warning", "Could not write file: %s" % filename)
         return 0
     
     # output the line of headers 
@@ -94,7 +96,7 @@ def dictList_to_XML(filename, keyList, dictList):
     try:
         f = open(filename, "w")
     except:
-        QtGui.QMessageBox.warning(None, "Warning", "Could not write file: %s" % filename)
+        QMessageBox.warning(None, "Warning", "Could not write file: %s" % filename)
         return 0
 
     for d in dictList:
@@ -229,7 +231,7 @@ def restoreWindowSettings(window, filename):
         width = d['width']
         height = d['height']
         #print "load:", d
-        sz = QtCore.QSize(width, height)
+        sz = QSize(width, height)
 
         window.move(x, y)
         window.resize(sz)

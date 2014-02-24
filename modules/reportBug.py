@@ -1,14 +1,13 @@
 #  reportBug.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-import PyQt4.QtCore
+from PyQt4.QtCore import QT_VERSION_STR
+from PyQt4.QtGui import QIcon, QMessageBox
 import smtplib
 import string
 import sys
 
 from reportBugBA import reportBugBA
-from util import *
 from version import VERSION
-import xpm
 
 
 AUTHOR_ADDR = "phil_schwartz@users.sourceforge.net"
@@ -28,7 +27,7 @@ class reportBug(reportBugBA):
         self.OSEdit.setText(sys.platform)
         pyvers = string.replace(sys.version, "\n", " - ")
         self.pythonVersionEdit.setText(pyvers)
-        self.pyQtVersionEdit.setText(PyQt4.QtCore.QT_VERSION_STR)
+        self.pyQtVersionEdit.setText(QT_VERSION_STR)
         self.regexMultiLineEdit.setText(self.kodos_main.regexMultiLineEdit.toPlainText())
         self.stringMultiLineEdit.setText(self.kodos_main.stringMultiLineEdit.toPlainText())
 

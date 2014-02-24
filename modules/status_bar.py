@@ -1,6 +1,10 @@
 #  status_bar.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from tooltip import *
+from PyQt4.QtCore import QTimer, SIGNAL
+from PyQt4.QtGui import QLabel, QProgressBar
+
+from util import FALSE, getPixmap
+
 
 class Status_Bar:
     def __init__(self, parent, progress_bar=FALSE, message=''):

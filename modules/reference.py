@@ -1,8 +1,11 @@
 #  reference.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from PyQt4.QtGui import *
-from referenceBA import *
-from util import *
+from PyQt4.QtCore import SIGNAL
+from PyQt4.QtGui import QIcon, QTreeWidgetItem
+
+from referenceBA import ReferenceBA
+from util import restoreWindowSettings, saveWindowSettings
+
 
 GEO = "regex-ref_geometry"
 

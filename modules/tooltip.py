@@ -1,8 +1,8 @@
 #  tooltip.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from PyQt4.QtGui import *
-from PyQt4.Qt import *
-from util import *
+from PyQt4.QtGui import QLabel, QPalette, QFrame
+from PyQt4.Qt import QEvent, QPoint
+from util import FALSE
 
 class Tooltip(QLabel):
     def __init__(self, text, bgcolor="#ffd700",fgcolor="#000000",delay=1000):
@@ -74,14 +74,14 @@ class Tooltip(QLabel):
 
 
     def eventFilter(self, obj, ev):
-        type = ev.type()
-        #print obj, type
-        if type == QEvent.Enter:
+        typ = ev.type()
+        #print obj, typ
+        if typ == QEvent.Enter:
             self.killCustomTimers()
             self.enter_timer_id = self.startTimer(self.delay)
             #print "tip!"
             self.event_widget = obj
-        elif type == QEvent.Leave:
+        elif typ == QEvent.Leave:
             self.killCustomTimers()
             self.leave_timer_id = self.startTimer(self.delay)
             #print "remove tip!"

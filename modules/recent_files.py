@@ -1,15 +1,14 @@
 
-from PyQt4 import QtCore
+from PyQt4.QtCore import QString, QObject, SIGNAL
 import os
 import string
 import sys
 
 from util import getHomeDirectory
-import xpm
 
 
 try:
-    _fromUtf8 = QtCore.QString.fromUtf8
+    _fromUtf8 = QString.fromUtf8
 except AttributeError:
     def _fromUtf8(s):
         return s
@@ -32,7 +31,7 @@ class RecentFiles:
         try:
             fp = open(self.filename, "r")
             self.__recent_files = map(string.strip, fp.readlines())
-        except Exception, e:
+        except Exception:
             #sys.stderr.write("Warning: %s\n" % str(e))
             return
         
@@ -80,7 +79,7 @@ class RecentFiles:
         for i in range(num):
             filename = self.__recent_files[i]
             act = self.parent.fileMenu.addAction(filename)
-            QtCore.QObject.connect(act, QtCore.SIGNAL(_fromUtf8('triggered()')), lambda fn=filename: self.openfile(fn));
+            QObject.connect(act, SIGNAL(_fromUtf8('triggered()')), lambda fn=filename: self.openfile(fn));
             self.__actions.append(act)
             
         

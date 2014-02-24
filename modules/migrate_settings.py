@@ -1,10 +1,11 @@
 
 import os
-import os.path
-import sys
-from util import *
-from stat import *
 from shutil import copytree
+import stat
+import sys
+
+from util import getHomeDirectory
+
 
 OLD_SETTINGS = getHomeDirectory() + os.sep + ".kodos"
 TMP_SETTINGS = OLD_SETTINGS + "1"
@@ -14,8 +15,8 @@ class MigrateSettings1:
     def __init__(self):
         if os.path.exists(OLD_SETTINGS):
             stat = os.stat(OLD_SETTINGS)
-            mode = stat[ST_MODE]
-            if S_ISDIR(mode):
+            mode = stat[stat.ST_MODE]
+            if stat.S_ISDIR(mode):
                 # settings have already been migrated
                 return
 
@@ -58,6 +59,6 @@ class MigrateSettings:
         
         try:
             copytree(oldkodosdir, newkodosdir)
-        except Exception, e:
+        except Exception:
             pass
         

@@ -1,10 +1,14 @@
 #  help.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from PyQt4.QtGui import *
-from util import *
-import xpm
+from PyQt4.QtCore import QUrl
+from PyQt4.QtGui import QTextBrowser, QIcon, QPixmap
+import os
 from webbrowser import launch_browser
+
 from helpBA import HelpBA
+from util import findFile
+import xpm
+
 
 class textbrowser(QTextBrowser):
     # reimplemented textbrowser that filters out external sources

@@ -28,7 +28,7 @@ from modules.reportBug import reportBug
 from modules.status_bar import Status_Bar
 from modules.urlDialog import URLDialog
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
-    getHomeDirectory
+    getHomeDirectory, getIcon
 from modules.version import VERSION
 from modules.webbrowser import launch_browser
 import modules.xpm as xpm
@@ -37,7 +37,7 @@ import modules.help as khelp
 
 try:
     from PyQt4.QtCore import Qt, QT_VERSION_STR, QTextCodec, QTranslator, SIGNAL
-    from PyQt4.QtGui import QFileDialog, QApplication, QColor, QIcon, QMessageBox, \
+    from PyQt4.QtGui import QFileDialog, QApplication, QColor, QMessageBox, \
                             QPixmap, QPalette, QTableWidgetItem, QHeaderView, qApp
 except:
     print """Could not locate the PyQt module.  Please make sure that
@@ -1142,24 +1142,15 @@ class Kodos(KodosBA):
         self.bug_report_win.show()
         
     def loadToolbarIcons(self):
-        fileopenicon = QIcon.fromTheme("document-open", QIcon(":/images/document-open.png"));
-        self.fileOpenAction.setIcon(fileopenicon)
-        filesaveicon = QIcon.fromTheme("document-save", QIcon(":/images/document-save.png"));
-        self.fileSaveAction.setIcon(filesaveicon)
-        editcuticon = QIcon.fromTheme("edit-cut", QIcon(":/images/edit-cut.png"));
-        self.editCutAction.setIcon(editcuticon)
-        editcopyicon = QIcon.fromTheme("edit-copy", QIcon(":/images/edit-copy.png"));
-        self.editCopyAction.setIcon(editcopyicon)
-        editpasteicon = QIcon.fromTheme("edit-paste", QIcon(":/images/edit-paste.png"));
-        self.editPasteAction.setIcon(editpasteicon)
-        editpauseicon = QIcon.fromTheme("media-playback-pause", QIcon(":/images/pause_toolbar.png"));
-        self.editPauseAction.setIcon(editpauseicon)
-        examineicon = QIcon.fromTheme("edit-find", QIcon(":/images/examine.png"));
-        self.examineAction.setIcon(examineicon)
-        helpRegexReferenceicon = QIcon.fromTheme("helpregexreference", QIcon(":/images/book.png"));
-        self.helpRegexReferenceAction.setIcon(helpRegexReferenceicon)
-        helpRegexLibActionicon = QIcon.fromTheme("helpregexLib", QIcon(":/images/library.png"));
-        self.helpRegexLibAction.setIcon(helpRegexLibActionicon)
+        self.fileOpenAction.setIcon(getIcon("document-open"))
+        self.fileSaveAction.setIcon(getIcon("document-save"))
+        self.editCutAction.setIcon(getIcon("edit-cut"))
+        self.editCopyAction.setIcon(getIcon("edit-copy"))
+        self.editPasteAction.setIcon(getIcon("edit-paste"))
+        self.editPauseAction.setIcon(getIcon("media-playback-pause"))
+        self.examineAction.setIcon(getIcon("edit-find"))
+        self.helpRegexReferenceAction.setIcon(getIcon("book"))
+        self.helpRegexLibAction.setIcon(getIcon("library"))
         
 
 ##############################################################################

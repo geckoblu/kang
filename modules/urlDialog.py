@@ -1,7 +1,7 @@
 from urlDialogBA import URLDialogBA
-import help
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+import help as khelp
+from PyQt4.QtCore import SIGNAL
+from PyQt4.QtGui import QMessageBox
 import urllib
 
 
@@ -15,7 +15,7 @@ class URLDialog(URLDialogBA):
         self.show()
         
     def help_slot(self):
-        self.helpWindow = help.Help(self, "importURL.html")
+        self.helpWindow = khelp.Help(self, "importURL.html")
 
     def ok_slot(self):
         url = str(self.URLTextEdit.toPlainText())

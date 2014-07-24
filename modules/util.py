@@ -1,8 +1,8 @@
 #  util.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-import os.path
+from PyQt4.QtCore import QSize
+from PyQt4.QtGui import QMessageBox, QPixmap, QIcon
+import os
 import string
 import sys
 import time
@@ -42,19 +42,28 @@ def getAppPath():
     return path
 
 
-def getPixmap(fileStr, fileType="PNG", d="images"):
+def getPixmap(fileStr, d="images"):
     """Return a QPixmap instance for the file fileStr relative
     to the binary location and residing in it's 'images' subdirectory"""
 
     #image = getAppPath() + os.sep + dir + os.sep + fileStr
-    imagepath = findFile(os.path.join(d, fileStr))
+    imagepath = findFile(d, fileStr)
 
     if debug.debug & debug.DEBUG_PIXMAP: print "image:", imagepath
     
-    pixmap = QPixmap(imagepath, fileType)
+    pixmap = QPixmap(imagepath)
     pixmap.setMask(pixmap.createHeuristicMask(1))
     
     return pixmap
+
+def getIcon(iconName):
+    """Returns the QIcon corresponding to name in the current icon theme. 
+    If no such icon is found in the current theme fallback is return instead."""
+    #icon = QIcon.fromTheme(iconName, QIcon(":/images/%s.png" % iconName));
+    icon = QIcon.fromTheme(iconName);
+    if icon.isNull():
+        icon = QIcon(getPixmap("%s.svg" % iconName))
+    return icon
 
     
 
@@ -165,13 +174,13 @@ def escapeSQLq(qstr):
 #     blanklabel = QLabel("", toolbar)
 #     toolbar.setStretchableWidget(blanklabel)
 #     
-#     #banner = getPixmap("kodos_text_logo.gif", "GIF")
+#     #banner = getPixmap("kodos_text_logo.gif")
 #     
 #     logolabel = QLabel("kodos_logo", toolbar)
 #     #logolabel.setPixmap(banner)
 #     
 #     logolabel.setPixmap(QPixmap(xpm.kodosIcon))
-#     #logolabel.setPixmap(getPixmap("kodos_icon.png", "PNG"))
+#     #logolabel.setPixmap(getPixmap("kodos_icon.png")
 #     return logolabel
 
 
@@ -239,7 +248,9 @@ def restoreWindowSettings(window, filename):
         pass
     
 
-def findFile(filename):
+def findFile(dr, filename):
+    filename = os.path.join(dr, filename)
+    
     dirs = [getAppPath(),
             os.path.join("/", "usr", "share", "kodos"),
             os.path.join("/", "usr", "local", "kodos")]

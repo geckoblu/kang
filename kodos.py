@@ -5,50 +5,50 @@
 
 # pyrcc4 resources.qrc > modules/resources.py
 
-import sys
-import os
-import string
-import re
-import copy
 import cPickle
-import types
+from distutils.sysconfig import get_python_lib
 import getopt
-import urllib
+import os
+import re
 import signal
+import string
+import sys
+import types
+import urllib
+
+from modules.about import About
+from modules.kodosBA import KodosBA
+from modules.migrate_settings import MigrateSettings
+from modules.newUserDialog import NewUserDialog
+from modules.prefs import Preferences
+from modules.recent_files import RecentFiles
+from modules.reference import Reference
+from modules.regexLibrary import RegexLibrary
+from modules.reportBug import reportBug
+from modules.status_bar import Status_Bar
+from modules.urlDialog import URLDialog
+from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
+    getHomeDirectory, getIcon
+from modules.version import VERSION
+from modules.webbrowser import launch_browser
+import modules.xpm as xpm
+import modules.help as khelp
+
 
 try:
-    from PyQt4.QtCore import Qt
-    from PyQt4.QtGui import *
+    from PyQt4.QtCore import Qt, QT_VERSION_STR, QTextCodec, QTranslator, SIGNAL
+    from PyQt4.QtGui import QFileDialog, QApplication, QColor, QMessageBox, \
+                            QPixmap, QPalette, QTableWidgetItem, QHeaderView, qApp
 except:
     print """Could not locate the PyQt module.  Please make sure that
 you have installed PyQt for the version of Python that you are running."""
     sys.exit(1)
     
 ### make sure that this script can find kodos specific modules ###
-import os.path
-from distutils.sysconfig import get_python_lib
-
 sys.path.insert(0, os.path.join(get_python_lib(), "kodos")) 
 
 ###################################################################
 
-from modules.kodosBA import *
-from modules.util import *
-from modules.about import *
-import modules.help as help
-from modules.status_bar import *
-from modules.reference import *
-from modules.prefs import *
-from modules.webbrowser import launch_browser
-from modules.reportBug import reportBug
-from modules.version import VERSION
-from modules.recent_files import RecentFiles
-import modules.xpm as xpm
-from modules.urlDialog import URLDialog
-from modules.migrate_settings import MigrateSettings
-from modules.regexLibrary import RegexLibrary
-from modules.newUserDialog import NewUserDialog
-import modules.resources
 
 
 # match status
@@ -369,7 +369,7 @@ class Kodos(KodosBA):
 
     def __refresh_regex_widget(self, base_qcolor, regex):
         p = self.regexMultiLineEdit.palette()
-        p.setColor(QtGui.QPalette.Base, base_qcolor)
+        p.setColor(QPalette.Base, base_qcolor)
         self.regexMultiLineEdit.setPalette(p)
         
         self.regexMultiLineEdit.blockSignals(1)
@@ -516,7 +516,7 @@ class Kodos(KodosBA):
         
 
     def populate_match_textbrowser(self, startpos, endpos):
-        pre = post = match = ""
+        pre = post = ""
         
         match = self.matchstring[startpos:endpos]
 
@@ -628,7 +628,6 @@ class Kodos(KodosBA):
             compile_obj = re.compile(self.regex, self.flags)
             allmatches = compile_obj.findall(self.matchstring)
 
-            replace_spans = []
             if allmatches and len(allmatches):
                 self.matchNumberSpinBox.setMaximum(len(allmatches))
                 self.matchNumberSpinBox.setEnabled(TRUE)
@@ -1055,7 +1054,7 @@ class Kodos(KodosBA):
 
     
     def helpHelp(self):
-        self.helpWindow = help.Help(self, "kodos.html")
+        self.helpWindow = khelp.Help(self, "kodos.html")
 
 
     def helpPythonRegex(self):
@@ -1143,24 +1142,15 @@ class Kodos(KodosBA):
         self.bug_report_win.show()
         
     def loadToolbarIcons(self):
-        fileopenicon = QIcon.fromTheme("document-open", QIcon(":/images/document-open.png"));
-        self.fileOpenAction.setIcon(fileopenicon)
-        filesaveicon = QIcon.fromTheme("document-save", QIcon(":/images/document-save.png"));
-        self.fileSaveAction.setIcon(filesaveicon)
-        editcuticon = QIcon.fromTheme("edit-cut", QIcon(":/images/edit-cut.png"));
-        self.editCutAction.setIcon(editcuticon)
-        editcopyicon = QIcon.fromTheme("edit-copy", QIcon(":/images/edit-copy.png"));
-        self.editCopyAction.setIcon(editcopyicon)
-        editpasteicon = QIcon.fromTheme("edit-paste", QIcon(":/images/edit-paste.png"));
-        self.editPasteAction.setIcon(editpasteicon)
-        editpauseicon = QIcon.fromTheme("media-playback-pause", QIcon(":/images/pause_toolbar.png"));
-        self.editPauseAction.setIcon(editpauseicon)
-        examineicon = QIcon.fromTheme("edit-find", QIcon(":/images/examine.png"));
-        self.examineAction.setIcon(examineicon)
-        helpRegexReferenceicon = QIcon.fromTheme("helpregexreference", QIcon(":/images/book.png"));
-        self.helpRegexReferenceAction.setIcon(helpRegexReferenceicon)
-        helpRegexLibActionicon = QIcon.fromTheme("helpregexLib", QIcon(":/images/library.png"));
-        self.helpRegexLibAction.setIcon(helpRegexLibActionicon)
+        self.fileOpenAction.setIcon(getIcon("document-open"))
+        self.fileSaveAction.setIcon(getIcon("document-save"))
+        self.editCutAction.setIcon(getIcon("edit-cut"))
+        self.editCopyAction.setIcon(getIcon("edit-copy"))
+        self.editPasteAction.setIcon(getIcon("edit-paste"))
+        self.editPauseAction.setIcon(getIcon("media-playback-pause"))
+        self.examineAction.setIcon(getIcon("edit-find"))
+        self.helpRegexReferenceAction.setIcon(getIcon("book"))
+        self.helpRegexLibAction.setIcon(getIcon("library"))
         
 
 ##############################################################################
@@ -1217,7 +1207,7 @@ def main():
 
     if locale not in (None, 'en'):
         localefile = "kodos_%s.qm" % (locale or QTextCodec.locale())
-        localepath = findFile(os.path.join("translations", localefile))
+        localepath = findFile("translations", localefile)
         if debug:
             print "locale changed to:", locale
             print localefile

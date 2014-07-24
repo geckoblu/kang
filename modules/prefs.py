@@ -1,14 +1,13 @@
 #  prefs.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from util import *
-from prefsBA import PrefsBA
-import help
+from PyQt4.QtCore import SIGNAL
+from PyQt4.QtGui import QDialog, QFileDialog, QFontDialog, QFont
+import os
+import string
 
-##class Prefs(PrefsBA):
-##    def __init__(self, parent=None, name=None, modal=0):
-##        print type(self)
-##        PrefsBA.__init__(self, parent, name, modal)
-##        self.parent = parent
+from prefsBA import PrefsBA
+from util import getHomeDirectory
+
 
 def get_font_value(s):
     if s in ('0', 'False'): return 0

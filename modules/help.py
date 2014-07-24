@@ -2,7 +2,6 @@
 
 from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QTextBrowser, QIcon, QPixmap
-import os
 from webbrowser import launch_browser
 
 from helpBA import HelpBA

@@ -1,5 +1,4 @@
 from PyQt4.QtCore import QFile, QTextStream, QIODevice
-import os
 import re
 
 from modules.util import findFile

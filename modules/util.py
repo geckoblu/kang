@@ -47,7 +47,7 @@ def getPixmap(fileStr, d="images"):
     to the binary location and residing in it's 'images' subdirectory"""
 
     #image = getAppPath() + os.sep + dir + os.sep + fileStr
-    imagepath = findFile(os.path.join(d, fileStr))
+    imagepath = findFile(d, fileStr)
 
     if debug.debug & debug.DEBUG_PIXMAP: print "image:", imagepath
     
@@ -248,7 +248,9 @@ def restoreWindowSettings(window, filename):
         pass
     
 
-def findFile(filename):
+def findFile(dr, filename):
+    filename = os.path.join(dr, filename)
+    
     dirs = [getAppPath(),
             os.path.join("/", "usr", "share", "kodos"),
             os.path.join("/", "usr", "local", "kodos")]

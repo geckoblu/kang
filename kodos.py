@@ -1207,7 +1207,7 @@ def main():
 
     if locale not in (None, 'en'):
         localefile = "kodos_%s.qm" % (locale or QTextCodec.locale())
-        localepath = findFile(os.path.join("translations", localefile))
+        localepath = findFile("translations", localefile)
         if debug:
             print "locale changed to:", locale
             print localefile

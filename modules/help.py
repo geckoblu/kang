@@ -77,7 +77,7 @@ class Help(HelpBA):
             self.textBrowser.forward()
     
     def getHelpFile(self, filename):
-        f = findFile(os.path.join("help", filename))
+        f = findFile("help", filename)
         return f
     
     def loadToolbarIcons(self):

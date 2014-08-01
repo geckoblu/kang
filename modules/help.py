@@ -5,8 +5,7 @@ from PyQt4.QtGui import QTextBrowser, QIcon, QPixmap
 from webbrowser import launch_browser
 
 from helpBA import HelpBA
-from util import findFile
-import xpm
+from util import findFile, getIcon
 
 
 class textbrowser(QTextBrowser):
@@ -18,7 +17,7 @@ class textbrowser(QTextBrowser):
 
 
     def setSource(self, src):
-        #print("setSource:", src)
+        #print('setSource:', src)
         s = str(src)
         if s[:7] == 'http://':
             launch_browser(self.parent.external_browser, s)
@@ -36,8 +35,7 @@ class Help(HelpBA):
         
         self.external_browser = external_browser
         self.setGeometry(100, 50, 800, 600)
-        self.setWindowTitle("Help")
-        self.setWindowIcon(QIcon(QPixmap(xpm.kodosIcon)))
+        self.setWindowTitle('Help')        
         
         self.textBrowser = textbrowser(self)
         absPath = self.getHelpFile(filename)
@@ -66,27 +64,27 @@ class Help(HelpBA):
 
 
     def setForwardAvailable(self, b):
-        #print "bool: ", b
+        #print 'bool: ', b
         self.fwdAvailable = b
 
 
     def forwardHandler(self):
-        #print "fwdAvail?: ", self.fwdAvailable
+        #print 'fwdAvail?: ', self.fwdAvailable
         if self.fwdAvailable:
             self.textBrowser.forward()
     
     def getHelpFile(self, filename):
-        f = findFile("help", filename)
+        f = findFile('help', filename)
         return f
     
     def loadToolbarIcons(self):
-        filehomeicon = QIcon.fromTheme("go-home", QIcon(QPixmap(xpm.homeIcon)));
+        filehomeicon = getIcon('go-home');
         self.fileHomeAction.setIcon(filehomeicon)
-        filebackicon = QIcon.fromTheme("go-previous", QIcon(QPixmap(xpm.backIcon)));
+        filebackicon = getIcon('go-previous');
         self.fileBackAction.setIcon(filebackicon)
-        fileforwardicon = QIcon.fromTheme("go-next", QIcon(QPixmap(xpm.forwardIcon)));
+        fileforwardicon = getIcon('go-next');
         self.fileForwardAction.setIcon(fileforwardicon)
-        fileexiticon = QIcon.fromTheme("application-exit", QIcon(QPixmap(xpm.exitIcon)));
+        fileexiticon = getIcon('application-exit');
         self.fileExitAction.setIcon(fileexiticon)    
 
         

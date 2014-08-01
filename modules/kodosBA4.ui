@@ -342,7 +342,7 @@ database. New in Python version 2.0.</string>
      <x>0</x>
      <y>0</y>
      <width>497</width>
-     <height>27</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="fileMenu">
@@ -400,10 +400,6 @@ database. New in Python version 2.0.</string>
    <addaction name="helpMenu"/>
   </widget>
   <action name="fileNewAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image2</normaloff>image2</iconset>
-   </property>
    <property name="text">
     <string>&amp;New</string>
    </property>
@@ -474,10 +470,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="editUndoAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image5</normaloff>image5</iconset>
-   </property>
    <property name="text">
     <string>&amp;Undo</string>
    </property>
@@ -492,10 +484,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="editRedoAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image6</normaloff>image6</iconset>
-   </property>
    <property name="text">
     <string>&amp;Redo</string>
    </property>
@@ -622,10 +610,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="helpHelpAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image12</normaloff>image12</iconset>
-   </property>
    <property name="text">
     <string>Help</string>
    </property>
@@ -665,10 +649,6 @@ database. New in Python version 2.0.</string>
    </property>
   </action>
   <action name="helpVisitWebsiteAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image14</normaloff>image14</iconset>
-   </property>
    <property name="text">
     <string>&amp;Visit Kodos Website</string>
    </property>
@@ -699,24 +679,6 @@ database. New in Python version 2.0.</string>
    </property>
    <property name="name" stdset="0">
     <cstring>helpReportBugAction</cstring>
-   </property>
-  </action>
-  <action name="noopAction">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>image15</normaloff>image15</iconset>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="iconText">
-    <string/>
-   </property>
-   <property name="name" stdset="0">
-    <cstring>noopAction</cstring>
    </property>
   </action>
   <action name="fileImportFileAction">

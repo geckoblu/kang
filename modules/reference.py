@@ -1,10 +1,10 @@
 #  reference.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
 from PyQt4.QtCore import SIGNAL
-from PyQt4.QtGui import QIcon, QTreeWidgetItem
+from PyQt4.QtGui import QTreeWidgetItem
 
 from referenceBA import ReferenceBA
-from util import restoreWindowSettings, saveWindowSettings
+from util import restoreWindowSettings, saveWindowSettings, getIcon
 
 
 GEO = "regex-ref_geometry"
@@ -19,7 +19,7 @@ class Reference(ReferenceBA):
         
         self.populateTable()
             
-        editpasteicon = QIcon.fromTheme("edit-paste", QIcon(":/images/edit-paste.png"));
+        editpasteicon = getIcon('edit-paste')
         self.editPasteAction.setIcon(editpasteicon)
 
     def populateTable(self):

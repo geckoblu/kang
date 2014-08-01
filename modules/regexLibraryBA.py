@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'regexLibraryBA4.ui'
 #
-# Created: Tue Dec 17 08:32:32 2013
-#      by: PyQt4 UI code generator 4.10
+# Created: Tue Jul 29 16:36:14 2014
+#      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -69,7 +69,7 @@ class Ui_RegexLibraryBA(object):
         self.gridlayout.addWidget(self.tabWidget, 1, 0, 1, 1)
         RegexLibraryBA.setCentralWidget(self.widget)
         self.menubar = QtGui.QMenuBar(RegexLibraryBA)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 530, 27))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 530, 26))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName(_fromUtf8("menuFile"))
@@ -82,15 +82,9 @@ class Ui_RegexLibraryBA(object):
         self.toolBar.setObjectName(_fromUtf8("toolBar"))
         RegexLibraryBA.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.editPasteAction = QtGui.QAction(RegexLibraryBA)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("soft/python/geckoblu/kodos/modules/image1")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.editPasteAction.setIcon(icon)
         self.editPasteAction.setProperty("name", _fromUtf8("editPasteAction"))
         self.editPasteAction.setObjectName(_fromUtf8("editPasteAction"))
         self.helpHelpAction = QtGui.QAction(RegexLibraryBA)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8("soft/python/geckoblu/kodos/modules/image2")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.helpHelpAction.setIcon(icon1)
         self.helpHelpAction.setProperty("name", _fromUtf8("helpHelpAction"))
         self.helpHelpAction.setObjectName(_fromUtf8("helpHelpAction"))
         self.exitAction = QtGui.QAction(RegexLibraryBA)

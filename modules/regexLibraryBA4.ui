@@ -76,7 +76,7 @@
      <x>0</x>
      <y>0</y>
      <width>530</width>
-     <height>27</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -114,10 +114,6 @@
    <addaction name="editPasteAction"/>
   </widget>
   <action name="editPasteAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>soft/python/geckoblu/kodos/modules/image1</normaloff>soft/python/geckoblu/kodos/modules/image1</iconset>
-   </property>
    <property name="text">
     <string>&amp;Paste Example Into Kodos</string>
    </property>
@@ -135,10 +131,6 @@
    </property>
   </action>
   <action name="helpHelpAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>soft/python/geckoblu/kodos/modules/image2</normaloff>soft/python/geckoblu/kodos/modules/image2</iconset>
-   </property>
    <property name="text">
     <string>&amp;Help</string>
    </property>

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'referenceBA4.ui'
 #
-# Created: Thu Dec 19 12:34:17 2013
-#      by: PyQt4 UI code generator 4.10
+# Created: Wed Jul 30 09:25:22 2014
+#      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -46,7 +46,7 @@ class Ui_ReferenceBA(object):
         self.toolBar.setObjectName(_fromUtf8("toolBar"))
         ReferenceBA.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.MenuBar = QtGui.QMenuBar(ReferenceBA)
-        self.MenuBar.setGeometry(QtCore.QRect(0, 0, 600, 27))
+        self.MenuBar.setGeometry(QtCore.QRect(0, 0, 600, 26))
         self.MenuBar.setObjectName(_fromUtf8("MenuBar"))
         self.fileMenu = QtGui.QMenu(self.MenuBar)
         self.fileMenu.setObjectName(_fromUtf8("fileMenu"))
@@ -56,22 +56,13 @@ class Ui_ReferenceBA(object):
         self.helpMenu.setObjectName(_fromUtf8("helpMenu"))
         ReferenceBA.setMenuBar(self.MenuBar)
         self.fileExitAction = QtGui.QAction(ReferenceBA)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("image5")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.fileExitAction.setIcon(icon)
         self.fileExitAction.setShortcut(_fromUtf8(""))
         self.fileExitAction.setProperty("name", _fromUtf8("fileExitAction"))
         self.fileExitAction.setObjectName(_fromUtf8("fileExitAction"))
         self.editPasteAction = QtGui.QAction(ReferenceBA)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8("image10")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.editPasteAction.setIcon(icon1)
         self.editPasteAction.setProperty("name", _fromUtf8("editPasteAction"))
         self.editPasteAction.setObjectName(_fromUtf8("editPasteAction"))
         self.helpAction = QtGui.QAction(ReferenceBA)
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(_fromUtf8("image12")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.helpAction.setIcon(icon2)
         self.helpAction.setProperty("name", _fromUtf8("helpAction"))
         self.helpAction.setObjectName(_fromUtf8("helpAction"))
         self.helpPythonAction = QtGui.QAction(ReferenceBA)

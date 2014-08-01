@@ -61,7 +61,7 @@
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>27</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="fileMenu">
@@ -90,10 +90,6 @@
    <addaction name="helpMenu"/>
   </widget>
   <action name="fileExitAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image5</normaloff>image5</iconset>
-   </property>
    <property name="text">
     <string>E&amp;xit</string>
    </property>
@@ -108,10 +104,6 @@
    </property>
   </action>
   <action name="editPasteAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image10</normaloff>image10</iconset>
-   </property>
    <property name="text">
     <string>&amp;Paste</string>
    </property>
@@ -129,10 +121,6 @@
    </property>
   </action>
   <action name="helpAction">
-   <property name="icon">
-    <iconset>
-     <normaloff>image12</normaloff>image12</iconset>
-   </property>
    <property name="text">
     <string>&amp;Help</string>
    </property>

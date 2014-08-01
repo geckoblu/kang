@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'kodosBA4.ui'
 #
-# Created: Thu Dec 12 09:00:59 2013
-#      by: PyQt4 UI code generator 4.10
+# Created: Wed Jul 30 09:49:45 2014
+#      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -177,7 +177,7 @@ class Ui_KodosBA(object):
         self.toolBar.setObjectName(_fromUtf8("toolBar"))
         KodosBA.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.menubar = QtGui.QMenuBar(KodosBA)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 497, 27))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 497, 26))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.fileMenu = QtGui.QMenu(self.menubar)
         self.fileMenu.setObjectName(_fromUtf8("fileMenu"))
@@ -187,9 +187,6 @@ class Ui_KodosBA(object):
         self.helpMenu.setObjectName(_fromUtf8("helpMenu"))
         KodosBA.setMenuBar(self.menubar)
         self.fileNewAction = QtGui.QAction(KodosBA)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("image2")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.fileNewAction.setIcon(icon)
         self.fileNewAction.setProperty("name", _fromUtf8("fileNewAction"))
         self.fileNewAction.setObjectName(_fromUtf8("fileNewAction"))
         self.fileOpenAction = QtGui.QAction(KodosBA)
@@ -207,15 +204,9 @@ class Ui_KodosBA(object):
         self.fileExitAction.setProperty("name", _fromUtf8("fileExitAction"))
         self.fileExitAction.setObjectName(_fromUtf8("fileExitAction"))
         self.editUndoAction = QtGui.QAction(KodosBA)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8("image5")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.editUndoAction.setIcon(icon1)
         self.editUndoAction.setProperty("name", _fromUtf8("editUndoAction"))
         self.editUndoAction.setObjectName(_fromUtf8("editUndoAction"))
         self.editRedoAction = QtGui.QAction(KodosBA)
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(_fromUtf8("image6")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.editRedoAction.setIcon(icon2)
         self.editRedoAction.setProperty("name", _fromUtf8("editRedoAction"))
         self.editRedoAction.setObjectName(_fromUtf8("editRedoAction"))
         self.editCutAction = QtGui.QAction(KodosBA)
@@ -246,9 +237,6 @@ class Ui_KodosBA(object):
         self.editPreferencesAction.setProperty("name", _fromUtf8("editPreferencesAction"))
         self.editPreferencesAction.setObjectName(_fromUtf8("editPreferencesAction"))
         self.helpHelpAction = QtGui.QAction(KodosBA)
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(_fromUtf8("image12")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.helpHelpAction.setIcon(icon3)
         self.helpHelpAction.setProperty("name", _fromUtf8("helpHelpAction"))
         self.helpHelpAction.setObjectName(_fromUtf8("helpHelpAction"))
         self.helpPythonHelpAction = QtGui.QAction(KodosBA)
@@ -258,9 +246,6 @@ class Ui_KodosBA(object):
         self.helpRegexReferenceAction.setProperty("name", _fromUtf8("helpRegexReferenceAction"))
         self.helpRegexReferenceAction.setObjectName(_fromUtf8("helpRegexReferenceAction"))
         self.helpVisitWebsiteAction = QtGui.QAction(KodosBA)
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(_fromUtf8("image14")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.helpVisitWebsiteAction.setIcon(icon4)
         self.helpVisitWebsiteAction.setProperty("name", _fromUtf8("helpVisitWebsiteAction"))
         self.helpVisitWebsiteAction.setObjectName(_fromUtf8("helpVisitWebsiteAction"))
         self.helpCheckForUpdateAction = QtGui.QAction(KodosBA)
@@ -269,15 +254,6 @@ class Ui_KodosBA(object):
         self.helpReportBugAction = QtGui.QAction(KodosBA)
         self.helpReportBugAction.setProperty("name", _fromUtf8("helpReportBugAction"))
         self.helpReportBugAction.setObjectName(_fromUtf8("helpReportBugAction"))
-        self.noopAction = QtGui.QAction(KodosBA)
-        self.noopAction.setEnabled(True)
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(_fromUtf8("image15")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.noopAction.setIcon(icon5)
-        self.noopAction.setText(_fromUtf8(""))
-        self.noopAction.setIconText(_fromUtf8(""))
-        self.noopAction.setProperty("name", _fromUtf8("noopAction"))
-        self.noopAction.setObjectName(_fromUtf8("noopAction"))
         self.fileImportFileAction = QtGui.QAction(KodosBA)
         self.fileImportFileAction.setProperty("name", _fromUtf8("fileImportFileAction"))
         self.fileImportFileAction.setObjectName(_fromUtf8("fileImportFileAction"))

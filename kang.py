@@ -18,7 +18,6 @@ import urllib
 
 from modules.about import About
 from modules.kangBA import KangBA
-from modules.migrate_settings import MigrateSettings
 from modules.newUserDialog import NewUserDialog
 from modules.prefs import Preferences
 from modules.recent_files import RecentFiles
@@ -1199,8 +1198,6 @@ def main():
             locale = arg
 
     os.environ['KANG_DIR'] = kang_dir
-
-    MigrateSettings()
 
     qApp = QApplication(sys.argv)
 

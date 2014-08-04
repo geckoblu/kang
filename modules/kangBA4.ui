@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>KodosBA</class>
- <widget class="QMainWindow" name="KodosBA">
+ <class>KangBA</class>
+ <widget class="QMainWindow" name="KangBA">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Kodos - The Python Regex Debugger</string>
+   <string>Kang - The Python Regex Tester</string>
   </property>
   <property name="windowIconText">
-   <string>Kodos</string>
+   <string>Kang</string>
   </property>
   <widget class="QWidget" name="widget">
    <layout class="QGridLayout">
@@ -27,6 +27,14 @@
        <bool>false</bool>
       </property>
       <widget class="QButtonGroup" name="buttonGroup2" native="true">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>535</width>
+         <height>39</height>
+        </rect>
+       </property>
        <layout class="QHBoxLayout">
         <item>
          <widget class="QCheckBox" name="ignorecaseCheckBox">
@@ -650,10 +658,10 @@ database. New in Python version 2.0.</string>
   </action>
   <action name="helpVisitWebsiteAction">
    <property name="text">
-    <string>&amp;Visit Kodos Website</string>
+    <string>&amp;Visit Kang Website</string>
    </property>
    <property name="iconText">
-    <string>&amp;Visit Kodos Website</string>
+    <string>&amp;Visit Kang Website</string>
    </property>
    <property name="name" stdset="0">
     <cstring>helpVisitWebsiteAction</cstring>
@@ -661,10 +669,10 @@ database. New in Python version 2.0.</string>
   </action>
   <action name="helpCheckForUpdateAction">
    <property name="text">
-    <string>&amp;Check for Kodos Update</string>
+    <string>&amp;Check for Kang Update</string>
    </property>
    <property name="iconText">
-    <string>Check for Kodos Update</string>
+    <string>Check for Kang Update</string>
    </property>
    <property name="name" stdset="0">
     <cstring>helpCheckForUpdateAction</cstring>
@@ -722,10 +730,10 @@ database. New in Python version 2.0.</string>
   </action>
   <action name="FileRevertAction">
    <property name="text">
-    <string>&amp;Revert Kodos File</string>
+    <string>&amp;Revert Kang File</string>
    </property>
    <property name="iconText">
-    <string>Revert Kodos File</string>
+    <string>Revert Kang File</string>
    </property>
    <property name="name" stdset="0">
     <cstring>FileRevertAction</cstring>
@@ -752,7 +760,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>dotallCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -768,7 +776,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>editCopyAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>editCopy()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -784,7 +792,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>editCutAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>editCut()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -800,7 +808,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>editPasteAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>editPaste()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -816,7 +824,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>editRedoAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>editRedo()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -832,7 +840,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>editUndoAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>editUndo()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -848,7 +856,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>examineAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>examine()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -864,7 +872,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>fileExitAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -880,7 +888,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>fileNewAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>fileNew()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -896,7 +904,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>fileOpenAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>fileOpen()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -912,7 +920,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>fileSaveAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>fileSave()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -928,7 +936,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>fileSaveAsAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>fileSaveAs()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -944,7 +952,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>helpAboutAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>helpAbout()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -960,7 +968,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>helpHelpAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>helpHelp()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -976,7 +984,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>ignorecaseCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -992,7 +1000,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>localeCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1008,7 +1016,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>matchNumberSpinBox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>match_num_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1024,7 +1032,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>multilineCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1040,7 +1048,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>regexMultiLineEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>regex_changed_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1056,7 +1064,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>stringMultiLineEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>string_changed_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1072,7 +1080,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>unicodeCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1088,7 +1096,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>verboseCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1104,7 +1112,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>editPauseAction</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>pause()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1120,7 +1128,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>editPreferencesAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>preferences()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1136,7 +1144,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>helpReportBugAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>report_bug()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1152,7 +1160,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>helpPythonHelpAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>helpPythonRegex()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1168,7 +1176,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>helpRegexReferenceAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>reference_guide()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1184,8 +1192,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>helpVisitWebsiteAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_website()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_website()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1200,7 +1208,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>helpCheckForUpdateAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>check_for_update()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1216,7 +1224,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>replaceTextEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>replace_changed_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1232,7 +1240,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>replaceNumberSpinBox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>replace_num_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1248,7 +1256,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>fileImportFileAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>importFile()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1264,7 +1272,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>fileImportURLAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>importURL()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1280,7 +1288,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>helpRegexLibAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>helpRegexLib()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1296,8 +1304,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>regexMultiLineEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_edited_slot()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>20</x>
@@ -1312,8 +1320,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>stringMultiLineEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_edited_slot()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>20</x>
@@ -1328,8 +1336,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>ignorecaseCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_edited_slot()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>20</x>
@@ -1344,8 +1352,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>replaceTextEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_edited_slot()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>20</x>
@@ -1360,8 +1368,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>multilineCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_edited_slot()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>20</x>
@@ -1376,8 +1384,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>dotallCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_edited_slot()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>20</x>
@@ -1392,8 +1400,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>verboseCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_edited_slot()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>20</x>
@@ -1408,8 +1416,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>localeCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_edited_slot()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>20</x>
@@ -1424,8 +1432,8 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>unicodeCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>KodosBA</receiver>
-   <slot>kodos_edited_slot()</slot>
+   <receiver>KangBA</receiver>
+   <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>20</x>
@@ -1440,7 +1448,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>FileRevertAction</sender>
    <signal>activated()</signal>
-   <receiver>KodosBA</receiver>
+   <receiver>KangBA</receiver>
    <slot>revert_file_slot()</slot>
    <hints>
     <hint type="sourcelabel">

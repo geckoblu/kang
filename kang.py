@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-#  kodos.py: -*- Python -*-  DESCRIPTIVE TEXT.
+#  kang.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-# pyuic4 -w kodosBA4.ui > kodosBA.py
+# pyuic4 -w kangBA4.ui > kangBA.py
 
 # pyrcc4 resources.qrc > modules/resources.py
 
@@ -17,7 +17,7 @@ import types
 import urllib
 
 from modules.about import About
-from modules.kodosBA import KodosBA
+from modules.kangBA import KangBA
 from modules.migrate_settings import MigrateSettings
 from modules.newUserDialog import NewUserDialog
 from modules.prefs import Preferences
@@ -44,8 +44,8 @@ except:
 you have installed PyQt for the version of Python that you are running."""
     sys.exit(1)
     
-### make sure that this script can find kodos specific modules ###
-sys.path.insert(0, os.path.join(get_python_lib(), "kodos")) 
+### make sure that this script can find kang specific modules ###
+sys.path.insert(0, os.path.join(get_python_lib(), "kang")) 
 
 ###################################################################
 
@@ -72,7 +72,7 @@ RX_BACKREF = re.compile(r"""\\\d""")
 STATE_UNEDITED = 0
 STATE_EDITED   = 1
 
-GEO = "kodos_geometry"
+GEO = "kang_geometry"
 
 # colors for normal & examination mode
 QCOLOR_WHITE  = QColor(Qt.white)     # normal
@@ -93,13 +93,13 @@ except:
 
 ##############################################################################
 #
-# The Kodos class which defines the main functionality and user interaction
+# The Kang class which defines the main functionality and user interaction
 #
 ##############################################################################
 
-class Kodos(KodosBA):
+class Kang(KangBA):
     def __init__(self, filename, debug):
-        KodosBA.__init__(self)
+        KangBA.__init__(self)
 
         self.debug = debug
         self.regex = ""
@@ -127,12 +127,12 @@ class Kodos(KodosBA):
         self.embedded_flags = ""
         self.regex_embedded_flags_removed = ""
 
+        self.setWindowIcon(getIcon('kang-icon'))
         self.createStatusBar()
-        
         self.loadToolbarIcons()
 
         self.MSG_NA     = self.tr("Enter a regular expression and a string to match against")
-        self.MSG_PAUSED = self.tr("Kodos regex processing is paused.  Click the pause icon to unpause")
+        self.MSG_PAUSED = self.tr("Kang regex processing is paused.  Click the pause icon to unpause")
         self.MSG_FAIL   = self.tr("Pattern does not match")
 
         
@@ -161,17 +161,16 @@ class Kodos(KodosBA):
         self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
         self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
-        #kodos_toolbar_logo(self.toolBar)
         if self.replace:  
             self.show_replace_widgets()
         else:             
             self.hide_replace_widgets()
 
-        self.checkForKodosDir()
+        self.checkForKangDir()
 
 
-    def checkForKodosDir(self):
-        kdir = os.path.join(getHomeDirectory(), ".kodos")
+    def checkForKangDir(self):
+        kdir = os.path.join(getHomeDirectory(), ".kang")
         if os.access(kdir, os.X_OK):
             return
 
@@ -203,7 +202,7 @@ class Kodos(KodosBA):
         self.recent_files.setNumShown(self.prefs.recentFilesSpinBox.value())   
   
         
-    def kodos_edited_slot(self):
+    def kang_edited_slot(self):
         # invoked whenever the user has edited something
         self.editstate = STATE_EDITED
         
@@ -740,7 +739,7 @@ class Kodos(KodosBA):
 
 
     def closeEvent(self, ev):
-        self.checkEditState(self.tr("&No, Just Exit Kodos"))
+        self.checkEditState(self.tr("&No, Just Exit Kang"))
         saveWindowSettings(self, GEO)
 
         try:
@@ -799,7 +798,7 @@ class Kodos(KodosBA):
         
     def fileOpen(self):       
         fn = QFileDialog.getOpenFileName(self,
-                                         self.tr("Open Kodos File"),
+                                         self.tr("Open Kang File"),
                                          self.filename,                                         
                                          "*.kds\nAll (*)",
                                          )        
@@ -857,7 +856,7 @@ class Kodos(KodosBA):
 
     def fileSaveAs(self):
         fn = QFileDialog.getSaveFileName(self,
-                                         self.tr("Save Kodos File"),
+                                         self.tr("Save Kang File"),
                                          self.filename,                                         
                                          "*.kds\nAll (*)"
                                          )
@@ -1072,8 +1071,8 @@ class Kodos(KodosBA):
         self.aboutWindow = About()
         self.aboutWindow.show()
 
-    def kodos_website(self):
-        self.launch_browser_wrapper("http://kodos.sourceforge.net")
+    def kang_website(self):
+        self.launch_browser_wrapper("http://kang.sourceforge.net")
 
             
     def check_for_update(self):
@@ -1089,19 +1088,19 @@ class Kodos(KodosBA):
         lines = fp.readlines()
         html = string.join(lines)
 
-        rawstr = r"""kodos-(?P<version>.*?).zip"""
-        #rawstr = r"""kodos-(?P<version>.*?)\<"""
-        #rawstr = r"""release_id=.*\">.*(kodos-)(?P<version>.*?)</[aA]>"""
+        rawstr = r"""kang-(?P<version>.*?).zip"""
+        #rawstr = r"""kang-(?P<version>.*?)\<"""
+        #rawstr = r"""release_id=.*\">.*(kang-)(?P<version>.*?)</[aA]>"""
         match_obj = re.search(rawstr, html)
         if match_obj:
             latest_version = match_obj.group('version')
             if latest_version == VERSION:
                 QMessageBox.information(None,
                                         self.tr("No Update is Available"),
-                                        unicode(self.tr("You are currently using the latest version of Kodos")) + " (%s)" % VERSION)
+                                        unicode(self.tr("You are currently using the latest version of Kang")) + " (%s)" % VERSION)
             else:
                 message =  "%s\n\n%s: %s.\n%s: %s.\n\n%s\n" % \
-                          (unicode(self.tr("There is a newer version of Kodos available.")),
+                          (unicode(self.tr("There is a newer version of Kang available.")),
                            unicode(self.tr("You are using version:")),
                            VERSION,
                            unicode(self.tr("The latest version is:")),
@@ -1109,7 +1108,7 @@ class Kodos(KodosBA):
                            unicode(self.tr("Press OK to launch browser")))
 
                 self.launch_browser_wrapper(url,
-                                            self.tr("Kodos Update Available"),
+                                            self.tr("Kang Update Available"),
                                             message)
         else:
             message = "%s.\n\n%s" % \
@@ -1159,11 +1158,11 @@ class Kodos(KodosBA):
 ##############################################################################
 
 def usage():
-    print "kodos.py [-f filename | --file=filename ] [ -d debug | --debug=debug ] [ -k kodos_dir ]"
+    print "kang.py [-f filename | --file=filename ] [ -d debug | --debug=debug ] [ -k kang_dir ]"
     print
     print "  -f filename | --filename=filename  : Load filename on startup"
     print "  -d debug | --debug=debug           : Set debug to this debug level"
-    print "  -k kodos_dir                       : Path containing Kodos images & help subdirs"
+    print "  -k kang_dir                       : Path containing Kang images & help subdirs"
     print "  -l locale | --locale=locale        : 2-letter locale (eg. en)"
     print
     sys.exit(0)
@@ -1171,7 +1170,7 @@ def usage():
 def main():
     filename  = None
     debug     = 0
-    kodos_dir = os.path.join(sys.prefix, "kodos")
+    kang_dir = os.path.join(sys.prefix, "kang")
     locale    = None
 
     args = sys.argv[1:]
@@ -1187,7 +1186,7 @@ def main():
         if opt in ('-h', '-?', '--help'):
             usage()
         if opt == '-k':
-            kodos_dir = arg
+            kang_dir = arg
         if opt in ('-d', '--debug'):
             try:
                 debug = int(arg)
@@ -1199,14 +1198,14 @@ def main():
         if opt in ('-l', '--locale'):
             locale = arg
 
-    os.environ['KODOS_DIR'] = kodos_dir
+    os.environ['KANG_DIR'] = kang_dir
 
     MigrateSettings()
 
     qApp = QApplication(sys.argv)
 
     if locale not in (None, 'en'):
-        localefile = "kodos_%s.qm" % (locale or QTextCodec.locale())
+        localefile = "kang_%s.qm" % (locale or QTextCodec.locale())
         localepath = findFile("translations", localefile)
         if debug:
             print "locale changed to:", locale
@@ -1218,12 +1217,9 @@ def main():
 
         qApp.installTranslator(translator)
 
-    kodos = Kodos(filename, debug)
-    kodos.show()
+    kang = Kang(filename, debug)
+    kang.show()
 
-    #qApp.setMainWidget(kodos)
-
-    #qApp.exec_loop()
     sys.exit(qApp.exec_())   
 
 

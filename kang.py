@@ -176,7 +176,9 @@ class Kang(KangBA):
         try:
             os.mkdir(kdir, 0755)
         except:
-            print "Failed to create:", kdir
+            message = '%s: %s' % (self.tr('Failed to create'), kdir)
+            QMessageBox().critical(self, self.tr('ERROR'), message, buttons=QMessageBox.Ok)
+            
 
         self.newuserdialog = NewUserDialog(self)
         self.newuserdialog.show()

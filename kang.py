@@ -178,7 +178,7 @@ class Kang(KangBA):
         except:
             print "Failed to create:", kdir
 
-        self.newuserdialog = NewUserDialog()
+        self.newuserdialog = NewUserDialog(self)
         self.newuserdialog.show()
         
 

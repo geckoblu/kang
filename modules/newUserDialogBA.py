@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'newUserDialogBA4.ui'
 #
-# Created: Fri Feb 14 08:47:17 2014
-#      by: PyQt4 UI code generator 4.10
+# Created: Mon Aug  4 10:40:19 2014
+#      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -90,15 +90,8 @@ class Ui_NewUserDialogBA(object):
         QtCore.QMetaObject.connectSlotsByName(NewUserDialogBA)
 
     def retranslateUi(self, NewUserDialogBA):
-        NewUserDialogBA.setWindowTitle(_translate("NewUserDialogBA", "Kodos new user information", None))
-        self.textLabel1.setText(_translate("NewUserDialogBA", "<h3>Welcome to Kodos.</h3>\n"
-"<p></p>\n"
-"It appears that this is your first time using \n"
-"Kodos - The Python Regular Expression Debugger.\n"
-"<p></p>\n"
-"In order to help you familiarize yourself with Kodos, you may wish to explore\n"
-"the Regex Library.  Additionally, Kodos contains a Python Regex Reference Guide. \n"
-"You can access these tools by clicking on the appropriate toolbar icon.", None))
+        NewUserDialogBA.setWindowTitle(_translate("NewUserDialogBA", "Kang new user information", None))
+        self.textLabel1.setText(_translate("NewUserDialogBA", "<html><head/><body><p><span style=\" font-size:large; font-weight:600;\">Welcome to Kang.</span></p><p>It appears that this is your first time using Kang - The Python Regular Expression Tester. </p><p>In order to help you familiarize yourself with Kang, you may wish to explore the Regex Library. Additionally, Kang contains a Python Regex Reference Guide. You can access these tools by clicking on the appropriate toolbar icon.</p></body></html>", None))
         self.textLabel4.setText(_translate("NewUserDialogBA", "<b>Regex Reference Guide</b>", None))
         self.textLabel3.setText(_translate("NewUserDialogBA", "<b>Regex Library</b>", None))
         self.okButton.setText(_translate("NewUserDialogBA", "&OK", None))

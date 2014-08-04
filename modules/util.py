@@ -118,21 +118,15 @@ def dictList_to_XML(filename, keyList, dictList):
     return 1
 
 
-def getHomeDirectory():
-    "attempt to get the home directory... not sure how this behaves w/ Windoze"
-    if sys.platform != 'win32':
-        try:
-            homedir = os.environ['HOME']
-        except KeyError:
-            homedir = '/tmp'
-    else:
-        try:
-            homedir = os.path.join(os.environ['HOMEDRIVE'],
-                                   os.environ['HOMEPATH'])
-        except KeyError:
-            homedir = ''
-
-    return homedir
+def getConfigDirectory():
+    """Return the user-specific configuration directory based on XDG Base Directory Specification.
+    """
+    home = os.path.expanduser('~')
+    xdg_config_home = os.environ.get('XDG_CONFIG_HOME') or os.path.join(home, '.config')
+    
+    config_dir = os.path.join(xdg_config_home, 'kang')
+    
+    return config_dir
 
 
 def getComboItem(qComboBox, text, not_found = -1, case_sensitive = 1):
@@ -167,23 +161,6 @@ def escapeSQLq(qstr):
     s = str(qstr)
     return escapeSQL(s)
 
-
-# def kodos_toolbar_logo(toolbar):
-#     # hack to move logo to right
-# 
-#     blanklabel = QLabel('', toolbar)
-#     toolbar.setStretchableWidget(blanklabel)
-#     
-#     #banner = getPixmap('kodos_text_logo.gif')
-#     
-#     logolabel = QLabel('kodos_logo', toolbar)
-#     #logolabel.setPixmap(banner)
-#     
-#     logolabel.setPixmap(QPixmap(xpm.kodosIcon))
-#     #logolabel.setPixmap(getPixmap('kodos_icon.png')
-#     return logolabel
-
-
 def getSavedWindowSettings(path):
     try:
         fp = open(path, 'r')
@@ -205,7 +182,7 @@ def getSavedWindowSettings(path):
 
 
 def saveWindowSettings(window, filename):
-    path = os.path.join(getHomeDirectory(), '.kodos', filename)
+    path = os.path.join(getConfigDirectory(), filename)
 
     try:
         s = window.size()
@@ -230,7 +207,7 @@ def saveWindowSettings(window, filename):
 
 
 def restoreWindowSettings(window, filename):
-    path = os.path.join(getHomeDirectory(), '.kodos', filename)
+    path = os.path.join(getConfigDirectory(), filename)
 
     try:
         d = getSavedWindowSettings(path)

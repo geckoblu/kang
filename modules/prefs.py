@@ -6,7 +6,7 @@ import os
 import string
 
 from prefsBA import PrefsBA
-from util import getHomeDirectory
+from util import getConfigDirectory
 
 
 def get_font_value(s):
@@ -20,7 +20,7 @@ class Preferences(PrefsBA):
         PrefsBA.__init__(self, parent)
 
         prefsFilename = "prefs"
-        self.prefsPath = getHomeDirectory() + os.sep + ".kodos" + os.sep + prefsFilename
+        self.prefsPath = os.path.join(getConfigDirectory(), prefsFilename)
         if autoload: self.load()
         
     def load(self):

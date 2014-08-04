@@ -4,7 +4,7 @@ import os
 import string
 import sys
 
-from util import getHomeDirectory
+from util import getConfigDirectory
 
 
 try:
@@ -21,7 +21,7 @@ class RecentFiles:
         self.parent = parent
         self.numShown = int(numShown)
         self.debug = debug
-        self.filename = getHomeDirectory() + os.sep + ".kodos" + os.sep + "recent_files"
+        self.filename = os.path.join(getConfigDirectory(), 'recent_files')
         self.__recent_files = []
         self.__actions = []
         self.load()

@@ -27,7 +27,7 @@ from modules.reportBug import reportBug
 from modules.status_bar import Status_Bar
 from modules.urlDialog import URLDialog
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
-    getHomeDirectory, getIcon
+    getConfigDirectory, getIcon
 from modules.version import VERSION
 from modules.webbrowser import launch_browser
 import modules.xpm as xpm
@@ -169,7 +169,7 @@ class Kang(KangBA):
 
 
     def checkForKangDir(self):
-        kdir = os.path.join(getHomeDirectory(), ".kang")
+        kdir = getConfigDirectory()
         if os.access(kdir, os.X_OK):
             return
 

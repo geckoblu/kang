@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'kangBA4.ui'
 #
-# Created: Mon Aug  4 11:37:28 2014
+# Created: Tue Aug  5 08:02:49 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -309,7 +309,6 @@ class Ui_KangBA(object):
         self.helpMenu.addAction(self.helpRegexLibAction)
         self.helpMenu.addSeparator()
         self.helpMenu.addAction(self.helpVisitWebsiteAction)
-        self.helpMenu.addAction(self.helpCheckForUpdateAction)
         self.helpMenu.addAction(self.helpReportBugAction)
         self.helpMenu.addSeparator()
         self.helpMenu.addAction(self.helpAboutAction)
@@ -347,7 +346,6 @@ class Ui_KangBA(object):
         QtCore.QObject.connect(self.helpPythonHelpAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.helpPythonRegex)
         QtCore.QObject.connect(self.helpRegexReferenceAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.reference_guide)
         QtCore.QObject.connect(self.helpVisitWebsiteAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.kang_website)
-        QtCore.QObject.connect(self.helpCheckForUpdateAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.check_for_update)
         QtCore.QObject.connect(self.replaceTextEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), KangBA.replace_changed_slot)
         QtCore.QObject.connect(self.replaceNumberSpinBox, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), KangBA.replace_num_slot)
         QtCore.QObject.connect(self.fileImportFileAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.importFile)

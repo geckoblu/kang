@@ -1075,50 +1075,6 @@ class Kang(KangBA):
     def kang_website(self):
         self.launch_browser_wrapper("http://kang.sourceforge.net")
 
-            
-    def check_for_update(self):
-        url = "http://sourceforge.net/project/showfiles.php?group_id=43860"
-        try:
-            fp = urllib.urlopen(url)
-        except:
-            self.status_bar.set_message(self.tr("Failed to open url"),
-                                        5,
-                                        TRUE)
-            return
-
-        lines = fp.readlines()
-        html = string.join(lines)
-
-        rawstr = r"""kang-(?P<version>.*?).zip"""
-        #rawstr = r"""kang-(?P<version>.*?)\<"""
-        #rawstr = r"""release_id=.*\">.*(kang-)(?P<version>.*?)</[aA]>"""
-        match_obj = re.search(rawstr, html)
-        if match_obj:
-            latest_version = match_obj.group('version')
-            if latest_version == VERSION:
-                QMessageBox.information(None,
-                                        self.tr("No Update is Available"),
-                                        unicode(self.tr("You are currently using the latest version of Kang")) + " (%s)" % VERSION)
-            else:
-                message =  "%s\n\n%s: %s.\n%s: %s.\n\n%s\n" % \
-                          (unicode(self.tr("There is a newer version of Kang available.")),
-                           unicode(self.tr("You are using version:")),
-                           VERSION,
-                           unicode(self.tr("The latest version is:")),
-                           latest_version,
-                           unicode(self.tr("Press OK to launch browser")))
-
-                self.launch_browser_wrapper(url,
-                                            self.tr("Kang Update Available"),
-                                            message)
-        else:
-            message = "%s.\n\n%s" % \
-                      (unicode(self.tr("Unable to get version info from Sourceforge")),
-                       unicode(self.tr("Press OK to launch browser")))
-            self.launch_browser_wrapper(url,
-                                        self.tr("Unknown version available"),
-                                        message)
-
 
     def launch_browser_wrapper(self, url, caption=None, message=None):
         browser = str(self.prefs.browserEdit.text())

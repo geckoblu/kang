@@ -19,7 +19,7 @@ class RegexLibrary(RegexLibraryBA):
         editpasteicon = getIcon('edit-paste')
         self.editPasteAction.setIcon(editpasteicon)
         
-        #kodos_toolbar_logo(self.toolBar)
+        self.setWindowIcon(getIcon('kang-icon'))
 
         restoreWindowSettings(self, GEO) 
 

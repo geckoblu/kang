@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Kodos - Regex Library</string>
+   <string>Kang - Regex Library</string>
   </property>
   <widget class="QWidget" name="widget">
    <layout class="QGridLayout">
@@ -115,13 +115,13 @@
   </widget>
   <action name="editPasteAction">
    <property name="text">
-    <string>&amp;Paste Example Into Kodos</string>
+    <string>&amp;Paste Example Into Kang</string>
    </property>
    <property name="iconText">
     <string>Paste</string>
    </property>
    <property name="toolTip">
-    <string>Paste This Example Into Kodos</string>
+    <string>Paste This Example Into Kang</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+V</string>

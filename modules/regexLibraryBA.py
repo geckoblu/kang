@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'regexLibraryBA4.ui'
 #
-# Created: Tue Jul 29 16:36:14 2014
+# Created: Tue Aug  5 07:45:41 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -107,7 +107,7 @@ class Ui_RegexLibraryBA(object):
         QtCore.QMetaObject.connectSlotsByName(RegexLibraryBA)
 
     def retranslateUi(self, RegexLibraryBA):
-        RegexLibraryBA.setWindowTitle(_translate("RegexLibraryBA", "Kodos - Regex Library", None))
+        RegexLibraryBA.setWindowTitle(_translate("RegexLibraryBA", "Kang - Regex Library", None))
         self.groupBox.setTitle(_translate("RegexLibraryBA", "Description", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("RegexLibraryBA", "Regex", None))
         self.label.setText(_translate("RegexLibraryBA", "Contributed By:", None))
@@ -116,9 +116,9 @@ class Ui_RegexLibraryBA(object):
         self.menuEdit.setTitle(_translate("RegexLibraryBA", "&Edit", None))
         self.menuHelp.setTitle(_translate("RegexLibraryBA", "&Help", None))
         self.toolBar.setWindowTitle(_translate("RegexLibraryBA", "toolBar", None))
-        self.editPasteAction.setText(_translate("RegexLibraryBA", "&Paste Example Into Kodos", None))
+        self.editPasteAction.setText(_translate("RegexLibraryBA", "&Paste Example Into Kang", None))
         self.editPasteAction.setIconText(_translate("RegexLibraryBA", "Paste", None))
-        self.editPasteAction.setToolTip(_translate("RegexLibraryBA", "Paste This Example Into Kodos", None))
+        self.editPasteAction.setToolTip(_translate("RegexLibraryBA", "Paste This Example Into Kang", None))
         self.editPasteAction.setShortcut(_translate("RegexLibraryBA", "Ctrl+V", None))
         self.helpHelpAction.setText(_translate("RegexLibraryBA", "&Help", None))
         self.helpHelpAction.setIconText(_translate("RegexLibraryBA", "Help", None))

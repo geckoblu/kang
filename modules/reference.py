@@ -15,7 +15,7 @@ class Reference(ReferenceBA):
         self.parent = parent
 
         restoreWindowSettings(self, GEO)
-        #kodos_toolbar_logo(self.toolBar)
+        self.setWindowIcon(getIcon('kang-icon'))
         
         self.populateTable()
             

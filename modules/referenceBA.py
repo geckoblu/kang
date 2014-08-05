@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'referenceBA4.ui'
 #
-# Created: Wed Jul 30 09:25:22 2014
+# Created: Tue Aug  5 07:45:28 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -88,7 +88,7 @@ class Ui_ReferenceBA(object):
         QtCore.QMetaObject.connectSlotsByName(ReferenceBA)
 
     def retranslateUi(self, ReferenceBA):
-        ReferenceBA.setWindowTitle(_translate("ReferenceBA", "Kodos - Regex Reference Guide", None))
+        ReferenceBA.setWindowTitle(_translate("ReferenceBA", "Kang - Regex Reference Guide", None))
         self.referenceTreeWidget.headerItem().setText(0, _translate("ReferenceBA", "Symbol", None))
         self.referenceTreeWidget.headerItem().setText(1, _translate("ReferenceBA", "Definition", None))
         self.toolBar.setProperty("label", _translate("ReferenceBA", "Tools", None))
@@ -99,7 +99,7 @@ class Ui_ReferenceBA(object):
         self.fileExitAction.setIconText(_translate("ReferenceBA", "Exit", None))
         self.editPasteAction.setText(_translate("ReferenceBA", "&Paste", None))
         self.editPasteAction.setIconText(_translate("ReferenceBA", "Paste", None))
-        self.editPasteAction.setToolTip(_translate("ReferenceBA", "Paste selection into Kodos", None))
+        self.editPasteAction.setToolTip(_translate("ReferenceBA", "Paste selection into Kang", None))
         self.editPasteAction.setShortcut(_translate("ReferenceBA", "Ctrl+V", None))
         self.helpAction.setText(_translate("ReferenceBA", "&Help", None))
         self.helpAction.setIconText(_translate("ReferenceBA", "Help", None))

@@ -5,18 +5,20 @@
 
 # pyrcc4 resources.qrc > modules/resources.py
 
+from PyQt4.QtCore import pyqtSignal
 import cPickle
 from distutils.sysconfig import get_python_lib
 import getopt
 import os
 import re
 import signal
-import string
 import sys
 import types
-import urllib
 
+from gui.reportBugDialog import ReportBugDialog
+from modules import exceptionHandler
 from modules.about import About
+import modules.help as khelp
 from modules.kangBA import KangBA
 from modules.newUserDialog import NewUserDialog
 from modules.prefs import Preferences
@@ -28,10 +30,8 @@ from modules.status_bar import Status_Bar
 from modules.urlDialog import URLDialog
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory, getIcon
-from modules.version import VERSION
 from modules.webbrowser import launch_browser
 import modules.xpm as xpm
-import modules.help as khelp
 
 
 try:
@@ -97,6 +97,9 @@ except:
 ##############################################################################
 
 class Kang(KangBA):
+    
+    _signalException = pyqtSignal(str)
+    
     def __init__(self, filename, debug):
         KangBA.__init__(self)
 
@@ -114,6 +117,8 @@ class Kang(KangBA):
         self.url = "http://kodos.sourceforge.net"
         self.group_tuples = None
         self.editstate = STATE_UNEDITED
+        
+        self._signalException.connect(self.showReportDialog)
         
         header = self.groupTable.horizontalHeader()
         header.setResizeMode(QHeaderView.Stretch)
@@ -1108,6 +1113,14 @@ class Kang(KangBA):
         self.helpRegexReferenceAction.setIcon(getIcon("book"))
         self.helpRegexLibAction.setIcon(getIcon("library"))
         
+    def signalException(self, msg):
+        self._signalException.emit(msg)
+        
+    def showReportDialog(self, msg):
+        rbd = ReportBugDialog(self, msg)
+        rbd.exec_()
+        
+        
 
 ##############################################################################
 #
@@ -1173,6 +1186,9 @@ def main():
         qApp.installTranslator(translator)
 
     kang = Kang(filename, debug)
+    
+    exceptionHandler.init(kang)
+    
     kang.show()
 
     sys.exit(qApp.exec_())   

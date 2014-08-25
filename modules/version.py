@@ -1,2 +1,1 @@
-#TODO: Change version number
-VERSION="2.4.9"
+VERSION="0.1b"

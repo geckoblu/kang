@@ -27,7 +27,7 @@ from modules.reference import Reference
 from modules.regexLibrary import RegexLibrary
 from modules.reportBug import reportBug
 from modules.status_bar import Status_Bar
-from modules.urlDialog import URLDialog
+from gui.importURLDialog import importURLDialog
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory, getIcon
 from modules.webbrowser import launch_browser
@@ -114,7 +114,7 @@ class Kang(KangBA):
         self.filename = ""
         self.match_num = 1 # matches are labeled 1..n
         self.replace_num = 0 # replace all
-        self.url = "http://kodos.sourceforge.net"
+        self.url = "http://www.geckoblu.net/sw/kang"
         self.group_tuples = None
         self.editstate = STATE_UNEDITED
         
@@ -772,7 +772,8 @@ class Kang(KangBA):
 
 
     def importURL(self):
-        self.urldialog = URLDialog(self, self.url)
+        self.urldialog = importURLDialog(self, self.url)
+        self.urldialog.show()
 
 
     def urlImported(self, html, url):

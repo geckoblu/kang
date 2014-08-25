@@ -1,21 +1,27 @@
-from urlDialogBA import URLDialogBA
-import help as khelp
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QMessageBox
 import urllib
 
+from importURLDialogBA import importURLDialogBA
+import modules.help as khelp
+from modules.util import getIcon
 
-class URLDialog(URLDialogBA):
+
+class importURLDialog(importURLDialogBA):
+    
     def __init__(self, parent, url=None):
-        URLDialogBA.__init__(self, parent)
+        importURLDialogBA.__init__(self, parent)
         self.parent = parent
+        
+        self.setWindowIcon(getIcon('kang-icon'))
+        
         if url:
             self.URLTextEdit.setText(url)
             
-        self.show()
         
     def help_slot(self):
         self.helpWindow = khelp.Help(self, "importURL.html")
+
 
     def ok_slot(self):
         url = str(self.URLTextEdit.toPlainText())
@@ -32,4 +38,4 @@ class URLDialog(URLDialogBA):
 
         self.parent.emit(SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), html, url)
         
-        URLDialogBA.accept(self)
+        importURLDialogBA.accept(self)

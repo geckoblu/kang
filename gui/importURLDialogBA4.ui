@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>URLDialogBA</class>
- <widget class="QDialog" name="URLDialogBA">
+ <class>importURLDialogBA</class>
+ <widget class="QDialog" name="importURLDialogBA">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,6 +14,9 @@
    <string>Import URL</string>
   </property>
   <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <property name="modal">
    <bool>true</bool>
   </property>
   <layout class="QGridLayout">
@@ -109,7 +112,7 @@
   <connection>
    <sender>buttonOk</sender>
    <signal>clicked()</signal>
-   <receiver>URLDialogBA</receiver>
+   <receiver>importURLDialogBA</receiver>
    <slot>ok_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -125,7 +128,7 @@
   <connection>
    <sender>buttonCancel</sender>
    <signal>clicked()</signal>
-   <receiver>URLDialogBA</receiver>
+   <receiver>importURLDialogBA</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -141,7 +144,7 @@
   <connection>
    <sender>buttonHelp</sender>
    <signal>clicked()</signal>
-   <receiver>URLDialogBA</receiver>
+   <receiver>importURLDialogBA</receiver>
    <slot>help_slot()</slot>
    <hints>
     <hint type="sourcelabel">

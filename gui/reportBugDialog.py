@@ -5,6 +5,7 @@ from reportBugDialogBA import ReportBugDialogBA
 
 
 class ReportBugDialog(ReportBugDialogBA):
+    
     def __init__(self, parent, msg):
         ReportBugDialogBA.__init__(self, parent)
         self.parent = parent

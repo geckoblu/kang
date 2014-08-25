@@ -25,7 +25,6 @@ from modules.prefs import Preferences
 from modules.recent_files import RecentFiles
 from modules.reference import Reference
 from modules.regexLibrary import RegexLibrary
-from modules.reportBug import reportBug
 from modules.status_bar import Status_Bar
 from gui.importURLDialog import importURLDialog
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
@@ -114,7 +113,7 @@ class Kang(KangBA):
         self.filename = ""
         self.match_num = 1 # matches are labeled 1..n
         self.replace_num = 0 # replace all
-        self.url = "http://www.geckoblu.net/sw/kang"
+        self.url = "http://www.geckoblu.net/kang"
         self.group_tuples = None
         self.editstate = STATE_UNEDITED
         
@@ -1098,10 +1097,6 @@ class Kang(KangBA):
         self.ref_win = Reference(self)
         self.ref_win.show()
         
-
-    def report_bug(self):
-        self.bug_report_win = reportBug(self)
-        self.bug_report_win.show()
         
     def loadToolbarIcons(self):
         self.fileOpenAction.setIcon(getIcon("document-open"))

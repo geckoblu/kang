@@ -210,6 +210,9 @@ database. New in Python version 2.0.</string>
     </item>
     <item row="2" column="0">
      <widget class="QTabWidget" name="tabWidget3">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>Search String</string>
@@ -390,7 +393,6 @@ database. New in Python version 2.0.</string>
     <addaction name="helpRegexLibAction"/>
     <addaction name="separator"/>
     <addaction name="helpVisitWebsiteAction"/>
-    <addaction name="helpReportBugAction"/>
     <addaction name="separator"/>
     <addaction name="helpAboutAction"/>
    </widget>
@@ -755,8 +757,8 @@ database. New in Python version 2.0.</string>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>240</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -979,8 +981,8 @@ database. New in Python version 2.0.</string>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>38</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -995,8 +997,8 @@ database. New in Python version 2.0.</string>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>402</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1011,8 +1013,8 @@ database. New in Python version 2.0.</string>
    <slot>match_num_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>174</x>
+     <y>501</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1027,8 +1029,8 @@ database. New in Python version 2.0.</string>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>145</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1043,8 +1045,8 @@ database. New in Python version 2.0.</string>
    <slot>regex_changed_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>46</x>
+     <y>109</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1059,8 +1061,8 @@ database. New in Python version 2.0.</string>
    <slot>string_changed_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>31</x>
+     <y>330</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1075,8 +1077,8 @@ database. New in Python version 2.0.</string>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>476</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1091,8 +1093,8 @@ database. New in Python version 2.0.</string>
    <slot>checkbox_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>317</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1121,22 +1123,6 @@ database. New in Python version 2.0.</string>
    <signal>activated()</signal>
    <receiver>KangBA</receiver>
    <slot>preferences()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>helpReportBugAction</sender>
-   <signal>activated()</signal>
-   <receiver>KangBA</receiver>
-   <slot>report_bug()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1203,8 +1189,8 @@ database. New in Python version 2.0.</string>
    <slot>replace_changed_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>31</x>
+     <y>330</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1219,8 +1205,8 @@ database. New in Python version 2.0.</string>
    <slot>replace_num_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>358</x>
+     <y>501</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1283,8 +1269,8 @@ database. New in Python version 2.0.</string>
    <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>46</x>
+     <y>109</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1299,8 +1285,8 @@ database. New in Python version 2.0.</string>
    <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>31</x>
+     <y>330</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1315,8 +1301,8 @@ database. New in Python version 2.0.</string>
    <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>38</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1331,8 +1317,8 @@ database. New in Python version 2.0.</string>
    <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>31</x>
+     <y>330</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1347,8 +1333,8 @@ database. New in Python version 2.0.</string>
    <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>145</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1363,8 +1349,8 @@ database. New in Python version 2.0.</string>
    <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>240</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1379,8 +1365,8 @@ database. New in Python version 2.0.</string>
    <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>317</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1395,8 +1381,8 @@ database. New in Python version 2.0.</string>
    <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>402</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
@@ -1411,8 +1397,8 @@ database. New in Python version 2.0.</string>
    <slot>kang_edited_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>476</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'kangBA4.ui'
 #
-# Created: Tue Aug  5 08:02:49 2014
+# Created: Mon Aug 25 11:52:39 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -309,7 +309,6 @@ class Ui_KangBA(object):
         self.helpMenu.addAction(self.helpRegexLibAction)
         self.helpMenu.addSeparator()
         self.helpMenu.addAction(self.helpVisitWebsiteAction)
-        self.helpMenu.addAction(self.helpReportBugAction)
         self.helpMenu.addSeparator()
         self.helpMenu.addAction(self.helpAboutAction)
         self.menubar.addAction(self.fileMenu.menuAction())
@@ -318,6 +317,7 @@ class Ui_KangBA(object):
 
         self.retranslateUi(KangBA)
         self.resultTabWidget.setCurrentIndex(0)
+        self.tabWidget3.setCurrentIndex(1)
         QtCore.QObject.connect(self.dotallCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), KangBA.checkbox_slot)
         QtCore.QObject.connect(self.editCopyAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.editCopy)
         QtCore.QObject.connect(self.editCutAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.editCut)
@@ -342,7 +342,6 @@ class Ui_KangBA(object):
         QtCore.QObject.connect(self.verboseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), KangBA.checkbox_slot)
         QtCore.QObject.connect(self.editPauseAction, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), KangBA.pause)
         QtCore.QObject.connect(self.editPreferencesAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.preferences)
-        QtCore.QObject.connect(self.helpReportBugAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.report_bug)
         QtCore.QObject.connect(self.helpPythonHelpAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.helpPythonRegex)
         QtCore.QObject.connect(self.helpRegexReferenceAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.reference_guide)
         QtCore.QObject.connect(self.helpVisitWebsiteAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.kang_website)

@@ -21,7 +21,6 @@ from gui.reportBugDialog import ReportBugDialog
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from modules import exceptionHandler
 from modules.about import About
-import modules.help as khelp
 from modules.kangBA import KangBA
 from modules.newUserDialog import NewUserDialog
 from modules.prefs import Preferences
@@ -1060,7 +1059,11 @@ class Kang(KangBA):
 
     
     def helpHelp(self):
-        self.helpWindow = khelp.Help(self, "kodos.html")
+        f = findFile('help', 'kang.html')
+        if f:
+            webbrowser.open('file://%s' % f)
+        else:
+            webbrowser.open('%s/help/kang.html' % KANG_WEBSITE)
 
 
     def helpPythonRegex(self):

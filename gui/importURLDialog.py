@@ -1,10 +1,11 @@
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QMessageBox
 import urllib
+import webbrowser
 
 from importURLDialogBA import importURLDialogBA
-import modules.help as khelp
-from modules.util import getIcon
+from modules import KANG_WEBSITE
+from modules.util import getIcon, findFile
 
 
 class importURLDialog(importURLDialogBA):
@@ -20,7 +21,11 @@ class importURLDialog(importURLDialogBA):
             
         
     def help_slot(self):
-        self.helpWindow = khelp.Help(self, "importURL.html")
+        f = findFile('help', 'importURL.html')
+        if f:
+            webbrowser.open('file://%s' % f)
+        else:
+            webbrowser.open('%s/help/importURL.html' % KANG_WEBSITE)
 
 
     def ok_slot(self):

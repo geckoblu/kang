@@ -14,8 +14,11 @@ import re
 import signal
 import sys
 import types
+import webbrowser
 
+from gui.importURLDialog import importURLDialog
 from gui.reportBugDialog import ReportBugDialog
+from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from modules import exceptionHandler
 from modules.about import About
 import modules.help as khelp
@@ -26,10 +29,8 @@ from modules.recent_files import RecentFiles
 from modules.reference import Reference
 from modules.regexLibrary import RegexLibrary
 from modules.status_bar import Status_Bar
-from gui.importURLDialog import importURLDialog
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory, getIcon
-from modules.webbrowser import launch_browser
 import modules.xpm as xpm
 
 
@@ -113,7 +114,7 @@ class Kang(KangBA):
         self.filename = ""
         self.match_num = 1 # matches are labeled 1..n
         self.replace_num = 0 # replace all
-        self.url = "http://www.geckoblu.net/kang"
+        self.url = KANG_WEBSITE
         self.group_tuples = None
         self.editstate = STATE_UNEDITED
         
@@ -1063,9 +1064,7 @@ class Kang(KangBA):
 
 
     def helpPythonRegex(self):
-        self.helpWindow = help.Help(self,
-                                    "python" + os.sep + "module-re.html",
-                                    str(self.prefs.browserEdit.text()))
+        webbrowser.open(PYTHON_RE_LIBRARY_URL)
         
 
     def helpRegexLib(self):
@@ -1077,20 +1076,8 @@ class Kang(KangBA):
         self.aboutWindow = About()
         self.aboutWindow.show()
 
-    def kang_website(self):
-        self.launch_browser_wrapper("http://kang.sourceforge.net")
-
-
-    def launch_browser_wrapper(self, url, caption=None, message=None):
-        browser = str(self.prefs.browserEdit.text())
-        if launch_browser(browser, url, caption, message):
-            self.status_bar.set_message(self.tr("Launching web browser"),
-                                        3,
-                                        TRUE)
-        else:
-            self.status_bar.set_message(self.tr("Cancelled web browser launch"),
-                                        3,
-                                        TRUE)
+    def helpVisitKangWebsite(self):
+        webbrowser.open(KANG_WEBSITE)
 
 
     def reference_guide(self):

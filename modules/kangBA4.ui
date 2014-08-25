@@ -1170,7 +1170,7 @@ database. New in Python version 2.0.</string>
    <sender>helpVisitWebsiteAction</sender>
    <signal>activated()</signal>
    <receiver>KangBA</receiver>
-   <slot>kang_website()</slot>
+   <slot>helpVisitKangWebsite()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1423,4 +1423,7 @@ database. New in Python version 2.0.</string>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>helpVisitKangWebsite()</slot>
+ </slots>
 </ui>

@@ -1,8 +1,8 @@
 #  help.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
 from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QTextBrowser, QIcon, QPixmap
-from webbrowser import launch_browser
+from PyQt4.QtGui import QTextBrowser
+import webbrowser
 
 from helpBA import HelpBA
 from util import findFile, getIcon
@@ -20,7 +20,7 @@ class textbrowser(QTextBrowser):
         #print('setSource:', src)
         s = str(src)
         if s[:7] == 'http://':
-            launch_browser(self.parent.external_browser, s)
+            webbrowser.open(s)
             return
 
         QTextBrowser.setSource(self, QUrl(src))

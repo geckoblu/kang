@@ -1,5 +1,3 @@
-import webbrowser
-
 from aboutDialogBA import AboutDialogBA
 from modules import KANG_WEBSITE
 from modules import VERSION

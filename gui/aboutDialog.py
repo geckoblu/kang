@@ -46,9 +46,4 @@ Original credits for Kodos are:
 """)
         
         
-    def showLink(self, qurl):
-        pass
-#         self.textAuthors.setSource(self.textAuthors.source())
-#         webbrowser.open(qurl.toString())
-        
         

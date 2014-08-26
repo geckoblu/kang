@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>importURLDialogBA</class>
- <widget class="QDialog" name="importURLDialogBA">
+ <class>ImportURLDialogBA</class>
+ <widget class="QDialog" name="ImportURLDialogBA">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -112,7 +112,7 @@
   <connection>
    <sender>buttonOk</sender>
    <signal>clicked()</signal>
-   <receiver>importURLDialogBA</receiver>
+   <receiver>ImportURLDialogBA</receiver>
    <slot>ok_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -128,7 +128,7 @@
   <connection>
    <sender>buttonCancel</sender>
    <signal>clicked()</signal>
-   <receiver>importURLDialogBA</receiver>
+   <receiver>ImportURLDialogBA</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -144,7 +144,7 @@
   <connection>
    <sender>buttonHelp</sender>
    <signal>clicked()</signal>
-   <receiver>importURLDialogBA</receiver>
+   <receiver>ImportURLDialogBA</receiver>
    <slot>help_slot()</slot>
    <hints>
     <hint type="sourcelabel">

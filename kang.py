@@ -16,11 +16,11 @@ import sys
 import types
 import webbrowser
 
-from gui.importURLDialog import importURLDialog
+from gui.aboutDialog import AboutDialog
+from gui.importURLDialog import ImportURLDialog
 from gui.reportBugDialog import ReportBugDialog
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from modules import exceptionHandler
-from modules.about import About
 from modules.kangBA import KangBA
 from modules.newUserDialog import NewUserDialog
 from modules.prefs import Preferences
@@ -771,7 +771,7 @@ class Kang(KangBA):
 
 
     def importURL(self):
-        self.urldialog = importURLDialog(self, self.url)
+        self.urldialog = ImportURLDialog(self, self.url)
         self.urldialog.show()
 
 
@@ -1076,7 +1076,7 @@ class Kang(KangBA):
 
         
     def helpAbout(self):
-        self.aboutWindow = About()
+        self.aboutWindow = AboutDialog(self)
         self.aboutWindow.show()
 
     def helpVisitKangWebsite(self):

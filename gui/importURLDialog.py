@@ -3,15 +3,15 @@ from PyQt4.QtGui import QMessageBox
 import urllib
 import webbrowser
 
-from importURLDialogBA import importURLDialogBA
+from importURLDialogBA import ImportURLDialogBA
 from modules import KANG_WEBSITE
 from modules.util import getIcon, findFile
 
 
-class importURLDialog(importURLDialogBA):
+class ImportURLDialog(ImportURLDialogBA):
     
     def __init__(self, parent, url=None):
-        importURLDialogBA.__init__(self, parent)
+        ImportURLDialogBA.__init__(self, parent)
         self.parent = parent
         
         self.setWindowIcon(getIcon('kang-icon'))

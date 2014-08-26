@@ -3,7 +3,7 @@ import string
 import sys
 import traceback
 
-from modules.version import VERSION
+from modules import VERSION
 
 
 _mainWindow = None

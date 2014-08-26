@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/aboutDialogBA4.ui'
 #
-# Created: Tue Aug 26 15:10:27 2014
+# Created: Tue Aug 26 15:14:55 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_AboutDialogBA(object):
     def setupUi(self, AboutDialogBA):
         AboutDialogBA.setObjectName(_fromUtf8("AboutDialogBA"))
-        AboutDialogBA.resize(562, 384)
+        AboutDialogBA.resize(556, 384)
         AboutDialogBA.setSizeGripEnabled(True)
         AboutDialogBA.setModal(True)
         self.gridLayout = QtGui.QGridLayout(AboutDialogBA)
@@ -156,8 +156,6 @@ class Ui_AboutDialogBA(object):
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.gridLayout.addWidget(self.buttonBox, 1, 0, 1, 1)
-        self.actionCopyToClipoard = QtGui.QAction(AboutDialogBA)
-        self.actionCopyToClipoard.setObjectName(_fromUtf8("actionCopyToClipoard"))
 
         self.retranslateUi(AboutDialogBA)
         self.tabWidget.setCurrentIndex(0)
@@ -176,8 +174,6 @@ class Ui_AboutDialogBA(object):
         self.label_homepagetxt.setText(_translate("AboutDialogBA", "TextLabel", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("AboutDialogBA", "General", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("AboutDialogBA", "Authors", None))
-        self.actionCopyToClipoard.setText(_translate("AboutDialogBA", "copyToClipoard", None))
-        self.actionCopyToClipoard.setToolTip(_translate("AboutDialogBA", "Copy to clipboard", None))
 
 
 class AboutDialogBA(QtGui.QDialog, Ui_AboutDialogBA):

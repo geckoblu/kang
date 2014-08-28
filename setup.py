@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from modules.version import VERSION
+from modules import VERSION
 from distutils.core import setup
 #from distutils.sysconfig import get_python_lib
 import os

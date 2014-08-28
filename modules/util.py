@@ -229,8 +229,8 @@ def findFile(dr, filename):
     filename = os.path.join(dr, filename)
     
     dirs = [getAppPath(),
-            os.path.join('/', 'usr', 'share', 'kodos'),
-            os.path.join('/', 'usr', 'local', 'kodos')]
+            os.path.join('/', 'usr', 'share', 'kang'),
+            os.path.join('/', 'usr', 'local', 'kang')]
 
     for d in dirs:
         path = os.path.join(d, filename)

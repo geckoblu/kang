@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>443</width>
-    <height>170</height>
+    <height>203</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,72 +21,17 @@
   </property>
   <layout class="QGridLayout">
    <item row="1" column="0">
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="margin">
-      <number>0</number>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
-     <item>
-      <widget class="QPushButton" name="buttonHelp">
-       <property name="text">
-        <string>&amp;Help</string>
-       </property>
-       <property name="shortcut">
-        <string>F1</string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="Horizontal Spacing2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="buttonOk">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="buttonCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
    </item>
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox1">
@@ -110,52 +55,39 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonOk</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
    <receiver>ImportURLDialogBA</receiver>
-   <slot>ok_slot()</slot>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>221</x>
+     <y>180</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>221</x>
+     <y>101</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>buttonCancel</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
    <receiver>ImportURLDialogBA</receiver>
-   <slot>reject()</slot>
+   <slot>importURL()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>221</x>
+     <y>180</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonHelp</sender>
-   <signal>clicked()</signal>
-   <receiver>ImportURLDialogBA</receiver>
-   <slot>help_slot()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>221</x>
+     <y>101</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>importURL()</slot>
+ </slots>
 </ui>

@@ -211,7 +211,7 @@ database. New in Python version 2.0.</string>
     <item row="2" column="0">
      <widget class="QTabWidget" name="tabWidget3">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">

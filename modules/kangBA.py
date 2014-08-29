@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'kangBA4.ui'
+# Form implementation generated from reading ui file 'modules/kangBA4.ui'
 #
-# Created: Mon Aug 25 12:36:15 2014
+# Created: Fri Aug 29 08:24:55 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -317,7 +317,7 @@ class Ui_KangBA(object):
 
         self.retranslateUi(KangBA)
         self.resultTabWidget.setCurrentIndex(0)
-        self.tabWidget3.setCurrentIndex(1)
+        self.tabWidget3.setCurrentIndex(0)
         QtCore.QObject.connect(self.dotallCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), KangBA.checkbox_slot)
         QtCore.QObject.connect(self.editCopyAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.editCopy)
         QtCore.QObject.connect(self.editCutAction, QtCore.SIGNAL(_fromUtf8("activated()")), KangBA.editCut)

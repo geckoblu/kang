@@ -43,4 +43,4 @@ class ImportURLDialog(ImportURLDialogBA):
 
         self.parent.emit(SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), html, url)
         
-        importURLDialogBA.accept(self)
+        ImportURLDialogBA.accept(self)

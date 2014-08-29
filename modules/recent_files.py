@@ -4,7 +4,7 @@ import os
 import string
 import sys
 
-from util import getConfigDirectory
+from modules.util import getConfigDirectory
 
 
 try:
@@ -47,7 +47,7 @@ class RecentFiles:
             for f in self.__recent_files:
                 fp.write("%s\n" % f)
             fp.close()
-        except Exception, e:
+        except Exception as e:
             sys.stderr.write("Could not save recent file list %s\n" & str(e))
             
 

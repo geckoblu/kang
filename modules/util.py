@@ -7,7 +7,7 @@ import string
 import sys
 import time
 
-import debug
+import modules.debug as debug
 
 
 # QT constants that should be defined

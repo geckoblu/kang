@@ -3,7 +3,7 @@
 from PyQt4.QtCore import QTimer, SIGNAL
 from PyQt4.QtGui import QLabel, QProgressBar
 
-from util import FALSE, getPixmap
+from modules.util import FALSE, getPixmap
 
 
 class Status_Bar:

@@ -1,4 +1,4 @@
-from newUserDialogBA import NewUserDialogBA
+from gui.newUserDialogBA import NewUserDialogBA
 from modules.util import getPixmap, getIcon
 
 

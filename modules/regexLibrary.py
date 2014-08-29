@@ -1,6 +1,6 @@
-from regexLibraryBA import RegexLibraryBA
-from parseRegexLib import ParseRegexLib
-from util import restoreWindowSettings, saveWindowSettings, getIcon
+from modules.regexLibraryBA import RegexLibraryBA
+from modules.parseRegexLib import ParseRegexLib
+from modules.util import restoreWindowSettings, saveWindowSettings, getIcon
 
 from PyQt4.QtCore import SIGNAL
 

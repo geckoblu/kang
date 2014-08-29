@@ -5,8 +5,8 @@ from PyQt4.QtGui import QDialog, QFileDialog, QFontDialog, QFont
 import os
 import string
 
-from prefsBA import PrefsBA
-from util import getConfigDirectory
+from modules.prefsBA import PrefsBA
+from modules.util import getConfigDirectory
 
 
 def get_font_value(s):

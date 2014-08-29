@@ -51,13 +51,15 @@ class ParseRegexLib:
         return dicts
             
             
-            
+
+
+# For test only            
 if __name__ == '__main__':
     
     path = findFile("help", "regex-lib.xml")
     x = ParseRegexLib(path)
 
     dicts = x.parse()
-    print dicts
+    print(dicts)
 
     

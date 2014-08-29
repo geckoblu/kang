@@ -2,7 +2,7 @@ from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QMessageBox
 import urllib
 
-from importURLDialogBA import ImportURLDialogBA
+from gui.importURLDialogBA import ImportURLDialogBA
 from modules.util import getIcon
 
 
@@ -24,7 +24,7 @@ class ImportURLDialog(ImportURLDialogBA):
             try:
                 fp = urllib.urlopen(url)
                 lines = fp.readlines()
-            except Exception, e:
+            except Exception as e:
                 QMessageBox.information(None, "Failed to open URL",
                                         "Could not open the specified URL.  Please check to ensure that you have entered the correct URL.\n\n%s" % str(e))
                 return

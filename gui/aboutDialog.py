@@ -1,4 +1,4 @@
-from aboutDialogBA import AboutDialogBA
+from gui.aboutDialogBA import AboutDialogBA
 from modules import KANG_WEBSITE
 from modules import VERSION
 from modules.util import getPixmap, getIcon

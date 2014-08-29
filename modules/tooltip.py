@@ -2,7 +2,7 @@
 
 from PyQt4.QtGui import QLabel, QPalette, QFrame
 from PyQt4.Qt import QEvent, QPoint
-from util import FALSE
+from modules.util import FALSE
 
 class Tooltip(QLabel):
     def __init__(self, text, bgcolor="#ffd700",fgcolor="#000000",delay=1000):

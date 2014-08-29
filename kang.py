@@ -18,11 +18,11 @@ import webbrowser
 
 from gui.aboutDialog import AboutDialog
 from gui.importURLDialog import ImportURLDialog
+from gui.newUserDialog import NewUserDialog
 from gui.reportBugDialog import ReportBugDialog
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from modules import exceptionHandler
 from modules.kangBA import KangBA
-from modules.newUserDialog import NewUserDialog
 from modules.prefs import Preferences
 from modules.recent_files import RecentFiles
 from modules.reference import Reference

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'newUserDialogBA4.ui'
+# Form implementation generated from reading ui file 'gui/newUserDialogBA4.ui'
 #
-# Created: Mon Aug  4 10:40:19 2014
+# Created: Fri Aug 29 09:21:54 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -75,18 +75,13 @@ class Ui_NewUserDialogBA(object):
         self.gridlayout.addWidget(self.textLabel3, 0, 0, 1, 1)
         self.vboxlayout1.addLayout(self.gridlayout)
         self.vboxlayout.addLayout(self.vboxlayout1)
-        self.hboxlayout = QtGui.QHBoxLayout()
-        self.hboxlayout.setObjectName(_fromUtf8("hboxlayout"))
-        spacerItem = QtGui.QSpacerItem(241, 21, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.hboxlayout.addItem(spacerItem)
-        self.okButton = QtGui.QPushButton(NewUserDialogBA)
-        self.okButton.setDefault(True)
-        self.okButton.setObjectName(_fromUtf8("okButton"))
-        self.hboxlayout.addWidget(self.okButton)
-        self.vboxlayout.addLayout(self.hboxlayout)
+        self.buttonBox = QtGui.QDialogButtonBox(NewUserDialogBA)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Ok)
+        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
+        self.vboxlayout.addWidget(self.buttonBox)
 
         self.retranslateUi(NewUserDialogBA)
-        QtCore.QObject.connect(self.okButton, QtCore.SIGNAL(_fromUtf8("clicked()")), NewUserDialogBA.accept)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), NewUserDialogBA.close)
         QtCore.QMetaObject.connectSlotsByName(NewUserDialogBA)
 
     def retranslateUi(self, NewUserDialogBA):
@@ -94,8 +89,6 @@ class Ui_NewUserDialogBA(object):
         self.textLabel1.setText(_translate("NewUserDialogBA", "<html><head/><body><p><span style=\" font-size:large; font-weight:600;\">Welcome to Kang.</span></p><p>It appears that this is your first time using Kang - The Python Regular Expression Tester. </p><p>In order to help you familiarize yourself with Kang, you may wish to explore the Regex Library. Additionally, Kang contains a Python Regex Reference Guide. You can access these tools by clicking on the appropriate toolbar icon.</p></body></html>", None))
         self.textLabel4.setText(_translate("NewUserDialogBA", "<b>Regex Reference Guide</b>", None))
         self.textLabel3.setText(_translate("NewUserDialogBA", "<b>Regex Library</b>", None))
-        self.okButton.setText(_translate("NewUserDialogBA", "&OK", None))
-        self.okButton.setShortcut(_translate("NewUserDialogBA", "Alt+O", None))
 
 
 class NewUserDialogBA(QtGui.QDialog, Ui_NewUserDialogBA):

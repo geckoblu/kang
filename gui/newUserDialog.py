@@ -1,5 +1,5 @@
-from modules.newUserDialogBA import NewUserDialogBA
-from util import getPixmap, getIcon
+from newUserDialogBA import NewUserDialogBA
+from modules.util import getPixmap, getIcon
 
 
 class NewUserDialog(NewUserDialogBA):

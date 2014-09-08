@@ -1059,11 +1059,11 @@ class Kang(KangBA):
 
     
     def helpHelp(self):
-        f = findFile('help', 'kang.html')
+        f = findFile('help', 'index.html')
         if f:
             webbrowser.open('file://%s' % f)
         else:
-            webbrowser.open('%s/help/kang.html' % KANG_WEBSITE)
+            webbrowser.open('%s/help/index.html' % KANG_WEBSITE)
 
 
     def helpPythonRegex(self):

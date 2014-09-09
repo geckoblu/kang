@@ -3,15 +3,15 @@
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QTreeWidgetItem
 
-from modules.referenceBA import ReferenceBA
+from gui.regexReferenceWindowBA import RegexReferenceWindowBA
 from modules.util import restoreWindowSettings, saveWindowSettings, getIcon
 
 
 GEO = "regex-ref_geometry"
 
-class Reference(ReferenceBA):
+class RegexReferenceWindow(RegexReferenceWindowBA):
     def __init__(self, parent):
-        ReferenceBA.__init__(self, None)
+        RegexReferenceWindowBA.__init__(self, None)
         self.parent = parent
 
         restoreWindowSettings(self, GEO)
@@ -41,13 +41,7 @@ class Reference(ReferenceBA):
         if list_view_item :         
             symbol = str(list_view_item[0].text(0))
             self.parent.emit(SIGNAL('pasteSymbol(PyQt_PyObject)'), symbol)
-
-
-    def help_slot(self):
-        self.parent.helpHelp()
-
-    def help_python_slot(self):
-        self.parent.helpPythonRegex()
+            
         
 references = []
 references.append(('^', 'Matches start of string'))

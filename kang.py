@@ -19,13 +19,13 @@ import webbrowser
 from gui.aboutDialog import AboutDialog
 from gui.importURLDialog import ImportURLDialog
 from gui.newUserDialog import NewUserDialog
+from gui.regexReferenceWindow import RegexReferenceWindow
 from gui.reportBugDialog import ReportBugDialog
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from modules import exceptionHandler
 from modules.kangBA import KangBA
 from modules.prefs import Preferences
 from modules.recent_files import RecentFiles
-from modules.reference import Reference
 from modules.regexLibrary import RegexLibrary
 from modules.status_bar import Status_Bar
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
@@ -1084,7 +1084,7 @@ class Kang(KangBA):
 
 
     def reference_guide(self):
-        self.ref_win = Reference(self)
+        self.ref_win = RegexReferenceWindow(self)
         self.ref_win.show()
         
         

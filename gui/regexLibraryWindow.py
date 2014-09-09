@@ -1,4 +1,4 @@
-from modules.regexLibraryBA import RegexLibraryBA
+from gui.regexLibraryWindowBA import RegexLibraryWindowBA
 from modules.parseRegexLib import ParseRegexLib
 from modules.util import restoreWindowSettings, saveWindowSettings, getIcon
 
@@ -6,22 +6,19 @@ from PyQt4.QtCore import SIGNAL
 
 GEO = "regex-lib_geometry"
 
-class RegexLibrary(RegexLibraryBA):
+class RegexLibraryWindow(RegexLibraryWindowBA):
+    
     def __init__(self, parent):
-        RegexLibraryBA.__init__(self, None)
+        RegexLibraryWindowBA.__init__(self, None)
         self.parent = parent
         self.selected = None
 
-        self.parseXML()
-
-        self.populateListBox()
-        
-        editpasteicon = getIcon('edit-paste')
-        self.editPasteAction.setIcon(editpasteicon)
-        
+        restoreWindowSettings(self, GEO) 
         self.setWindowIcon(getIcon('kang-icon'))
 
-        restoreWindowSettings(self, GEO) 
+        self.parseXML()
+        self.populateListBox()       
+
 
     def closeEvent(self, ev):
         saveWindowSettings(self, GEO)
@@ -55,8 +52,3 @@ class RegexLibrary(RegexLibraryBA):
     def editPaste(self):
         if self.selected:
             self.parent.emit(SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.selected)
-
-
-
-
-

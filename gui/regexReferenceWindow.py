@@ -10,6 +10,7 @@ from modules.util import restoreWindowSettings, saveWindowSettings, getIcon
 GEO = "regex-ref_geometry"
 
 class RegexReferenceWindow(RegexReferenceWindowBA):
+    
     def __init__(self, parent):
         RegexReferenceWindowBA.__init__(self, None)
         self.parent = parent
@@ -17,10 +18,8 @@ class RegexReferenceWindow(RegexReferenceWindowBA):
         restoreWindowSettings(self, GEO)
         self.setWindowIcon(getIcon('kang-icon'))
         
-        self.populateTable()
-            
-        editpasteicon = getIcon('edit-paste')
-        self.editPasteAction.setIcon(editpasteicon)
+        self.populateTable()        
+
 
     def populateTable(self):
         

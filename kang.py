@@ -19,6 +19,7 @@ import webbrowser
 from gui.aboutDialog import AboutDialog
 from gui.importURLDialog import ImportURLDialog
 from gui.newUserDialog import NewUserDialog
+from gui.regexLibraryWindow import RegexLibraryWindow
 from gui.regexReferenceWindow import RegexReferenceWindow
 from gui.reportBugDialog import ReportBugDialog
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
@@ -26,7 +27,6 @@ from modules import exceptionHandler
 from modules.kangBA import KangBA
 from modules.prefs import Preferences
 from modules.recent_files import RecentFiles
-from modules.regexLibrary import RegexLibrary
 from modules.status_bar import Status_Bar
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory, getIcon
@@ -117,7 +117,7 @@ class Kang(KangBA):
         self.group_tuples = None
         self.editstate = STATE_UNEDITED
         
-        self._signalException.connect(self.showReportDialog)
+        self._signalException.connect(self.showReportBugDialog)
         
         header = self.groupTable.horizontalHeader()
         header.setResizeMode(QHeaderView.Stretch)
@@ -1071,7 +1071,7 @@ class Kang(KangBA):
         
 
     def helpRegexLib(self):
-        self.regexlibwin = RegexLibrary(self)
+        self.regexlibwin = RegexLibraryWindow(self)
         self.regexlibwin.show()
 
         
@@ -1102,7 +1102,7 @@ class Kang(KangBA):
     def signalException(self, msg):
         self._signalException.emit(msg)
         
-    def showReportDialog(self, msg):
+    def showReportBugDialog(self, msg):
         rbd = ReportBugDialog(self, msg)
         rbd.exec_()
         

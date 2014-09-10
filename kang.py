@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #  kang.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-# pyuic4 -w kangBA4.ui > kangBA.py
+# pyuic4 -w mainWindowBA4.ui > mainWindowBA.py
 
 # pyrcc4 resources.qrc > modules/resources.py
 
@@ -24,7 +24,7 @@ from gui.regexReferenceWindow import RegexReferenceWindow
 from gui.reportBugDialog import ReportBugDialog
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from modules import exceptionHandler
-from modules.kangBA import KangBA
+from gui.mainWindowBA import MainWindowBA
 from modules.prefs import Preferences
 from modules.recent_files import RecentFiles
 from modules.status_bar import Status_Bar
@@ -95,12 +95,12 @@ except:
 #
 ##############################################################################
 
-class Kang(KangBA):
+class Kang(MainWindowBA):
     
     _signalException = pyqtSignal(str)
     
     def __init__(self, filename, debug):
-        KangBA.__init__(self)
+        MainWindowBA.__init__(self)
 
         self.debug = debug
         self.regex = ""

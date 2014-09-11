@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PrefsBA</class>
- <widget class="QDialog" name="PrefsBA">
+ <class>PreferencesDialogBA</class>
+ <widget class="QDialog" name="PreferencesDialogBA">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -274,7 +274,7 @@
   <connection>
    <sender>buttonOk</sender>
    <signal>clicked()</signal>
-   <receiver>PrefsBA</receiver>
+   <receiver>PreferencesDialogBA</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -290,7 +290,7 @@
   <connection>
    <sender>buttonCancel</sender>
    <signal>clicked()</signal>
-   <receiver>PrefsBA</receiver>
+   <receiver>PreferencesDialogBA</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -306,7 +306,7 @@
   <connection>
    <sender>browserButton</sender>
    <signal>pressed()</signal>
-   <receiver>PrefsBA</receiver>
+   <receiver>PreferencesDialogBA</receiver>
    <slot>browser_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -322,7 +322,7 @@
   <connection>
    <sender>fontButton</sender>
    <signal>pressed()</signal>
-   <receiver>PrefsBA</receiver>
+   <receiver>PreferencesDialogBA</receiver>
    <slot>font_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -338,7 +338,7 @@
   <connection>
    <sender>buttonHelp</sender>
    <signal>pressed()</signal>
-   <receiver>PrefsBA</receiver>
+   <receiver>PreferencesDialogBA</receiver>
    <slot>help_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -354,7 +354,7 @@
   <connection>
    <sender>buttonApply</sender>
    <signal>pressed()</signal>
-   <receiver>PrefsBA</receiver>
+   <receiver>PreferencesDialogBA</receiver>
    <slot>apply_slot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -370,7 +370,7 @@
   <connection>
    <sender>fontButtonMatch</sender>
    <signal>pressed()</signal>
-   <receiver>PrefsBA</receiver>
+   <receiver>PreferencesDialogBA</receiver>
    <slot>match_font_slot()</slot>
    <hints>
     <hint type="sourcelabel">

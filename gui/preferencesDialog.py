@@ -5,8 +5,8 @@ from PyQt4.QtGui import QDialog, QFileDialog, QFontDialog, QFont
 import os
 import string
 
-from modules.prefsBA import PrefsBA
-from modules.util import getConfigDirectory
+from gui.preferencesDialogBA import PreferencesDialogBA
+from modules.util import getConfigDirectory, getIcon
 
 
 def get_font_value(s):
@@ -14,10 +14,12 @@ def get_font_value(s):
     else:                   return 1
 
         
-class Preferences(PrefsBA):
+class PreferencesDialog(PreferencesDialogBA):
     def __init__(self, parent, autoload=0):
+        PreferencesDialogBA.__init__(self, parent)
         self.parent = parent
-        PrefsBA.__init__(self, parent)
+        
+        self.setWindowIcon(getIcon('kang-icon'))
 
         prefsFilename = "prefs"
         self.prefsPath = os.path.join(getConfigDirectory(), prefsFilename)

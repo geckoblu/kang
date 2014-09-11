@@ -18,14 +18,14 @@ import webbrowser
 
 from gui.aboutDialog import AboutDialog
 from gui.importURLDialog import ImportURLDialog
+from gui.mainWindowBA import MainWindowBA
 from gui.newUserDialog import NewUserDialog
+from gui.preferencesDialog import PreferencesDialog
 from gui.regexLibraryWindow import RegexLibraryWindow
 from gui.regexReferenceWindow import RegexReferenceWindow
 from gui.reportBugDialog import ReportBugDialog
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from modules import exceptionHandler
-from gui.mainWindowBA import MainWindowBA
-from modules.prefs import Preferences
 from modules.recent_files import RecentFiles
 from modules.status_bar import Status_Bar
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
@@ -151,7 +151,7 @@ class Kang(MainWindowBA):
         
         self.show()
 
-        self.prefs = Preferences(self, 1)
+        self.prefs = PreferencesDialog(self, 1)
         self.recent_files = RecentFiles(self,
                                         self.prefs.recentFilesSpinBox.value(),
                                         self.debug)

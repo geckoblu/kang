@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'prefsBA4.ui'
+# Form implementation generated from reading ui file 'preferencesDialogBA4.ui'
 #
-# Created: Thu Jan 16 08:17:57 2014
-#      by: PyQt4 UI code generator 4.10
+# Created: Thu Sep 11 09:36:09 2014
+#      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -23,12 +23,12 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_PrefsBA(object):
-    def setupUi(self, PrefsBA):
-        PrefsBA.setObjectName(_fromUtf8("PrefsBA"))
-        PrefsBA.resize(540, 257)
-        PrefsBA.setSizeGripEnabled(False)
-        self.layout5 = QtGui.QWidget(PrefsBA)
+class Ui_PreferencesDialogBA(object):
+    def setupUi(self, PreferencesDialogBA):
+        PreferencesDialogBA.setObjectName(_fromUtf8("PreferencesDialogBA"))
+        PreferencesDialogBA.resize(540, 257)
+        PreferencesDialogBA.setSizeGripEnabled(False)
+        self.layout5 = QtGui.QWidget(PreferencesDialogBA)
         self.layout5.setGeometry(QtCore.QRect(11, 6, 519, 246))
         self.layout5.setObjectName(_fromUtf8("layout5"))
         self.vboxlayout = QtGui.QVBoxLayout(self.layout5)
@@ -138,39 +138,39 @@ class Ui_PrefsBA(object):
         self.hboxlayout.addWidget(self.buttonCancel)
         self.vboxlayout.addLayout(self.hboxlayout)
 
-        self.retranslateUi(PrefsBA)
-        QtCore.QObject.connect(self.buttonOk, QtCore.SIGNAL(_fromUtf8("clicked()")), PrefsBA.accept)
-        QtCore.QObject.connect(self.buttonCancel, QtCore.SIGNAL(_fromUtf8("clicked()")), PrefsBA.reject)
-        QtCore.QObject.connect(self.browserButton, QtCore.SIGNAL(_fromUtf8("pressed()")), PrefsBA.browser_slot)
-        QtCore.QObject.connect(self.fontButton, QtCore.SIGNAL(_fromUtf8("pressed()")), PrefsBA.font_slot)
-        QtCore.QObject.connect(self.buttonHelp, QtCore.SIGNAL(_fromUtf8("pressed()")), PrefsBA.help_slot)
-        QtCore.QObject.connect(self.buttonApply, QtCore.SIGNAL(_fromUtf8("pressed()")), PrefsBA.apply_slot)
-        QtCore.QObject.connect(self.fontButtonMatch, QtCore.SIGNAL(_fromUtf8("pressed()")), PrefsBA.match_font_slot)
-        QtCore.QMetaObject.connectSlotsByName(PrefsBA)
-        PrefsBA.setTabOrder(self.browserEdit, self.browserButton)
-        PrefsBA.setTabOrder(self.browserButton, self.fontButton)
-        PrefsBA.setTabOrder(self.fontButton, self.emailServerEdit)
-        PrefsBA.setTabOrder(self.emailServerEdit, self.recentFilesSpinBox)
-        PrefsBA.setTabOrder(self.recentFilesSpinBox, self.buttonHelp)
-        PrefsBA.setTabOrder(self.buttonHelp, self.buttonApply)
-        PrefsBA.setTabOrder(self.buttonApply, self.buttonOk)
-        PrefsBA.setTabOrder(self.buttonOk, self.buttonCancel)
+        self.retranslateUi(PreferencesDialogBA)
+        QtCore.QObject.connect(self.buttonOk, QtCore.SIGNAL(_fromUtf8("clicked()")), PreferencesDialogBA.accept)
+        QtCore.QObject.connect(self.buttonCancel, QtCore.SIGNAL(_fromUtf8("clicked()")), PreferencesDialogBA.reject)
+        QtCore.QObject.connect(self.browserButton, QtCore.SIGNAL(_fromUtf8("pressed()")), PreferencesDialogBA.browser_slot)
+        QtCore.QObject.connect(self.fontButton, QtCore.SIGNAL(_fromUtf8("pressed()")), PreferencesDialogBA.font_slot)
+        QtCore.QObject.connect(self.buttonHelp, QtCore.SIGNAL(_fromUtf8("pressed()")), PreferencesDialogBA.help_slot)
+        QtCore.QObject.connect(self.buttonApply, QtCore.SIGNAL(_fromUtf8("pressed()")), PreferencesDialogBA.apply_slot)
+        QtCore.QObject.connect(self.fontButtonMatch, QtCore.SIGNAL(_fromUtf8("pressed()")), PreferencesDialogBA.match_font_slot)
+        QtCore.QMetaObject.connectSlotsByName(PreferencesDialogBA)
+        PreferencesDialogBA.setTabOrder(self.browserEdit, self.browserButton)
+        PreferencesDialogBA.setTabOrder(self.browserButton, self.fontButton)
+        PreferencesDialogBA.setTabOrder(self.fontButton, self.emailServerEdit)
+        PreferencesDialogBA.setTabOrder(self.emailServerEdit, self.recentFilesSpinBox)
+        PreferencesDialogBA.setTabOrder(self.recentFilesSpinBox, self.buttonHelp)
+        PreferencesDialogBA.setTabOrder(self.buttonHelp, self.buttonApply)
+        PreferencesDialogBA.setTabOrder(self.buttonApply, self.buttonOk)
+        PreferencesDialogBA.setTabOrder(self.buttonOk, self.buttonCancel)
 
-    def retranslateUi(self, PrefsBA):
-        PrefsBA.setWindowTitle(_translate("PrefsBA", "Preferences", None))
-        self.TextLabel2.setText(_translate("PrefsBA", "Editor Font:", None))
-        self.browserButton.setText(_translate("PrefsBA", "...", None))
-        self.textLabel1.setText(_translate("PrefsBA", "Match Font:", None))
-        self.TextLabel1_2Emaii.setText(_translate("PrefsBA", "Email Server:", None))
-        self.TextLabel1_2.setText(_translate("PrefsBA", "Recent Files:", None))
-        self.TextLabel1.setText(_translate("PrefsBA", "Web Browser:", None))
-        self.buttonHelp.setText(_translate("PrefsBA", "&Help", None))
-        self.buttonApply.setText(_translate("PrefsBA", "&Apply", None))
-        self.buttonOk.setText(_translate("PrefsBA", "&OK", None))
-        self.buttonCancel.setText(_translate("PrefsBA", "&Cancel", None))
+    def retranslateUi(self, PreferencesDialogBA):
+        PreferencesDialogBA.setWindowTitle(_translate("PreferencesDialogBA", "Preferences", None))
+        self.TextLabel2.setText(_translate("PreferencesDialogBA", "Editor Font:", None))
+        self.browserButton.setText(_translate("PreferencesDialogBA", "...", None))
+        self.textLabel1.setText(_translate("PreferencesDialogBA", "Match Font:", None))
+        self.TextLabel1_2Emaii.setText(_translate("PreferencesDialogBA", "Email Server:", None))
+        self.TextLabel1_2.setText(_translate("PreferencesDialogBA", "Recent Files:", None))
+        self.TextLabel1.setText(_translate("PreferencesDialogBA", "Web Browser:", None))
+        self.buttonHelp.setText(_translate("PreferencesDialogBA", "&Help", None))
+        self.buttonApply.setText(_translate("PreferencesDialogBA", "&Apply", None))
+        self.buttonOk.setText(_translate("PreferencesDialogBA", "&OK", None))
+        self.buttonCancel.setText(_translate("PreferencesDialogBA", "&Cancel", None))
 
 
-class PrefsBA(QtGui.QDialog, Ui_PrefsBA):
+class PreferencesDialogBA(QtGui.QDialog, Ui_PreferencesDialogBA):
     def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
         QtGui.QDialog.__init__(self, parent, f)
 

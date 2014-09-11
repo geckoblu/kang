@@ -6,7 +6,7 @@ from PyQt4.QtGui import QLabel, QProgressBar
 from modules.util import FALSE, getPixmap
 
 
-class Status_Bar:
+class StatusBar:
     def __init__(self, parent, progress_bar=FALSE, message=''):
         self.parent = parent
 

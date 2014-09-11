@@ -16,9 +16,9 @@ from gui.preferencesDialog import PreferencesDialog
 from gui.regexLibraryWindow import RegexLibraryWindow
 from gui.regexReferenceWindow import RegexReferenceWindow
 from gui.reportBugDialog import ReportBugDialog
+from gui.statusbar import StatusBar
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from modules.recent_files import RecentFiles
-from modules.status_bar import Status_Bar
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory, getIcon
 import modules.xpm as xpm
@@ -178,7 +178,7 @@ class MainWindow(MainWindowBA):
         
 
     def createStatusBar(self):
-        self.status_bar = Status_Bar(self, FALSE, "")
+        self.status_bar = StatusBar(self, FALSE, "")
 
 
     def updateStatus(self, status_string, status_value, duration=0, replace=FALSE):

@@ -18,7 +18,7 @@ from gui.regexReferenceWindow import RegexReferenceWindow
 from gui.reportBugDialog import ReportBugDialog
 from gui.statusbar import StatusBar
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
-from modules.recent_files import RecentFiles
+from modules.recentfiles import RecentFiles
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory, getIcon
 import modules.xpm as xpm

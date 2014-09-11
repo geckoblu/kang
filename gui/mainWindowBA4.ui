@@ -27,6 +27,14 @@
        <bool>false</bool>
       </property>
       <widget class="QButtonGroup" name="buttonGroup2" native="true">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>535</width>
+         <height>39</height>
+        </rect>
+       </property>
        <layout class="QHBoxLayout">
         <item>
          <widget class="QCheckBox" name="ignorecaseCheckBox">
@@ -1424,6 +1432,34 @@ database. New in Python version 2.0.</string>
   </connection>
  </connections>
  <slots>
+  <slot>checkbox_slot()</slot>
+  <slot>close()</slot>
+  <slot>editCopy()</slot>
+  <slot>editCut()</slot>
+  <slot>editPaste()</slot>
+  <slot>editRedo()</slot>
+  <slot>editUndo()</slot>
+  <slot>examine()</slot>
+  <slot>fileNew()</slot>
+  <slot>fileOpen()</slot>
+  <slot>fileSaveAs()</slot>
+  <slot>fileSave()</slot>
+  <slot>helpAbout()</slot>
+  <slot>helpHelp()</slot>
+  <slot>helpPythonRegex()</slot>
+  <slot>helpRegexLib()</slot>
   <slot>helpVisitKangWebsite()</slot>
+  <slot>importFile()</slot>
+  <slot>importURL()</slot>
+  <slot>kang_edited_slot()</slot>
+  <slot>match_num_slot()</slot>
+  <slot>pause()</slot>
+  <slot>preferences()</slot>
+  <slot>reference_guide()</slot>
+  <slot>regex_changed_slot()</slot>
+  <slot>replace_changed_slot()</slot>
+  <slot>replace_num_slot()</slot>
+  <slot>revert_file_slot()</slot>
+  <slot>string_changed_slot()</slot>
  </slots>
 </ui>

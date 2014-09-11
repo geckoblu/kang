@@ -7,8 +7,6 @@ import string
 import sys
 import time
 
-import modules.debug as debug
-
 
 # QT constants that should be defined
 FALSE = 0
@@ -49,8 +47,6 @@ def getPixmap(fileStr, d='images'):
     #image = getAppPath() + os.sep + dir + os.sep + fileStr
     imagepath = findFile(d, fileStr)
 
-    if debug.debug & debug.DEBUG_PIXMAP: print 'image:', imagepath
-    
     pixmap = QPixmap(imagepath)
     pixmap.setMask(pixmap.createHeuristicMask(1))
     

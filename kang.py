@@ -40,10 +40,9 @@ sys.path.insert(0, os.path.join(get_python_lib(), "kang"))
 ##############################################################################
 
 def usage():
-    print "kang.py [-f filename | --file=filename ] [ -d debug | --debug=debug ] [ -k kang_dir ]"
+    print "kang.py [-f filename | --file=filename ] [ -k kang_dir ]"
     print
     print "  -f filename | --filename=filename  : Load filename on startup"
-    print "  -d debug | --debug=debug           : Set debug to this debug level"
     print "  -k kang_dir                       : Path containing Kang images & help subdirs"
     print "  -l locale | --locale=locale        : 2-letter locale (eg. en)"
     print
@@ -51,14 +50,13 @@ def usage():
 
 def main():
     filename  = None
-    debug     = 0
     kang_dir = os.path.join(sys.prefix, "kang")
     locale    = None
 
     args = sys.argv[1:]
     try:
         (opts, getopts) = getopt.getopt(args, 'd:f:k:l:?h',
-                                        ["file=", "debug=",
+                                        ["file=",
                                          "help", "locale="])
     except:
         print "\nInvalid command line option detected."
@@ -68,13 +66,7 @@ def main():
         if opt in ('-h', '-?', '--help'):
             usage()
         if opt == '-k':
-            kang_dir = arg
-        if opt in ('-d', '--debug'):
-            try:
-                debug = int(arg)
-            except:
-                print "debug value must be an integer"
-                usage()            
+            kang_dir = arg          
         if opt in ('-f', '--file'):
             filename = arg
         if opt in ('-l', '--locale'):
@@ -87,10 +79,6 @@ def main():
     if locale not in (None, 'en'):
         localefile = "kang_%s.qm" % (locale or QtCore.QTextCodec.locale())
         localepath = findFile("translations", localefile)
-        if debug:
-            print "locale changed to:", locale
-            print localefile
-            print localepath
     
         translator = QtCore.QTranslator(qApp)
         translator.load(localepath)

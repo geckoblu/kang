@@ -17,10 +17,9 @@ except AttributeError:
 MAX_SIZE = 50 # max number of files to retain
 
 class RecentFiles:
-    def __init__(self, parent, numShown=5, debug=None):
+    def __init__(self, parent, numShown=5):
         self.parent = parent
         self.numShown = int(numShown)
-        self.debug = debug
         self.filename = os.path.join(getConfigDirectory(), 'recent_files')
         self.__recent_files = []
         self.__actions = []
@@ -35,7 +34,6 @@ class RecentFiles:
             #sys.stderr.write("Warning: %s\n" % str(e))
             return
         
-        if self.debug: print "recent_files:", self.__recent_files
         self.addToMenu()
 
 

@@ -63,8 +63,3 @@ class Status_Bar:
             self.__statusLabel.setText(self.last_status_message)
         else:
             self.__statusLabel.setText('')
-
-
-
-    def geometry(self):
-        return self.statusBar.geometry()

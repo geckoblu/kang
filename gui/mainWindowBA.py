@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './gui/mainWindowBA4.ui'
+# Form implementation generated from reading ui file 'mainWindowBA4.ui'
 #
-# Created: Wed Sep 10 16:15:14 2014
+# Created: Thu Sep 11 14:49:30 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -177,7 +177,6 @@ class Ui_MainWindowBA(object):
         self.toolBar.setObjectName(_fromUtf8("toolBar"))
         MainWindowBA.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.menubar = QtGui.QMenuBar(MainWindowBA)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 497, 26))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.fileMenu = QtGui.QMenu(self.menubar)
         self.fileMenu.setObjectName(_fromUtf8("fileMenu"))
@@ -263,9 +262,9 @@ class Ui_MainWindowBA(object):
         self.helpRegexLibAction = QtGui.QAction(MainWindowBA)
         self.helpRegexLibAction.setProperty("name", _fromUtf8("helpRegexLibAction"))
         self.helpRegexLibAction.setObjectName(_fromUtf8("helpRegexLibAction"))
-        self.FileRevertAction = QtGui.QAction(MainWindowBA)
-        self.FileRevertAction.setProperty("name", _fromUtf8("FileRevertAction"))
-        self.FileRevertAction.setObjectName(_fromUtf8("FileRevertAction"))
+        self.fileRevertAction = QtGui.QAction(MainWindowBA)
+        self.fileRevertAction.setProperty("name", _fromUtf8("FileRevertAction"))
+        self.fileRevertAction.setObjectName(_fromUtf8("fileRevertAction"))
         self.toolBar.addAction(self.fileOpenAction)
         self.toolBar.addAction(self.fileSaveAction)
         self.toolBar.addSeparator()
@@ -283,7 +282,7 @@ class Ui_MainWindowBA(object):
         self.fileMenu.addAction(self.fileSaveAction)
         self.fileMenu.addAction(self.fileSaveAsAction)
         self.fileMenu.addSeparator()
-        self.fileMenu.addAction(self.FileRevertAction)
+        self.fileMenu.addAction(self.fileRevertAction)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.fileImportFileAction)
         self.fileMenu.addAction(self.fileImportURLAction)
@@ -350,16 +349,16 @@ class Ui_MainWindowBA(object):
         QtCore.QObject.connect(self.fileImportFileAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.importFile)
         QtCore.QObject.connect(self.fileImportURLAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.importURL)
         QtCore.QObject.connect(self.helpRegexLibAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.helpRegexLib)
-        QtCore.QObject.connect(self.regexMultiLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.kang_edited_slot)
-        QtCore.QObject.connect(self.stringMultiLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.kang_edited_slot)
-        QtCore.QObject.connect(self.ignorecaseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.kang_edited_slot)
-        QtCore.QObject.connect(self.replaceTextEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.kang_edited_slot)
-        QtCore.QObject.connect(self.multilineCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.kang_edited_slot)
-        QtCore.QObject.connect(self.dotallCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.kang_edited_slot)
-        QtCore.QObject.connect(self.verboseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.kang_edited_slot)
-        QtCore.QObject.connect(self.localeCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.kang_edited_slot)
-        QtCore.QObject.connect(self.unicodeCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.kang_edited_slot)
-        QtCore.QObject.connect(self.FileRevertAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.revert_file_slot)
+        QtCore.QObject.connect(self.regexMultiLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.edited)
+        QtCore.QObject.connect(self.stringMultiLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.edited)
+        QtCore.QObject.connect(self.ignorecaseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.edited)
+        QtCore.QObject.connect(self.replaceTextEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.edited)
+        QtCore.QObject.connect(self.multilineCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.edited)
+        QtCore.QObject.connect(self.dotallCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.edited)
+        QtCore.QObject.connect(self.verboseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.edited)
+        QtCore.QObject.connect(self.localeCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.edited)
+        QtCore.QObject.connect(self.unicodeCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.edited)
+        QtCore.QObject.connect(self.fileRevertAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.fileRevert)
         QtCore.QMetaObject.connectSlotsByName(MainWindowBA)
         MainWindowBA.setTabOrder(self.regexMultiLineEdit, self.stringMultiLineEdit)
         MainWindowBA.setTabOrder(self.stringMultiLineEdit, self.resultTabWidget)
@@ -481,8 +480,8 @@ class Ui_MainWindowBA(object):
         self.helpRegexLibAction.setIconText(_translate("MainWindowBA", "Regex Library", None))
         self.helpRegexLibAction.setToolTip(_translate("MainWindowBA", "Open the Regex Library", None))
         self.helpRegexLibAction.setShortcut(_translate("MainWindowBA", "Ctrl+L", None))
-        self.FileRevertAction.setText(_translate("MainWindowBA", "&Revert Kang File", None))
-        self.FileRevertAction.setIconText(_translate("MainWindowBA", "Revert Kang File", None))
+        self.fileRevertAction.setText(_translate("MainWindowBA", "&Revert Kang File", None))
+        self.fileRevertAction.setIconText(_translate("MainWindowBA", "Revert Kang File", None))
 
 
 class MainWindowBA(QtGui.QMainWindow, Ui_MainWindowBA):

@@ -27,14 +27,6 @@
        <bool>false</bool>
       </property>
       <widget class="QButtonGroup" name="buttonGroup2" native="true">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>535</width>
-         <height>39</height>
-        </rect>
-       </property>
        <layout class="QHBoxLayout">
         <item>
          <widget class="QCheckBox" name="ignorecaseCheckBox">
@@ -348,14 +340,6 @@ database. New in Python version 2.0.</string>
    <addaction name="helpRegexLibAction"/>
   </widget>
   <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>497</width>
-     <height>26</height>
-    </rect>
-   </property>
    <widget class="QMenu" name="fileMenu">
     <property name="title">
      <string>&amp;File</string>
@@ -365,7 +349,7 @@ database. New in Python version 2.0.</string>
     <addaction name="fileSaveAction"/>
     <addaction name="fileSaveAsAction"/>
     <addaction name="separator"/>
-    <addaction name="FileRevertAction"/>
+    <addaction name="fileRevertAction"/>
     <addaction name="separator"/>
     <addaction name="fileImportFileAction"/>
     <addaction name="fileImportURLAction"/>
@@ -729,7 +713,7 @@ database. New in Python version 2.0.</string>
     <cstring>helpRegexLibAction</cstring>
    </property>
   </action>
-  <action name="FileRevertAction">
+  <action name="fileRevertAction">
    <property name="text">
     <string>&amp;Revert Kang File</string>
    </property>
@@ -1274,7 +1258,7 @@ database. New in Python version 2.0.</string>
    <sender>regexMultiLineEdit</sender>
    <signal>textChanged()</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>kang_edited_slot()</slot>
+   <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>46</x>
@@ -1290,7 +1274,7 @@ database. New in Python version 2.0.</string>
    <sender>stringMultiLineEdit</sender>
    <signal>textChanged()</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>kang_edited_slot()</slot>
+   <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>31</x>
@@ -1306,7 +1290,7 @@ database. New in Python version 2.0.</string>
    <sender>ignorecaseCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>kang_edited_slot()</slot>
+   <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>38</x>
@@ -1322,7 +1306,7 @@ database. New in Python version 2.0.</string>
    <sender>replaceTextEdit</sender>
    <signal>textChanged()</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>kang_edited_slot()</slot>
+   <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>31</x>
@@ -1338,7 +1322,7 @@ database. New in Python version 2.0.</string>
    <sender>multilineCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>kang_edited_slot()</slot>
+   <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>145</x>
@@ -1354,7 +1338,7 @@ database. New in Python version 2.0.</string>
    <sender>dotallCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>kang_edited_slot()</slot>
+   <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>240</x>
@@ -1370,7 +1354,7 @@ database. New in Python version 2.0.</string>
    <sender>verboseCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>kang_edited_slot()</slot>
+   <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>317</x>
@@ -1386,7 +1370,7 @@ database. New in Python version 2.0.</string>
    <sender>localeCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>kang_edited_slot()</slot>
+   <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>402</x>
@@ -1402,7 +1386,7 @@ database. New in Python version 2.0.</string>
    <sender>unicodeCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>kang_edited_slot()</slot>
+   <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>476</x>
@@ -1415,10 +1399,10 @@ database. New in Python version 2.0.</string>
    </hints>
   </connection>
   <connection>
-   <sender>FileRevertAction</sender>
+   <sender>fileRevertAction</sender>
    <signal>activated()</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>revert_file_slot()</slot>
+   <slot>fileRevert()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1451,7 +1435,7 @@ database. New in Python version 2.0.</string>
   <slot>helpVisitKangWebsite()</slot>
   <slot>importFile()</slot>
   <slot>importURL()</slot>
-  <slot>kang_edited_slot()</slot>
+  <slot>edited()</slot>
   <slot>match_num_slot()</slot>
   <slot>pause()</slot>
   <slot>preferences()</slot>
@@ -1459,7 +1443,7 @@ database. New in Python version 2.0.</string>
   <slot>regex_changed_slot()</slot>
   <slot>replace_changed_slot()</slot>
   <slot>replace_num_slot()</slot>
-  <slot>revert_file_slot()</slot>
+  <slot>fileRevert()</slot>
   <slot>string_changed_slot()</slot>
  </slots>
 </ui>

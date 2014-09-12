@@ -29,9 +29,15 @@ try:
     from PyQt4.QtGui import QFileDialog, QColor, QMessageBox, \
                             QPixmap, QPalette, QTableWidgetItem, QHeaderView, qApp
 except:
-    print """Could not locate the PyQt module.  Please make sure that
-you have installed PyQt for the version of Python that you are running."""
+    sys.stderr.write("""Could not locate the PyQt module.  Please make sure that 
+you have installed PyQt for the version of Python that you are running.""")
     sys.exit(1)
+    
+QT_VERS = int(QT_VERSION_STR[0])
+
+if QT_VERS < 4:
+    sys.stderr.write("Qt versions prior to 4.0 are no longer supported")
+    sys.exit(0)    
     
 ### make sure that this script can find kang specific modules ###
 sys.path.insert(0, os.path.join(get_python_lib(), "kang")) 
@@ -41,14 +47,12 @@ sys.path.insert(0, os.path.join(get_python_lib(), "kang"))
 
 
 # match status
+MATCH_NONE     = -1
 MATCH_NA       = 0
 MATCH_OK       = 1
 MATCH_FAIL     = 2
 MATCH_PAUSED   = 3
 MATCH_EXAMINED = 4
-
-TRUE  = 1
-FALSE = 0
 
 TIMEOUT = 3
 
@@ -66,12 +70,6 @@ GEO = "kang_geometry"
 # colors for normal & examination mode
 QCOLOR_WHITE  = QColor(Qt.white)     # normal
 QCOLOR_YELLOW = QColor(255,255,127)  # examine
-
-QT_VERS = int(QT_VERSION_STR[0])
-
-if QT_VERS < 4:
-    print "Qt versions prior to 4.0 are no longer supported"
-    sys.exit(0)
 
 try:
     signal.SIGALRM
@@ -121,7 +119,9 @@ class MainWindow(MainWindowBA):
         self.regex_embedded_flags_removed = ""
 
         self.setWindowIcon(getIcon('kang-icon'))
-        self.createStatusBar()
+        
+        self.statusbar = StatusBar(self)
+        
         self.loadToolbarIcons()
 
         self.MSG_NA     = self.tr("Enter a regular expression and a string to match against")
@@ -167,7 +167,7 @@ class MainWindow(MainWindowBA):
             return
 
         try:
-            os.mkdir(kdir, 0755)
+            os.mkdir(kdir, 0o755)
         except:
             message = '%s: %s' % (self.tr('Failed to create'), kdir)
             QMessageBox().critical(self, self.tr('ERROR'), message, buttons=QMessageBox.Ok)
@@ -177,14 +177,10 @@ class MainWindow(MainWindowBA):
         self.newuserdialog.show()
         
 
-    def createStatusBar(self):
-        self.status_bar = StatusBar(self, FALSE, "")
-
-
-    def updateStatus(self, status_string, status_value, duration=0, replace=FALSE):
+    def updateStatus(self, status_string, status_value, duration=0):
         pixmap = self.statusPixmapsDict.get(status_value)
 
-        self.status_bar.set_message(status_string, duration, replace, pixmap)
+        self.statusbar.setMessage(status_string, duration, pixmap)
 
 
     def fileMenuHandler(self, fn):
@@ -314,7 +310,7 @@ class MainWindow(MainWindowBA):
         self.is_paused = not self.is_paused
         
         if self.is_paused:
-            self.update_results(self.MSG_PAUSED, MATCH_PAUSED)
+            self.updateStatus(self.MSG_PAUSED, MATCH_PAUSED)
             self.matchNumberSpinBox.setDisabled(1)
 
         else:
@@ -396,14 +392,14 @@ class MainWindow(MainWindowBA):
         self.replaceLabel.hide()
         self.replaceNumberSpinBox.hide()
         self.replaceTextBrowser.clear()
-        self.replaceTextBrowser.setDisabled(TRUE)
+        self.replaceTextBrowser.setDisabled(True)
 
     def show_replace_widgets(self):
         self.spacerLabel.show()
         self.replaceLabel.show()
         self.replaceNumberSpinBox.show()
-        self.replaceNumberSpinBox.setEnabled(TRUE)
-        self.replaceTextBrowser.setEnabled(TRUE)
+        self.replaceNumberSpinBox.setEnabled(True)
+        self.replaceTextBrowser.setEnabled(True)
 
     def replace_changed_slot(self):
         try:
@@ -417,9 +413,6 @@ class MainWindow(MainWindowBA):
         else:
             self.show_replace_widgets()
 
-
-    def update_results(self, msg, val):
-        self.updateStatus(msg, val)
 
     def populate_group_table(self, tuples):
         self.groupTable.setRowCount(len(tuples))
@@ -586,8 +579,8 @@ class MainWindow(MainWindowBA):
         self.groupTable.setRowCount(0)
         self.codeTextBrowser.setPlainText("")
         self.matchTextBrowser.setPlainText("")
-        self.matchNumberSpinBox.setEnabled(FALSE)
-        self.replaceNumberSpinBox.setEnabled(FALSE)
+        self.matchNumberSpinBox.setEnabled(False)
+        self.replaceNumberSpinBox.setEnabled(False)
         self.replaceTextBrowser.setPlainText("")
         self.matchAllTextBrowser.setPlainText("")
         
@@ -600,7 +593,7 @@ class MainWindow(MainWindowBA):
             return
         
         if not self.regex or not self.matchstring:
-            self.update_results(self.MSG_NA, MATCH_NA)
+            self.updateStatus(self.MSG_NA, MATCH_NA)
             self.clear_results()
             return
 
@@ -617,24 +610,24 @@ class MainWindow(MainWindowBA):
 
             if allmatches and len(allmatches):
                 self.matchNumberSpinBox.setMaximum(len(allmatches))
-                self.matchNumberSpinBox.setEnabled(TRUE)
+                self.matchNumberSpinBox.setEnabled(True)
                 self.replaceNumberSpinBox.setMaximum(len(allmatches))
-                self.replaceNumberSpinBox.setEnabled(TRUE)
+                self.replaceNumberSpinBox.setEnabled(True)
             else:
-                self.matchNumberSpinBox.setEnabled(FALSE)
-                self.replaceNumberSpinBox.setEnabled(FALSE)
+                self.matchNumberSpinBox.setEnabled(False)
+                self.replaceNumberSpinBox.setEnabled(False)
 
             match_obj = compile_obj.search(self.matchstring)
 
-        except Exception, e:
-            self.update_results(str(e), MATCH_FAIL)
+        except Exception as e:
+            self.updateStatus(str(e), MATCH_FAIL)
             return
 
         if HAS_ALARM:
             signal.alarm(0)
 
         if not match_obj:
-            self.update_results(self.MSG_FAIL, MATCH_FAIL)
+            self.updateStatus(self.MSG_FAIL, MATCH_FAIL)
 
             self.clear_results()
             return
@@ -690,7 +683,7 @@ class MainWindow(MainWindowBA):
                                         len(allmatches),
                                         str_match)
             
-        self.update_results(status, MATCH_OK)
+        self.updateStatus(status, MATCH_OK)
         self.populate_code_textbrowser()
 
         spans = self.findAllSpans(compile_obj)
@@ -750,7 +743,7 @@ class MainWindow(MainWindowBA):
         fn = QFileDialog.getOpenFileName(self, self.tr("Import File"), self.importFilename, "All (*)")
         
         if fn.isEmpty():
-            self.updateStatus(self.tr("A file was not selected for import"), -1, 5, TRUE)
+            self.updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, 5)
             return None
 
         filename = str(fn)
@@ -759,7 +752,7 @@ class MainWindow(MainWindowBA):
             fp = open(filename, "r")
         except:
             msg = self.tr("Could not open file for reading: ") + filename
-            self.updateStatus(msg, -1, 5, TRUE)
+            self.updateStatus(msg, MATCH_NONE, 5)
             return None
         
         self.importFilename = filename
@@ -800,7 +793,7 @@ class MainWindow(MainWindowBA):
         except:
             msg = "%s: %s" % (unicode(self.tr("Could not open file for writing:")),
                               self.filename)
-            self.updateStatus(msg, -1, 5, TRUE)
+            self.updateStatus(msg, MATCH_NONE, 5)
             return None
 
         self.editstate = STATE_UNEDITED
@@ -813,7 +806,7 @@ class MainWindow(MainWindowBA):
         fp.close()
         msg = "%s %s" % (unicode(self.filename),
                          unicode(self.tr("successfully saved")))
-        self.updateStatus(msg, -1, 5, TRUE)
+        self.updateStatus(msg, MATCH_NONE, 5)
         self.recent_files.add(self.filename)
         
     def fileSaveAs(self):
@@ -824,7 +817,7 @@ class MainWindow(MainWindowBA):
                                          )
         filename = unicode(fn)
         if not filename:
-            self.updateStatus(self.tr("No file selected to save"), -1, 5, TRUE)
+            self.updateStatus(self.tr("No file selected to save"), MATCH_NONE, 5)
             return
         filename = os.path.normcase(filename)
 
@@ -837,10 +830,7 @@ class MainWindow(MainWindowBA):
         
     def fileRevert(self):
         if not self.filename:
-            self.updateStatus(self.tr("There is no filename to revert"),
-                              -1,
-                              5,
-                              TRUE)
+            self.updateStatus(self.tr("There is no filename to revert"), MATCH_NONE, 5)
             return
 
         self.openFile(self.filename)
@@ -855,7 +845,7 @@ class MainWindow(MainWindowBA):
             fp = open(filename, "r")
         except:
             msg = self.tr("Could not open file for reading: ") + filename
-            self.updateStatus(msg, -1, 5, TRUE)
+            self.updateStatus(msg, MATCH_NONE, 5)
             return None
 
         try:
@@ -881,13 +871,13 @@ class MainWindow(MainWindowBA):
             
             self.filename = filename
             msg = "%s %s" % (filename, unicode(self.tr("loaded successfully")))
-            self.updateStatus(msg, -1, 5, TRUE)
+            self.updateStatus(msg, MATCH_NONE, 5)
             self.editstate = STATE_UNEDITED
             return 1
         except Exception:
             msg = "%s %s" % (unicode(self.tr("Error reading from file:")),
                              filename)
-            self.updateStatus(msg, -1, 5, TRUE)
+            self.updateStatus(msg, MATCH_NONE, 5)
             return 0
 
 

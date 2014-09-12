@@ -1,23 +1,24 @@
 #  status_bar.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
 from PyQt4.QtCore import QTimer, SIGNAL
-from PyQt4.QtGui import QLabel, QProgressBar
+from PyQt4.QtGui import QLabel
 
-from modules.util import FALSE, getPixmap
+from modules.util import getPixmap
 
 
 class StatusBar:
-    def __init__(self, parent, progress_bar=FALSE, message=''):
+    def __init__(self, parent, message=''):
         self.parent = parent
 
         self.statusBar = parent.statusBar()
         self.__statusTimer = QTimer(self.parent)
 
-        self.parent.connect(self.__statusTimer, SIGNAL("timeout()"), self.reset_message)
+        self.parent.connect(self.__statusTimer, SIGNAL("timeout()"), self._resetMessage)
         
         self.__statusLabel = QLabel(self.statusBar)
         
-        self.last_status_message = ''
+        self.replaceStatusMessage = False
+        self.lastStatusMessage = ''
 
         pixmap = getPixmap("yellow.png")
 
@@ -26,15 +27,15 @@ class StatusBar:
         
         self.statusBar.addWidget(self.pixmapLabel, 0)
         self.statusBar.addWidget(self.__statusLabel, 1)
-        if progress_bar:
-            self.progressBar = QProgressBar(self.statusBar)
-            self.statusBar.addWidget(self.progressBar, 1)
+        #if progress_bar:
+        #    self.progressBar = QProgressBar(self.statusBar)
+        #    self.statusBar.addWidget(self.progressBar, 1)
 
         if message:
             self.set_message(message)
     
 
-    def set_message(self, message='', duration=0, replace=FALSE, pixmap=''):
+    def setMessage(self, message='', duration=0, pixmap=''):
         """sets the status bar message label to message.
 
         if duration is > 0 than the message is displayed for duration seconds.
@@ -42,10 +43,12 @@ class StatusBar:
         if duration is > 0 and replace is true then after duration seconds
         have elapsed, the previous message is displayed. 
         """
+        
+        replace = (duration > 0)
 
         self.__statusTimer.stop()
-        self.last_status_message = unicode(self.__statusLabel.text())
-        self.replace_status_message = replace
+        self.lastStatusMessage = unicode(self.__statusLabel.text())
+        self.replaceStatusMessage = replace
 
         self.__statusLabel.setText(message)
 
@@ -57,9 +60,9 @@ class StatusBar:
         
 
     
-    def reset_message(self):
+    def _resetMessage(self):
         self.__statusTimer.stop()
-        if self.replace_status_message:
-            self.__statusLabel.setText(self.last_status_message)
+        if self.replaceStatusMessage:
+            self.__statusLabel.setText(self.lastStatusMessage)
         else:
             self.__statusLabel.setText('')

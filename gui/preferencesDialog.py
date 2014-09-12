@@ -51,7 +51,7 @@ class PreferencesDialog(PreferencesDialogBA):
         try:
             fp = open(self.prefsPath, "w")
         except:
-            print "Could not save preferences:", self.prefsPath
+            print("Could not save preferences:", self.prefsPath)
             return
 
         #print self.prefsPath

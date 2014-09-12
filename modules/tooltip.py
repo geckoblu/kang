@@ -2,7 +2,6 @@
 
 from PyQt4.QtGui import QLabel, QPalette, QFrame
 from PyQt4.Qt import QEvent, QPoint
-from modules.util import FALSE
 
 class Tooltip(QLabel):
     def __init__(self, text, bgcolor="#ffd700",fgcolor="#000000",delay=1000):
@@ -86,7 +85,7 @@ class Tooltip(QLabel):
             self.leave_timer_id = self.startTimer(self.delay)
             #print "remove tip!"
             self.event_widget = None
-        return FALSE ## Always return unhandled for this kind of filter!!!
+        return False ## Always return unhandled for this kind of filter!!!
 
 
     def tooltip_open(self):

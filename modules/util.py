@@ -8,11 +8,6 @@ import sys
 import time
 
 
-# QT constants that should be defined
-FALSE = 0
-TRUE = 1
-
-
 def get_time(timestr):
     "returns a string representation of the epoch or empty string"
     if timestr == '': return ''

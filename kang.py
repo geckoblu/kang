@@ -5,6 +5,8 @@
 
 # pyrcc4 resources.qrc > modules/resources.py
 
+from PyQt4 import QtCore
+from PyQt4 import QtGui
 from distutils.sysconfig import get_python_lib
 import getopt
 import os
@@ -15,14 +17,6 @@ from modules import exceptionHandler
 from modules.util import findFile
 
 
-try:
-    from PyQt4 import QtCore
-    from PyQt4 import QtGui
-except:
-    print """Could not locate the PyQt module.  Please make sure that
-you have installed PyQt for the version of Python that you are running."""
-    sys.exit(1)
-    
 ### make sure that this script can find kang specific modules ###
 sys.path.insert(0, os.path.join(get_python_lib(), "kang")) 
 
@@ -40,12 +34,12 @@ sys.path.insert(0, os.path.join(get_python_lib(), "kang"))
 ##############################################################################
 
 def usage():
-    print "kang.py [-f filename | --file=filename ] [ -k kang_dir ]"
-    print
-    print "  -f filename | --filename=filename  : Load filename on startup"
-    print "  -k kang_dir                       : Path containing Kang images & help subdirs"
-    print "  -l locale | --locale=locale        : 2-letter locale (eg. en)"
-    print
+    print( "kang.py [-f filename | --file=filename ] [ -k kang_dir ]")
+    print( "")
+    print( "  -f filename | --filename=filename  : Load filename on startup")
+    print( "  -k kang_dir                       : Path containing Kang images & help subdirs")
+    print( "  -l locale | --locale=locale        : 2-letter locale (eg. en)")
+    print( "")
     sys.exit(0)
 
 def main():
@@ -59,7 +53,7 @@ def main():
                                         ["file=",
                                          "help", "locale="])
     except:
-        print "\nInvalid command line option detected."
+        print("\nInvalid command line option detected.")
         usage()
  
     for opt, arg in opts:

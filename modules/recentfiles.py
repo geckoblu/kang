@@ -1,4 +1,3 @@
-
 from PyQt4.QtCore import QString, QObject, SIGNAL
 import os
 import string

@@ -7,8 +7,8 @@
 
 from PyQt4 import QtCore
 from PyQt4 import QtGui
+import argparse
 from distutils.sysconfig import get_python_lib
-import getopt
 import os
 import sys
 
@@ -19,67 +19,43 @@ from modules.util import findFile
 
 ### make sure that this script can find kang specific modules ###
 sys.path.insert(0, os.path.join(get_python_lib(), "kang")) 
-
 ###################################################################
 
 
-
-
-
-
-
-##############################################################################
-#
-#
-##############################################################################
-
-def usage():
-    print( "kang.py [-f filename | --file=filename ] [ -k kang_dir ]")
-    print( "")
-    print( "  -f filename | --filename=filename  : Load filename on startup")
-    print( "  -k kang_dir                       : Path containing Kang images & help subdirs")
-    print( "  -l locale | --locale=locale        : 2-letter locale (eg. en)")
-    print( "")
-    sys.exit(0)
+def parse_cmdline():
+    
+    def locale(locale):
+        if len(locale) != 2:
+            msg = "'%s' is not a valid locale" % locale
+            raise argparse.ArgumentTypeError(msg)
+        return locale
+    
+    parser = argparse.ArgumentParser(description='Kang is a graphical regular expression tester.')
+    parser.add_argument('filename', metavar='FILENAME', nargs='?', help='load filename on startup')
+    #parser.add_argument('-f', '--filename', help='load filename on startup')
+    parser.add_argument('-l', '--locale', type=locale, help='2-letter locale (eg. en)')
+    
+    return parser.parse_args()
 
 def main():
-    filename  = None
-    kang_dir = os.path.join(sys.prefix, "kang")
-    locale    = None
 
-    args = sys.argv[1:]
-    try:
-        (opts, getopts) = getopt.getopt(args, 'd:f:k:l:?h',
-                                        ["file=",
-                                         "help", "locale="])
-    except:
-        print("\nInvalid command line option detected.")
-        usage()
- 
-    for opt, arg in opts:
-        if opt in ('-h', '-?', '--help'):
-            usage()
-        if opt == '-k':
-            kang_dir = arg          
-        if opt in ('-f', '--file'):
-            filename = arg
-        if opt in ('-l', '--locale'):
-            locale = arg
-
-    os.environ['KANG_DIR'] = kang_dir
+    args = parse_cmdline()
 
     qApp = QtGui.QApplication(sys.argv)
 
-    if locale not in (None, 'en'):
-        localefile = "kang_%s.qm" % (locale or QtCore.QTextCodec.locale())
+    if args.locale not in (None, 'en'):
+        localefile = "kang_%s.qm" % (args.locale or QtCore.QTextCodec.locale())
         localepath = findFile("translations", localefile)
+        
+        if localepath:
+            translator = QtCore.QTranslator(qApp)
+            translator.load(localepath)
     
-        translator = QtCore.QTranslator(qApp)
-        translator.load(localepath)
+            qApp.installTranslator(translator)
+        else:
+            sys.stderr.write("Locale for '%s' not found. Fallback to default.\n" % args.locale)
 
-        qApp.installTranslator(translator)
-
-    kang = MainWindow(filename)
+    kang = MainWindow(args.filename)
     
     exceptionHandler.init(kang)
     

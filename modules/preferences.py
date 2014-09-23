@@ -37,14 +37,15 @@ class Preferences:
         
         prefsList = fp.readlines()
         for pref in prefsList:
-            preference, setting = string.split(pref, ":", 1)
-            setting = string.strip(setting)
-            if preference == 'Editor Font' and setting:
-                self.editorFont = self.parseFontStr(setting)
-            if preference == 'Match Font' and setting:
-                self.matchFont = self.parseFontStr(setting)
-            if preference == 'Recent Files' and setting:
-                self.recentFilesNum = int(setting)
+            if ':' in pref:
+                preference, setting = string.split(pref, ":", 1)
+                setting = string.strip(setting)
+                if preference == 'Editor Font' and setting:
+                    self.editorFont = self.parseFontStr(setting)
+                if preference == 'Match Font' and setting:
+                    self.matchFont = self.parseFontStr(setting)
+                if preference == 'Recent Files' and setting:
+                    self.recentFilesNum = int(setting)
                 
                 
     def save(self):
@@ -89,7 +90,7 @@ class Preferences:
         return f
     
     def fontToString(self, f):
-        return ("%s:%s:%s:%s:%s:%s\n" % \
+        return ("%s:%s:%s:%s:%s:%s" % \
                      (f.family(), f.pointSize(),
                       f.bold(), f.italic(),
                       f.underline(), f.strikeOut()))

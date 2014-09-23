@@ -18,6 +18,7 @@ from gui.regexReferenceWindow import RegexReferenceWindow
 from gui.reportBugDialog import ReportBugDialog
 from gui.statusbar import StatusBar
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
+from modules.preferences import Preferences
 from modules.recentfiles import RecentFiles
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory, getIcon
@@ -141,14 +142,15 @@ class MainWindow(MainWindowBA):
         
         self.show()
 
-        self.prefs = PreferencesDialog(self, 1)
+        self.preferences = Preferences(self.getEditorFont(), self.getMatchFont())
         self.recent_files = RecentFiles(self,
-                                        self.prefs.recentFilesSpinBox.value())
+                                        self.preferences.recentFilesNum)
+        self.preferencesChanged()
 
         if filename and self.openFile(filename):
             qApp.processEvents()
 
-        self.connect(self, SIGNAL('prefsSaved()'), self.prefsSaved)
+        self.connect(self, SIGNAL('preferencesChanged()'), self.preferencesChanged)
         self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.paste_symbol)
         self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
         self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
@@ -186,9 +188,6 @@ class MainWindow(MainWindowBA):
     def fileMenuHandler(self, fn):
         self.recent_files.add(fn)
         self.openFile(fn)
-
-    def prefsSaved(self):
-        self.recent_files.setNumShown(self.prefs.recentFilesSpinBox.value())   
   
         
     def edited(self):
@@ -994,31 +993,36 @@ class MainWindow(MainWindowBA):
     def editPaste(self):
         self.widgetMethod("paste()")
 
-
-    def preferences(self):
-        self.prefs.showPrefsDialog()
+    def editPreferences(self):
+        sd = PreferencesDialog(self, self.preferences)
+        sd.showPrefsDialog()
             
-    def setfont(self, font):
-        #print "font: ",  font
-        #return
-        self.regexMultiLineEdit.setFont(font)
-        self.stringMultiLineEdit.setFont(font)
-        self.replaceTextEdit.setFont(font)
+    def setEditorfont(self, font):
+        if font:
+            self.regexMultiLineEdit.setFont(font)
+            self.stringMultiLineEdit.setFont(font)
+            self.replaceTextEdit.setFont(font)
 
     def setMatchFont(self, font):
-        self.groupTable.setFont(font)
-        self.matchTextBrowser.setFont(font)
-        self.matchAllTextBrowser.setFont(font)
-        self.replaceTextBrowser.setFont(font)
-        self.codeTextBrowser.setFont(font)
+        if font:
+            self.groupTable.setFont(font)
+            self.matchTextBrowser.setFont(font)
+            self.matchAllTextBrowser.setFont(font)
+            self.replaceTextBrowser.setFont(font)
+            self.codeTextBrowser.setFont(font)
 
-
-    def getfont(self):
+    def getEditorFont(self):
         return self.regexMultiLineEdit.font()
 
 
     def getMatchFont(self):
         return self.groupTable.font()
+    
+    
+    def preferencesChanged(self):
+        self.recent_files.setNumShown(self.preferences.recentFilesNum)
+        self.setEditorfont(self.preferences.editorFont)
+        self.setMatchFont(self.preferences.matchFont)   
 
     
     def helpHelp(self):

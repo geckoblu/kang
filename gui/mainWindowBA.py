@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainWindowBA4.ui'
 #
-# Created: Thu Sep 11 14:49:30 2014
+# Created: Tue Sep 23 16:06:35 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -340,7 +340,7 @@ class Ui_MainWindowBA(object):
         QtCore.QObject.connect(self.unicodeCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkbox_slot)
         QtCore.QObject.connect(self.verboseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkbox_slot)
         QtCore.QObject.connect(self.editPauseAction, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.pause)
-        QtCore.QObject.connect(self.editPreferencesAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.preferences)
+        QtCore.QObject.connect(self.editPreferencesAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.editPreferences)
         QtCore.QObject.connect(self.helpPythonHelpAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.helpPythonRegex)
         QtCore.QObject.connect(self.helpRegexReferenceAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.reference_guide)
         QtCore.QObject.connect(self.helpVisitWebsiteAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.helpVisitKangWebsite)

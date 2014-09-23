@@ -1114,7 +1114,7 @@ database. New in Python version 2.0.</string>
    <sender>editPreferencesAction</sender>
    <signal>activated()</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>preferences()</slot>
+   <slot>editPreferences()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1438,7 +1438,7 @@ database. New in Python version 2.0.</string>
   <slot>edited()</slot>
   <slot>match_num_slot()</slot>
   <slot>pause()</slot>
-  <slot>preferences()</slot>
+  <slot>editPreferences()</slot>
   <slot>reference_guide()</slot>
   <slot>regex_changed_slot()</slot>
   <slot>replace_changed_slot()</slot>

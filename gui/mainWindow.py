@@ -143,7 +143,7 @@ class MainWindow(MainWindowBA):
         self.show()
 
         self.preferences = Preferences(self.getEditorFont(), self.getMatchFont())
-        self.recent_files = RecentFiles(self,
+        self.recentFiles = RecentFiles(self,
                                         self.preferences.recentFilesNum)
         self.preferencesChanged()
 
@@ -183,11 +183,6 @@ class MainWindow(MainWindowBA):
         pixmap = self.statusPixmapsDict.get(status_value)
 
         self.statusbar.setMessage(status_string, duration, pixmap)
-
-
-    def fileMenuHandler(self, fn):
-        self.recent_files.add(fn)
-        self.openFile(fn)
   
         
     def edited(self):
@@ -779,8 +774,7 @@ class MainWindow(MainWindowBA):
                                          )        
         if not fn.isEmpty():
             filename = str(fn)
-            if self.openFile(filename):
-                self.recent_files.add(filename)
+            self.openFile(filename)
                 
     def fileSave(self):
         if not self.filename:
@@ -806,7 +800,7 @@ class MainWindow(MainWindowBA):
         msg = "%s %s" % (unicode(self.filename),
                          unicode(self.tr("successfully saved")))
         self.updateStatus(msg, MATCH_NONE, 5)
-        self.recent_files.add(self.filename)
+        self.recentFiles.add(self.filename)
         
     def fileSaveAs(self):
         fn = QFileDialog.getSaveFileName(self,
@@ -836,16 +830,17 @@ class MainWindow(MainWindowBA):
 
 
     def openFile(self, filename):
-        self.checkEditState()
-
-        self.filename = None
+        self.checkEditState()        
 
         try:
             fp = open(filename, "r")
         except:
             msg = self.tr("Could not open file for reading: ") + filename
             self.updateStatus(msg, MATCH_NONE, 5)
+            self.recentFiles.remove(filename)
             return None
+        
+        self.filename = ''
 
         try:
             u = cPickle.Unpickler(fp)
@@ -869,6 +864,8 @@ class MainWindow(MainWindowBA):
             self.replaceTextEdit.setPlainText(replace)
             
             self.filename = filename
+            self.recentFiles.add(self.filename)
+            
             msg = "%s %s" % (filename, unicode(self.tr("loaded successfully")))
             self.updateStatus(msg, MATCH_NONE, 5)
             self.editstate = STATE_UNEDITED
@@ -916,8 +913,6 @@ class MainWindow(MainWindowBA):
 
 
     def checkEditState(self, noButtonStr=None):
-        # TODO: reactivate checkEditState
-        return 
     
         if not noButtonStr: noButtonStr = self.tr("&No")
         
@@ -1020,7 +1015,7 @@ class MainWindow(MainWindowBA):
     
     
     def preferencesChanged(self):
-        self.recent_files.setNumShown(self.preferences.recentFilesNum)
+        self.recentFiles.setNumShown(self.preferences.recentFilesNum)
         self.setEditorfont(self.preferences.editorFont)
         self.setMatchFont(self.preferences.matchFont)   
 

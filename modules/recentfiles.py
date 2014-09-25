@@ -57,6 +57,15 @@ class RecentFiles:
         self.__recent_files.insert(0, filename)
         self.save()
         self.addToMenu()
+        
+    def remove(self, filename):
+        try:
+            self.__recent_files.remove(filename)
+        except:
+            pass
+
+        self.save()
+        self.addToMenu()
 
 
     def clearMenu(self):
@@ -81,7 +90,7 @@ class RecentFiles:
             
         
     def openfile(self, filename):
-        self.parent.fileMenuHandler(filename)
+        self.parent.openFile(filename)
 
 
     def setNumShown(self, numShown):

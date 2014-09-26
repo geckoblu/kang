@@ -1,5 +1,4 @@
 from PyQt4.QtCore import pyqtSignal
-import cPickle
 from distutils.sysconfig import get_python_lib
 import os
 import re
@@ -18,6 +17,7 @@ from gui.regexReferenceWindow import RegexReferenceWindow
 from gui.reportBugDialog import ReportBugDialog
 from gui.statusbar import StatusBar
 from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
+from modules.kngfile import KngFile
 from modules.preferences import Preferences
 from modules.recentfiles import RecentFiles
 from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
@@ -214,7 +214,7 @@ class MainWindow(MainWindowBA):
         self.process_regex()
 
 
-    def set_flags(self, flags):
+    def setFlags(self, flags):
         # from the given integer value of flags, set the checkboxes
         # this is used when loading a saved file
         if flags & re.IGNORECASE:
@@ -762,7 +762,7 @@ class MainWindow(MainWindowBA):
         self.regexMultiLineEdit.setPlainText("")
         self.stringMultiLineEdit.setPlainText("")
         self.replaceTextEdit.setPlainText("")
-        self.set_flags(0)
+        self.setFlags(0)
         self.editstate = STATE_UNEDITED
         
         
@@ -776,31 +776,29 @@ class MainWindow(MainWindowBA):
             filename = str(fn)
             self.openFile(filename)
                 
+                
     def fileSave(self):
         if not self.filename:
             self.fileSaveAs()
             return
 
         try:
-            fp = open(self.filename, "w")
+            kngfile = KngFile(self.filename, self.regex, self.matchstring, self.replace, self.flags)
+            kngfile.save()
+            
+            self.editstate = STATE_UNEDITED
+            
+            msg = "%s %s" % (unicode(self.filename),
+                             unicode(self.tr("successfully saved")))
+            self.updateStatus(msg, MATCH_NONE, 5)
+            self.recentFiles.add(self.filename)
         except:
+            import traceback
+            traceback.print_exc()
             msg = "%s: %s" % (unicode(self.tr("Could not open file for writing:")),
                               self.filename)
             self.updateStatus(msg, MATCH_NONE, 5)
-            return None
-
-        self.editstate = STATE_UNEDITED
-        p = cPickle.Pickler(fp)
-        p.dump(self.regex)
-        p.dump(self.matchstring)
-        p.dump(self.flags)
-        p.dump(self.replace)
         
-        fp.close()
-        msg = "%s %s" % (unicode(self.filename),
-                         unicode(self.tr("successfully saved")))
-        self.updateStatus(msg, MATCH_NONE, 5)
-        self.recentFiles.add(self.filename)
         
     def fileSaveAs(self):
         fn = QFileDialog.getSaveFileName(self,
@@ -821,6 +819,7 @@ class MainWindow(MainWindowBA):
         self.filename = filename
         self.fileSave()
         
+        
     def fileRevert(self):
         if not self.filename:
             self.updateStatus(self.tr("There is no filename to revert"), MATCH_NONE, 5)
@@ -833,35 +832,16 @@ class MainWindow(MainWindowBA):
         self.checkEditState()        
 
         try:
-            fp = open(filename, "r")
-        except:
-            msg = self.tr("Could not open file for reading: ") + filename
-            self.updateStatus(msg, MATCH_NONE, 5)
-            self.recentFiles.remove(filename)
-            return None
-        
-        self.filename = ''
-
-        try:
-            u = cPickle.Unpickler(fp)
-            self.matchNumberSpinBox.setValue(1)
-            self.regex = u.load()
-            self.regexMultiLineEdit.setPlainText(self.regex)
-
-            self.matchstring = u.load()
-            self.stringMultiLineEdit.setPlainText(self.matchstring)
+            kngfile = KngFile(filename)
+            kngfile.load()
             
-            flags = u.load()
-            self.set_flags(flags)
-
-            try:
-                replace = u.load()
-            except:
-                # versions prior to 1.7 did not have replace functionality
-                # so kds files saved w/ these versions will throw exception
-                # here.
-                replace = ""
-            self.replaceTextEdit.setPlainText(replace)
+            self.filename = ''
+            
+            self.matchNumberSpinBox.setValue(1)
+            self.regexMultiLineEdit.setPlainText(kngfile.regex)
+            self.stringMultiLineEdit.setPlainText(kngfile.matchstring)
+            self.setFlags(kngfile.flags)
+            self.replaceTextEdit.setPlainText(kngfile.replace)
             
             self.filename = filename
             self.recentFiles.add(self.filename)
@@ -869,12 +849,15 @@ class MainWindow(MainWindowBA):
             msg = "%s %s" % (filename, unicode(self.tr("loaded successfully")))
             self.updateStatus(msg, MATCH_NONE, 5)
             self.editstate = STATE_UNEDITED
-            return 1
-        except Exception:
-            msg = "%s %s" % (unicode(self.tr("Error reading from file:")),
-                             filename)
+            
+        except:
+            import traceback
+            traceback.print_exc()    
+            msg = self.tr("Could not open file for reading: ") + filename
+            #msg = "%s %s" % (unicode(self.tr("Error reading from file:")),
             self.updateStatus(msg, MATCH_NONE, 5)
-            return 0
+            self.recentFiles.remove(filename)
+            return None
 
 
     def paste_symbol(self, symbol):
@@ -1061,8 +1044,10 @@ class MainWindow(MainWindowBA):
         self.helpRegexReferenceAction.setIcon(getIcon("book"))
         self.helpRegexLibAction.setIcon(getIcon("library"))
         
+        
     def signalException(self, msg):
         self._signalException.emit(msg)
+        
         
     def showReportBugDialog(self, msg):
         rbd = ReportBugDialog(self, msg)

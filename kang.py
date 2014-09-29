@@ -18,7 +18,7 @@ from modules.util import findFile
 
 
 ### make sure that this script can find kang specific modules ###
-sys.path.insert(0, os.path.join(get_python_lib(), "kang")) 
+sys.path.insert(0, os.path.join(get_python_lib(), "kang"))
 ###################################################################
 
 
@@ -62,7 +62,6 @@ def main():
     kang.show()
 
     sys.exit(qApp.exec_())   
-
 
 
 if __name__ == '__main__':

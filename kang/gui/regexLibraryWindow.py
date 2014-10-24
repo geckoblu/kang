@@ -1,6 +1,6 @@
-from gui.regexLibraryWindowBA import RegexLibraryWindowBA
-from modules.parseRegexLib import ParseRegexLib
-from modules.util import restoreWindowSettings, saveWindowSettings, getIcon
+from kang.gui.regexLibraryWindowBA import RegexLibraryWindowBA
+from kang.modules.parseRegexLib import ParseRegexLib
+from kang.modules.util import restoreWindowSettings, saveWindowSettings, getIcon
 
 from PyQt4.QtCore import SIGNAL
 

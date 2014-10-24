@@ -2,8 +2,8 @@ from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QMessageBox
 import urllib
 
-from gui.importURLDialogBA import ImportURLDialogBA
-from modules.util import getIcon
+from kang.gui.importURLDialogBA import ImportURLDialogBA
+from kang.modules.util import getIcon
 
 
 class ImportURLDialog(ImportURLDialogBA):

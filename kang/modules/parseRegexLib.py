@@ -1,7 +1,7 @@
 from PyQt4.QtCore import QFile, QTextStream, QIODevice
 import re
 
-from modules.util import findFile
+from kang.modules.util import findFile
 
 
 rx_entry = re.compile(r"<entry>(?P<content>.*?)</entry>", re.DOTALL)

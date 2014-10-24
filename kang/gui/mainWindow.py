@@ -7,22 +7,22 @@ import sys
 import types
 import webbrowser
 
-from gui.aboutDialog import AboutDialog
-from gui.importURLDialog import ImportURLDialog
-from gui.mainWindowBA import MainWindowBA
-from gui.newUserDialog import NewUserDialog
-from gui.preferencesDialog import PreferencesDialog
-from gui.regexLibraryWindow import RegexLibraryWindow
-from gui.regexReferenceWindow import RegexReferenceWindow
-from gui.reportBugDialog import ReportBugDialog
-from gui.statusbar import StatusBar
-from modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
-from modules.kngfile import KngFile
-from modules.preferences import Preferences
-from modules.recentfiles import RecentFiles
-from modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
+from kang.gui.aboutDialog import AboutDialog
+from kang.gui.importURLDialog import ImportURLDialog
+from kang.gui.mainWindowBA import MainWindowBA
+from kang.gui.newUserDialog import NewUserDialog
+from kang.gui.preferencesDialog import PreferencesDialog
+from kang.gui.regexLibraryWindow import RegexLibraryWindow
+from kang.gui.regexReferenceWindow import RegexReferenceWindow
+from kang.gui.reportBugDialog import ReportBugDialog
+from kang.gui.statusbar import StatusBar
+from kang.modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
+from kang.modules.kngfile import KngFile
+from kang.modules.preferences import Preferences
+from kang.modules.recentfiles import RecentFiles
+from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory, getIcon
-import modules.xpm as xpm
+import kang.modules.xpm as xpm
 
 
 try:
@@ -832,10 +832,10 @@ class MainWindow(MainWindowBA):
         self.checkEditState()        
 
         try:
+            self.filename = ''
+            
             kngfile = KngFile(filename)
             kngfile.load()
-            
-            self.filename = ''
             
             self.matchNumberSpinBox.setValue(1)
             self.regexMultiLineEdit.setPlainText(kngfile.regex)

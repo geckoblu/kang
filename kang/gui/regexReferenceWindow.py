@@ -3,8 +3,8 @@
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QTreeWidgetItem
 
-from gui.regexReferenceWindowBA import RegexReferenceWindowBA
-from modules.util import restoreWindowSettings, saveWindowSettings, getIcon
+from kang.gui.regexReferenceWindowBA import RegexReferenceWindowBA
+from kang.modules.util import restoreWindowSettings, saveWindowSettings, getIcon
 
 
 GEO = "regex-ref_geometry"

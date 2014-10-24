@@ -3,7 +3,7 @@ import os
 import string
 import sys
 
-from modules.util import getConfigDirectory
+from kang.modules.util import getConfigDirectory
 
 
 def _get_font_value(s):

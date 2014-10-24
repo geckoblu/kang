@@ -22,7 +22,7 @@ class AboutDialog(AboutDialogBA):
         self.label_homepagetxt.setText('<a href=\"%s\">%s</a>' % (KANG_WEBSITE, KANG_WEBSITE))
         self.label_homepagetxt.setOpenExternalLinks(True)
         
-        self.label_licensetxt.setText('<a href=\"http://www.gnu.org/licenses/gpl-3.0.txt\">GNU General Public License v3</a>')
+        self.label_licensetxt.setText('<a href=\"http://www.gnu.org/licenses/gpl-2.0.txt\">GNU General Public License v2</a>')
         self.label_licensetxt.setOpenExternalLinks(True)
         
         self.textAuthors.setText("""

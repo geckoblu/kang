@@ -15,7 +15,7 @@ Kodos seems to be abbandoned and no longer maintained, it still uses Qt3 which w
 So after unsucesfully try to contact the developer of Kodos I decided to start the porting to Qt4 myself.
 So Kang is the porting of Kodos to Qt4, plus the changes I decided to do during the way.
 
-Kang is an open source project released under the `GNU Public License (GPL_) v2 <http://www.gnu.org/licenses/gpl-2.0.txt>`_.
+Kang is an open source project released under the `GNU Public License (GPL) v2 <http://www.gnu.org/licenses/gpl-2.0.txt>`_.
 
 
 Visit Kang web site_ or browse the documentation_.

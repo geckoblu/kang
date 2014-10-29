@@ -1,6 +1,6 @@
+from kang import KANG_WEBSITE
+from kang import VERSION
 from kang.gui.aboutDialogBA import AboutDialogBA
-from kang.modules import KANG_WEBSITE
-from kang.modules import VERSION
 from kang.modules.util import getPixmap, getIcon
 
 

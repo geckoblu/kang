@@ -16,7 +16,7 @@ from kang.gui.regexLibraryWindow import RegexLibraryWindow
 from kang.gui.regexReferenceWindow import RegexReferenceWindow
 from kang.gui.reportBugDialog import ReportBugDialog
 from kang.gui.statusbar import StatusBar
-from kang.modules import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
+from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-#  kang.py: -*- Python -*-  DESCRIPTIVE TEXT. 
 
-from kang import main
+from kang.modules.main import main
 
 
 if __name__ == '__main__':

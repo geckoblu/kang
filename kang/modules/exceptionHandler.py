@@ -3,7 +3,7 @@ import string
 import sys
 import traceback
 
-from kang.modules import VERSION
+from kang import VERSION
 
 
 _mainWindow = None

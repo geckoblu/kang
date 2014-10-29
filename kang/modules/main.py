@@ -6,8 +6,6 @@
 from PyQt4 import QtCore
 from PyQt4 import QtGui
 import argparse
-from distutils.sysconfig import get_python_lib
-import os
 import sys
 
 from kang.gui.mainWindow import MainWindow

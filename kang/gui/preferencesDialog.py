@@ -1,10 +1,8 @@
-#  prefs.py: -*- Python -*-  DESCRIPTIVE TEXT.
-
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QDialog, QFontDialog
 
 from kang.gui.preferencesDialogBA import PreferencesDialogBA
-from kang.modules.util import getIcon
+from kang.images import getIcon
 
 
 class PreferencesDialog(PreferencesDialogBA):

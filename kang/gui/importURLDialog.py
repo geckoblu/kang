@@ -3,7 +3,7 @@ from PyQt4.QtGui import QMessageBox
 import urllib
 
 from kang.gui.importURLDialogBA import ImportURLDialogBA
-from kang.modules.util import getIcon
+from kang.images import getIcon
 
 
 class ImportURLDialog(ImportURLDialogBA):

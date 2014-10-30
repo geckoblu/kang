@@ -1,5 +1,5 @@
 from kang.gui.newUserDialogBA import NewUserDialogBA
-from kang.modules.util import getPixmap, getIcon
+from kang.images import getPixmap, getIcon
 
 
 class NewUserDialog(NewUserDialogBA):

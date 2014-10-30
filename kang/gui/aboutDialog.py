@@ -1,7 +1,7 @@
 from kang import KANG_WEBSITE
 from kang import VERSION
 from kang.gui.aboutDialogBA import AboutDialogBA
-from kang.modules.util import getPixmap, getIcon
+from kang.images import getPixmap, getIcon
 
 
 class AboutDialog(AboutDialogBA):

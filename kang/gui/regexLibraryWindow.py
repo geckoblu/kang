@@ -1,8 +1,10 @@
-from kang.gui.regexLibraryWindowBA import RegexLibraryWindowBA
-from kang.modules.parseRegexLib import ParseRegexLib
-from kang.modules.util import restoreWindowSettings, saveWindowSettings, getIcon
-
 from PyQt4.QtCore import SIGNAL
+
+from kang.gui.regexLibraryWindowBA import RegexLibraryWindowBA
+from kang.images import getIcon
+from kang.modules.parseRegexLib import ParseRegexLib
+from kang.modules.util import restoreWindowSettings, saveWindowSettings
+
 
 GEO = "regex-lib_geometry"
 

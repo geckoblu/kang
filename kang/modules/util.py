@@ -34,30 +34,6 @@ def getAppPath():
     path = os.path.dirname(fullpath)
     return path
 
-
-def getPixmap(fileStr, d='images'):
-    """Return a QPixmap instance for the file fileStr relative
-    to the binary location and residing in it's 'images' subdirectory"""
-
-    #image = getAppPath() + os.sep + dir + os.sep + fileStr
-    imagepath = findFile(d, fileStr)
-
-    pixmap = QPixmap(imagepath)
-    pixmap.setMask(pixmap.createHeuristicMask(1))
-    
-    return pixmap
-
-def getIcon(iconName):
-    """Returns the QIcon corresponding to name in the current icon theme. 
-    If no such icon is found in the current theme fallback is return instead."""
-    #icon = QIcon.fromTheme(iconName, QIcon(':/images/%s.png' % iconName));
-    icon = QIcon.fromTheme(iconName);
-    if icon.isNull():
-        icon = QIcon(getPixmap('%s.svg' % iconName))
-    return icon
-
-    
-
 def dictList_to_CSV(filename, keyList, dictList):
     "creates a file of comma-seperated-values using the keysList as the first line"
     try:

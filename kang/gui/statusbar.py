@@ -1,9 +1,7 @@
-#  status_bar.py: -*- Python -*-  DESCRIPTIVE TEXT.
-
 from PyQt4.QtCore import QTimer, SIGNAL
 from PyQt4.QtGui import QLabel
 
-from kang.modules.util import getPixmap
+from kang.images import getPixmap
 
 
 class StatusBar:

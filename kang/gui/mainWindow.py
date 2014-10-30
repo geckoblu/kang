@@ -7,6 +7,7 @@ import sys
 import types
 import webbrowser
 
+from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
 from kang.gui.aboutDialog import AboutDialog
 from kang.gui.importURLDialog import ImportURLDialog
 from kang.gui.mainWindowBA import MainWindowBA
@@ -16,12 +17,12 @@ from kang.gui.regexLibraryWindow import RegexLibraryWindow
 from kang.gui.regexReferenceWindow import RegexReferenceWindow
 from kang.gui.reportBugDialog import ReportBugDialog
 from kang.gui.statusbar import StatusBar
-from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL
+from kang.images import getIcon
 from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
 from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
-    getConfigDirectory, getIcon
+    getConfigDirectory
 import kang.modules.xpm as xpm
 
 

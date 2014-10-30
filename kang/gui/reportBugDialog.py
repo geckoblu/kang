@@ -1,7 +1,7 @@
 from PyQt4 import QtGui
 
 from kang.gui.reportBugDialogBA import ReportBugDialogBA
-from kang.modules.util import getPixmap, getIcon
+from kang.images import getPixmap, getIcon
 
 
 class ReportBugDialog(ReportBugDialogBA):

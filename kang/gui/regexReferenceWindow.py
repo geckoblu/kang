@@ -1,10 +1,9 @@
-#  reference.py: -*- Python -*-  DESCRIPTIVE TEXT.
-
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QTreeWidgetItem
 
 from kang.gui.regexReferenceWindowBA import RegexReferenceWindowBA
-from kang.modules.util import restoreWindowSettings, saveWindowSettings, getIcon
+from kang.images import getIcon
+from kang.modules.util import restoreWindowSettings, saveWindowSettings
 
 
 GEO = "regex-ref_geometry"

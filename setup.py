@@ -9,7 +9,7 @@ setup(
     version = VERSION,
     scripts = ['bin/kang'],
     packages = find_packages(exclude=['test', 'tests']),
-    package_data = {'': ['*.svg']},
+    package_data = {'': ['*.svg', '*.xml']},
     #data_files = [
     #    ('images', glob('images/kang-icon.svg'))
     #],

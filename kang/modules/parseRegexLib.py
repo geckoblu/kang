@@ -1,4 +1,5 @@
 from PyQt4.QtCore import QFile, QTextStream, QIODevice
+import os
 import re
 
 from kang.modules.util import findFile
@@ -24,7 +25,7 @@ RX_DICT = {'desc': rx_desc,
 
 class ParseRegexLib:
     def __init__(self):
-        path = findFile('help', 'regex-lib.xml')
+        path = os.path.join(os.path.dirname(__file__), 'regex-lib.xml')
         if path:
             f = QFile(path)
             f.open(QIODevice.ReadOnly | QIODevice.Text)
@@ -32,8 +33,9 @@ class ParseRegexLib:
             f.close()
 
     def parse(self, data=""):
-        if not data: data = self.data
-        
+        if not data:
+            data = self.data
+
         dicts = []
         allmatches = rx_entry.findall(data)
         rx_keys = RX_DICT.keys()
@@ -49,17 +51,3 @@ class ParseRegexLib:
             dicts.append(d)
 
         return dicts
-            
-            
-
-
-# For test only            
-if __name__ == '__main__':
-    
-    path = findFile("help", "regex-lib.xml")
-    x = ParseRegexLib(path)
-
-    dicts = x.parse()
-    print(dicts)
-
-    

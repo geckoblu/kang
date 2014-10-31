@@ -1,7 +1,7 @@
 #  util.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
 from PyQt4.QtCore import QSize
-from PyQt4.QtGui import QMessageBox, QPixmap, QIcon
+from PyQt4.QtGui import QMessageBox
 import os
 import string
 import sys
@@ -10,7 +10,8 @@ import time
 
 def get_time(timestr):
     "returns a string representation of the epoch or empty string"
-    if timestr == '': return ''
+    if timestr == '':
+        return ''
 
     try:
         epoch = time.mktime(time.strptime(timestr, '%m/%d/%Y'))

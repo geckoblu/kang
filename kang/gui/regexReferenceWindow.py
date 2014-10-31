@@ -8,39 +8,36 @@ from kang.modules.util import restoreWindowSettings, saveWindowSettings
 
 GEO = "regex-ref_geometry"
 
+
 class RegexReferenceWindow(RegexReferenceWindowBA):
-    
+
     def __init__(self, parent):
         RegexReferenceWindowBA.__init__(self, None)
         self.parent = parent
 
         restoreWindowSettings(self, GEO)
         self.setWindowIcon(getIcon('kang-icon'))
-        
-        self.populateTable()        
 
+        self.populateTable()
 
     def populateTable(self):
-        
+
         items = []
         for r in references:
             items.append(QTreeWidgetItem(r))
-            
+
         self.referenceTreeWidget.insertTopLevelItems(0, items)
-        
 
     def closeEvent(self, ev):
         saveWindowSettings(self, GEO)
         ev.accept()
 
-
     def editPaste(self):
         list_view_item = self.referenceTreeWidget.selectedItems()
-        if list_view_item :         
+        if list_view_item:
             symbol = str(list_view_item[0].text(0))
             self.parent.emit(SIGNAL('pasteSymbol(PyQt_PyObject)'), symbol)
-            
-        
+
 references = []
 references.append(('^', 'Matches start of string'))
 references.append(('?', 'Matches 0 or 1 repetition of preceeding RE'))
@@ -75,5 +72,3 @@ references.append(('\\S', 'Matches any non-whitespace character'))
 references.append(('\\w', 'Matches any word'))
 references.append(('\\W', 'Matches any non-word'))
 references.append(('\\z', 'Matches only at the end of the string'))
-
-

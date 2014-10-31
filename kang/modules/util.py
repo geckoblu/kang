@@ -22,7 +22,8 @@ def get_time(timestr):
 
 
 def get_time_str(epoch_str, format='%m/%d/%Y'):
-    if epoch_str == '': return ''
+    if epoch_str == '':
+        return ''
 
     tm = time.localtime(int(epoch_str))
     timestr = time.strftime(format, tm)
@@ -35,6 +36,7 @@ def getAppPath():
     path = os.path.dirname(fullpath)
     return path
 
+
 def dictList_to_CSV(filename, keyList, dictList):
     "creates a file of comma-seperated-values using the keysList as the first line"
     try:
@@ -42,8 +44,8 @@ def dictList_to_CSV(filename, keyList, dictList):
     except:
         QMessageBox.warning(None, 'Warning', 'Could not write file: %s' % filename)
         return 0
-    
-    # output the line of headers 
+
+    # output the line of headers
     i = 0
     numKeys = len(keyList)
     for i in range(numKeys):
@@ -81,7 +83,7 @@ def dictList_to_XML(filename, keyList, dictList):
         for key in keyList:
             f.write('\t<%s>%s</%s>\n' % (key, d[key], key))
         f.write('</ITEM>\n')
-                
+
     f.close()
     return 1
 
@@ -91,43 +93,45 @@ def getConfigDirectory():
     """
     home = os.path.expanduser('~')
     xdg_config_home = os.environ.get('XDG_CONFIG_HOME') or os.path.join(home, '.config')
-    
+
     config_dir = os.path.join(xdg_config_home, 'kang')
-    
+
     return config_dir
 
 
-def getComboItem(qComboBox, text, not_found = -1, case_sensitive = 1):
+def getComboItem(qComboBox, text, not_found=-1, case_sensitive=1):
     """returns the item number in the qComboBox for the given text string.
     If the text string is not found in the qComboBox, not_found is returned"""
 
-        
     for i in range(qComboBox.count()):
         itemstr = str(qComboBox.text(i))
         #print itemstr, '-', text, '-'
         if not case_sensitive:
             itemstr = string.upper(itemstr)
             text = string.upper(text)
-            
+
         if itemstr == text:
             return i
     return not_found
 
-    
-def getListBoxItem(qListBox, text, not_found = -1):
+
+def getListBoxItem(qListBox, text, not_found=-1):
     for i in range(qListBox.count()):
         itemstr = str(qListBox.text(i))
         if itemstr == text:
             return i
     return not_found
 
+
 def escapeSQL(s):
     s = string.replace(s, "'", "\\'")
     return s
 
+
 def escapeSQLq(qstr):
     s = str(qstr)
     return escapeSQL(s)
+
 
 def getSavedWindowSettings(path):
     try:
@@ -140,7 +144,7 @@ def getSavedWindowSettings(path):
         y = int(geo[1])
         width = int(geo[2])
         height = int(geo[3])
-        
+
         return {'x': x,
                 'y': y,
                 'width': width,
@@ -191,21 +195,23 @@ def restoreWindowSettings(window, filename):
         window.resize(sz)
     except:
         pass
-    
+
 
 def findFile(dr, filename):
     filename = os.path.join(dr, filename)
-    
+
     dirs = [getAppPath(),
             os.path.join('/', 'usr', 'share', 'kang'),
             os.path.join('/', 'usr', 'local', 'kang')]
 
     for d in dirs:
         path = os.path.join(d, filename)
-        if os.access(path, os.R_OK): return path
-        
+        if os.access(path, os.R_OK):
+            return path
+
     for d in sys.path:
         path = os.path.join(d, filename)
-        if os.access(path, os.R_OK): return path
+        if os.access(path, os.R_OK):
+            return path
 
     return None

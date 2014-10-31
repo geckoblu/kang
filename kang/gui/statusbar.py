@@ -12,9 +12,9 @@ class StatusBar:
         self.__statusTimer = QTimer(self.parent)
 
         self.parent.connect(self.__statusTimer, SIGNAL("timeout()"), self._resetMessage)
-        
+
         self.__statusLabel = QLabel(self.statusBar)
-        
+
         self.replaceStatusMessage = False
         self.lastStatusMessage = ''
 
@@ -22,7 +22,7 @@ class StatusBar:
 
         self.pixmapLabel = QLabel("image", self.statusBar)
         self.pixmapLabel.setPixmap(pixmap)
-        
+
         self.statusBar.addWidget(self.pixmapLabel, 0)
         self.statusBar.addWidget(self.__statusLabel, 1)
         #if progress_bar:
@@ -31,7 +31,6 @@ class StatusBar:
 
         if message:
             self.set_message(message)
-    
 
     def setMessage(self, message='', duration=0, pixmap=''):
         """sets the status bar message label to message.
@@ -39,9 +38,9 @@ class StatusBar:
         if duration is > 0 than the message is displayed for duration seconds.
 
         if duration is > 0 and replace is true then after duration seconds
-        have elapsed, the previous message is displayed. 
+        have elapsed, the previous message is displayed.
         """
-        
+
         replace = (duration > 0)
 
         self.__statusTimer.stop()
@@ -55,9 +54,7 @@ class StatusBar:
 
         if pixmap:
             self.pixmapLabel.setPixmap(pixmap)
-        
 
-    
     def _resetMessage(self):
         self.__statusTimer.stop()
         if self.replaceStatusMessage:

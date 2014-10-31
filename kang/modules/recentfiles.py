@@ -13,7 +13,8 @@ except AttributeError:
         return s
 
 
-MAX_SIZE = 50 # max number of files to retain
+MAX_SIZE = 50  # max number of files to retain
+
 
 class RecentFiles:
     def __init__(self, parent, numShown=5):
@@ -24,7 +25,6 @@ class RecentFiles:
         self.__actions = []
         self.load()
 
-
     def load(self):
         try:
             fp = open(self.filename, "r")
@@ -32,9 +32,8 @@ class RecentFiles:
         except Exception:
             #sys.stderr.write("Warning: %s\n" % str(e))
             return
-        
-        self.addToMenu()
 
+        self.addToMenu()
 
     def save(self):
         # truncate list if necessary
@@ -46,7 +45,6 @@ class RecentFiles:
             fp.close()
         except Exception as e:
             sys.stderr.write("Could not save recent file list %s\n" & str(e))
-            
 
     def add(self, filename):
         try:
@@ -57,7 +55,7 @@ class RecentFiles:
         self.__recent_files.insert(0, filename)
         self.save()
         self.addToMenu()
-        
+
     def remove(self, filename):
         try:
             self.__recent_files.remove(filename)
@@ -67,7 +65,6 @@ class RecentFiles:
         self.save()
         self.addToMenu()
 
-
     def clearMenu(self):
         # clear each menu entry...
         for act in self.__actions:
@@ -76,26 +73,25 @@ class RecentFiles:
         # clear list of menu entry indecies
         self.__actions = []
 
-        
     def addToMenu(self, clear=1):
-        if clear: self.clearMenu()
+        if clear:
+            self.clearMenu()
 
         # add applicable items to menu
         num = min(self.numShown, len(self.__recent_files))
         for i in range(num):
             filename = self.__recent_files[i]
             act = self.parent.fileMenu.addAction(filename)
-            QObject.connect(act, SIGNAL(_fromUtf8('triggered()')), lambda fn=filename: self.openfile(fn));
+            QObject.connect(act, SIGNAL(_fromUtf8('triggered()')), lambda fn=filename: self.openfile(fn))
             self.__actions.append(act)
-            
-        
+
     def openfile(self, filename):
         self.parent.openFile(filename)
 
-
     def setNumShown(self, numShown):
         ns = int(numShown)
-        if ns == self.numShown: return
+        if ns == self.numShown:
+            return
 
         # clear menu of size X then add entries of size Y
         self.clearMenu()
@@ -117,4 +113,3 @@ class RecentFiles:
 #         except:
 #             pass
 #         self.__indecies.insert(0, filename)
-

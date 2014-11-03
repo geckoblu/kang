@@ -1,5 +1,4 @@
 from PyQt4.QtCore import pyqtSignal
-from distutils.sysconfig import get_python_lib
 import os
 import re
 import signal
@@ -40,11 +39,6 @@ QT_VERS = int(QT_VERSION_STR[0])
 if QT_VERS < 4:
     sys.stderr.write("Qt versions prior to 4.0 are no longer supported\n")
     sys.exit(0)
-
-### make sure that this script can find kang specific modules ###
-sys.path.insert(0, os.path.join(get_python_lib(), "kang"))
-
-###################################################################
 
 
 # match status

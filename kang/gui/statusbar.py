@@ -5,7 +5,7 @@ from kang.images import getPixmap
 
 
 class StatusBar:
-    def __init__(self, parent, message=''):
+    def __init__(self, parent):
         self.parent = parent
 
         self.statusBar = parent.statusBar()
@@ -28,9 +28,6 @@ class StatusBar:
         #if progress_bar:
         #    self.progressBar = QProgressBar(self.statusBar)
         #    self.statusBar.addWidget(self.progressBar, 1)
-
-        if message:
-            self.set_message(message)
 
     def setMessage(self, message='', duration=0, pixmap=''):
         """sets the status bar message label to message.

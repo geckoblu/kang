@@ -28,8 +28,6 @@ def _excepthook(excType, excValue, tracebackobj):
     @param tracebackobj traceback object
     """
 
-    global _showedexmess
-
     try:
         tb = traceback.format_exception(excType, excValue, tracebackobj)
         exmess = ''.join(tb)

@@ -29,7 +29,7 @@ class RecentFiles:
         try:
             fp = open(self.filename, "r")
             self.__recent_files = map(string.strip, fp.readlines())
-        except Exception:
+        except IOError:
             #sys.stderr.write("Warning: %s\n" % str(e))
             return
 
@@ -43,7 +43,7 @@ class RecentFiles:
             for f in self.__recent_files:
                 fp.write("%s\n" % f)
             fp.close()
-        except Exception as e:
+        except IOError as e:
             sys.stderr.write("Could not save recent file list %s\n" & str(e))
 
     def add(self, filename):
@@ -97,19 +97,3 @@ class RecentFiles:
         self.clearMenu()
         self.numShown = ns
         self.addToMenu(0)
-
-
-#     def move(self, filename, menuid):
-#         # fix me....
-#         menu = self.parent.fileMenu
-#         idx = menu.indexOf(self.__indecies[0])
-#         menu.removeItem(menuid)
-# #         menu.insertItem(QIconSet(QPixmap(xpm.newIcon)),
-# #                         filename,
-# #                         -1,
-# #                         idx)
-#         try:
-#             self.__recent_files.remove(filename)
-#         except:
-#             pass
-#         self.__indecies.insert(0, filename)

@@ -17,11 +17,6 @@ def getPixmap(fileStr):
 def getIcon(iconName):
     """Returns the QIcon corresponding to name in the current icon theme.
     If no such icon is found in the current theme a fallback is return instead."""
-
-    imagepath = os.path.join(os.path.dirname(__file__), '%s.svg' % iconName)
-    if not os.path.exists(imagepath):
-        print(iconName)
-
     icon = QIcon.fromTheme(iconName)
     if icon.isNull():
         icon = QIcon(getPixmap('%s.svg' % iconName))

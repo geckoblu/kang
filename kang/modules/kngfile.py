@@ -1,7 +1,7 @@
 import cPickle
 
 
-class KngFile():
+class KngFile:
 
     def __init__(self, filename, regex='', matchstring='', replace='', flags=0):
 

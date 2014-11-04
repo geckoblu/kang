@@ -165,8 +165,8 @@ class MainWindow(MainWindowBA):
             message = '%s: %s' % (self.tr('Failed to create'), kdir)
             QMessageBox().critical(self, self.tr('ERROR'), message, buttons=QMessageBox.Ok)
 
-        self.newuserdialog = NewUserDialog(self)
-        self.newuserdialog.show()
+        newuserdialog = NewUserDialog(self)
+        newuserdialog.show()
 
     def updateStatus(self, status_string, status_value, duration=0):
         pixmap = self.statusPixmapsDict.get(status_value)
@@ -694,8 +694,8 @@ class MainWindow(MainWindowBA):
         ev.accept()
 
     def importURL(self):
-        self.urldialog = ImportURLDialog(self, self.url)
-        self.urldialog.show()
+        urldialog = ImportURLDialog(self, self.url)
+        urldialog.show()
 
     def urlImported(self, html, url):
         self.url = url
@@ -968,19 +968,19 @@ class MainWindow(MainWindowBA):
         webbrowser.open(PYTHON_RE_LIBRARY_URL)
 
     def helpRegexLib(self):
-        self.regexlibwin = RegexLibraryWindow(self)
-        self.regexlibwin.show()
+        regexlibwin = RegexLibraryWindow(self)
+        regexlibwin.show()
 
     def helpAbout(self):
-        self.aboutWindow = AboutDialog(self)
-        self.aboutWindow.show()
+        aboutWindow = AboutDialog(self)
+        aboutWindow.show()
 
     def helpVisitKangWebsite(self):
         webbrowser.open(KANG_WEBSITE)
 
     def reference_guide(self):
-        self.ref_win = RegexReferenceWindow(self)
-        self.ref_win.show()
+        ref_win = RegexReferenceWindow(self)
+        ref_win.show()
 
     def loadToolbarIcons(self):
         self.fileOpenAction.setIcon(getIcon("document-open"))

@@ -40,13 +40,20 @@ load-plugins=
 # --disable=W"
 #disable=
 
-disable=C0301,C0111,C0103,C0326,W0702
+disable=C0301,C0111,C0103,C0326,W0702,R0201,R0902,C1001,R0903,C0325,R0913
 
 # C0301: Line too long (%s/%s)
 # C0111: Missing %s docstring
 # C0103: Invalid %s name "%s"
 # W0702: No exception type(s) specified
 # C0326: %s space %s %s %s\n%s
+# R0201: Method could be a function
+# R0902: Too many instance attributes (%s/%s)
+# R0914: Too many local variables (%s/%s)
+# C1001: Old-style class defined.
+# R0903: Too few public methods (%s/%s)
+# C0325: Unnecessary parens after %r keyword
+# R0913: Too many arguments (%s/%s)
 
 [REPORTS]
 

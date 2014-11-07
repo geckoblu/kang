@@ -66,12 +66,6 @@ GEO = "kang_geometry"
 QCOLOR_WHITE  = QColor(Qt.white)     # normal
 QCOLOR_YELLOW = QColor(255, 255, 127)  # examine
 
-try:
-    signal.SIGALRM
-    HAS_ALARM = 1
-except:
-    HAS_ALARM = 0
-
 
 ##############################################################################
 #
@@ -566,9 +560,8 @@ class MainWindow(MainWindowBA):
         self.process_embedded_flags(self.regex)
         #print self.resultTabWidget.currentPageIndex()
 
-        if HAS_ALARM:
-            signal.signal(signal.SIGALRM, timeout)
-            signal.alarm(TIMEOUT)
+        signal.signal(signal.SIGALRM, timeout)
+        signal.alarm(TIMEOUT)
 
         try:
             compile_obj = re.compile(self.regex, self.flags)
@@ -589,8 +582,7 @@ class MainWindow(MainWindowBA):
             self.updateStatus(str(e), MATCH_FAIL)
             return
 
-        if HAS_ALARM:
-            signal.alarm(0)
+        signal.alarm(0)
 
         if not match_obj:
             self.updateStatus(self.MSG_FAIL, MATCH_FAIL)

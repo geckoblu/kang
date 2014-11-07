@@ -13,11 +13,11 @@ from kang.modules import exceptionHandler
 
 def parse_cmdline():
 
-    def locale(locale):
-        if len(locale) != 2:
-            msg = "'%s' is not a valid locale" % locale
-            raise argparse.ArgumentTypeError(msg)
-        return locale
+    #def locale(locale):
+    #    if len(locale) != 2:
+    #        msg = "'%s' is not a valid locale" % locale
+    #        raise argparse.ArgumentTypeError(msg)
+    #    return locale
 
     parser = argparse.ArgumentParser(description='Kang is a graphical regular expression tester.')
     parser.add_argument('filename', metavar='FILENAME', nargs='?', help='load filename on startup')

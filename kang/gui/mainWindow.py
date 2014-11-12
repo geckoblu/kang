@@ -960,8 +960,8 @@ class MainWindow(MainWindowBA):
         webbrowser.open(PYTHON_RE_LIBRARY_URL)
 
     def helpRegexLib(self):
-        regexlibwin = RegexLibraryWindow(self)
-        regexlibwin.show()
+        self.regexlibwin = RegexLibraryWindow(self)
+        self.regexlibwin.show()
 
     def helpAbout(self):
         aboutWindow = AboutDialog(self)
@@ -971,8 +971,8 @@ class MainWindow(MainWindowBA):
         webbrowser.open(KANG_WEBSITE)
 
     def reference_guide(self):
-        ref_win = RegexReferenceWindow(self)
-        ref_win.show()
+        self.ref_win = RegexReferenceWindow(self)
+        self.ref_win.show()
 
     def loadToolbarIcons(self):
         self.fileOpenAction.setIcon(getIcon("document-open"))

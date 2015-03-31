@@ -63,8 +63,8 @@ STATE_EDITED   = 1
 GEO = "kang_geometry"
 
 # colors for normal & examination mode
-QCOLOR_WHITE  = QColor(Qt.white)     # normal
-QCOLOR_YELLOW = QColor(255, 255, 127)  # examine
+QCOLOR_WHITE = QColor(Qt.white)       # normal
+QCOLOR_LIGHTCYAN = QColor('#DDFFFF')  # examine
 
 
 ##############################################################################
@@ -293,7 +293,7 @@ class MainWindow(MainWindowBA):
         self.is_examined = not self.is_examined
 
         if self.is_examined:
-            color = QCOLOR_YELLOW
+            color = QCOLOR_LIGHTCYAN
             regex = self.regex
             self.regex_saved = self.regex
             length = len(regex)

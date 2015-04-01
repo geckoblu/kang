@@ -1,0 +1,7 @@
+S'(?P<host>.*?)\\.(?P<domain>.+?)\\.(?P<class>com|edu|org|net)(:)(?P<port>\\d*)'
+p1
+.S'www.supplysolution.com:80'
+p2
+.I2
+.S''
+.

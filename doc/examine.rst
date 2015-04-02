@@ -9,14 +9,14 @@ Although this alone may be useful, Kodos provides the examine to help pinpoint e
 By examining the regex, Kang will locate the longest possible match by eliminating scanning the current regex. 
 Consider the following example: 
 
-.. figure:: _static/examine-nomatch.png
+.. figure:: _images/examine-nomatch.png
     :alt: Fig. Regex does not match string
 
 By pressing the examine toolbar button, Kodos will find the last possible match and enter examination mode.
 The examination mode is indicated by changing the background of the regex edit dialog yellow.
 While in examination mode you are prevented from editing the regex (i.e. this is a read-only mode)
 
-.. figure:: _static/examine-match.png
+.. figure:: _images/examine-match.png
     :alt: Fig. Examination mode
 
 Press the examine button To exit examination mode.

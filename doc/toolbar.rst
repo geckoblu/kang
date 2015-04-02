@@ -3,7 +3,7 @@ The Toolbar
 
 The Kang toolbar provides quick access to frequently used functionality.
 
-.. figure:: _static/toolbar.png
+.. figure:: _images/toolbar.png
     :alt: Fig. Kang Toolbar
 
 From left-to-right:

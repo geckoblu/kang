@@ -9,37 +9,37 @@ We write the following regualar expression into the 'Regular expression entry'::
 
  (?P<host>.*?)\.(?P<domain>.+?)\.(?P<class>com|edu|org|net)(:)(?P<port>\d*)
 
-.. figure:: _static/example-regex.png
+.. figure:: _images/example-regex.png
      :alt: Fig. Our regular expression
           
 In this case, we would like the make this case-insensitive, so we select the appropriate flags checkbox
 
-.. figure:: _static/example-checkbox.png
+.. figure:: _images/example-checkbox.png
      :alt: Fig. Ignoring case
      
 We will then enter a partial string.
 
-.. figure:: _static/example-searchstring1.png
+.. figure:: _images/example-searchstring1.png
      :alt: Fig. Our initial string
 
 We can see from the status bar that this string does not match our regular expression
 
-.. figure:: _static/example-status-nomatch.png
+.. figure:: _images/example-status-nomatch.png
      :alt: Fig. Pattern does not match or there is a syntax error
 
 Finally, we enter our string in it's entirety.  
 
-.. figure:: _static/example-searchstring2.png
+.. figure:: _images/example-searchstring2.png
      :alt: Fig. Our final string
 
 Upon doing so, our status will indicate success
 
-.. figure:: _static/example-status-match.png
+.. figure:: _images/example-status-match.png
      :alt: Fig. Pattern successfully matches the input string
 
 and our groups will appear in the "groups" list.
 
-.. figure:: _static/example-group.png
+.. figure:: _images/example-group.png
      :alt: Fig. The groups list
 
 If we used this regular expression in a python application, we could retrieve the group data as such:
@@ -56,5 +56,5 @@ re.group(5)     re.group('port')   80
 
 The matching string can be seen by viewing the "match" output tab
 
-.. figure:: _static/example-match.png
+.. figure:: _images/example-match.png
      :alt: Fig. The groups list

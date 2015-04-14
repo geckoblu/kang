@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainWindowBA4.ui'
+# Form implementation generated from reading ui file 'mainWindowBA.ui'
 #
-# Created: Tue Sep 23 16:06:35 2014
+# Created: Tue Apr 14 11:40:21 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -69,9 +69,6 @@ class Ui_MainWindowBA(object):
         self.gridlayout1 = QtGui.QGridLayout(self.groupBox1)
         self.gridlayout1.setObjectName(_fromUtf8("gridlayout1"))
         self.regexMultiLineEdit = QtGui.QTextEdit(self.groupBox1)
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Helvetica [Adobe]"))
-        self.regexMultiLineEdit.setFont(font)
         self.regexMultiLineEdit.setProperty("text", _fromUtf8(""))
         self.regexMultiLineEdit.setObjectName(_fromUtf8("regexMultiLineEdit"))
         self.gridlayout1.addWidget(self.regexMultiLineEdit, 0, 0, 1, 1)
@@ -177,6 +174,7 @@ class Ui_MainWindowBA(object):
         self.toolBar.setObjectName(_fromUtf8("toolBar"))
         MainWindowBA.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.menubar = QtGui.QMenuBar(MainWindowBA)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 497, 26))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.fileMenu = QtGui.QMenu(self.menubar)
         self.fileMenu.setObjectName(_fromUtf8("fileMenu"))

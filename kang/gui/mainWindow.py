@@ -128,7 +128,7 @@ class MainWindow(MainWindowBA):
 
         self.show()
 
-        self.preferences = Preferences(self.getEditorFont(), self.getMatchFont())
+        self.preferences = Preferences()
         self.recentFiles = RecentFiles(self,
                                         self.preferences.recentFilesNum)
         self.preferencesChanged()
@@ -924,30 +924,8 @@ class MainWindow(MainWindowBA):
         sd = PreferencesDialog(self, self.preferences)
         sd.showPrefsDialog()
 
-    def setEditorfont(self, font):
-        if font:
-            self.regexMultiLineEdit.setFont(font)
-            self.stringMultiLineEdit.setFont(font)
-            self.replaceTextEdit.setFont(font)
-
-    def setMatchFont(self, font):
-        if font:
-            self.groupTable.setFont(font)
-            self.matchTextBrowser.setFont(font)
-            self.matchAllTextBrowser.setFont(font)
-            self.replaceTextBrowser.setFont(font)
-            self.codeTextBrowser.setFont(font)
-
-    def getEditorFont(self):
-        return self.regexMultiLineEdit.font()
-
-    def getMatchFont(self):
-        return self.groupTable.font()
-
     def preferencesChanged(self):
         self.recentFiles.setNumShown(self.preferences.recentFilesNum)
-        self.setEditorfont(self.preferences.editorFont)
-        self.setMatchFont(self.preferences.matchFont)
 
     def helpHelp(self):
         f = findFile('help', 'index.html')

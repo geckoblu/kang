@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Kang
+Comment=Visual regular expression tester
+Exec=kang
+Terminal=false
+Icon=kang-icon
+Type=Application
+Categories=Development;Qt;
+Version=1.0

@@ -28,7 +28,9 @@ import os
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-# sphinxcontrib.fulltoc from http://sphinxcontrib-fulltoc.readthedocs.org
+# sphinxcontrib.fulltoc from 
+#               https://github.com/dreamhost/sphinxcontrib-fulltoc
+#               http://sphinxcontrib-fulltoc.readthedocs.org
 extensions = ['sphinxcontrib.fulltoc']
 
 # Add any paths that contain templates here, relative to this directory.

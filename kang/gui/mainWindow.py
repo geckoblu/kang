@@ -2,7 +2,6 @@ from PyQt4.QtCore import pyqtSignal
 import os
 import re
 import signal
-import sys
 import types
 import webbrowser
 
@@ -25,21 +24,9 @@ from kang.modules.util import findFile, restoreWindowSettings, saveWindowSetting
 import kang.modules.xpm as xpm
 
 
-try:
-    from PyQt4.QtCore import Qt, QT_VERSION_STR, SIGNAL
-    from PyQt4.QtGui import QFileDialog, QColor, QMessageBox, \
-                            QPixmap, QPalette, QTableWidgetItem, QHeaderView, qApp
-except:
-    sys.stderr.write("""Could not locate the PyQt module.  Please make sure that
-you have installed PyQt for the version of Python that you are running.\n""")
-    sys.exit(1)
-
-QT_VERS = int(QT_VERSION_STR[0])
-
-if QT_VERS < 4:
-    sys.stderr.write("Qt versions prior to 4.0 are no longer supported\n")
-    sys.exit(0)
-
+from PyQt4.QtCore import Qt, SIGNAL
+from PyQt4.QtGui import QFileDialog, QColor, QMessageBox, \
+                        QPixmap, QPalette, QTableWidgetItem, QHeaderView, qApp
 
 # match status
 MATCH_NONE     = -1

@@ -3,12 +3,23 @@
 # pyrcc4 resources.qrc > modules/resources.py
 
 
-from PyQt4 import QtGui
 import argparse
 import sys
+try:
+    from PyQt4 import QtGui, QtCore
+except:
+    sys.stderr.write("""Could not locate the PyQt module.  Please make sure that
+you have installed PyQt for the version of Python that you are running.\n""")
+    sys.exit(1)
 
 from kang.gui.mainWindow import MainWindow
 from kang.modules import exceptionHandler
+
+QT_VERS = int(QtCore.QT_VERSION_STR[0])
+
+if QT_VERS < 4:
+    sys.stderr.write("Qt versions prior to 4.0 are no longer supported\n")
+    sys.exit(0)
 
 
 def parse_cmdline():

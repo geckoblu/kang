@@ -30,13 +30,6 @@ def get_time_str(epoch_str, format='%m/%d/%Y'):
     return timestr
 
 
-def getAppPath():
-    "Convenience function so that we can find the necessary images"
-    fullpath = os.path.abspath(sys.argv[0])
-    path = os.path.dirname(fullpath)
-    return path
-
-
 def dictList_to_CSV(filename, keyList, dictList):
     "creates a file of comma-seperated-values using the keysList as the first line"
     try:
@@ -198,18 +191,13 @@ def restoreWindowSettings(window, filename):
 
 
 def findFile(dr, filename):
+    """Find application resources"""
     filename = os.path.join(dr, filename)
 
-    dirs = [getAppPath(),
-            os.path.join('/', 'usr', 'share', 'kang'),
-            os.path.join('/', 'usr', 'local', 'kang')]
+    apppath = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+    dirs = [apppath]
 
     for d in dirs:
-        path = os.path.join(d, filename)
-        if os.access(path, os.R_OK):
-            return path
-
-    for d in sys.path:
         path = os.path.join(d, filename)
         if os.access(path, os.R_OK):
             return path

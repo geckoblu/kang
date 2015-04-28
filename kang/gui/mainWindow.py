@@ -928,7 +928,7 @@ class MainWindow(MainWindowBA):
         self.recentFiles.setNumShown(self.preferences.recentFilesNum)
 
     def helpHelp(self):
-        f = findFile('help', 'index.html')
+        f = findFile('doc', 'index.html')
         if f:
             webbrowser.open('file://%s' % f)
         else:

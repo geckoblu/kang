@@ -932,7 +932,7 @@ class MainWindow(MainWindowBA):
         if f:
             webbrowser.open('file://%s' % f)
         else:
-            webbrowser.open('%s/help/index.html' % KANG_WEBSITE)
+            webbrowser.open('%s/doc/index.html' % KANG_WEBSITE)
 
     def helpPythonRegex(self):
         webbrowser.open(PYTHON_RE_LIBRARY_URL)

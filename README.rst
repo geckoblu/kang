@@ -24,5 +24,5 @@ Visit Kang web site_ or browse the documentation_.
 .. _Kodos: http://kodos.sourceforge.net/
 .. _GPL: http://www.gnu.org/licenses/gpl-2.0.txt
 .. _site: http://www.geckoblu.net/kang/
-.. _documentation: http://www.geckoblu.net/kang/help/
+. _documentation: http://www.geckoblu.net/kang/doc/
 

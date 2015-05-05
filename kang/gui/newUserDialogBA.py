@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gui/newUserDialogBA4.ui'
+# Form implementation generated from reading ui file 'newUserDialogBA.ui'
 #
-# Created: Fri Aug 29 09:21:54 2014
+# Created: Tue May  5 09:19:15 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -86,7 +86,7 @@ class Ui_NewUserDialogBA(object):
 
     def retranslateUi(self, NewUserDialogBA):
         NewUserDialogBA.setWindowTitle(_translate("NewUserDialogBA", "Kang new user information", None))
-        self.textLabel1.setText(_translate("NewUserDialogBA", "<html><head/><body><p><span style=\" font-size:large; font-weight:600;\">Welcome to Kang.</span></p><p>It appears that this is your first time using Kang - The Python Regular Expression Tester. </p><p>In order to help you familiarize yourself with Kang, you may wish to explore the Regex Library. Additionally, Kang contains a Python Regex Reference Guide. You can access these tools by clicking on the appropriate toolbar icon.</p></body></html>", None))
+        self.textLabel1.setText(_translate("NewUserDialogBA", "<html><head/><body><p><span style=\" font-size:large; font-weight:600;\">Welcome to Kang.</span></p><p>It appears that this is your first time using Kang - The Python Regular Expression Editor. </p><p>In order to help you familiarize yourself with Kang, you may wish to explore the Regex Library. Additionally, Kang contains a Python Regex Reference Guide. You can access these tools by clicking on the appropriate toolbar icon.</p></body></html>", None))
         self.textLabel4.setText(_translate("NewUserDialogBA", "<b>Regex Reference Guide</b>", None))
         self.textLabel3.setText(_translate("NewUserDialogBA", "<b>Regex Library</b>", None))
 

@@ -3,7 +3,7 @@ Introduction
 
 Overview
 --------
-Kang is a Python GUI utility for creating, testing and debugging regular expressions for the Python programming language. 
+Kang is a Python GUI utility for editing, testing and debugging regular expressions for the Python programming language. 
 Kang should aid any developer to efficiently and effortlessly develop regular expressions in Python.
 
 Since Python's implementation of regular expressions is based on the PCRE standard, 

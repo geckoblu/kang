@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Kang - The Python Regex Tester</string>
+   <string>Kang - The Python Regular Expression Editor</string>
   </property>
   <property name="windowIconText">
    <string>Kang</string>

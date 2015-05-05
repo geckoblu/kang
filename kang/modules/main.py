@@ -30,7 +30,7 @@ def parse_cmdline():
     #        raise argparse.ArgumentTypeError(msg)
     #    return locale
 
-    parser = argparse.ArgumentParser(description='Kang is a graphical regular expression tester.')
+    parser = argparse.ArgumentParser(description='Kang is a visual regular expression editor.')
     parser.add_argument('filename', metavar='FILENAME', nargs='?', help='load filename on startup')
     #parser.add_argument('-l', '--locale', type=locale, help='2-letter locale (eg. en)')
 

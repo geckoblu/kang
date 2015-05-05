@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gui/aboutDialogBA4.ui'
+# Form implementation generated from reading ui file 'aboutDialogBA.ui'
 #
-# Created: Tue Aug 26 15:14:55 2014
+# Created: Tue May  5 09:20:48 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -165,7 +165,7 @@ class Ui_AboutDialogBA(object):
     def retranslateUi(self, AboutDialogBA):
         AboutDialogBA.setWindowTitle(_translate("AboutDialogBA", "About", None))
         self.label_kang.setText(_translate("AboutDialogBA", "KANG", None))
-        self.label_outline.setText(_translate("AboutDialogBA", "The Python Regex Tester", None))
+        self.label_outline.setText(_translate("AboutDialogBA", "The Python Regular Expression Editor", None))
         self.label_licensetxt.setText(_translate("AboutDialogBA", "TextLabel", None))
         self.label_license.setText(_translate("AboutDialogBA", "License:", None))
         self.label_homepage.setText(_translate("AboutDialogBA", "Homepage:", None))

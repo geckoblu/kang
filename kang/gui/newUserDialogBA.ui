@@ -25,7 +25,7 @@
      <item>
       <widget class="QLabel" name="textLabel1">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Welcome to Kang.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;It appears that this is your first time using Kang - The Python Regular Expression Tester. &lt;/p&gt;&lt;p&gt;In order to help you familiarize yourself with Kang, you may wish to explore the Regex Library. Additionally, Kang contains a Python Regex Reference Guide. You can access these tools by clicking on the appropriate toolbar icon.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Welcome to Kang.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;It appears that this is your first time using Kang - The Python Regular Expression Editor. &lt;/p&gt;&lt;p&gt;In order to help you familiarize yourself with Kang, you may wish to explore the Regex Library. Additionally, Kang contains a Python Regex Reference Guide. You can access these tools by clicking on the appropriate toolbar icon.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignVCenter</set>

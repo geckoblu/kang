@@ -88,7 +88,7 @@
            <item>
             <widget class="QLabel" name="label_outline">
              <property name="text">
-              <string>The Python Regex Tester</string>
+              <string>The Python Regular Expression Editor</string>
              </property>
             </widget>
            </item>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainWindowBA.ui'
 #
-# Created: Tue Apr 14 11:40:21 2015
+# Created: Tue May  5 09:23:47 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -371,7 +371,7 @@ class Ui_MainWindowBA(object):
         MainWindowBA.setTabOrder(self.matchTextBrowser, self.codeTextBrowser)
 
     def retranslateUi(self, MainWindowBA):
-        MainWindowBA.setWindowTitle(_translate("MainWindowBA", "Kang - The Python Regex Tester", None))
+        MainWindowBA.setWindowTitle(_translate("MainWindowBA", "Kang - The Python Regular Expression Editor", None))
         MainWindowBA.setWindowIconText(_translate("MainWindowBA", "Kang", None))
         self.groupBox2.setTitle(_translate("MainWindowBA", "Flags", None))
         self.ignorecaseCheckBox.setToolTip(_translate("MainWindowBA", "Perform case-insensitive matching; expressions like [A-Z] will match\n"

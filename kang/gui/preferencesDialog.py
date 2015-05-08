@@ -16,11 +16,17 @@ class PreferencesDialog(PreferencesDialogBA):
 
     def showPrefsDialog(self):
         self.recentFilesSpinBox.setValue(self.preferences.recentFilesNum)
+        self.askSaveCheckbox.setChecked(self.preferences.askSave)
+        self.askSaveCheckbox2.setChecked(self.preferences.askSaveOnlyForNamedProjects)
+
+        self.askSaveCheckbox2.setEnabled(self.askSaveCheckbox.isChecked())
 
         self.show()
 
     def apply(self):
         self.preferences.recentFilesNum = self.recentFilesSpinBox.value()
+        self.preferences.askSave = self.askSaveCheckbox.isChecked()
+        self.preferences.askSaveOnlyForNamedProjects = self.askSaveCheckbox2.isChecked()
 
         self.preferences.save()
         self.parent.emit(SIGNAL('preferencesChanged()'))
@@ -28,3 +34,6 @@ class PreferencesDialog(PreferencesDialogBA):
     def accept(self):
         self.apply()
         QDialog.accept(self)
+
+    def askSaveCheckboxToogled(self):
+        self.askSaveCheckbox2.setEnabled(self.askSaveCheckbox.isChecked())

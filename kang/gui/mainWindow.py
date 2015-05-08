@@ -841,6 +841,12 @@ class MainWindow(MainWindowBA):
 
     def checkEditState(self, noButtonStr=None):
 
+        if not self.preferences.askSave:
+            return
+
+        if self.preferences.askSaveOnlyForNamedProjects and not self.filename:
+            return
+
         if not noButtonStr:
             noButtonStr = self.tr("&No")
 

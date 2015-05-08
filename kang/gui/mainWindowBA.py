@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainWindowBA.ui'
 #
-# Created: Tue May  5 09:23:47 2015
+# Created: Fri May  8 09:14:50 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -315,7 +315,7 @@ class Ui_MainWindowBA(object):
         self.retranslateUi(MainWindowBA)
         self.resultTabWidget.setCurrentIndex(0)
         self.tabWidget3.setCurrentIndex(0)
-        QtCore.QObject.connect(self.dotallCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkbox_slot)
+        QtCore.QObject.connect(self.dotallCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkboxSlot)
         QtCore.QObject.connect(self.editCopyAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.editCopy)
         QtCore.QObject.connect(self.editCutAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.editCut)
         QtCore.QObject.connect(self.editPasteAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.editPaste)
@@ -329,21 +329,21 @@ class Ui_MainWindowBA(object):
         QtCore.QObject.connect(self.fileSaveAsAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.fileSaveAs)
         QtCore.QObject.connect(self.helpAboutAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.helpAbout)
         QtCore.QObject.connect(self.helpHelpAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.helpHelp)
-        QtCore.QObject.connect(self.ignorecaseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkbox_slot)
-        QtCore.QObject.connect(self.localeCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkbox_slot)
-        QtCore.QObject.connect(self.matchNumberSpinBox, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), MainWindowBA.match_num_slot)
-        QtCore.QObject.connect(self.multilineCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkbox_slot)
-        QtCore.QObject.connect(self.regexMultiLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.regex_changed_slot)
-        QtCore.QObject.connect(self.stringMultiLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.string_changed_slot)
-        QtCore.QObject.connect(self.unicodeCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkbox_slot)
-        QtCore.QObject.connect(self.verboseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkbox_slot)
+        QtCore.QObject.connect(self.ignorecaseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkboxSlot)
+        QtCore.QObject.connect(self.localeCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkboxSlot)
+        QtCore.QObject.connect(self.matchNumberSpinBox, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), MainWindowBA.matchNumSlot)
+        QtCore.QObject.connect(self.multilineCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkboxSlot)
+        QtCore.QObject.connect(self.regexMultiLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.regexChangedSlot)
+        QtCore.QObject.connect(self.stringMultiLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.stringChangedSlot)
+        QtCore.QObject.connect(self.unicodeCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkboxSlot)
+        QtCore.QObject.connect(self.verboseCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.checkboxSlot)
         QtCore.QObject.connect(self.editPauseAction, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), MainWindowBA.pause)
         QtCore.QObject.connect(self.editPreferencesAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.editPreferences)
         QtCore.QObject.connect(self.helpPythonHelpAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.helpPythonRegex)
-        QtCore.QObject.connect(self.helpRegexReferenceAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.reference_guide)
+        QtCore.QObject.connect(self.helpRegexReferenceAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.referenceGuide)
         QtCore.QObject.connect(self.helpVisitWebsiteAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.helpVisitKangWebsite)
-        QtCore.QObject.connect(self.replaceTextEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.replace_changed_slot)
-        QtCore.QObject.connect(self.replaceNumberSpinBox, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), MainWindowBA.replace_num_slot)
+        QtCore.QObject.connect(self.replaceTextEdit, QtCore.SIGNAL(_fromUtf8("textChanged()")), MainWindowBA.replaceChangedSlot)
+        QtCore.QObject.connect(self.replaceNumberSpinBox, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), MainWindowBA.replaceNumSlot)
         QtCore.QObject.connect(self.fileImportFileAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.importFile)
         QtCore.QObject.connect(self.fileImportURLAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.importURL)
         QtCore.QObject.connect(self.helpRegexLibAction, QtCore.SIGNAL(_fromUtf8("activated()")), MainWindowBA.helpRegexLib)

@@ -15,6 +15,7 @@ class RegexLibraryWindow(RegexLibraryWindowBA):
         RegexLibraryWindowBA.__init__(self, None)
         self.parent = parent
         self.selected = None
+        self.xmlDicts = []
 
         restoreWindowSettings(self, GEO)
         self.setWindowIcon(getIcon('kang-icon'))
@@ -22,16 +23,16 @@ class RegexLibraryWindow(RegexLibraryWindowBA):
         self.parseXML()
         self.populateListBox()
 
-    def closeEvent(self, ev):
+    def closeEvent(self, event):
         saveWindowSettings(self, GEO)
-        ev.accept()
+        event.accept()
 
     def parseXML(self):
         parser = ParseRegexLib()
-        self.xml_dicts = parser.parse()
+        self.xmlDicts = parser.parse()
 
     def populateListBox(self):
-        for d in self.xml_dicts:
+        for d in self.xmlDicts:
             self.descriptionListBox.addItem(d.get('desc', "<unknown>"))
 
     def descSelectedSlot(self, qlistboxitem):
@@ -39,13 +40,13 @@ class RegexLibraryWindow(RegexLibraryWindowBA):
             return
 
         itemnum = self.descriptionListBox.currentRow()
-        self.populateSelected(self.xml_dicts[itemnum])
+        self.populateSelected(self.xmlDicts[itemnum])
 
-    def populateSelected(self, xml_dict):
-        self.regexTextBrowser.setPlainText(xml_dict.get('regex', ""))
-        self.contribEdit.setText(xml_dict.get("contrib", ""))
-        self.noteTextBrowser.setPlainText(xml_dict.get('note', ""))
-        self.selected = xml_dict
+    def populateSelected(self, xmlDict):
+        self.regexTextBrowser.setPlainText(xmlDict.get('regex', ""))
+        self.contribEdit.setText(xmlDict.get("contrib", ""))
+        self.noteTextBrowser.setPlainText(xmlDict.get('note', ""))
+        self.selected = xmlDict
 
     def editPaste(self):
         if self.selected:

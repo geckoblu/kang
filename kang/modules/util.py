@@ -1,84 +1,79 @@
-#  util.py: -*- Python -*-  DESCRIPTIVE TEXT.
-
 from PyQt4.QtCore import QSize
-from PyQt4.QtGui import QMessageBox
 import os
-import string
 import sys
-import time
 
 
-def get_time(timestr):
-    "returns a string representation of the epoch or empty string"
-    if timestr == '':
-        return ''
-
-    try:
-        epoch = time.mktime(time.strptime(timestr, '%m/%d/%Y'))
-    except:
-        return ''
-
-    return str(long(epoch))
-
-
-def get_time_str(epoch_str, format='%m/%d/%Y'):
-    if epoch_str == '':
-        return ''
-
-    tm = time.localtime(int(epoch_str))
-    timestr = time.strftime(format, tm)
-    return timestr
+# def get_time(timestr):
+#     "returns a string representation of the epoch or empty string"
+#     if timestr == '':
+#         return ''
+#
+#     try:
+#         epoch = time.mktime(time.strptime(timestr, '%m/%d/%Y'))
+#     except:
+#         return ''
+#
+#     return str(long(epoch))
 
 
-def dictList_to_CSV(filename, keyList, dictList):
-    "creates a file of comma-seperated-values using the keysList as the first line"
-    try:
-        f = open(filename, 'w')
-    except:
-        QMessageBox.warning(None, 'Warning', 'Could not write file: %s' % filename)
-        return 0
-
-    # output the line of headers
-    i = 0
-    numKeys = len(keyList)
-    for i in range(numKeys):
-        f.write('"%s"' % keyList[i])
-        if i < numKeys - 1:
-            f.write(',')
-        else:
-            f.write('\n')
-
-    # output the rows of data
-    for d in dictList:
-        i = 0
-        for i in range(numKeys):
-            f.write('"%s"' % d[keyList[i]])
-            if i < numKeys - 1:
-                f.write(',')
-            else:
-                f.write('\n')
-
-    f.close()
-    return 1
+# def get_time_str(epoch_str, format='%m/%d/%Y'):
+#     if epoch_str == '':
+#         return ''
+#
+#     tm = time.localtime(int(epoch_str))
+#     timestr = time.strftime(format, tm)
+#     return timestr
 
 
-def dictList_to_XML(filename, keyList, dictList):
-    """creates a file consisting of XML.  keylist is a list of the columns (keys)
-    in dictList.  Each dict in dictList is written as an item-node"""
-    try:
-        f = open(filename, 'w')
-    except:
-        QMessageBox.warning(None, 'Warning', 'Could not write file: %s' % filename)
-        return 0
+# def dictList_to_CSV(filename, keyList, dictList):
+#     "creates a file of comma-seperated-values using the keysList as the first line"
+#     try:
+#         f = open(filename, 'w')
+#     except:
+#         QMessageBox.warning(None, 'Warning', 'Could not write file: %s' % filename)
+#         return 0
+#
+#     # output the line of headers
+#     i = 0
+#     numKeys = len(keyList)
+#     for i in range(numKeys):
+#         f.write('"%s"' % keyList[i])
+#         if i < numKeys - 1:
+#             f.write(',')
+#         else:
+#             f.write('\n')
+#
+#     # output the rows of data
+#     for d in dictList:
+#         i = 0
+#         for i in range(numKeys):
+#             f.write('"%s"' % d[keyList[i]])
+#             if i < numKeys - 1:
+#                 f.write(',')
+#             else:
+#                 f.write('\n')
+#
+#     f.close()
+#     return 1
 
-    for d in dictList:
-        f.write('<ITEM>\n')
-        for key in keyList:
-            f.write('\t<%s>%s</%s>\n' % (key, d[key], key))
-        f.write('</ITEM>\n')
 
-    f.close()
-    return 1
+# def dictList_to_XML(filename, keyList, dictList):
+#     """creates a file consisting of XML.  keylist is a list of the columns (keys)
+#     in dictList.  Each dict in dictList is written as an item-node"""
+#     try:
+#         f = open(filename, 'w')
+#     except:
+#         QMessageBox.warning(None, 'Warning', 'Could not write file: %s' % filename)
+#         return 0
+#
+#     for d in dictList:
+#         f.write('<ITEM>\n')
+#         for key in keyList:
+#             f.write('\t<%s>%s</%s>\n' % (key, d[key], key))
+#         f.write('</ITEM>\n')
+#
+#     f.close()
+#     return 1
 
 
 def getConfigDirectory():
@@ -92,38 +87,38 @@ def getConfigDirectory():
     return config_dir
 
 
-def getComboItem(qComboBox, text, not_found=-1, case_sensitive=1):
-    """returns the item number in the qComboBox for the given text string.
-    If the text string is not found in the qComboBox, not_found is returned"""
-
-    for i in range(qComboBox.count()):
-        itemstr = str(qComboBox.text(i))
-        #print itemstr, '-', text, '-'
-        if not case_sensitive:
-            itemstr = string.upper(itemstr)
-            text = string.upper(text)
-
-        if itemstr == text:
-            return i
-    return not_found
-
-
-def getListBoxItem(qListBox, text, not_found=-1):
-    for i in range(qListBox.count()):
-        itemstr = str(qListBox.text(i))
-        if itemstr == text:
-            return i
-    return not_found
+# def getComboItem(qComboBox, text, not_found=-1, case_sensitive=1):
+#     """returns the item number in the qComboBox for the given text string.
+#     If the text string is not found in the qComboBox, not_found is returned"""
+#
+#     for i in range(qComboBox.count()):
+#         itemstr = str(qComboBox.text(i))
+#         #print itemstr, '-', text, '-'
+#         if not case_sensitive:
+#             itemstr = string.upper(itemstr)
+#             text = string.upper(text)
+#
+#         if itemstr == text:
+#             return i
+#     return not_found
 
 
-def escapeSQL(s):
-    s = string.replace(s, "'", "\\'")
-    return s
+# def getListBoxItem(qListBox, text, not_found=-1):
+#     for i in range(qListBox.count()):
+#         itemstr = str(qListBox.text(i))
+#         if itemstr == text:
+#             return i
+#     return not_found
 
 
-def escapeSQLq(qstr):
-    s = str(qstr)
-    return escapeSQL(s)
+# def escapeSQL(s):
+#     s = string.replace(s, "'", "\\'")
+#     return s
+
+
+# def escapeSQLq(qstr):
+#     s = str(qstr)
+#     return escapeSQL(s)
 
 
 def getSavedWindowSettings(path):

@@ -23,9 +23,9 @@ class ImportURLDialog(ImportURLDialogBA):
             try:
                 fp = urllib.urlopen(url)
                 lines = fp.readlines()
-            except Exception as e:
+            except Exception as ex:
                 QMessageBox.information(None, "Failed to open URL",
-                                        "Could not open the specified URL.  Please check to ensure that you have entered the correct URL.\n\n%s" % str(e))
+                                        "Could not open the specified URL.  Please check to ensure that you have entered the correct URL.\n\n%s" % str(ex))
                 return
 
             html = ''.join(lines)

@@ -749,7 +749,7 @@ database. New in Python version 2.0.</string>
    <sender>dotallCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>checkbox_slot()</slot>
+   <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>240</x>
@@ -973,7 +973,7 @@ database. New in Python version 2.0.</string>
    <sender>ignorecaseCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>checkbox_slot()</slot>
+   <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>38</x>
@@ -989,7 +989,7 @@ database. New in Python version 2.0.</string>
    <sender>localeCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>checkbox_slot()</slot>
+   <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>402</x>
@@ -1005,7 +1005,7 @@ database. New in Python version 2.0.</string>
    <sender>matchNumberSpinBox</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>match_num_slot()</slot>
+   <slot>matchNumSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>174</x>
@@ -1021,7 +1021,7 @@ database. New in Python version 2.0.</string>
    <sender>multilineCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>checkbox_slot()</slot>
+   <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>145</x>
@@ -1037,7 +1037,7 @@ database. New in Python version 2.0.</string>
    <sender>regexMultiLineEdit</sender>
    <signal>textChanged()</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>regex_changed_slot()</slot>
+   <slot>regexChangedSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>46</x>
@@ -1053,7 +1053,7 @@ database. New in Python version 2.0.</string>
    <sender>stringMultiLineEdit</sender>
    <signal>textChanged()</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>string_changed_slot()</slot>
+   <slot>stringChangedSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>31</x>
@@ -1069,7 +1069,7 @@ database. New in Python version 2.0.</string>
    <sender>unicodeCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>checkbox_slot()</slot>
+   <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>476</x>
@@ -1085,7 +1085,7 @@ database. New in Python version 2.0.</string>
    <sender>verboseCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>checkbox_slot()</slot>
+   <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>317</x>
@@ -1149,7 +1149,7 @@ database. New in Python version 2.0.</string>
    <sender>helpRegexReferenceAction</sender>
    <signal>activated()</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>reference_guide()</slot>
+   <slot>referenceGuide()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1181,7 +1181,7 @@ database. New in Python version 2.0.</string>
    <sender>replaceTextEdit</sender>
    <signal>textChanged()</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>replace_changed_slot()</slot>
+   <slot>replaceChangedSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>31</x>
@@ -1197,7 +1197,7 @@ database. New in Python version 2.0.</string>
    <sender>replaceNumberSpinBox</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindowBA</receiver>
-   <slot>replace_num_slot()</slot>
+   <slot>replaceNumSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>358</x>
@@ -1419,7 +1419,7 @@ database. New in Python version 2.0.</string>
   </connection>
  </connections>
  <slots>
-  <slot>checkbox_slot()</slot>
+  <slot>checkboxSlot()</slot>
   <slot>close()</slot>
   <slot>editCopy()</slot>
   <slot>editCut()</slot>
@@ -1439,14 +1439,14 @@ database. New in Python version 2.0.</string>
   <slot>importFile()</slot>
   <slot>importURL()</slot>
   <slot>edited()</slot>
-  <slot>match_num_slot()</slot>
+  <slot>matchNumSlot()</slot>
   <slot>pause()</slot>
   <slot>editPreferences()</slot>
-  <slot>reference_guide()</slot>
-  <slot>regex_changed_slot()</slot>
-  <slot>replace_changed_slot()</slot>
-  <slot>replace_num_slot()</slot>
+  <slot>referenceGuide()</slot>
+  <slot>regexChangedSlot()</slot>
+  <slot>replaceChangedSlot()</slot>
+  <slot>replaceNumSlot()</slot>
   <slot>fileRevert()</slot>
-  <slot>string_changed_slot()</slot>
+  <slot>stringChangedSlot()</slot>
  </slots>
 </ui>

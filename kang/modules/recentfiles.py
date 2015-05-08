@@ -43,8 +43,8 @@ class RecentFiles:
             for f in self.__recent_files:
                 fp.write("%s\n" % f)
             fp.close()
-        except IOError as e:
-            sys.stderr.write("Could not save recent file list %s\n" & str(e))
+        except IOError as ex:
+            sys.stderr.write("Could not save recent file list %s\n" & str(ex))
 
     def add(self, filename):
         try:

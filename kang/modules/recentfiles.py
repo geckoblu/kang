@@ -13,87 +13,99 @@ except AttributeError:
         return s
 
 
-MAX_SIZE = 50  # max number of files to retain
-
-
 class RecentFiles:
+    """Used to handle the recent file list.
+       It stores the list of recent opened projects to a file
+       and create the menu for handle them.
+       The size of the file list and the number of menu items showed could be different.
+    """
+
+    _MAX_SIZE = 50  # max number of files to retain
+
     def __init__(self, parent, numShown=5):
-        self.parent = parent
-        self.numShown = int(numShown)
-        self.filename = os.path.join(getConfigDirectory(), 'recent_files')
-        self.__recent_files = []
-        self.__actions = []
+        self._parent = parent
+        self._numShown = int(numShown)
+        self._filename = os.path.join(getConfigDirectory(), 'recent_files')
+        self._recent_files = []
+        self._actions = []
         self.load()
 
     def load(self):
-        try:
-            fp = open(self.filename, "r")
-            self.__recent_files = map(string.strip, fp.readlines())
-        except IOError:
-            #sys.stderr.write("Warning: %s\n" % str(e))
-            return
+        """Load recent file list from file and create menu"""
+        if os.path.isfile(self._filename):
+            try:
+                with open(self._filename, "r") as fp:
+                    self._recent_files = map(string.strip, fp.readlines())
+            except IOError as ex:
+                sys.stderr.write("Could not load recent file list: %s\n" % str(ex))
 
-        self.addToMenu()
+        self._createMenu()
 
     def save(self):
+        """Save recent file list to file"""
         # truncate list if necessary
-        self.__recent_files = self.__recent_files[:MAX_SIZE]
+        self._recent_files = self._recent_files[:self._MAX_SIZE]
         try:
-            fp = open(self.filename, "w")
-            for f in self.__recent_files:
-                fp.write("%s\n" % f)
-            fp.close()
+            with open(self._filename, "w") as fp:
+                for f in self._recent_files:
+                    fp.write("%s\n" % f)
         except IOError as ex:
-            sys.stderr.write("Could not save recent file list %s\n" & str(ex))
+            sys.stderr.write("Could not save recent file list %s\n" % str(ex))
 
     def add(self, filename):
+        """Add a filename to the recent file list (automatically save and add to menu)"""
         try:
-            self.__recent_files.remove(filename)
+            self._recent_files.remove(filename)
         except:
             pass
 
-        self.__recent_files.insert(0, filename)
+        self._recent_files.insert(0, filename)
         self.save()
-        self.addToMenu()
+        self._createMenu()
 
     def remove(self, filename):
+        """Remove a filename from the recent file list (and from menu)"""
         try:
-            self.__recent_files.remove(filename)
+            self._recent_files.remove(filename)
         except:
             pass
 
         self.save()
-        self.addToMenu()
+        self._createMenu()
 
-    def clearMenu(self):
+    def _clearMenu(self):
+        """Clear menu removing each entry (not from recent file list)"""
         # clear each menu entry...
-        for act in self.__actions:
-            self.parent.fileMenu.removeAction(act)
+        for act in self._actions:
+            self._parent.fileMenu.removeAction(act)
 
-        # clear list of menu entry indecies
-        self.__actions = []
+        # clear list of menu entry
+        self._actions = []
 
-    def addToMenu(self, clear=1):
+    def _createMenu(self, clear=1):
+        """Create menu list using recent file list"""
         if clear:
-            self.clearMenu()
+            self._clearMenu()
 
         # add applicable items to menu
-        num = min(self.numShown, len(self.__recent_files))
+        num = min(self._numShown, len(self._recent_files))
         for i in range(num):
-            filename = self.__recent_files[i]
-            act = self.parent.fileMenu.addAction(filename)
-            QObject.connect(act, SIGNAL(_fromUtf8('triggered()')), lambda fn=filename: self.openfile(fn))
-            self.__actions.append(act)
+            filename = self._recent_files[i]
+            act = self._parent.fileMenu.addAction(filename)
+            QObject.connect(act, SIGNAL(_fromUtf8('triggered()')), lambda fn=filename: self._openFile(fn))
+            self._actions.append(act)
 
-    def openfile(self, filename):
-        self.parent.openFile(filename)
+    def _openFile(self, filename):
+        """Delegate openFile action to parent"""
+        self._parent.openFile(filename)
 
     def setNumShown(self, numShown):
+        """Set maximum number of menu entry to show (update menu)"""
         ns = int(numShown)
-        if ns == self.numShown:
+        if ns == self._numShown:
             return
 
         # clear menu of size X then add entries of size Y
-        self.clearMenu()
-        self.numShown = ns
-        self.addToMenu(0)
+        self._clearMenu()
+        self._numShown = ns
+        self._createMenu(0)

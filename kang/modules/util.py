@@ -3,81 +3,9 @@ import os
 import sys
 
 
-# def get_time(timestr):
-#     "returns a string representation of the epoch or empty string"
-#     if timestr == '':
-#         return ''
-#
-#     try:
-#         epoch = time.mktime(time.strptime(timestr, '%m/%d/%Y'))
-#     except:
-#         return ''
-#
-#     return str(long(epoch))
-
-
-# def get_time_str(epoch_str, format='%m/%d/%Y'):
-#     if epoch_str == '':
-#         return ''
-#
-#     tm = time.localtime(int(epoch_str))
-#     timestr = time.strftime(format, tm)
-#     return timestr
-
-
-# def dictList_to_CSV(filename, keyList, dictList):
-#     "creates a file of comma-seperated-values using the keysList as the first line"
-#     try:
-#         f = open(filename, 'w')
-#     except:
-#         QMessageBox.warning(None, 'Warning', 'Could not write file: %s' % filename)
-#         return 0
-#
-#     # output the line of headers
-#     i = 0
-#     numKeys = len(keyList)
-#     for i in range(numKeys):
-#         f.write('"%s"' % keyList[i])
-#         if i < numKeys - 1:
-#             f.write(',')
-#         else:
-#             f.write('\n')
-#
-#     # output the rows of data
-#     for d in dictList:
-#         i = 0
-#         for i in range(numKeys):
-#             f.write('"%s"' % d[keyList[i]])
-#             if i < numKeys - 1:
-#                 f.write(',')
-#             else:
-#                 f.write('\n')
-#
-#     f.close()
-#     return 1
-
-
-# def dictList_to_XML(filename, keyList, dictList):
-#     """creates a file consisting of XML.  keylist is a list of the columns (keys)
-#     in dictList.  Each dict in dictList is written as an item-node"""
-#     try:
-#         f = open(filename, 'w')
-#     except:
-#         QMessageBox.warning(None, 'Warning', 'Could not write file: %s' % filename)
-#         return 0
-#
-#     for d in dictList:
-#         f.write('<ITEM>\n')
-#         for key in keyList:
-#             f.write('\t<%s>%s</%s>\n' % (key, d[key], key))
-#         f.write('</ITEM>\n')
-#
-#     f.close()
-#     return 1
-
-
 def getConfigDirectory():
-    """Return the user-specific configuration directory based on XDG Base Directory Specification.
+    """
+        Return the user-specific configuration directory based on XDG Base Directory Specification.
     """
     home = os.path.expanduser('~')
     xdg_config_home = os.environ.get('XDG_CONFIG_HOME') or os.path.join(home, '.config')
@@ -87,102 +15,61 @@ def getConfigDirectory():
     return config_dir
 
 
-# def getComboItem(qComboBox, text, not_found=-1, case_sensitive=1):
-#     """returns the item number in the qComboBox for the given text string.
-#     If the text string is not found in the qComboBox, not_found is returned"""
-#
-#     for i in range(qComboBox.count()):
-#         itemstr = str(qComboBox.text(i))
-#         #print itemstr, '-', text, '-'
-#         if not case_sensitive:
-#             itemstr = string.upper(itemstr)
-#             text = string.upper(text)
-#
-#         if itemstr == text:
-#             return i
-#     return not_found
+def _getSavedWindowSettings(path):
+    """Load window settings from file"""
+    if not os.path.isfile(path):
+        return
 
-
-# def getListBoxItem(qListBox, text, not_found=-1):
-#     for i in range(qListBox.count()):
-#         itemstr = str(qListBox.text(i))
-#         if itemstr == text:
-#             return i
-#     return not_found
-
-
-# def escapeSQL(s):
-#     s = string.replace(s, "'", "\\'")
-#     return s
-
-
-# def escapeSQLq(qstr):
-#     s = str(qstr)
-#     return escapeSQL(s)
-
-
-def getSavedWindowSettings(path):
     try:
-        fp = open(path, 'r')
-        line = fp.readline()[:-1]
-        fp.close()
-        geo = line.split(' ')
+        with open(path, 'r') as fp:
+            line = fp.readline()[:-1]
+    except IOError as ex:
+        sys.stderr.write("Could not load window settings: %s\n" % str(ex))
+        return
 
-        x = int(geo[0])
-        y = int(geo[1])
-        width = int(geo[2])
-        height = int(geo[3])
+    geo = line.split(' ')
 
-        return {'x': x,
-                'y': y,
-                'width': width,
-                'height': height}
-    except:
-        return None
+    x = int(geo[0])
+    y = int(geo[1])
+    width = int(geo[2])
+    height = int(geo[3])
+
+    return {'x': x,
+            'y': y,
+            'width': width,
+            'height': height}
 
 
 def saveWindowSettings(window, filename):
+    """Save window position/size to file"""
     path = os.path.join(getConfigDirectory(), filename)
 
+    s = window.size()
+    x = window.x()
+    y = window.y()
+
     try:
-        s = window.size()
-        x = window.x()
-        y = window.y()
-
-        #print x, y
-        if x == 0 and y == 0 and sys.platform != 'win32':
-            # hack because some window managers (sawfish for instance)
-            # seem to have an issue w/ repositioning window coords.
-            d = getSavedWindowSettings(path)
-            if d:
-                x = d['x']
-                y = d['y']
-
-                #print 'save:', d
-        fp = open(path, 'w')
-        fp.write('%d %d %d %d\n' % (x, y, s.width(), s.height()))
-        fp.close()
-    except:
-        pass
+        with open(path, 'w') as fp:
+            fp.write('%d %d %d %d\n' % (x, y, s.width(), s.height()))
+    except IOError as ex:
+        sys.stderr.write("Could not save window settings: %s\n" % str(ex))
 
 
 def restoreWindowSettings(window, filename):
+    """Restore window position/size to the last saved values"""
     path = os.path.join(getConfigDirectory(), filename)
 
-    try:
-        d = getSavedWindowSettings(path)
+    d = _getSavedWindowSettings(path)
 
+    if d:
         x = d['x']
         y = d['y']
         width = d['width']
         height = d['height']
-        #print 'load:', d
         sz = QSize(width, height)
 
         window.move(x, y)
         window.resize(sz)
-    except:
-        pass
 
 
 def findFile(dr, filename):

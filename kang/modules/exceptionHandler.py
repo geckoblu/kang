@@ -8,14 +8,17 @@ from kang import VERSION
 
 _mainWindow = None
 _showedexmess = set()
+_debug = False
 
 
-def init(mainWindow):
+def init(mainWindow, debug=False):
     """
     Initialize the module
     """
     global _mainWindow
+    global _debug
     _mainWindow = mainWindow
+    _debug = debug
     sys.excepthook = _excepthook
 
 
@@ -37,7 +40,8 @@ def _excepthook(excType, excValue, tracebackobj):
             msg = _formatMessage(exmess)
             _mainWindow.signalException(msg)
     except:
-        pass
+        if _debug:
+            raise
 
 
 def _formatMessage(exmess):

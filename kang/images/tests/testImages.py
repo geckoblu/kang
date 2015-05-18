@@ -1,5 +1,5 @@
-from PyQt4 import QtGui
 from PyQt4.QtCore import QCoreApplication
+from PyQt4.QtGui import QApplication
 import sys
 import unittest
 
@@ -11,7 +11,7 @@ class TestImages(unittest.TestCase):
     def setUp(self):
         self.qApp = QCoreApplication.instance()
         if not self.qApp:
-            self.qApp = QtGui.QApplication(sys.argv)
+            self.qApp = QApplication(sys.argv)
 
     def test_getPixmap(self):
         ibug = images.getPixmap('bug')

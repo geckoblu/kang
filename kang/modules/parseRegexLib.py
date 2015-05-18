@@ -24,11 +24,14 @@ RX_DICT = {'desc': rx_desc,
 class ParseRegexLib:
     def __init__(self):
         path = os.path.join(os.path.dirname(__file__), 'regex-lib.xml')
-        if path:
-            f = QFile(path)
-            f.open(QIODevice.ReadOnly | QIODevice.Text)
-            self.data = QTextStream(f).readAll()
-            f.close()
+        if os.path.isfile(path):
+            try:
+                f = QFile(path)
+                f.open(QIODevice.ReadOnly | QIODevice.Text)
+                self.data = QTextStream(f).readAll()
+            finally:
+                if f:
+                    f.close()
 
     def parse(self, data=""):
         if not data:

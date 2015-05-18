@@ -1,4 +1,7 @@
+from PyQt4.QtCore import Qt, SIGNAL
 from PyQt4.QtCore import pyqtSignal
+from PyQt4.QtGui import QFileDialog, QColor, QMessageBox, \
+                        QPixmap, QPalette, QTableWidgetItem, QHeaderView, qApp
 import os
 import re
 import signal
@@ -24,25 +27,21 @@ from kang.modules.util import findFile, restoreWindowSettings, saveWindowSetting
 import kang.modules.xpm as xpm
 
 
-from PyQt4.QtCore import Qt, SIGNAL
-from PyQt4.QtGui import QFileDialog, QColor, QMessageBox, \
-                        QPixmap, QPalette, QTableWidgetItem, QHeaderView, qApp
-
 TIMEOUT = 3
 
 # regex to find special flags which must begin at beginning of line
 # or after some spaces
-EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
+EMBEDDED_FLAGS = r'^ *\(\?(?P<flags>[iLmsux]*)\)'
 
 RX_BACKREF = re.compile(r"""\\\d""")
 
 STATE_UNEDITED = 0
 STATE_EDITED = 1
 
-GEO = "kang_geometry"
+GEO = 'kang_geometry'
 
 # colors for normal & examination mode
-QCOLOR_WHITE = QColor(Qt.white)       # normal
+QCOLOR_WHITE = QColor(Qt.white)  # normal
 QCOLOR_LIGHTCYAN = QColor('#DDFFFF')  # examine
 
 _ = lambda st: st  # No translation at the moment
@@ -72,18 +71,18 @@ class MainWindow(MainWindowBA):
 
     _signalException = pyqtSignal(str)
 
-    def __init__(self, filename):
+    def __init__(self, filename=''):
         MainWindowBA.__init__(self)
 
-        self.regex = ""
-        self.regexSaved = ""
-        self.matchstring = ""
-        self.replace = ""
+        self.regex = ''
+        self.regexSaved = ''
+        self.matchstring = ''
+        self.replace = ''
         self.flags = 0
         self.isPaused = 0
         self.isExamined = 0
-        self.importFilename = ""
-        self.filename = ""
+        self.importFilename = ''
+        self.filename = ''
         self.matchNum = 1  # matches are labeled 1..n
         self.replaceNum = 0  # replace all
         self.url = KANG_WEBSITE
@@ -94,14 +93,14 @@ class MainWindow(MainWindowBA):
 
         header = self.groupTable.horizontalHeader()
         header.setResizeMode(QHeaderView.Stretch)
-        #header.setStretchLastSection(True)
+        # header.setStretchLastSection(True)
 
         self.refWin = None
         self.regexlibwin = None
 
         self.embeddedFlagsObj = re.compile(EMBEDDED_FLAGS)
-        self.embeddedFlags = ""
-        self.regexEmbeddedFlagsRemoved = ""
+        self.embeddedFlags = ''
+        self.regexEmbeddedFlagsRemoved = ''
 
         self.setWindowIcon(getIcon('kang-icon'))
 
@@ -140,6 +139,17 @@ class MainWindow(MainWindowBA):
             self.hide_replace_widgets()
 
         self.checkForKangDir()
+
+    def loadToolbarIcons(self):
+        self.fileOpenAction.setIcon(getIcon('document-open'))
+        self.fileSaveAction.setIcon(getIcon('document-save'))
+        self.editCutAction.setIcon(getIcon('edit-cut'))
+        self.editCopyAction.setIcon(getIcon('edit-copy'))
+        self.editPasteAction.setIcon(getIcon('edit-paste'))
+        self.editPauseAction.setIcon(getIcon('media-playback-pause'))
+        self.examineAction.setIcon(getIcon('edit-find'))
+        self.helpRegexReferenceAction.setIcon(getIcon('book'))
+        self.helpRegexLibAction.setIcon(getIcon('library'))
 
     def checkForKangDir(self):
         kdir = getConfigDirectory()
@@ -221,53 +231,53 @@ class MainWindow(MainWindowBA):
             self.unicodeCheckBox.setChecked(0)
 
     def getFlagsStr(self):
-        flagsStr = ""
+        flagsStr = ''
 
         if self.ignorecaseCheckBox.isChecked():
-            flagsStr += "| re.IGNORECASE"
+            flagsStr += '| re.IGNORECASE'
 
         if self.multilineCheckBox.isChecked():
-            flagsStr += "| re.MULTILINE"
+            flagsStr += '| re.MULTILINE'
 
         if self.dotallCheckBox.isChecked():
-            flagsStr += "| re.DOTALL"
+            flagsStr += '| re.DOTALL'
 
         if self.verboseCheckBox.isChecked():
-            flagsStr += "| re.VERBOSE"
+            flagsStr += '| re.VERBOSE'
 
         if self.localeCheckBox.isChecked():
-            flagsStr += "| re.LOCALE"
+            flagsStr += '| re.LOCALE'
 
         if self.unicodeCheckBox.isChecked():
-            flagsStr += "| re.UNICODE"
+            flagsStr += '| re.UNICODE'
 
         if flagsStr:
-            flagsStr = ", " + flagsStr[1:]
+            flagsStr = ', ' + flagsStr[1:]
         return flagsStr
 
     def getEmbeddedFlagsStr(self):
-        flagsStr = flags = ""
+        flagsStr = flags = ''
 
         if self.ignorecaseCheckBox.isChecked():
-            flags += "i"
+            flags += 'i'
 
         if self.multilineCheckBox.isChecked():
-            flags += "m"
+            flags += 'm'
 
         if self.dotallCheckBox.isChecked():
-            flags += "s"
+            flags += 's'
 
         if self.verboseCheckBox.isChecked():
-            flags += "x"
+            flags += 'x'
 
         if self.localeCheckBox.isChecked():
-            flags += "L"
+            flags += 'L'
 
         if self.unicodeCheckBox.isChecked():
-            flags += "u"
+            flags += 'u'
 
         if flags:
-            flagsStr = "(?" + flags + ")"
+            flagsStr = '(?' + flags + ')'
 
         return flagsStr
 
@@ -304,7 +314,7 @@ class MainWindow(MainWindowBA):
                 except:
                     pass
 
-            self.__refresh_regex_widget(color, "")
+            self.__refresh_regex_widget(color, '')
         else:
             regex = self.regexSaved
             color = QCOLOR_WHITE
@@ -381,55 +391,55 @@ class MainWindow(MainWindowBA):
             row += 1
 
     def populate_code_textbrowser(self):
-        self.codeTextBrowser.setPlainText("")
+        self.codeTextBrowser.setPlainText('')
 
-        code = "import re\n\n"
-        code += "# common variables\n\n"
-        code += "rawstr = r\"\"\"" + self.regexEmbeddedFlagsRemoved + "\"\"\"\n"
-        code += "embedded_rawstr = r\"\"\"" + self.getEmbeddedFlagsStr() + \
-                self.regexEmbeddedFlagsRemoved + "\"\"\"\n"
+        code = 'import re\n\n'
+        code += '# common variables\n\n'
+        code += 'rawstr = r\"\"\"" + self.regexEmbeddedFlagsRemoved + "\"\"\"\n'
+        code += 'embedded_rawstr = r\"\"\"" + self.getEmbeddedFlagsStr() + \
+                self.regexEmbeddedFlagsRemoved + "\"\"\"\n'
         code += 'matchstr = \"\"\"' + self.matchstring + '\"\"\"'
-        code += "\n\n"
-        code += "# method 1: using a compile object\n"
-        code += "compile_obj = re.compile(rawstr"
+        code += '\n\n'
+        code += '# method 1: using a compile object\n'
+        code += 'compile_obj = re.compile(rawstr'
         if self.flags != 0:
             code += self.getFlagsStr()
-        code += ")\n"
-        code += "match_obj = compile_obj.search(matchstr)\n\n"
+        code += ')\n'
+        code += 'match_obj = compile_obj.search(matchstr)\n\n'
 
-        code += "# method 2: using search function (w/ external flags)\n"
-        code += "match_obj = re.search(rawstr, matchstr"
+        code += '# method 2: using search function (w/ external flags)\n'
+        code += 'match_obj = re.search(rawstr, matchstr'
         if self.flags != 0:
             code += self.getFlagsStr()
-        code += ")\n\n"
+        code += ')\n\n'
 
-        code += "# method 3: using search function (w/ embedded flags)\n"
+        code += '# method 3: using search function (w/ embedded flags)\n'
         embedded_str = self.getEmbeddedFlagsStr() + self.regexEmbeddedFlagsRemoved
-        code += "match_obj = re.search(embedded_rawstr, matchstr)\n\n"
+        code += 'match_obj = re.search(embedded_rawstr, matchstr)\n\n'
 
         if self.groupTuples:
-            code += "# Retrieve group(s) from match_obj\n"
-            code += "all_groups = match_obj.groups()\n\n"
-            code += "# Retrieve group(s) by index\n"
+            code += '# Retrieve group(s) from match_obj\n'
+            code += 'all_groups = match_obj.groups()\n\n'
+            code += '# Retrieve group(s) by index\n'
             i = 0
             named_grps = 0
             for grp in self.groupTuples:
                 i += 1
-                code += "group_%d = match_obj.group(%d)\n" % (i, i)
+                code += 'group_%d = match_obj.group(%d)\n' % (i, i)
                 if grp[1]:
                     named_grps = 1
 
             if named_grps:
-                code += "\n# Retrieve group(s) by name\n"
+                code += '\n# Retrieve group(s) by name\n'
                 for grp in self.groupTuples:
                     if grp[1]:
-                        code += "%s = match_obj.group('%s')\n" % (grp[1], grp[1])
+                        code += '%s = match_obj.group("%s")\n' % (grp[1], grp[1])
 
-            code += "\n"
+            code += '\n'
 
         if self.replace:
-            code += "# Replace string\n"
-            code += "newstr = compile_obj.subn('%s', %d)\n" % (self.replace,
+            code += '# Replace string\n'
+            code += 'newstr = compile_obj.subn("%s", %d)\n' % (self.replace,
                                                                self.replaceNum)
 
         self.codeTextBrowser.setPlainText(code)
@@ -450,7 +460,7 @@ class MainWindow(MainWindowBA):
         widget.setTextCursor(pos)
 
     def populate_match_textbrowser(self, startpos, endpos):
-        pre = post = ""
+        pre = post = ''
 
         match = self.matchstring[startpos:endpos]
 
@@ -491,7 +501,7 @@ class MainWindow(MainWindowBA):
             if span[0] != 0:
                 s = text[idx:span[0]]
             else:
-                s = ""
+                s = ''
 
             idx = span[1]
             numreplaced += 1
@@ -517,7 +527,7 @@ class MainWindow(MainWindowBA):
             if span[0] != 0:
                 s = text[idx:span[0]]
             else:
-                s = ""
+                s = ''
 
             idx = span[1]
             strings.append(s)
@@ -531,12 +541,12 @@ class MainWindow(MainWindowBA):
     def clear_results(self):
         self.groupTable.clearContents()
         self.groupTable.setRowCount(0)
-        self.codeTextBrowser.setPlainText("")
-        self.matchTextBrowser.setPlainText("")
+        self.codeTextBrowser.setPlainText('')
+        self.matchTextBrowser.setPlainText('')
         self.matchNumberSpinBox.setEnabled(False)
         self.replaceNumberSpinBox.setEnabled(False)
-        self.replaceTextBrowser.setPlainText("")
-        self.matchAllTextBrowser.setPlainText("")
+        self.replaceTextBrowser.setPlainText('')
+        self.matchAllTextBrowser.setPlainText('')
 
     def process_regex(self):
         def timeout(signum, frame):
@@ -551,7 +561,7 @@ class MainWindow(MainWindowBA):
             return
 
         self.process_embedded_flags(self.regex)
-        #print self.resultTabWidget.currentPageIndex()
+        # print self.resultTabWidget.currentPageIndex()
 
         signal.signal(signal.SIGALRM, timeout)
         signal.alarm(TIMEOUT)
@@ -598,8 +608,8 @@ class MainWindow(MainWindowBA):
         self.groupTuples = []
 
         if match_obj.groups():
-            #print match_obj.groups()
-            s = "<font color=blue>"
+            # print match_obj.groups()
+            s = '<font color=blue>'
             num_groups = len(match_obj.groups())
 
             group_nums = {}
@@ -612,24 +622,24 @@ class MainWindow(MainWindowBA):
             g = allmatches[match_index]
             if type(g) == types.TupleType:
                 for i in range(len(g)):
-                    group_tuple = (i + 1, group_nums.get(i + 1, ""), g[i])
+                    group_tuple = (i + 1, group_nums.get(i + 1, ''), g[i])
                     self.groupTuples.append(group_tuple)
             else:
-                self.groupTuples.append((1, group_nums.get(1, ""), g))
+                self.groupTuples.append((1, group_nums.get(1, ''), g))
 
         self.populate_group_table(self.groupTuples)
 
-        str_pattern_matches = unicode(self.tr("Pattern matches"))
-        str_found = unicode(self.tr("found"))
-        str_match = unicode(self.tr("match"))
-        str_matches = unicode(self.tr("matches"))
+        str_pattern_matches = unicode(self.tr('Pattern matches'))
+        str_found = unicode(self.tr('found'))
+        str_match = unicode(self.tr('match'))
+        str_matches = unicode(self.tr('matches'))
 
         if len(allmatches) == 1:
-            status = "%s (%s 1 %s)" % (str_pattern_matches,
+            status = '%s (%s 1 %s)' % (str_pattern_matches,
                                        str_found,
                                        str_match)
         else:
-            status = "%s (%s %d %s)" % (str_pattern_matches,
+            status = '%s (%s %d %s)' % (str_pattern_matches,
                                         str_found,
                                         len(allmatches),
                                         str_match)
@@ -696,7 +706,7 @@ class MainWindow(MainWindowBA):
         filename = str(fn)
 
         try:
-            fp = open(filename, "r")
+            fp = open(filename, 'r')
         except:
             msg = self.tr("Could not open file for reading: ") + filename
             self.updateStatus(msg, MATCH_NONE, 5)
@@ -709,11 +719,11 @@ class MainWindow(MainWindowBA):
 
     def fileNew(self):
         self.checkEditState()
-        self.filename = ""
+        self.filename = ''
 
-        self.regexMultiLineEdit.setPlainText("")
-        self.stringMultiLineEdit.setPlainText("")
-        self.replaceTextEdit.setPlainText("")
+        self.regexMultiLineEdit.setPlainText('')
+        self.stringMultiLineEdit.setPlainText('')
+        self.replaceTextEdit.setPlainText('')
         self.setFlags(0)
         self.editstate = STATE_UNEDITED
 
@@ -738,15 +748,12 @@ class MainWindow(MainWindowBA):
 
             self.editstate = STATE_UNEDITED
 
-            msg = "%s %s" % (unicode(self.filename),
+            msg = '%s %s' % (unicode(self.filename),
                              unicode(self.tr("successfully saved")))
             self.updateStatus(msg, MATCH_NONE, 5)
             self.recentFiles.add(self.filename)
-        except:
-            import traceback
-            traceback.print_exc()
-            msg = "%s: %s" % (unicode(self.tr("Could not open file for writing:")),
-                              self.filename)
+        except IOError as ex:
+            msg = str(ex)
             self.updateStatus(msg, MATCH_NONE, 5)
 
     def fileSaveAs(self):
@@ -762,8 +769,8 @@ class MainWindow(MainWindowBA):
         filename = os.path.normcase(filename)
 
         basename = os.path.basename(filename)
-        if basename.find(".") == -1:
-            filename += ".kng"
+        if basename.find('.') == -1:
+            filename += '.kng'
 
         self.filename = filename
         self.fileSave()
@@ -793,18 +800,16 @@ class MainWindow(MainWindowBA):
             self.filename = filename
             self.recentFiles.add(self.filename)
 
-            msg = "%s %s" % (filename, unicode(self.tr("loaded successfully")))
+            msg = '%s %s' % (filename, unicode(self.tr("loaded successfully")))
             self.updateStatus(msg, MATCH_NONE, 5)
             self.editstate = STATE_UNEDITED
+            return True
 
-        except:
-            import traceback
-            traceback.print_exc()
-            msg = self.tr("Could not open file for reading: ") + filename
-            #msg = "%s %s" % (unicode(self.tr("Error reading from file:")),
+        except IOError as ex:
+            msg = str(ex)
             self.updateStatus(msg, MATCH_NONE, 5)
             self.recentFiles.remove(filename)
-            return None
+            return False
 
     def paste_symbol(self, symbol):
         self.regexMultiLineEdit.insertPlainText(symbol)
@@ -816,12 +821,12 @@ class MainWindow(MainWindowBA):
         #   and return 1 to indicate that the string has embedded flags
         match = self.embeddedFlagsObj.match(regex)
         if not match:
-            self.embeddedFlags = ""
+            self.embeddedFlags = ''
             self.regexEmbeddedFlagsRemoved = regex
             return 0
 
         self.embeddedFlags = match.group('flags')
-        self.regexEmbeddedFlagsRemoved = self.embeddedFlagsObj.sub("", regex, 1)
+        self.regexEmbeddedFlagsRemoved = self.embeddedFlagsObj.sub('', regex, 1)
 
         for flag in self.embeddedFlags:
             if flag == 'i':
@@ -865,7 +870,7 @@ class MainWindow(MainWindowBA):
                     self.checkEditState(noButtonStr)
 
     def pasteFromRegexLib(self, d):
-        self.filename = ""
+        self.filename = ''
         self.checkEditState()
 
         self.regexMultiLineEdit.setPlainText(d.get('regex'))
@@ -879,16 +884,6 @@ class MainWindow(MainWindowBA):
             pass
         self.editstate = STATE_UNEDITED
 
-    def getWidget(self):
-        widget = qApp.focusWidget()
-        if (widget == self.regexMultiLineEdit or
-            widget == self.stringMultiLineEdit or
-            widget == self.replaceTextEdit or
-            widget == self.codeTextBrowser):
-            return widget
-        else:
-            return None
-
     def widgetMethod(self, methodstr, anywidget=0):
         # execute the methodstr of widget only if widget
         # is one of the editable widgets OR if the method
@@ -900,24 +895,24 @@ class MainWindow(MainWindowBA):
             widget == self.replaceTextEdit or
             widget == self.codeTextBrowser):
             try:
-                eval("widget.%s" % methodstr)
+                eval('widget.%s' % methodstr)
             except:
                 pass
 
     def editUndo(self):
-        self.widgetMethod("undo()")
+        self.widgetMethod('undo()')
 
     def editRedo(self):
-        self.widgetMethod("redo()")
+        self.widgetMethod('redo()')
 
     def editCopy(self):
-        self.widgetMethod("copy()", 1)
+        self.widgetMethod('copy()', 1)
 
     def editCut(self):
-        self.widgetMethod("cut()")
+        self.widgetMethod('cut()')
 
     def editPaste(self):
-        self.widgetMethod("paste()")
+        self.widgetMethod('paste()')
 
     def editPreferences(self):
         sd = PreferencesDialog(self, self.preferences)
@@ -950,17 +945,6 @@ class MainWindow(MainWindowBA):
     def referenceGuide(self):
         self.refWin = RegexReferenceWindow(self)
         self.refWin.show()
-
-    def loadToolbarIcons(self):
-        self.fileOpenAction.setIcon(getIcon("document-open"))
-        self.fileSaveAction.setIcon(getIcon("document-save"))
-        self.editCutAction.setIcon(getIcon("edit-cut"))
-        self.editCopyAction.setIcon(getIcon("edit-copy"))
-        self.editPasteAction.setIcon(getIcon("edit-paste"))
-        self.editPauseAction.setIcon(getIcon("media-playback-pause"))
-        self.examineAction.setIcon(getIcon("edit-find"))
-        self.helpRegexReferenceAction.setIcon(getIcon("book"))
-        self.helpRegexLibAction.setIcon(getIcon("library"))
 
     def signalException(self, msg):
         self._signalException.emit(msg)

@@ -1,5 +1,6 @@
 from PyQt4.QtCore import QCoreApplication
 from PyQt4.QtGui import QApplication
+from PyQt4.QtTest import QTest
 import sys
 import unittest
 
@@ -16,4 +17,5 @@ class TestAboutDialog(unittest.TestCase):
 
     def test_dialog(self):
         parent = FakeParent()
-        form = aboutDialog.AboutDialog(parent)
+        dialog = aboutDialog.AboutDialog(parent)
+        QTest.qWaitForWindowShown(dialog)

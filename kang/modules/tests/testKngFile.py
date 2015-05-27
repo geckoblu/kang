@@ -20,7 +20,7 @@ class TestKngFile(unittest.TestCase):
 
         kn = os.path.join(self.dtmp, 'test.kng')
 
-        regex = 'A regular espressio (.*?)'
+        regex = 'A regular espression (.*?)'
         matchstring = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
         replace = 'Replace string \1'
         flags = 90

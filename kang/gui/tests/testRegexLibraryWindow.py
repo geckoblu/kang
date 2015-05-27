@@ -1,5 +1,6 @@
 from PyQt4.QtCore import QCoreApplication
 from PyQt4.QtGui import QApplication
+from PyQt4.QtTest import QTest
 import sys
 import unittest
 
@@ -17,3 +18,4 @@ class TestRegexLibraryWindow(unittest.TestCase):
     def test_window(self):
         parent = FakeParent()
         window = regexLibraryWindow.RegexLibraryWindow(parent)
+        QTest.qWaitForWindowShown(window)

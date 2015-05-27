@@ -13,7 +13,7 @@ Consider the following example:
     :alt: Fig. Regex does not match string
 
 By pressing the examine toolbar button, Kodos will find the last possible match and enter examination mode.
-The examination mode is indicated by changing the background of the regex edit dialog yellow.
+The examination mode is indicated by changing the background of the regex edit dialog cyan.
 While in examination mode you are prevented from editing the regex (i.e. this is a read-only mode)
 
 .. figure:: _images/examine-match.png

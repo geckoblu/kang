@@ -6,13 +6,6 @@ import sys
 from kang.modules.util import getConfigDirectory
 
 
-try:
-    _fromUtf8 = QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-
 class RecentFiles:
     """Used to handle the recent file list.
        It stores the list of recent opened projects to a file
@@ -92,7 +85,7 @@ class RecentFiles:
         for i in range(num):
             filename = self._recent_files[i]
             act = self._parent.fileMenu.addAction(filename)
-            QObject.connect(act, SIGNAL(_fromUtf8('triggered()')), lambda fn=filename: self._openFile(fn))
+            QObject.connect(act, SIGNAL(QString.fromUtf8('triggered()')), lambda fn=filename: self._openFile(fn))
             self._actions.append(act)
 
     def _openFile(self, filename):

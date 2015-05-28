@@ -17,6 +17,7 @@ class Preferences:
     def __init__(self):
         self._prefsPath = os.path.join(getConfigDirectory(), 'prefs')
 
+        # Public fields
         self.recentFilesNum = self._DEFAULTRECENTFILESNUM
         self.askSave = self._ASKSAVE
         self.askSaveOnlyForNamedProjects = self._ASKSAVEONLYFORNAMEDPROJECTS

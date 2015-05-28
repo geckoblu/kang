@@ -10,11 +10,28 @@ from kang.modules import util
 
 class TestUtil(unittest.TestCase):
 
+    def setUp(self):
+        # Set config directory
+        self.dtmp = tempfile.mkdtemp()
+        os.environ['XDG_CONFIG_HOME'] = self.dtmp
+        cdir = util.getConfigDirectory()
+        self.assertTrue(cdir.startswith(self.dtmp), '%s wrong config directory' % cdir)
+        os.mkdir(cdir)
+
+        self._write_msg = ''
+
+    def tearDown(self):
+        if self.dtmp:
+            shutil.rmtree(self.dtmp)
+
     def test_findFile(self):
         ntfile = tempfile.NamedTemporaryFile()
         dr, filename = os.path.split(ntfile.name)
         fname = util.findFile(dr, filename)
         self.assertEqual(ntfile.name, fname)
+
+        fname = util.findFile(dr, 'not an existing filename')
+        self.assertTrue(fname == None)
 
     def test_getConfigDirectory(self):
         os.environ['XDG_CONFIG_HOME'] = ''
@@ -35,7 +52,7 @@ class TestUtil(unittest.TestCase):
             util.restoreWindowSettings(w, 'ws')
 
             _stderr = sys.stderr
-            sys.stderr = sys.stdout
+            sys.stderr = self
             util.saveWindowSettings(w, 'ws')
             sys.stderr = _stderr
 
@@ -53,6 +70,23 @@ class TestUtil(unittest.TestCase):
         finally:
             if dtmp:
                 shutil.rmtree(dtmp)
+
+    def test_load_IOError(self):
+        w = FakeWindow(3, 5, 23, 25)
+
+        # create a not readable file
+        util.saveWindowSettings(w, 'shadow')
+        path = os.path.join(util.getConfigDirectory(), 'shadow')
+        os.chmod(path, 0)
+
+        stderr = sys.stderr
+        sys.stderr = self
+        util.restoreWindowSettings(w, 'shadow')  # something we could surely not read
+        sys.stderr = stderr
+        self.assertTrue(self._write_msg, 'IOError was not raised')
+
+    def write(self, msg):
+        self._write_msg = msg
 
 
 class FakeWindow:

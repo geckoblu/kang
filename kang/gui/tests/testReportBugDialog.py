@@ -1,5 +1,7 @@
+from PyQt4 import QtGui
 from PyQt4.QtCore import QCoreApplication
 from PyQt4.QtGui import QApplication
+from PyQt4.QtTest import QTest
 import sys
 import unittest
 
@@ -16,4 +18,12 @@ class TestReportBugDialog(unittest.TestCase):
 
     def test_dialog(self):
         parent = FakeParent()
-        form = reportBugDialog.ReportBugDialog(parent, 'Error message')
+
+        msg = 'Error message'
+        dialog = reportBugDialog.ReportBugDialog(parent, msg)
+        dialog.show()
+        QTest.qWaitForWindowShown(dialog)
+
+        dialog.copyToClipboard()
+        clipboard = QtGui.QApplication.clipboard()
+        self.assertEqual(msg, clipboard.text())

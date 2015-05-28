@@ -211,8 +211,15 @@ class TestRegexProcessor(unittest.TestCase):
         status, _ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 
-        rp.setIgnorecaseFlag(True)
+        rp.setIgnorecaseFlag(False)
+        self.assertEqual(rp._flags, 0)
+        rp.setRegexString('v')
+        status, _ = rp.getStatus()
+        self.assertEqual(status, MATCH_FAIL)
+
+        rp.setIgnorecaseFlag(False)
         rp.setRegexString('(?i)v')
+        self.assertTrue(rp._ignorecaseFlagEmbedded)
         status, _ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 

@@ -22,6 +22,16 @@ class TestExceptionHandler(unittest.TestCase):
         self.assertTrue(mainWindow.wok, 'Exception not printed to stderr')
         self.assertTrue(mainWindow.ok, 'Something wrong in the message\n%s' % mainWindow.message)
 
+    def test_excepthook_exception(self):
+        stderr = sys.stderr
+        sys.stderr = None
+        with self.assertRaises(AttributeError):
+            exceptionHandler._excepthook(None, None, None)
+        sys.stderr = stderr
+
+    def test_formatMessage_exmess(self):
+        exceptionHandler._formatMessage('exmess')
+
 
 class FakeMainWindow:
 

@@ -1,13 +1,19 @@
-from PyQt4.QtCore import QCoreApplication, QThread
+from PyQt4.QtCore import QCoreApplication
 from PyQt4.QtGui import QApplication
 from PyQt4.QtTest import QTest
 import os
 import re
+import shutil
 import sys
+from tempfile import NamedTemporaryFile
 import tempfile
 import unittest
 
 from kang.gui import mainWindow
+from kang.gui.tests.fakeWebbrowser import FakeWebbrowser
+from kang.gui.tests.fakeQFileDialog import FakeQFileDialog
+from kang.gui.tests.fakedialog import FakeDialog
+from kang.gui.tests.fakemessagebox import FakeMessageBox
 from kang.modules import util
 
 
@@ -32,37 +38,53 @@ class TestMainWindow(unittest.TestCase):
     def tearDown(self):
         self.window.close()
 
-    def test_window(self):
+    # Test if the window shows when loading a file
+    def test_window_with_filename(self):
+        self.window.close()  # Do not use the standard window
         window = mainWindow.MainWindow(self.filename1)
+        # QTest.qWaitForWindowShown(window)
         window.close()
 
     def test_checkForKangDir(self):
-        # Set config directory
+        self.window.close()  # Do not use the standard window
+
+        mainWindow.NewUserDialog = FakeDialog
+        mainWindow.QMessageBox = FakeMessageBox
+
         self.dtmp = tempfile.mkdtemp()
         os.environ['XDG_CONFIG_HOME'] = self.dtmp
 
-        self.window.close()  # Do not use the standard window
-
-#         class TThread(QThread):
-#             def run(self):
-#                 print('run')
-#                 self.window = mainWindow.MainWindow()
-# #         def worker():
-# #             self.window = mainWindow.MainWindow()
-#         t = TThread()
-#         t.start()
-
+        # here user configuration directory doesn't exist
         # checkForKangDir is called in the __init__ so it creates the directory
-        #window = mainWindow.MainWindow()
-        self.window = mainWindow.MainWindow()
-        QTest.qWaitForWindowShown(self.window)
-        self.window.preferences.askSave = False
-        # here the user configuration directory exists
-        self.window.checkForKangDir()
-        self.window.close()
+        window = mainWindow.MainWindow()
+        QTest.qWaitForWindowShown(window)
 
-    def test_openFile(self):
+        # here the user configuration directory exists
+        window.checkForKangDir()
+
+        # here the creation of user configuration directory will fail
+        os.environ['XDG_CONFIG_HOME'] = '/'
+        window.checkForKangDir()
+
+        os.environ['XDG_CONFIG_HOME'] = self.dtmp
+        window.close()
+
+    def test_pause(self):
+        self.window.pause()  # pause
+        self.window.pause()  # unpause
+
+    def test_examine(self):
+        self.window.regex = 'abc'
+        self.window.examine()
+        self.window.examine()
+
+    def test_matchNumSlot(self):
         self.window.openFile(self.filename1)
+        self.window.matchNumSlot(1)
+
+    def test_replaceNumSlot(self):
+        self.window.openFile(self.filename1)
+        self.window.replaceNumSlot(1)
 
     def test_flags(self):
         flags = self.window.getFlags()
@@ -101,22 +123,57 @@ class TestMainWindow(unittest.TestCase):
         flags = self.window.getFlags()
         self.assertEqual(flags, 0)
 
-    def test_pause(self):
-        self.window.pause()  # pause
-        self.window.pause()  # unpause
+    def test_populateReplaceTextbrowser(self):
+        self.window._rp.setMatchString('abcdabc')
+        self.window._rp.setRegexString('b')
+        self.window._rp.setReplaceString('x')
 
-    def test_examine(self):
-        self.window.regex = 'abc'
-        self.window.examine()
-        self.window.examine()
+        self.window._populateReplaceTextbrowser()
+        self.assertEqual(self.window.replaceTextBrowser.toPlainText(), 'axcdaxc')
 
-    def tests_matchNumSlot(self):
-        self.window.openFile(self.filename1)
-        self.window.matchNumSlot(1)
+        self.window._rp.setReplaceString('\\')
+        self.window._populateReplaceTextbrowser()
+        self.assertEqual(self.window.replaceTextBrowser.toPlainText(), '')
 
-    def tests_replaceNumSlot(self):
-        self.window.openFile(self.filename1)
-        self.window.replaceNumSlot(1)
+    def test_populateEmbeddedFlags(self):
+        self.window.ignorecaseCheckBox.setChecked(True)
+        self.window.localeCheckBox.setChecked(True)
+        self.window.multilineCheckBox.setChecked(True)
+        self.window.dotallCheckBox.setChecked(True)
+        self.window.unicodeCheckBox.setChecked(True)
+        self.window.verboseCheckBox.setChecked(True)
+
+        self.window._rp.setRegexString('(?iLmsux)')
+
+        self.window._populateEmbeddedFlags()
+        self.assertTrue(self.window.ignorecaseCheckBox.isChecked())
+        self.assertFalse(self.window.ignorecaseCheckBox.isEnabled())
+        self.assertTrue(self.window.localeCheckBox.isChecked())
+        self.assertFalse(self.window.localeCheckBox.isEnabled())
+        self.assertTrue(self.window.multilineCheckBox.isChecked())
+        self.assertFalse(self.window.multilineCheckBox.isEnabled())
+        self.assertTrue(self.window.dotallCheckBox.isChecked())
+        self.assertFalse(self.window.dotallCheckBox.isEnabled())
+        self.assertTrue(self.window.unicodeCheckBox.isChecked())
+        self.assertFalse(self.window.unicodeCheckBox.isEnabled())
+        self.assertTrue(self.window.verboseCheckBox.isChecked())
+        self.assertFalse(self.window.verboseCheckBox.isEnabled())
+
+        self.window._rp.setRegexString('')
+
+        self.window._populateEmbeddedFlags()
+        self.assertTrue(self.window.ignorecaseCheckBox.isChecked())
+        self.assertTrue(self.window.ignorecaseCheckBox.isEnabled())
+        self.assertTrue(self.window.localeCheckBox.isChecked())
+        self.assertTrue(self.window.localeCheckBox.isEnabled())
+        self.assertTrue(self.window.multilineCheckBox.isChecked())
+        self.assertTrue(self.window.multilineCheckBox.isEnabled())
+        self.assertTrue(self.window.dotallCheckBox.isChecked())
+        self.assertTrue(self.window.dotallCheckBox.isEnabled())
+        self.assertTrue(self.window.unicodeCheckBox.isChecked())
+        self.assertTrue(self.window.unicodeCheckBox.isEnabled())
+        self.assertTrue(self.window.verboseCheckBox.isChecked())
+        self.assertTrue(self.window.verboseCheckBox.isEnabled())
 
     def test_fileNew(self):
         self.window.fileNew()
@@ -125,10 +182,63 @@ class TestMainWindow(unittest.TestCase):
         self.window.filename = os.path.join(self.dtmp, 'filesave1.kngs')
         self.window.fileSave()
 
+        # This is a not validi filename
+        self.window.filename = os.path.join(self.dtmp, 'not/a_valid_filename')
+        self.window.fileSave()
+
+    def test_fileSaveAs(self):
+
+        qfd = mainWindow.QFileDialog
+
+        mainWindow.QFileDialog = FakeQFileDialog()
+        self.window.fileSave()  # As filemname is empty this will call fileSaveAs
+
+        dtmp = tempfile.mkdtemp()
+
+        mainWindow.QFileDialog = FakeQFileDialog(filename=os.path.join(dtmp, 'test1'))
+        self.window.fileSaveAs()
+
+        shutil.rmtree(dtmp)
+
+        mainWindow.QFileDialog = qfd
+
     def test_fileRevert(self):
         self.window.fileRevert()
         self.window.filename = self.filename1
         self.window.fileRevert()
+
+    def test_importFile(self):
+
+        qfd = mainWindow.QFileDialog
+
+        mainWindow.QFileDialog = FakeQFileDialog(empty=True)
+        self.window.importFile()
+
+        mainWindow.QFileDialog = FakeQFileDialog(filename='not_existent_file')
+        self.window.importFile()
+
+        ntf = NamedTemporaryFile()
+        ntf.write('abcdef')
+        ntf.flush()
+        mainWindow.QFileDialog = FakeQFileDialog(filename=ntf.name)
+        self.window.importFile()
+        self.assertEqual(self.window.stringMultiLineEdit.toPlainText(), 'abcdef')
+
+        mainWindow.QFileDialog = qfd
+
+    def test_openFile(self):
+        self.window.openFile(self.filename1)
+
+        self.window.openFile('not_a_valid_filename')
+
+    def test_fileOpen(self):
+
+        qfd = mainWindow.QFileDialog
+
+        mainWindow.QFileDialog = FakeQFileDialog(filename=self.filename1)
+        self.window.fileOpen()
+
+        mainWindow.QFileDialog = qfd
 
     def test_processRegex(self):
         self.window.pause()
@@ -146,7 +256,153 @@ class TestMainWindow(unittest.TestCase):
         for i in range(0, min(len(code1), len(code2))):
             c1 = code1[i]
             c2 = code2[i]
-            sys.stdout.write('%s\n' % c1)
-            if not c1 == c2:
-                sys.stdout.write('> %s\n' % c1)
-                sys.stdout.write('< %s\n' % c2)
+            self.assertEqual(c1, c2)
+
+    def test_actionsSlot(self):
+        self.window.editCopy()
+        self.window.editPaste()
+        self.window.editCut()
+        self.window.editUndo()
+        self.window.editRedo()
+
+        self.window.widgetMethod('xxx', True)
+
+    def test_editPreferences(self):
+        old = mainWindow.PreferencesDialog
+        mainWindow.PreferencesDialog = FakeDialog
+
+        self.window.editPreferences()
+
+        mainWindow.PreferencesDialog = old
+
+    def test_helpHelp(self):
+        wold = mainWindow.webbrowser
+        fwb = FakeWebbrowser()
+        mainWindow.webbrowser = fwb
+
+        # Here we find the doc
+        self.window.helpHelp()
+        fwb.assertIsLocalUrl(self)
+
+        fold = mainWindow.findFile
+        mainWindow.findFile = lambda s1, s2: None
+
+        # Here we don't find the doc
+        self.window.helpHelp()
+        fwb.assertIsWebUrl(self)
+
+        mainWindow.findFile = fold
+        mainWindow.webbrowser = wold
+
+    def test_helpPythonRegex(self):
+        wold = mainWindow.webbrowser
+        fwb = FakeWebbrowser()
+        mainWindow.webbrowser = fwb
+
+        self.window.helpPythonRegex()
+        fwb.assertIsWebUrl(self)
+
+        mainWindow.webbrowser = wold
+
+    def test_helpRegexLib(self):
+        old = mainWindow.RegexLibraryWindow
+        mainWindow.RegexLibraryWindow = FakeDialog
+
+        self.window.helpRegexLib()
+
+        mainWindow.RegexLibraryWindow = old
+
+    def test_helpAbout(self):
+        old = mainWindow.AboutDialog
+        mainWindow.AboutDialog = FakeDialog
+
+        self.window.helpAbout()
+
+        mainWindow.AboutDialog = old
+
+    def test_helpVisitKangWebsite(self):
+        wold = mainWindow.webbrowser
+        fwb = FakeWebbrowser()
+        mainWindow.webbrowser = fwb
+
+        self.window.helpVisitKangWebsite()
+        fwb.assertIsWebUrl(self)
+
+        mainWindow.webbrowser = wold
+
+    def test_referenceGuide(self):
+        old = mainWindow.RegexReferenceWindow
+        mainWindow.RegexReferenceWindow = FakeDialog
+
+        self.window.referenceGuide()
+
+        mainWindow.RegexReferenceWindow = old
+
+    def test_showReportBugDialog(self):
+        old = mainWindow.ReportBugDialog
+        mainWindow.ReportBugDialog = FakeDialog
+
+        self.window.showReportBugDialog('msg')
+
+        mainWindow.ReportBugDialog = old
+
+    def test_signalException(self):
+        old = mainWindow.ReportBugDialog
+        mainWindow.ReportBugDialog = FakeDialog
+
+        self.window.signalException('msg')
+
+        mainWindow.ReportBugDialog = old
+
+    def test_importURL(self):
+        old = mainWindow.ImportURLDialog
+        mainWindow.ImportURLDialog = FakeDialog
+
+        self.window.importURL()
+
+        mainWindow.ImportURLDialog = old
+
+    def test_urlImported(self):
+        self.window.urlImported('html', 'url')
+
+    def test_pasteFromRegexLib(self):
+
+        d = {'regex': 'regex',
+             'text': 'text',
+             'replace': 'replace',
+             'tab': '1'
+            }
+
+        self.window.pasteFromRegexLib(d)
+
+        d['tab'] = 'tab'  # Not a numeric tab
+        self.window.pasteFromRegexLib(d)
+
+    def test_checkEditState(self):
+
+        self.window.preferences.askSave = False
+        self.window.checkEditState()
+
+        self.window.preferences.askSave = True
+        self.window.preferences.askSaveOnlyForNamedProjects = True
+        self.window.checkEditState()
+
+        self.window.preferences.askSave = True
+        self.window.preferences.askSaveOnlyForNamedProjects = False
+        self.window.checkEditState()
+
+        self.window.preferences.askSave = True
+        self.window.preferences.askSaveOnlyForNamedProjects = False
+        self.window.editstate = mainWindow.STATE_EDITED
+
+        old = mainWindow.QMessageBox
+        mainWindow.QMessageBox = FakeMessageBox
+        self.window.filename = os.path.join(util.getConfigDirectory(), 't.kng')
+        self.window.checkEditState()
+
+        mainWindow.QMessageBox = old
+
+        self.window.preferences.askSave = False
+
+    def test_paste_symbol(self):
+        self.window.paste_symbol('symbol')

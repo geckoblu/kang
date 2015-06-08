@@ -1,7 +1,7 @@
-from PyQt4.QtGui import QWidget
+from PyQt4.Qt import QMessageBox
 
 
-class FakeMessageBox(QWidget):
+class FakeMessageBox(QMessageBox):
 
     def __init__(self, *args, **kwargs):
         super(FakeMessageBox, self).__init__(*args, **kwargs)
@@ -9,9 +9,24 @@ class FakeMessageBox(QWidget):
         self.title = ''
         self.text = ''
         self.informationCalled = False
+        self.criticalCalles = False
+        self.warningCalled = False
 
-    def information(self, parent, title, text):
+    def information(self, parent, title, text, *args, **kargs):
         self.informationCalled = True
         self.parent = parent
         self.title = title
         self.text = text
+
+    def critical(self, parent, title, text, *args, **kargs):
+        self.criticalCalled = True
+        self.parent = parent
+        self.title = title
+        self.text = text
+
+    def warning(self, parent, title, text, *args, **kargs):
+        self.warningCalled = True
+        self.parent = parent
+        self.title = title
+        self.text = text
+        return 0

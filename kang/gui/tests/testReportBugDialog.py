@@ -25,5 +25,6 @@ class TestReportBugDialog(unittest.TestCase):
         QTest.qWaitForWindowShown(dialog)
 
         dialog.copyToClipboard()
+        dialog.close()
         clipboard = QtGui.QApplication.clipboard()
         self.assertEqual(msg, clipboard.text())

@@ -126,7 +126,7 @@ class MainWindow(MainWindowBA):
 
         newuserdialog = NewUserDialog(self)
         newuserdialog.setModal(True)
-        newuserdialog.show()
+        newuserdialog.exec_()
 
         try:
             os.mkdir(kdir, 0o755)
@@ -428,7 +428,7 @@ class MainWindow(MainWindowBA):
 
         if fn.isEmpty():
             self.updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, 5)
-            return None
+            return
 
         filename = str(fn)
 
@@ -437,7 +437,7 @@ class MainWindow(MainWindowBA):
         except:
             msg = self.tr("Could not open file for reading: ") + filename
             self.updateStatus(msg, MATCH_NONE, 5)
-            return None
+            return
 
         self.importFilename = filename
         data = fp.read()
@@ -564,7 +564,7 @@ class MainWindow(MainWindowBA):
         if self.editstate == STATE_EDITED:
             message = self.tr("You have made changes. Would you like to save them before continuing")
 
-            prompt = QMessageBox.warning(None,
+            prompt = QMessageBox().warning(None,
                                          self.tr("Save changes?"),
                                          message,
                                          self.tr("&Yes, Save Changes"),
@@ -590,7 +590,7 @@ class MainWindow(MainWindowBA):
             pass
         self.editstate = STATE_UNEDITED
 
-    def widgetMethod(self, methodstr, anywidget=0):
+    def widgetMethod(self, methodstr, anywidget=False):
         # execute the methodstr of widget only if widget
         # is one of the editable widgets OR if the method
         # may be applied to any widget.

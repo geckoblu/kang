@@ -19,7 +19,7 @@ class RecentFiles:
         self._parent = parent
         self._numShown = int(numShown)
         self._filename = os.path.join(getConfigDirectory(), 'recent_files')
-        self._recent_files = []
+        self._recentFiles = []
         self._actions = []
         self.load()
 
@@ -28,7 +28,7 @@ class RecentFiles:
         if os.path.isfile(self._filename):
             try:
                 with open(self._filename, "r") as fp:
-                    self._recent_files = map(string.strip, fp.readlines())
+                    self._recentFiles = map(string.strip, fp.readlines())
             except IOError as ex:
                 sys.stderr.write("Could not load recent file list: %s\n" % str(ex))
 
@@ -37,10 +37,10 @@ class RecentFiles:
     def save(self):
         """Save recent file list to file"""
         # truncate list if necessary
-        self._recent_files = self._recent_files[:self._MAX_SIZE]
+        self._recentFiles = self._recentFiles[:self._MAX_SIZE]
         try:
             with open(self._filename, "w") as fp:
-                for f in self._recent_files:
+                for f in self._recentFiles:
                     fp.write("%s\n" % f)
         except IOError as ex:
             sys.stderr.write("Could not save recent file list %s\n" % str(ex))
@@ -48,18 +48,18 @@ class RecentFiles:
     def add(self, filename):
         """Add a filename to the recent file list (automatically save and add to menu)"""
         try:
-            self._recent_files.remove(filename)
+            self._recentFiles.remove(filename)
         except:
             pass
 
-        self._recent_files.insert(0, filename)
+        self._recentFiles.insert(0, filename)
         self.save()
         self._createMenu()
 
     def remove(self, filename):
         """Remove a filename from the recent file list (and from menu)"""
         try:
-            self._recent_files.remove(filename)
+            self._recentFiles.remove(filename)
         except:
             pass
 
@@ -81,9 +81,9 @@ class RecentFiles:
             self._clearMenu()
 
         # add applicable items to menu
-        num = min(self._numShown, len(self._recent_files))
+        num = min(self._numShown, len(self._recentFiles))
         for i in range(num):
-            filename = self._recent_files[i]
+            filename = self._recentFiles[i]
             act = self._parent.fileMenu.addAction(filename)
             QObject.connect(act, SIGNAL(QString.fromUtf8('triggered()')), lambda fn=filename: self._openFile(fn))
             self._actions.append(act)

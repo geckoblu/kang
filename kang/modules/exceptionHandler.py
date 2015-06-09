@@ -1,3 +1,5 @@
+# pylint: disable=global-statement
+
 from PyQt4.QtCore import QT_VERSION_STR
 import string
 import sys
@@ -6,19 +8,19 @@ import traceback
 from kang import VERSION
 
 
-_mainWindow = None
-_showedexmess = set()
-_debug = False
+__mainWindow = None
+__showedexmess = set()
+__debug = False
 
 
 def init(mainWindow, debug=False):
     """
     Initialize the module
     """
-    global _mainWindow
-    global _debug
-    _mainWindow = mainWindow
-    _debug = debug
+    global __mainWindow
+    global __debug
+    __mainWindow = mainWindow
+    __debug = debug
     sys.excepthook = _excepthook
 
 
@@ -35,12 +37,12 @@ def _excepthook(excType, excValue, tracebackobj):
         tb = traceback.format_exception(excType, excValue, tracebackobj)
         exmess = ''.join(tb)
         sys.stderr.write(exmess)
-        if _mainWindow and not (exmess in _showedexmess):
-            _showedexmess.add(exmess)
+        if __mainWindow and not (exmess in __showedexmess):
+            __showedexmess.add(exmess)
             msg = _formatMessage(exmess)
-            _mainWindow.signalException(msg)
+            __mainWindow.signalException(msg)
     except:
-        if _debug:
+        if __debug:
             raise
 
 
@@ -54,21 +56,21 @@ def _formatMessage(exmess):
     msg += 'PyQt Version:\t %s\n' % unicode(QT_VERSION_STR)
     msg += 'Operating System: %s\n' % unicode(sys.platform)
 
-    regex = _mainWindow.regexMultiLineEdit.toPlainText()
+    regex = __mainWindow.regexMultiLineEdit.toPlainText()
     if regex:
         msg += '=== REGEX ============================================================\n'
         msg += unicode(regex)
         if not msg.endswith('\n'):
             msg += '\n'
 
-    rstr = _mainWindow.stringMultiLineEdit.toPlainText()
+    rstr = __mainWindow.stringMultiLineEdit.toPlainText()
     if rstr:
         msg += '=== STRING ===========================================================\n'
         msg += unicode(rstr)
         if not msg.endswith('\n'):
             msg += '\n'
 
-    replace = _mainWindow.replaceTextEdit.toPlainText()
+    replace = __mainWindow.replaceTextEdit.toPlainText()
     if replace:
         msg += '=== REPLACE ==========================================================\n'
         msg += unicode(replace)

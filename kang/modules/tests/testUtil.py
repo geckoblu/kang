@@ -1,3 +1,5 @@
+# pylint: disable=protected-access
+
 from PyQt4.QtCore import QSize
 import os
 import shutil
@@ -18,7 +20,7 @@ class TestUtil(unittest.TestCase):
         self.assertTrue(cdir.startswith(self.dtmp), '%s wrong config directory' % cdir)
         os.mkdir(cdir)
 
-        self._write_msg = ''
+        self._writeMsg = ''
 
     def tearDown(self):
         if self.dtmp:
@@ -83,10 +85,10 @@ class TestUtil(unittest.TestCase):
         sys.stderr = self
         util.restoreWindowSettings(w, 'shadow')  # something we could surely not read
         sys.stderr = stderr
-        self.assertTrue(self._write_msg, 'IOError was not raised')
+        self.assertTrue(self._writeMsg, 'IOError was not raised')
 
     def write(self, msg):
-        self._write_msg = msg
+        self._writeMsg = msg
 
 
 class FakeWindow:

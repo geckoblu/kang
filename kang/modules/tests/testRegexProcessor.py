@@ -1,3 +1,5 @@
+# pylint: disable=protected-access
+
 import re
 import unittest
 
@@ -229,8 +231,10 @@ class TestRegexProcessor(unittest.TestCase):
 
         rp.setMatchString('abcdabc')
         code = rp.getRegexCode()
+        self.assertTrue(code.index('abcdabc') > -1)
         rp.setRegexString('(b)')
         code = rp.getRegexCode()
+        self.assertTrue(code.index('(b)') > -1)
 
     def test_embeddedFlags(self):
         rp = RegexProcessor()

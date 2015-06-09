@@ -1,3 +1,5 @@
+# pylint: disable=protected-access
+
 from PyQt4.QtCore import QCoreApplication
 from PyQt4.QtGui import QApplication
 from PyQt4.QtTest import QTest
@@ -10,8 +12,8 @@ import tempfile
 import unittest
 
 from kang.gui import mainWindow
-from kang.gui.tests.fakeWebbrowser import FakeWebbrowser
 from kang.gui.tests.fakeQFileDialog import FakeQFileDialog
+from kang.gui.tests.fakeWebbrowser import FakeWebbrowser
 from kang.gui.tests.fakedialog import FakeDialog
 from kang.gui.tests.fakemessagebox import FakeMessageBox
 from kang.modules import util
@@ -378,6 +380,9 @@ class TestMainWindow(unittest.TestCase):
         d['tab'] = 'tab'  # Not a numeric tab
         self.window.pasteFromRegexLib(d)
 
+        del d['tab']  # tab not defined
+        self.window.pasteFromRegexLib(d)
+
     def test_checkEditState(self):
 
         self.window.preferences.askSave = False
@@ -404,5 +409,61 @@ class TestMainWindow(unittest.TestCase):
 
         self.window.preferences.askSave = False
 
-    def test_paste_symbol(self):
-        self.window.paste_symbol('symbol')
+    def test_pasteSymbol(self):
+        self.window.pasteSymbol('symbol')
+
+    def test_populateText(self):
+        self.window.stringMultiLineEdit.setPlainText('abcdabc')
+        widget = FakeColorizeWidget()
+
+        # No match
+        self.window._rp.setRegexString('X')
+        spans = self.window._rp.getAllSpans()
+        self.window._populateText(spans, widget)
+        self.assertEqual(widget.colorized, [])
+
+        # One match in the middle
+        self.window._rp.setRegexString('d')
+        spans = self.window._rp.getAllSpans()
+        self.window._populateText(spans, widget)
+        self.assertEqual(widget.colorized, [(0, 'abc'), (255, 'd'), (0, 'abc')])
+
+        # Two match in the middle
+        self.window._rp.setRegexString('b')
+        spans = self.window._rp.getAllSpans()
+        self.window._populateText(spans, widget)
+        self.assertEqual(widget.colorized, [(0, 'a'), (255, 'b'), (0, 'cda'), (255, 'b'), (0, 'c')])
+
+        # Match in the end
+        self.window._rp.setRegexString('c')
+        spans = self.window._rp.getAllSpans()
+        self.window._populateText(spans, widget)
+        self.assertEqual(widget.colorized, [(0, 'ab'), (255, 'c'), (0, 'dab'), (255, 'c'), (0, '')])
+
+        # Match in the start
+        self.window._rp.setRegexString('a')
+        spans = self.window._rp.getAllSpans()
+        self.window._populateText(spans, widget)
+        self.assertEqual(widget.colorized, [(0, ''), (255, 'a'), (0, 'bcd'), (255, 'a'), (0, 'bc')])
+
+
+class FakeColorizeWidget():
+    def __init__(self):
+        self._currentColor = None
+        self.colorized = []
+
+    def clear(self):
+        self._currentColor = None
+        self.colorized = []
+
+    def textCursor(self):
+        return 0
+
+    def setTextColor(self, color):
+        self._currentColor = color.value()
+
+    def insertPlainText(self, text):
+        self.colorized.append((self._currentColor, str(text)))
+
+    def setTextCursor(self, pos):
+        pass

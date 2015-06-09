@@ -9,7 +9,7 @@ class FakeMessageBox(QMessageBox):
         self.title = ''
         self.text = ''
         self.informationCalled = False
-        self.criticalCalles = False
+        self.criticalCalled = False
         self.warningCalled = False
 
     def information(self, parent, title, text, *args, **kargs):

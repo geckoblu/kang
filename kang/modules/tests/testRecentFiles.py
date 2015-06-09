@@ -1,3 +1,5 @@
+# pylint: disable=protected-access
+
 from PyQt4.QtCore import QObject
 import os
 import shutil
@@ -18,7 +20,7 @@ class TestRecentFiles(unittest.TestCase):
         self.assertTrue(cdir.startswith(self.dtmp), '%s wrong config directory' % cdir)
         os.mkdir(cdir)
 
-        self._write_msg = ''
+        self._writeMsg = ''
 
     def tearDown(self):
         if self.dtmp:
@@ -29,18 +31,18 @@ class TestRecentFiles(unittest.TestCase):
         r1 = recentfiles.RecentFiles(parent)
 
         # Test save/load
-        r1._recent_files = ['/home/goofy/kng/pippo1.kng', '/home/goofy/kng/pippo2.kng', '/home/goofy/kng/pippo3.kng']
+        r1._recentFiles = ['/home/goofy/kng/pippo1.kng', '/home/goofy/kng/pippo2.kng', '/home/goofy/kng/pippo3.kng']
         r1.save()
         r1.load()
 
         r2 = recentfiles.RecentFiles(parent)
         r2.load()
-        self.assertEqual(r1._recent_files, r2._recent_files)
+        self.assertEqual(r1._recentFiles, r2._recentFiles)
 
         # Test add
         an = len(r1._actions)
         r1.add('/home/goofy/kng/pippo4.kng')
-        self.assertIn('/home/goofy/kng/pippo4.kng', r1._recent_files)
+        self.assertIn('/home/goofy/kng/pippo4.kng', r1._recentFiles)
         self.assertEqual(an + 1, len(r1._actions))
 
         # Test setNumShown
@@ -72,7 +74,7 @@ class TestRecentFiles(unittest.TestCase):
         sys.stderr = self
         rf.load()
         sys.stderr = stderr
-        self.assertTrue(self._write_msg, 'IOError was not raised')
+        self.assertTrue(self._writeMsg, 'IOError was not raised')
 
     def test_save_IOError(self):
         parent = FakeParent()
@@ -83,7 +85,7 @@ class TestRecentFiles(unittest.TestCase):
         sys.stderr = self
         rf.save()
         sys.stderr = stderr
-        self.assertTrue(self._write_msg, 'IOError was not raised')
+        self.assertTrue(self._writeMsg, 'IOError was not raised')
 
     def test_remove(self):
         parent = FakeParent()
@@ -92,25 +94,25 @@ class TestRecentFiles(unittest.TestCase):
         fn1 = '/home/goofy/kng/pippo1.kng'
         fn2 = '/home/goofy/kng/pippo2.kng'
         fn3 = '/home/goofy/kng/pippo3.kng'
-        rf._recent_files = [fn1, fn2]
+        rf._recentFiles = [fn1, fn2]
         rf.save()
         rf.load()
 
         # Remove a file in the list
         an = len(rf._actions)
         rf.remove(fn1)
-        self.assertNotIn(fn1, rf._recent_files)
+        self.assertNotIn(fn1, rf._recentFiles)
         self.assertEqual(an - 1, len(rf._actions))
 
         # Remove a file not the list
         an = len(rf._actions)
-        self.assertNotIn(fn3, rf._recent_files)
+        self.assertNotIn(fn3, rf._recentFiles)
         rf.remove(fn3)
-        self.assertNotIn(fn3, rf._recent_files)
+        self.assertNotIn(fn3, rf._recentFiles)
         self.assertEqual(an, len(rf._actions))
 
     def write(self, msg):
-        self._write_msg = msg
+        self._writeMsg = msg
 
 
 class FakeParent:

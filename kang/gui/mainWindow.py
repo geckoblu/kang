@@ -1,7 +1,7 @@
 from PyQt4.QtCore import Qt, SIGNAL
 from PyQt4.QtCore import pyqtSignal
 from PyQt4.QtGui import QFileDialog, QColor, QMessageBox, \
-                        QPixmap, QPalette, QTableWidgetItem, QHeaderView, qApp
+                        QPalette, QTableWidgetItem, QHeaderView, qApp
 import os
 import re
 import webbrowser
@@ -16,14 +16,13 @@ from kang.gui.regexLibraryWindow import RegexLibraryWindow
 from kang.gui.regexReferenceWindow import RegexReferenceWindow
 from kang.gui.reportBugDialog import ReportBugDialog
 from kang.gui.statusbar import StatusBar
-from kang.images import getIcon
+from kang.images import getIcon, getPixmap
 from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
 from kang.modules.regexprocessor import RegexProcessor
 from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory
-import kang.modules.xpm as xpm
 
 
 STATE_UNEDITED = 0
@@ -52,10 +51,10 @@ class MainWindow(MainWindowBA):
         MainWindowBA.__init__(self)
 
         # Initialized here because QPixmap should be loaded in the main thread
-        STATUS_PIXMAPS_DICT[MATCH_NA] = QPixmap(xpm.yellowStatusIcon)
-        STATUS_PIXMAPS_DICT[MATCH_OK] = QPixmap(xpm.greenStatusIcon)
-        STATUS_PIXMAPS_DICT[MATCH_FAIL] = QPixmap(xpm.redStatusIcon)
-        STATUS_PIXMAPS_DICT[MATCH_PAUSED] = QPixmap(xpm.pauseStatusIcon)
+        STATUS_PIXMAPS_DICT[MATCH_NA] = getPixmap('yellowStatusIcon.xpm')
+        STATUS_PIXMAPS_DICT[MATCH_OK] = getPixmap('greenStatusIcon.xpm')
+        STATUS_PIXMAPS_DICT[MATCH_FAIL] = getPixmap('redStatusIcon.xpm')
+        STATUS_PIXMAPS_DICT[MATCH_PAUSED] = getPixmap('pauseStatusIcon.xpm')
 
         self._rp = RegexProcessor()
         self._rp.connect(self._regexStatusChanged)
@@ -102,7 +101,7 @@ class MainWindow(MainWindowBA):
         self._signalException.connect(self.showReportBugDialog)
 
         self.connect(self, SIGNAL('preferencesChanged()'), self.preferencesChanged)
-        self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.paste_symbol)
+        self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.pasteSymbol)
         self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
         self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
@@ -155,10 +154,10 @@ class MainWindow(MainWindowBA):
         self._populateCodeTextBrowser()
         self._populateEmbeddedFlags()
 
-    def updateStatus(self, status_string, status_value, duration=0):
-        pixmap = STATUS_PIXMAPS_DICT.get(status_value)
+    def updateStatus(self, statusString, statusValue, duration=0):
+        pixmap = STATUS_PIXMAPS_DICT.get(statusValue)
 
-        self.statusbar.setMessage(status_string, duration, pixmap)
+        self.statusbar.setMessage(statusString, duration, pixmap)
 
     def edited(self):
         # invoked whenever the user has edited something
@@ -186,17 +185,17 @@ class MainWindow(MainWindowBA):
             self.stringMultiLineEdit.setReadOnly(True)
             self.replaceTextEdit.setReadOnly(True)
             self._regexSaved, new = self._rp.examine()
-            self._refresh_regex_widget(color, new)
+            self._refreshRegexWidget(color, new)
         else:
             color = QCOLOR_WHITE
             self.regexMultiLineEdit.setReadOnly(False)
             self.stringMultiLineEdit.setReadOnly(False)
             self.replaceTextEdit.setReadOnly(False)
-            self._refresh_regex_widget(color, self._regexSaved)
+            self._refreshRegexWidget(color, self._regexSaved)
 
-    def _refresh_regex_widget(self, base_qcolor, regex):
+    def _refreshRegexWidget(self, color, regex):
         p = self.regexMultiLineEdit.palette()
-        p.setColor(QPalette.Base, base_qcolor)
+        p.setColor(QPalette.Base, color)
         self.regexMultiLineEdit.setPalette(p)
 
         self.regexMultiLineEdit.blockSignals(1)
@@ -306,17 +305,15 @@ class MainWindow(MainWindowBA):
             row += 1
 
     def _populateMatchTextbrowser(self):
-        text = self.stringMultiLineEdit.toPlainText()
         spans = []
         span = self._rp.getSpan(self.matchNumberSpinBox.value() - 1)
         if span:
             spans.append(span)
-        self._populateText(text, spans, self.matchTextBrowser)
+        self._populateText(spans, self.matchTextBrowser)
 
     def _populateMatchAllTextbrowser(self):
-        text = self.stringMultiLineEdit.toPlainText()
         spans = self._rp.getAllSpans()
-        self._populateText(text, spans, self.matchAllTextBrowser)
+        self._populateText(spans, self.matchAllTextBrowser)
 
     def _populateReplaceTextbrowser(self):
 
@@ -361,7 +358,7 @@ class MainWindow(MainWindowBA):
                 self.verboseCheckBox.setEnabled(False)
                 self.verboseCheckBox.setChecked(True)
 
-    def _populateText(self, text, spans, widget):
+    def _populateText(self, spans, widget):
         widget.clear()
 
         if not spans:
@@ -371,17 +368,14 @@ class MainWindow(MainWindowBA):
         text = self.stringMultiLineEdit.toPlainText()
         strings = []
         for span in spans:
-            if span[0] != 0:
-                s = text[idx:span[0]]
-            else:
-                s = ''
+            s = text[idx:span[0]]
 
             idx = span[1]
             strings.append(s)
             strings.append(text[span[0]:span[1]])
 
         if 0 <= idx <= len(text):
-            strings.append(text[span[1]:])
+            strings.append(text[idx:])
 
         self._colorizeStrings(strings, widget)
 
@@ -547,7 +541,7 @@ class MainWindow(MainWindowBA):
             self.recentFiles.remove(filename)
             return False
 
-    def paste_symbol(self, symbol):
+    def pasteSymbol(self, symbol):
         self.regexMultiLineEdit.insertPlainText(symbol)
 
     def checkEditState(self, noButtonStr=None):
@@ -575,18 +569,18 @@ class MainWindow(MainWindowBA):
                 if not self.filename:
                     self.checkEditState(noButtonStr)
 
-    def pasteFromRegexLib(self, d):
+    def pasteFromRegexLib(self, regexLibDict):
         self.filename = ''
         self.checkEditState()
 
-        self.regexMultiLineEdit.setPlainText(d.get('regex'))
-        self.stringMultiLineEdit.setPlainText(d.get('text'))
-        self.replaceTextEdit.setPlainText(d.get('replace'))
+        self.regexMultiLineEdit.setPlainText(regexLibDict.get('regex', ''))
+        self.stringMultiLineEdit.setPlainText(regexLibDict.get('text', ''))
+        self.replaceTextEdit.setPlainText(regexLibDict.get('replace', ''))
 
         try:
             # set the current page if applicable
-            self.resultTabWidget.setCurrentPage(int(d['tab']))
-        except:
+            self.resultTabWidget.setCurrentPage(int(regexLibDict.get('tab', '')))
+        except ValueError:
             pass
         self.editstate = STATE_UNEDITED
 

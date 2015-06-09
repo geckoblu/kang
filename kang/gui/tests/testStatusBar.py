@@ -1,12 +1,14 @@
+# pylint: disable=protected-access
+
 from PyQt4.QtCore import QCoreApplication
-from PyQt4.QtGui import QApplication, QPixmap
+from PyQt4.QtGui import QApplication
+from PyQt4.QtTest import QTest
 import sys
 import unittest
 
 from kang.gui.statusbar import StatusBar
 from kang.gui.tests.fakeparent import FakeParent
-from kang.modules import xpm
-from PyQt4.QtTest import QTest
+from kang.images import getPixmap
 
 
 class TestStatusBar(unittest.TestCase):
@@ -16,8 +18,8 @@ class TestStatusBar(unittest.TestCase):
         if not self.qApp:
             self.qApp = QApplication(sys.argv)
 
-        self.greenPixmap = QPixmap(xpm.greenStatusIcon)
-        self.redPixmap = QPixmap(xpm.redStatusIcon)
+        self.greenPixmap = getPixmap('greenStatusIcon.xpm')
+        self.redPixmap = getPixmap('redStatusIcon.xpm')
 
     def test_stastusbar(self):
         parent = FakeParent()

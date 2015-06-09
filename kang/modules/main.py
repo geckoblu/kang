@@ -22,7 +22,7 @@ if QT_VERS < 4:
     sys.exit(0)
 
 
-def parse_cmdline():
+def parseCmdline():
 
     #def locale(locale):
     #    if len(locale) != 2:
@@ -39,7 +39,7 @@ def parse_cmdline():
 
 def main():
 
-    args = parse_cmdline()
+    args = parseCmdline()
 
     qApp = QtGui.QApplication(sys.argv)
 

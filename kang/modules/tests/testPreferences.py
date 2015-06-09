@@ -1,3 +1,5 @@
+# pylint: disable=protected-access
+
 import os
 import shutil
 import sys
@@ -17,7 +19,7 @@ class TestUtil(unittest.TestCase):
         self.assertTrue(cdir.startswith(self.dtmp), '%s wrong config directory' % cdir)
         os.mkdir(cdir)
 
-        self._write_msg = ''
+        self._writeMsg = ''
 
     def tearDown(self):
         if self.dtmp:
@@ -46,7 +48,7 @@ class TestUtil(unittest.TestCase):
         sys.stderr = self
         pref.save()
         sys.stderr = stderr
-        self.assertTrue(self._write_msg, 'IOError was not raised')
+        self.assertTrue(self._writeMsg, 'IOError was not raised')
 
     def test_load_IOError(self):
         pref = preferences.Preferences()
@@ -56,7 +58,7 @@ class TestUtil(unittest.TestCase):
         sys.stderr = self
         pref.load()
         sys.stderr = stderr
-        self.assertTrue(self._write_msg, 'IOError was not raised')
+        self.assertTrue(self._writeMsg, 'IOError was not raised')
 
     def test_load_ValueError(self):
         pref = preferences.Preferences()
@@ -66,4 +68,4 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(pref.recentFilesNum, pref._DEFAULTRECENTFILESNUM)
 
     def write(self, msg):
-        self._write_msg = msg
+        self._writeMsg = msg

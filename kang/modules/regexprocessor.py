@@ -360,14 +360,14 @@ class RegexProcessor(QObject):
             code += 'all_groups = match_obj.groups()\n\n'
             code += '# Retrieve group(s) by index\n'
             i = 0
-            named_grps = 0
+            namedGrps = 0
             for grp in self._groupTuples[0]:
                 i += 1
                 code += 'group_%d = match_obj.group(%d)\n' % (i, i)
                 if grp[1]:
-                    named_grps = 1
+                    namedGrps = 1
 
-            if named_grps:
+            if namedGrps:
                 code += '\n# Retrieve group(s) by name\n'
                 for grp in self._groupTuples[0]:
                     if grp[1]:

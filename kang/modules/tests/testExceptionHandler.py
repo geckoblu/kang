@@ -1,3 +1,5 @@
+# pylint: disable=protected-access
+
 import sys
 import unittest
 
@@ -38,6 +40,7 @@ class FakeMainWindow:
     def __init__(self):
         self.ok = False
         self.message = ''
+        self.wok = False
         self.wmessage = ''
         self.regexMultiLineEdit = FakeLineEdit('regexMultiLineEdit')
         self.stringMultiLineEdit = FakeLineEdit('stringMultiLineEdit')

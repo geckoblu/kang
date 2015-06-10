@@ -404,7 +404,20 @@ class TestMainWindow(unittest.TestCase):
         mainWindow.QMessageBox = FakeMessageBox
         self.window.filename = os.path.join(util.getConfigDirectory(), 't.kng')
         self.window.checkEditState()
+        mainWindow.QMessageBox = old
 
+        # an unavoidable trick to reach the 100% code coverage
+        self.window.filename = ''
+        self.window.editstate = mainWindow.STATE_EDITED
+        old = mainWindow.QMessageBox
+        mainWindow.QMessageBox = FakeMessageBox
+        fileSave = self.window.fileSave
+        self.window.fileSave = lambda: None
+        checkEditState2 = self.window.checkEditState
+        self.window.checkEditState = lambda s: None
+        checkEditState2()
+        self.window.checkEditState = checkEditState2
+        self.window.fileSave = fileSave
         mainWindow.QMessageBox = old
 
         self.window.preferences.askSave = False

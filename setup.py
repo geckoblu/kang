@@ -36,5 +36,3 @@ setup(
     zip_safe=False,
     cmdclass={'integrate_desktop': integrate_desktop}
 )
-
-

@@ -1,3 +1,4 @@
+from distutils import log
 import os
 from setuptools import  Command
 import subprocess
@@ -20,8 +21,18 @@ class integrate_desktop(Command):
 
     def run(self):
         """runner"""
-        print('installing mime type')
-        subprocess.call(['xdg-mime', 'install', './data/kang-mimetype.xml'])
+        d, _ = os.path.split(__file__)
+        d = os.path.join(d, 'data')
 
-        print('installing file icon')
-        subprocess.call(['xdg-icon-resource', 'install', '--size', '48', './data/application-x-kang.png'])
+        log.info('installing mime type')
+        mimetype_filename = os.path.join(d, 'kang-mimetype.xml')
+        subprocess.call(['xdg-mime', 'install', mimetype_filename])
+
+        log.info('installing file icon')
+        mimeicon_filename = os.path.join(d, 'application-x-kang.png')
+        subprocess.call(['xdg-icon-resource', 'install', '--size', '48', mimeicon_filename])
+
+
+if __name__ == '__main__':
+    import setup
+    setup.setup()

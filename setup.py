@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 
+from setuptools import setup, find_packages
 import sys
+
+from kang import VERSION
+from setuptools_extensions import integrate_desktop
+
+
 try:
     from PyQt4 import QtCore
 except:
@@ -12,11 +18,8 @@ QT_VERS = int(QtCore.QT_VERSION_STR[0])
 
 if QT_VERS < 4:
     sys.stderr.write("Qt versions prior to 4.0 are no longer supported\n")
-    sys.exit(0)
+    sys.exit(1)
 
-from setuptools import setup, find_packages
-
-from kang import VERSION
 
 setup(
     name='kang',
@@ -31,4 +34,7 @@ setup(
         ('share/applications', ['data/kang.desktop'])
     ],
     zip_safe=False,
+    cmdclass={'integrate_desktop': integrate_desktop}
 )
+
+

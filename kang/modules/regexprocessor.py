@@ -335,12 +335,16 @@ class RegexProcessor(QObject):
     def getRegexCode(self):
 
         code = 'import re\n\n'
+
         code += '# common variables\n\n'
-        code += 'rawstr = r"""' + self._regexEmbeddedFlagsRemoved + '"""\n'
+        code += 'rawstr = r"""' + self._regexEmbeddedFlagsRemoved + '"""\n\n'
         code += 'embedded_rawstr = r"""' + self._getEmbeddedFlagsStr() + \
-                self._regexEmbeddedFlagsRemoved + '"""\n'
-        code += 'matchstr = \"\"\"' + self._matchString + '\"\"\"'
-        code += '\n\n'
+                self._regexEmbeddedFlagsRemoved + '"""\n\n'
+        code += 'matchstr = """' + self._matchString + '"""\n\n'
+        if self._replaceString:
+                code += 'replacestr = """' + self._replaceString + '"""\n\n'
+        code += '\n'
+
         code += '# method 1: using a compile object\n'
         code += 'compile_obj = re.compile(rawstr'
         code += self._getFlagsStr()
@@ -377,6 +381,6 @@ class RegexProcessor(QObject):
 
         if self._replaceString:
             code += '# Replace string\n'
-            code += 'newstr = compile_obj.subn("%s", matchstr)\n' % self._replaceString
+            code += 'newstr = compile_obj.subn(replacestr, matchstr)\n'
 
         return code

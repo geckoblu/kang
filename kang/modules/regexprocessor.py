@@ -342,7 +342,7 @@ class RegexProcessor(QObject):
                 self._regexEmbeddedFlagsRemoved + '"""\n\n'
         code += 'matchstr = """' + self._matchString + '"""\n\n'
         if self._replaceString:
-                code += 'replacestr = """' + self._replaceString + '"""\n\n'
+                code += 'replacestr = r"""' + self._replaceString + '"""\n\n'
         code += '\n'
 
         code += '# method 1: using a compile object\n'

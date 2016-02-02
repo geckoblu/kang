@@ -256,7 +256,7 @@ class RegexProcessor(QObject):
             return (MATCH_FAIL, str(ex))
 
         strings = []
-        seq = difflib.SequenceMatcher(None, unicode(self._matchString), replaced)
+        seq = difflib.SequenceMatcher(None, unicode(self._replaceString), replaced)
         for _, _, _, j1, j2 in seq.get_opcodes():
             strings.append(replaced[j1:j2])
 

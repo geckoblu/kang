@@ -139,7 +139,7 @@ class TestRegexProcessor(unittest.TestCase):
 
     def test_replace(self):
         rp = RegexProcessor()
-        rp.setMatchString('abcdabc')
+        rp.setMatchString('abcdabcbc')
 
         # Normal match (2)
         rp.setRegexString('b')
@@ -151,19 +151,23 @@ class TestRegexProcessor(unittest.TestCase):
 
         status, strings = rp.replace(1)
         self.assertEqual(status, MATCH_OK)
-        self.assertEqual(strings, ['a', 'x', 'cdabc'])
+        self.assertEqual(strings, ['axcdabcbc'])
 
         status, strings = rp.replace(2)
         self.assertEqual(status, MATCH_OK)
-        self.assertEqual(strings, ['a', 'x', 'cda', 'x', 'c'])
+        self.assertEqual(strings, ['axcdaxcbc'])
 
         status, strings = rp.replace(0)  # 0 stands for 'all'
         self.assertEqual(status, MATCH_OK)
-        self.assertEqual(strings, ['a', 'x', 'cda', 'x', 'c'])
+        self.assertEqual(strings, ['axcdaxcxc'])
 
         status, strings = rp.replace(3)
         self.assertEqual(status, MATCH_OK)
-        self.assertEqual(strings, ['a', 'x', 'cda', 'x', 'c'])
+        self.assertEqual(strings, ['axcdaxcxc'])
+
+        status, strings = rp.replace(4)
+        self.assertEqual(status, MATCH_OK)
+        self.assertEqual(strings, ['axcdaxcxc'])
 
         # Group match (2)
         rp.setRegexString('(b)')
@@ -175,7 +179,7 @@ class TestRegexProcessor(unittest.TestCase):
 
         status, strings = rp.replace(0)  # 0 stands for 'all'
         self.assertEqual(status, MATCH_OK)
-        self.assertEqual(strings, ['a', 'x', 'cda', 'x', 'c'])
+        self.assertEqual(strings, ['axcdaxcxc'])
 
         rp.setReplaceString(r'x\1')
         status, _ = rp.getStatus()
@@ -183,7 +187,7 @@ class TestRegexProcessor(unittest.TestCase):
 
         status, strings = rp.replace(0)  # 0 stands for 'all'
         self.assertEqual(status, MATCH_OK)
-        self.assertEqual(strings, [u'a', u'x', u'bcda', u'x', u'bc'])
+        self.assertEqual(strings, ['axbcdaxbcxbc'])
 
         rp.setReplaceString(r'x\2')
         status, _ = rp.getStatus()

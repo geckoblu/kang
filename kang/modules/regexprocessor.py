@@ -256,9 +256,11 @@ class RegexProcessor(QObject):
             return (MATCH_FAIL, str(ex))
 
         strings = []
-        seq = difflib.SequenceMatcher(None, unicode(self._replaceString), replaced)
-        for _, _, _, j1, j2 in seq.get_opcodes():
-            strings.append(replaced[j1:j2])
+        # I couldn't define which is the correct behavior so I disable it completely
+        #seq = difflib.SequenceMatcher(None, unicode(self._matchString), replaced, None)
+        #for _, _, _, j1, j2 in seq.get_opcodes():
+        #    strings.append(replaced[j1:j2])
+        strings.append(replaced)
 
         return (MATCH_OK, strings)
 

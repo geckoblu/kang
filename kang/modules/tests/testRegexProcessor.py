@@ -203,6 +203,22 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(status, MATCH_FAIL)
         self.assertEqual(strings, 'bogus escape (end of line)')
 
+        # Real case - which would be the correct colorized ?
+        rp.setMatchString("""<p><a class="calibre7" id="filepos48765"></a></p>
+  <blockquote class="calibre19">
+    <a class="calibre8" href="#filepos20421"><span class="calibre9 underline">1</span></a>
+  </blockquote>""")
+        rp.setRegexString("""<p><a class="calibre7" id="(.*?)"></a></p>
+  <blockquote class="calibre19">
+    <a class="calibre8" href="(.*?)"><span class="calibre9 underline">(.*?)</span></a>
+  </blockquote>""")
+        rp.setReplaceString('<a class="noteref" id="\\1" href="\\2">\\3</a>')
+        status, _ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+        status, strings = rp.replace(0)  # 0 stands for 'all'
+        self.assertEqual(status, MATCH_OK)
+        self.assertEqual(strings, ['<a class="noteref" id="filepos48765" href="#filepos20421">1</a>'])
+
     def test_ignorecase(self):
         rp = RegexProcessor()
         rp.setMatchString('V')

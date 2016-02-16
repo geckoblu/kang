@@ -1,10 +1,24 @@
+==============
 Personal Notes
 ==============
 
 
+Build environment
+=================
+
+pylint
+------
+pylint -f html kang > ~/tmp/kang-pylint.html
+
+tests and code coverage
+-----------------------
+nosetests
+
+
+
 
 Mime Type Setup
----------------
+===============
 
 sudo xdg-mime install --mode system data/kang-mimetype.xml
 

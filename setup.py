@@ -39,5 +39,9 @@ setup(
         ('share/applications', ['data/kang.desktop'])
     ],
     zip_safe=False,
-    cmdclass=cmdclass
+    cmdclass=cmdclass,
+
+    url='http://www.geckoblu.net/kang',
+    author='Alessio Piccoli',
+    author_email='alepic@geckoblu.net'
 )

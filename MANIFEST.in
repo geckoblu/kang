@@ -1,3 +1,16 @@
-include data/kang.desktop
-include data/kang-mimetype.xml
-include data/application-x-kang.png
+global-include *.xpm
+global-include *.png
+global-include *.svg
+global-include *.ui
+
+
+recursive-include doc-rst *
+recursive-include data *
+recursive-include kang *.kng
+
+include .coveragerc
+include TODO
+include mynotes.rst
+include pylintrc
+include setuptools_extensions.py
+include LICENSE.txt

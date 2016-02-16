@@ -1,1 +1,3 @@
 include data/kang.desktop
+include data/kang-mimetype.xml
+include data/application-x-kang.png

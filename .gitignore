@@ -1,7 +1,11 @@
+.coverage
 .project
 .pydevproject
 .settings
 RECORD
-cover
-.coverage
-kng
+build/
+cover/
+dist/
+kang.egg-info/
+kng/
+

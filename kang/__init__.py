@@ -2,7 +2,7 @@
 
 # pyrcc4 resources.qrc > modules/resources.py
 
-VERSION = '4.1'
+VERSION = '4.2'
 
 KANG_WEBSITE = 'http://www.geckoblu.net/kang'
 

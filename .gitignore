@@ -1,10 +1,11 @@
-.coverage
-.project
-.pydevproject
-.settings
-RECORD
 build/
 cover/
 dist/
 kang.egg-info/
-
+kng/
+pylintrc_template
+RECORD
+.coverage
+.project
+.pydevproject
+.settings

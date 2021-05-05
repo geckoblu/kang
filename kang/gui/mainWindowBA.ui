@@ -748,7 +748,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>dotallCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -763,8 +763,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>editCopyAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>editCopy()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -779,8 +779,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>editCutAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>editCut()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -795,8 +795,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>editPasteAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>editPaste()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -811,8 +811,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>editRedoAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>editRedo()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -827,8 +827,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>editUndoAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>editUndo()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -843,8 +843,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>examineAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>examine()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -859,8 +859,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>fileExitAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -875,8 +875,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>fileNewAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>fileNew()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -891,8 +891,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>fileOpenAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>fileOpen()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -907,8 +907,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>fileSaveAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>fileSave()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -923,8 +923,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>fileSaveAsAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>fileSaveAs()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -939,8 +939,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>helpAboutAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>helpAbout()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -955,8 +955,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>helpHelpAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>helpHelp()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -972,7 +972,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>ignorecaseCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -988,7 +988,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>localeCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1004,7 +1004,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>matchNumberSpinBox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>matchNumSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1020,7 +1020,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>multilineCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1036,7 +1036,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>regexMultiLineEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>regexChangedSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1052,7 +1052,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>stringMultiLineEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>stringChangedSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1068,7 +1068,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>unicodeCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1084,7 +1084,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>verboseCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>checkboxSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1100,7 +1100,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>editPauseAction</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>pause()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1115,8 +1115,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>editPreferencesAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>editPreferences()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1131,8 +1131,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>helpPythonHelpAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>helpPythonRegex()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1147,8 +1147,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>helpRegexReferenceAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>referenceGuide()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1163,8 +1163,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>helpVisitWebsiteAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>helpVisitKangWebsite()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1180,7 +1180,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>replaceTextEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>replaceChangedSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1196,7 +1196,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>replaceNumberSpinBox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>replaceNumSlot()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1211,8 +1211,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>fileImportFileAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>importFile()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1227,8 +1227,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>fileImportURLAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>importURL()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1243,8 +1243,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>helpRegexLibAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>helpRegexLib()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1260,7 +1260,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>regexMultiLineEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1276,7 +1276,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>stringMultiLineEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1292,7 +1292,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>ignorecaseCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1308,7 +1308,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>replaceTextEdit</sender>
    <signal>textChanged()</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1324,7 +1324,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>multilineCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1340,7 +1340,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>dotallCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1356,7 +1356,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>verboseCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1372,7 +1372,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>localeCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1388,7 +1388,7 @@ database. New in Python version 2.0.</string>
   <connection>
    <sender>unicodeCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MainWindowBA</receiver>
+   <receiver>self</receiver>
    <slot>edited()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1403,8 +1403,8 @@ database. New in Python version 2.0.</string>
   </connection>
   <connection>
    <sender>fileRevertAction</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindowBA</receiver>
+   <signal>triggered()</signal>
+   <receiver>self</receiver>
    <slot>fileRevert()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -6,7 +6,7 @@
 import argparse
 import sys
 try:
-    from PyQt5 import Qt, QtCore
+    from PyQt5 import Qt, QtCore, QtWidgets
 except:
     sys.stderr.write("""Could not locate the PyQt module.  Please make sure that
 you have installed PyQt for the version of Python that you are running.\n""")
@@ -56,10 +56,14 @@ def main():
 #         else:
 #             sys.stderr.write("Locale for '%s' not found. Fallback to default.\n" % args.locale)
 
-    kang = MainWindow(args.filename)
-
+    # FIXME kang = MainWindow(args.filename)
+    kang = MainWindow()
     exceptionHandler.init(kang)
 
-    kang.show()
+    # kang.show()
+    
+    MainWindowBA = QtWidgets.QMainWindow()
+    kang.setupUi(MainWindowBA)
+    MainWindowBA.show()
 
     sys.exit(qApp.exec_())

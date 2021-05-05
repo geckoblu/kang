@@ -46,9 +46,12 @@ class MainWindow(Ui_MainWindowBA):
 
     _signalException = pyqtSignal(str)
 
-    def __init__(self, filename=''):
+    def __init__(self):
         Ui_MainWindowBA.__init__(self)
-
+        
+    def setupUi(self, MainWindowBA):
+        Ui_MainWindowBA.setupUi(self, MainWindowBA)
+        
         # Initialized here because QPixmap should be loaded in the main thread
         STATUS_PIXMAPS_DICT[MATCH_NA] = getPixmap('yellowStatusIcon.xpm')
         STATUS_PIXMAPS_DICT[MATCH_OK] = getPixmap('greenStatusIcon.xpm')
@@ -69,13 +72,13 @@ class MainWindow(Ui_MainWindowBA):
         self.editstate = STATE_UNEDITED
 
         header = self.groupTable.horizontalHeader()
-        header.setResizeMode(QHeaderView.Stretch)
+        # FIXME header.setResizeMode(QHeaderView.Stretch)
         # header.setStretchLastSection(True)
 
         self.refWin = None
         self.regexlibwin = None
 
-        self.setWindowIcon(getIcon('kang-icon'))
+        # FIXME self.setWindowIcon(getIcon('kang-icon'))
 
         self.statusbar = StatusBar(self)
 
@@ -88,16 +91,16 @@ class MainWindow(Ui_MainWindowBA):
 
         self._showReplaceWidgets(False)
 
-        self.show()
+        # FIXME self.show()
 
         self.preferences = Preferences()
         self.recentFiles = RecentFiles(self, self.preferences.recentFilesNum)
         self.preferencesChanged()
 
-        if filename and self.openFile(filename):
-            qApp.processEvents()
+        # FIXME if filename and self.openFile(filename):
+        # FIXME    qApp.processEvents()
 
-        self._signalException.connect(self.showReportBugDialog)
+        # FIXME self._signalException.connect(self.showReportBugDialog)
 
         #FIXME self.connect(self, SIGNAL('preferencesChanged()'), self.preferencesChanged)
         #FIXME self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.pasteSymbol)

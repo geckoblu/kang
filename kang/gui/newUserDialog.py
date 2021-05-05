@@ -5,7 +5,7 @@ from kang.images import getPixmap, getIcon
 class NewUserDialog(Ui_NewUserDialogBA):
 
     def __init__(self, parent=None):
-        Ui_NewUserDialogBA.__init__(self, parent)
+        Ui_NewUserDialogBA.__init__(self)
         self.parent = parent
 
         self.setWindowIcon(getIcon('kang-icon'))

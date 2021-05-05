@@ -45,19 +45,19 @@ class RegexProcessor(QObject):
 
     def setRegexString(self, regexString):
         old = self._regexString
-        self._regexString = unicode(regexString)
+        self._regexString = regexString
         if regexString != old:
             self._process()
 
     def setMatchString(self, matchString):
         old = self._matchString
-        self._matchString = unicode(matchString)
+        self._matchString = matchString
         if matchString != old:
             self._process()
 
     def setReplaceString(self, replaceString):
         old = self._replaceString
-        self._replaceString = unicode(replaceString)
+        self._replaceString = replaceString
         if replaceString != old:
             self._process()
 
@@ -257,7 +257,7 @@ class RegexProcessor(QObject):
 
         strings = []
         # I couldn't define which is the correct behavior so I disable it completely
-        #seq = difflib.SequenceMatcher(None, unicode(self._matchString), replaced, None)
+        #seq = difflib.SequenceMatcher(None, self._matchString, replaced, None)
         #for _, _, _, j1, j2 in seq.get_opcodes():
         #    strings.append(replaced[j1:j2])
         strings.append(replaced)

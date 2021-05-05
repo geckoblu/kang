@@ -1,5 +1,5 @@
-from PyQt5.QtCore import SIGNAL
-from PyQt5.QtGui import QTreeWidgetItem
+#FIXME from PyQt5.QtCore import SIGNAL
+from PyQt5.Qt import QTreeWidgetItem
 
 from kang.gui.regexReferenceWindowBA import Ui_RegexReferenceWindowBA
 from kang.images import getIcon
@@ -36,7 +36,7 @@ class RegexReferenceWindow(Ui_RegexReferenceWindowBA):
         items = self.referenceTreeWidget.selectedItems()
         if items:
             symbol = str(items[0].text(0))
-            self.parent.emit(SIGNAL('pasteSymbol(PyQt_PyObject)'), symbol)
+            #FIXME self.parent.emit(SIGNAL('pasteSymbol(PyQt_PyObject)'), symbol)
 
 REFERENCES = []
 REFERENCES.append(('^', 'Matches start of string'))

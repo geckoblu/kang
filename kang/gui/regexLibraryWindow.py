@@ -1,4 +1,4 @@
-from PyQt5.QtCore import SIGNAL
+#FIXME from PyQt5.QtCore import SIGNAL
 
 from kang.gui.regexLibraryWindowBA import Ui_RegexLibraryWindowBA
 from kang.images import getIcon
@@ -50,4 +50,5 @@ class RegexLibraryWindow(Ui_RegexLibraryWindowBA):
 
     def editPaste(self):
         if self.selected:
-            self.parent.emit(SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.selected)
+            #FIXME self.parent.emit(SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.selected)
+            pass

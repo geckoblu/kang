@@ -1,5 +1,5 @@
-from PyQt5.QtCore import SIGNAL
-from PyQt5.QtGui import QDialog
+#FIXME from PyQt5.QtCore import SIGNAL
+from PyQt5.Qt import QDialog
 
 from kang.gui.preferencesDialogBA import Ui_PreferencesDialogBA
 from kang.images import getIcon
@@ -29,7 +29,7 @@ class PreferencesDialog(Ui_PreferencesDialogBA):
         self.preferences.askSaveOnlyForNamedProjects = self.askSaveCheckbox2.isChecked()
 
         self.preferences.save()
-        self.parent.emit(SIGNAL('preferencesChanged()'))
+        #FIXME self.parent.emit(SIGNAL('preferencesChanged()'))
 
     def accept(self):
         self.apply()

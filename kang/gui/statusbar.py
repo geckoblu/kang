@@ -1,5 +1,5 @@
-from PyQt5.QtCore import QTimer, SIGNAL
-from PyQt5.QtGui import QLabel, QPixmap
+from PyQt5.QtCore import QTimer #FIXME, SIGNAL
+from PyQt5.Qt import QLabel, QPixmap
 
 
 class StatusBar:
@@ -8,7 +8,7 @@ class StatusBar:
         self._parent = parent
 
         self._statusTimer = QTimer(self._parent)
-        self._parent.connect(self._statusTimer, SIGNAL("timeout()"), self._resetMessage)
+        #FIXME self._parent.connect(self._statusTimer, SIGNAL("timeout()"), self._resetMessage)
 
         self._replaceStatusMessage = False
         self._lastStatusMessage = ''

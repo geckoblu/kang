@@ -1,5 +1,5 @@
-from PyQt5.QtCore import SIGNAL
-from PyQt5.QtGui import QMessageBox
+#FIXME from PyQt5.QtCore import SIGNAL
+from PyQt5.Qt import QMessageBox
 import urllib
 
 from kang.gui.importURLDialogBA import Ui_ImportURLDialogBA
@@ -30,6 +30,6 @@ class ImportURLDialog(Ui_ImportURLDialogBA):
 
             html = ''.join(lines)
 
-            self.parent.emit(SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), html, url)
+            #FIXME  self.parent.emit(SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), html, url)
 
-        ImportURLDialogBA.accept(self)
+        #FIXME ImportURLDialogBA.accept(self)

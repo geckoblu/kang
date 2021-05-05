@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QString, QObject, SIGNAL
+from PyQt5.Qt import QString, QObject #FIXME , SIGNAL
 import os
 import string
 import sys
@@ -85,7 +85,7 @@ class RecentFiles:
         for i in range(num):
             filename = self._recentFiles[i]
             act = self._parent.fileMenu.addAction(filename)
-            QObject.connect(act, SIGNAL(QString.fromUtf8('triggered()')), lambda fn=filename: self._openFile(fn))
+            #FIXME QObject.connect(act, SIGNAL(QString.fromUtf8('triggered()')), lambda fn=filename: self._openFile(fn))
             self._actions.append(act)
 
     def _openFile(self, filename):

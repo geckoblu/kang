@@ -1,4 +1,4 @@
-from PyQt5.Qt import QString, QObject #FIXME , SIGNAL
+#from PyQt5.Qt import QString, QObject  # FIXME , SIGNAL
 import os
 import string
 import sys
@@ -28,7 +28,8 @@ class RecentFiles:
         if os.path.isfile(self._filename):
             try:
                 with open(self._filename, "r") as fp:
-                    self._recentFiles = map(string.strip, fp.readlines())
+                    #FIXME self._recentFiles = map(string.strip, fp.readlines())
+                    pass
             except IOError as ex:
                 sys.stderr.write("Could not load recent file list: %s\n" % str(ex))
 

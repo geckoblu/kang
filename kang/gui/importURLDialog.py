@@ -21,8 +21,9 @@ class ImportURLDialog(Ui_ImportURLDialogBA):
         url = str(self.URLTextEdit.toPlainText())
         if url:
             try:
-                fp = urllib.urlopen(url)
-                lines = fp.readlines()
+                #FIXME fp = urllib.urlopen(url)
+                lines = []
+                # lines = fp.readlines()
             except Exception as ex:
                 QMessageBox.information(None, "Failed to open URL",
                                         "Could not open the specified URL.  Please check to ensure that you have entered the correct URL.\n\n%s" % str(ex))

@@ -6,7 +6,7 @@
 import argparse
 import sys
 try:
-    from PyQt5 import QtGui, QtCore
+    from PyQt5 import Qt, QtCore
 except:
     sys.stderr.write("""Could not locate the PyQt module.  Please make sure that
 you have installed PyQt for the version of Python that you are running.\n""")
@@ -41,7 +41,7 @@ def main():
 
     args = parseCmdline()
 
-    qApp = QtGui.QApplication(sys.argv)
+    qApp = Qt.QApplication(sys.argv)
 
 # TODO: Re-enable locale
 #     if args.locale not in (None, 'en'):

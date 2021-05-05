@@ -1,4 +1,4 @@
-import cPickle
+import pickle
 
 
 class KngFile:
@@ -15,8 +15,8 @@ class KngFile:
 
     def save(self):
         """Save Kang project to file"""
-        with open(self.filename, 'w') as fp:
-            fp = cPickle.Pickler(fp)
+        with open(self.filename, 'wb') as fp:
+            fp = pickle.Pickler(fp)
             fp.dump(self.regex)
             fp.dump(self.matchstring)
             fp.dump(self.flags)
@@ -24,8 +24,8 @@ class KngFile:
 
     def load(self):
         """Load Kang project from file"""
-        with open(self.filename, 'r') as fp:
-            u = cPickle.Unpickler(fp)
+        with open(self.filename, 'rb') as fp:
+            u = pickle.Unpickler(fp)
             self.regex = u.load()
             self.matchstring = u.load()
             self.flags = u.load()

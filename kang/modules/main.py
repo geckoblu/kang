@@ -1,4 +1,4 @@
-# pyuic4 -w mainWindowBA4.ui > mainWindowBA.py
+# pyuic5 mainWindowBA.ui > mainWindowBA.py
 
 # pyrcc4 resources.qrc > modules/resources.py
 

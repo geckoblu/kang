@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QWidget
+from PyQt5.QtGui import QWidget
 
 from kang.gui.tests.fakestatusbar import FakeStatusBar
 

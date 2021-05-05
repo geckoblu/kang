@@ -6,7 +6,7 @@
 import argparse
 import sys
 try:
-    from PyQt4 import QtGui, QtCore
+    from PyQt5 import QtGui, QtCore
 except:
     sys.stderr.write("""Could not locate the PyQt module.  Please make sure that
 you have installed PyQt for the version of Python that you are running.\n""")
@@ -17,8 +17,8 @@ from kang.modules import exceptionHandler
 
 QT_VERS = int(QtCore.QT_VERSION_STR[0])
 
-if QT_VERS < 4:
-    sys.stderr.write("Qt versions prior to 4.0 are no longer supported\n")
+if QT_VERS < 5:
+    sys.stderr.write("Qt versions prior to 5.0 are no longer supported\n")
     sys.exit(0)
 
 

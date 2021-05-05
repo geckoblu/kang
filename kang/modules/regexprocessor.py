@@ -1,4 +1,4 @@
-from PyQt4.QtCore import pyqtSignal, QObject
+from PyQt5.QtCore import pyqtSignal, QObject
 import difflib
 import re
 

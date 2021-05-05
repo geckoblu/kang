@@ -1,4 +1,4 @@
-from PyQt4.Qt import QMessageBox
+from PyQt5.Qt import QMessageBox
 
 
 class FakeMessageBox(QMessageBox):

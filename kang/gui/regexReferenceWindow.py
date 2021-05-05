@@ -1,5 +1,5 @@
-from PyQt4.QtCore import SIGNAL
-from PyQt4.QtGui import QTreeWidgetItem
+from PyQt5.QtCore import SIGNAL
+from PyQt5.QtGui import QTreeWidgetItem
 
 from kang.gui.regexReferenceWindowBA import RegexReferenceWindowBA
 from kang.images import getIcon

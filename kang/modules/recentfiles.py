@@ -1,4 +1,4 @@
-from PyQt4.QtCore import QString, QObject, SIGNAL
+from PyQt5.QtCore import QString, QObject, SIGNAL
 import os
 import string
 import sys

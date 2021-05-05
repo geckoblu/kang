@@ -1,5 +1,5 @@
-from PyQt4.QtCore import QCoreApplication
-from PyQt4.QtGui import QApplication
+from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtGui import QApplication
 import sys
 import unittest
 

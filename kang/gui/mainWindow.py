@@ -1,6 +1,6 @@
-from PyQt4.QtCore import Qt, SIGNAL
-from PyQt4.QtCore import pyqtSignal
-from PyQt4.QtGui import QFileDialog, QColor, QMessageBox, \
+from PyQt5.QtCore import Qt, SIGNAL
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QFileDialog, QColor, QMessageBox, \
                         QPalette, QTableWidgetItem, QHeaderView, qApp
 import os
 import re

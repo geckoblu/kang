@@ -1,4 +1,4 @@
-from PyQt4.QtCore import SIGNAL
+from PyQt5.QtCore import SIGNAL
 
 from kang.gui.regexLibraryWindowBA import RegexLibraryWindowBA
 from kang.images import getIcon

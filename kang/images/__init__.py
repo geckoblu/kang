@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QPixmap, QIcon
+from PyQt5.QtGui import QPixmap, QIcon
 import os
 
 

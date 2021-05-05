@@ -1,4 +1,4 @@
-from PyQt4 import QtGui
+from PyQt5 import QtGui
 
 from kang.gui.reportBugDialogBA import ReportBugDialogBA
 from kang.images import getPixmap, getIcon

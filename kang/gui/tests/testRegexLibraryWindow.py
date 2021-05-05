@@ -1,6 +1,6 @@
-from PyQt4.QtCore import QCoreApplication
-from PyQt4.QtGui import QApplication
-from PyQt4.QtTest import QTest
+from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtGui import QApplication
+from PyQt5.QtTest import QTest
 import os
 import sys
 import tempfile

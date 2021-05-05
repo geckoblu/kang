@@ -3,11 +3,11 @@
 # Form implementation generated from reading ui file 'regexLibraryWindowBA4.ui'
 #
 # Created: Tue Sep  9 16:14:27 2014
-#      by: PyQt4 UI code generator 4.10.4
+#      by: PyQt5 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8

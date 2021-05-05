@@ -1,6 +1,6 @@
 # pylint: disable=global-statement
 
-from PyQt4.QtCore import QT_VERSION_STR
+from PyQt5.QtCore import QT_VERSION_STR
 import string
 import sys
 import traceback

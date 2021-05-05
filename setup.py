@@ -6,7 +6,7 @@ import sys
 from kang import VERSION
 
 try:
-    from PyQt4 import QtCore
+    from PyQt5 import QtCore
 except ImportError:
     sys.stderr.write("""Could not locate the PyQt module.  Please make sure that
 you have installed PyQt for the version of Python that you are running.\n""")

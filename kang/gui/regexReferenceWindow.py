@@ -1,7 +1,7 @@
 from PyQt5.QtCore import SIGNAL
 from PyQt5.QtGui import QTreeWidgetItem
 
-from kang.gui.regexReferenceWindowBA import RegexReferenceWindowBA
+from kang.gui.regexReferenceWindowBA import Ui_RegexReferenceWindowBA
 from kang.images import getIcon
 from kang.modules.util import restoreWindowSettings, saveWindowSettings
 
@@ -9,10 +9,10 @@ from kang.modules.util import restoreWindowSettings, saveWindowSettings
 GEO = "regex-ref_geometry"
 
 
-class RegexReferenceWindow(RegexReferenceWindowBA):
+class RegexReferenceWindow(Ui_RegexReferenceWindowBA):
 
     def __init__(self, parent):
-        RegexReferenceWindowBA.__init__(self, None)
+        Ui_RegexReferenceWindowBA.__init__(self, None)
         self.parent = parent
 
         restoreWindowSettings(self, GEO)

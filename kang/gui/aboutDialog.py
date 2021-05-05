@@ -1,13 +1,13 @@
 from kang import KANG_WEBSITE
 from kang import VERSION
-from kang.gui.aboutDialogBA import AboutDialogBA
+from kang.gui.aboutDialogBA import Ui_AboutDialogBA
 from kang.images import getPixmap, getIcon
 
 
-class AboutDialog(AboutDialogBA):
+class AboutDialog(Ui_AboutDialogBA):
 
     def __init__(self, parent):
-        AboutDialogBA.__init__(self, parent)
+        Ui_AboutDialogBA.__init__(self, parent)
         self.parent = parent
 
         self.setWindowIcon(getIcon('kang-icon'))

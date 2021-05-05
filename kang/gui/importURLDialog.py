@@ -2,14 +2,14 @@ from PyQt5.QtCore import SIGNAL
 from PyQt5.QtGui import QMessageBox
 import urllib
 
-from kang.gui.importURLDialogBA import ImportURLDialogBA
+from kang.gui.importURLDialogBA import Ui_ImportURLDialogBA
 from kang.images import getIcon
 
 
-class ImportURLDialog(ImportURLDialogBA):
+class ImportURLDialog(Ui_ImportURLDialogBA):
 
     def __init__(self, parent, url=None):
-        ImportURLDialogBA.__init__(self, parent)
+        Ui_ImportURLDialogBA.__init__(self, parent)
         self.parent = parent
 
         self.setWindowIcon(getIcon('kang-icon'))

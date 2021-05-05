@@ -1,6 +1,6 @@
 from PyQt5.QtCore import SIGNAL
 
-from kang.gui.regexLibraryWindowBA import RegexLibraryWindowBA
+from kang.gui.regexLibraryWindowBA import Ui_RegexLibraryWindowBA
 from kang.images import getIcon
 from kang.modules.parseRegexLib import ParseRegexLib
 from kang.modules.util import restoreWindowSettings, saveWindowSettings
@@ -9,10 +9,10 @@ from kang.modules.util import restoreWindowSettings, saveWindowSettings
 GEO = "regex-lib_geometry"
 
 
-class RegexLibraryWindow(RegexLibraryWindowBA):
+class RegexLibraryWindow(Ui_RegexLibraryWindowBA):
 
     def __init__(self, parent):
-        RegexLibraryWindowBA.__init__(self, None)
+        Ui_RegexLibraryWindowBA.__init__(self, None)
         self.parent = parent
         self.selected = None
         self.regexLibDicts = []

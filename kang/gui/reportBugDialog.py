@@ -1,13 +1,13 @@
 from PyQt5 import QtGui
 
-from kang.gui.reportBugDialogBA import ReportBugDialogBA
+from kang.gui.reportBugDialogBA import Ui_ReportBugDialogBA
 from kang.images import getPixmap, getIcon
 
 
-class ReportBugDialog(ReportBugDialogBA):
+class ReportBugDialog(Ui_ReportBugDialogBA):
 
     def __init__(self, parent, msg):
-        ReportBugDialogBA.__init__(self, parent)
+        Ui_ReportBugDialogBA.__init__(self, parent)
         self.parent = parent
 
         self.setWindowIcon(getIcon('kang-icon'))

@@ -1,11 +1,11 @@
-from kang.gui.newUserDialogBA import NewUserDialogBA
+from kang.gui.newUserDialogBA import Ui_NewUserDialogBA
 from kang.images import getPixmap, getIcon
 
 
-class NewUserDialog(NewUserDialogBA):
+class NewUserDialog(Ui_NewUserDialogBA):
 
     def __init__(self, parent=None):
-        NewUserDialogBA.__init__(self, parent)
+        Ui_NewUserDialogBA.__init__(self, parent)
         self.parent = parent
 
         self.setWindowIcon(getIcon('kang-icon'))

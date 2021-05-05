@@ -9,7 +9,7 @@ import webbrowser
 from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
 from kang.gui.aboutDialog import AboutDialog
 from kang.gui.importURLDialog import ImportURLDialog
-from kang.gui.mainWindowBA import MainWindowBA
+from kang.gui.mainWindowBA import Ui_MainWindowBA
 from kang.gui.newUserDialog import NewUserDialog
 from kang.gui.preferencesDialog import PreferencesDialog
 from kang.gui.regexLibraryWindow import RegexLibraryWindow
@@ -42,12 +42,12 @@ STATUS_PIXMAPS_DICT = {}
 # The Kang class which defines the main functionality and user interaction
 #
 ##############################################################################
-class MainWindow(MainWindowBA):
+class MainWindow(Ui_MainWindowBA):
 
     _signalException = pyqtSignal(str)
 
     def __init__(self, filename=''):
-        MainWindowBA.__init__(self)
+        Ui_MainWindowBA.__init__(self)
 
         # Initialized here because QPixmap should be loaded in the main thread
         STATUS_PIXMAPS_DICT[MATCH_NA] = getPixmap('yellowStatusIcon.xpm')
@@ -99,10 +99,10 @@ class MainWindow(MainWindowBA):
 
         self._signalException.connect(self.showReportBugDialog)
 
-        self.connect(self, SIGNAL('preferencesChanged()'), self.preferencesChanged)
-        self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.pasteSymbol)
-        self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
-        self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
+        #FIXME self.connect(self, SIGNAL('preferencesChanged()'), self.preferencesChanged)
+        #FIXME self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.pasteSymbol)
+        #FIXME self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
+        #FIXME self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
         self.checkForKangDir()
 

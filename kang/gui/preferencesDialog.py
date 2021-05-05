@@ -1,14 +1,14 @@
 from PyQt5.QtCore import SIGNAL
 from PyQt5.QtGui import QDialog
 
-from kang.gui.preferencesDialogBA import PreferencesDialogBA
+from kang.gui.preferencesDialogBA import Ui_PreferencesDialogBA
 from kang.images import getIcon
 
 
-class PreferencesDialog(PreferencesDialogBA):
+class PreferencesDialog(Ui_PreferencesDialogBA):
 
     def __init__(self, parent, preferences):
-        PreferencesDialogBA.__init__(self, parent)
+        Ui_PreferencesDialogBA.__init__(self, parent)
         self.parent = parent
         self.preferences = preferences
 

@@ -1,5 +1,6 @@
-from PyQt4.QtCore import SIGNAL
-from PyQt4.QtGui import QDialog
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 
 from kang.gui.preferencesDialogBA import PreferencesDialogBA
 from kang.images import getIcon

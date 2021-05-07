@@ -1,4 +1,4 @@
-import cPickle
+import pickle
 
 
 class KngFile:

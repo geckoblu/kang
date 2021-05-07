@@ -1,6 +1,6 @@
 # pylint: disable=protected-access
 
-from PyQt4.QtCore import QSize
+from PySide2.QtCore import QSize
 import os
 import shutil
 import sys

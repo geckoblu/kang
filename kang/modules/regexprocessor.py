@@ -1,8 +1,11 @@
-from PyQt4.QtCore import pyqtSignal, QObject
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 import difflib
 import re
 
 from kang import MATCH_NA, MSG_NA, MATCH_FAIL, MSG_FAIL, MSG_MATCH_FOUND, MATCH_OK, MSG_MATCHES_FOUND
+from kang.modules.myPyQtSignal import MyPyQtSignaL
 
 
 EMBEDDED_FLAGS = r'^ *\(\?(?P<flags>[iLmsux]*)\)'
@@ -10,7 +13,8 @@ EMBEDDED_FLAGS = r'^ *\(\?(?P<flags>[iLmsux]*)\)'
 
 class RegexProcessor(QObject):
 
-    _statusSignal = pyqtSignal()
+    # TODO _statusSignal = pyqtSignal()
+    _statusSignal = MyPyQtSignaL()
 
     def __init__(self):
         super(RegexProcessor, self).__init__()
@@ -45,19 +49,19 @@ class RegexProcessor(QObject):
 
     def setRegexString(self, regexString):
         old = self._regexString
-        self._regexString = unicode(regexString)
+        self._regexString = regexString
         if regexString != old:
             self._process()
 
     def setMatchString(self, matchString):
         old = self._matchString
-        self._matchString = unicode(matchString)
+        self._matchString = matchString
         if matchString != old:
             self._process()
 
     def setReplaceString(self, replaceString):
         old = self._replaceString
-        self._replaceString = unicode(replaceString)
+        self._replaceString = replaceString
         if replaceString != old:
             self._process()
 
@@ -257,8 +261,8 @@ class RegexProcessor(QObject):
 
         strings = []
         # I couldn't define which is the correct behavior so I disable it completely
-        #seq = difflib.SequenceMatcher(None, unicode(self._matchString), replaced, None)
-        #for _, _, _, j1, j2 in seq.get_opcodes():
+        # seq = difflib.SequenceMatcher(None, self._matchString, replaced, None)
+        # for _, _, _, j1, j2 in seq.get_opcodes():
         #    strings.append(replaced[j1:j2])
         strings.append(replaced)
 

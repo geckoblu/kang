@@ -3,62 +3,72 @@
 # Form implementation generated from reading ui file 'gui/regexReferenceWindowBA4.ui'
 #
 # Created: Tue Sep  9 16:04:33 2014
-#      by: PyQt4 UI code generator 4.10.4
+#      by: PySide2 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
+
+# try:
+    # _fromUtf8 = QString.fromUtf8
+# except AttributeError:
+
+
+def _fromUtf8(s):
+    return s
+
 
 try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
+    _encoding = QApplication.UnicodeUTF8
 
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+        return QApplication.translate(context, text, disambig, _encoding)
+
 except AttributeError:
+
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+        return QApplication.translate(context, text, disambig)
+
 
 class Ui_RegexReferenceWindowBA(object):
+
     def setupUi(self, RegexReferenceWindowBA):
         RegexReferenceWindowBA.setObjectName(_fromUtf8("RegexReferenceWindowBA"))
         RegexReferenceWindowBA.resize(600, 605)
-        self.widget = QtGui.QWidget(RegexReferenceWindowBA)
+        self.widget = QWidget(RegexReferenceWindowBA)
         self.widget.setObjectName(_fromUtf8("widget"))
-        self.gridlayout = QtGui.QGridLayout(self.widget)
+        self.gridlayout = QGridLayout(self.widget)
         self.gridlayout.setObjectName(_fromUtf8("gridlayout"))
-        self.referenceTreeWidget = QtGui.QTreeWidget(self.widget)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        self.referenceTreeWidget = QTreeWidget(self.widget)
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.referenceTreeWidget.sizePolicy().hasHeightForWidth())
         self.referenceTreeWidget.setSizePolicy(sizePolicy)
-        self.referenceTreeWidget.setFrameShape(QtGui.QFrame.StyledPanel)
-        self.referenceTreeWidget.setFrameShadow(QtGui.QFrame.Sunken)
+        self.referenceTreeWidget.setFrameShape(QFrame.StyledPanel)
+        self.referenceTreeWidget.setFrameShadow(QFrame.Sunken)
         self.referenceTreeWidget.setObjectName(_fromUtf8("referenceTreeWidget"))
         self.gridlayout.addWidget(self.referenceTreeWidget, 0, 0, 1, 1)
         RegexReferenceWindowBA.setCentralWidget(self.widget)
-        self.fileExitAction = QtGui.QAction(RegexReferenceWindowBA)
+        self.fileExitAction = QAction(RegexReferenceWindowBA)
         self.fileExitAction.setShortcut(_fromUtf8(""))
         self.fileExitAction.setProperty("name", _fromUtf8("fileExitAction"))
         self.fileExitAction.setObjectName(_fromUtf8("fileExitAction"))
-        self.editPasteAction = QtGui.QAction(RegexReferenceWindowBA)
+        self.editPasteAction = QAction(RegexReferenceWindowBA)
         self.editPasteAction.setProperty("name", _fromUtf8("editPasteAction"))
         self.editPasteAction.setObjectName(_fromUtf8("editPasteAction"))
-        self.helpAction = QtGui.QAction(RegexReferenceWindowBA)
+        self.helpAction = QAction(RegexReferenceWindowBA)
         self.helpAction.setProperty("name", _fromUtf8("helpAction"))
         self.helpAction.setObjectName(_fromUtf8("helpAction"))
-        self.helpPythonAction = QtGui.QAction(RegexReferenceWindowBA)
+        self.helpPythonAction = QAction(RegexReferenceWindowBA)
         self.helpPythonAction.setProperty("name", _fromUtf8("helpPythonAction"))
         self.helpPythonAction.setObjectName(_fromUtf8("helpPythonAction"))
 
         self.retranslateUi(RegexReferenceWindowBA)
-        QtCore.QObject.connect(self.referenceTreeWidget, QtCore.SIGNAL(_fromUtf8("doubleClicked(QModelIndex)")), RegexReferenceWindowBA.editPaste)
-        QtCore.QMetaObject.connectSlotsByName(RegexReferenceWindowBA)
+        QObject.connect(self.referenceTreeWidget, SIGNAL(_fromUtf8("doubleClicked(QModelIndex)")), RegexReferenceWindowBA.editPaste)
+        QMetaObject.connectSlotsByName(RegexReferenceWindowBA)
 
     def retranslateUi(self, RegexReferenceWindowBA):
         RegexReferenceWindowBA.setWindowTitle(_translate("RegexReferenceWindowBA", "Kang - Regex Reference Guide", None))
@@ -76,9 +86,10 @@ class Ui_RegexReferenceWindowBA(object):
         self.helpPythonAction.setIconText(_translate("RegexReferenceWindowBA", "Python Regex Help", None))
 
 
-class RegexReferenceWindowBA(QtGui.QMainWindow, Ui_RegexReferenceWindowBA):
-    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
-        QtGui.QMainWindow.__init__(self, parent, f)
+class RegexReferenceWindowBA(QMainWindow, Ui_RegexReferenceWindowBA):
+
+    def __init__(self, parent=None, f=Qt.WindowFlags()):
+        QMainWindow.__init__(self, parent, f)
 
         self.setupUi(self)
 

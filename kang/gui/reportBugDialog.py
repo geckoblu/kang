@@ -1,4 +1,4 @@
-from PyQt4 import QtGui
+from PySide2 import QtGui
 
 from kang.gui.reportBugDialogBA import ReportBugDialogBA
 from kang.images import getPixmap, getIcon
@@ -17,5 +17,5 @@ class ReportBugDialog(ReportBugDialogBA):
         self.textMessage.setPlainText(msg)
 
     def copyToClipboard(self):
-        clipboard = QtGui.QApplication.clipboard()
+        clipboard = QApplication.clipboard()
         clipboard.setText(self.textMessage.toPlainText())

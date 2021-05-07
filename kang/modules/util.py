@@ -1,4 +1,4 @@
-from PyQt4.QtCore import QSize
+from PySide2.QtCore import QSize
 import os
 import sys
 

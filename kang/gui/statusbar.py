@@ -1,5 +1,6 @@
-from PyQt4.QtCore import QTimer, SIGNAL
-from PyQt4.QtGui import QLabel, QPixmap
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 
 
 class StatusBar:

@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QWidget
+from PySide2.QtGui import QWidget
 
 
 class FakeStatusBar(QWidget):

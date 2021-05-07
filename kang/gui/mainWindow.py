@@ -1,7 +1,6 @@
-from PyQt4.QtCore import Qt, SIGNAL
-from PyQt4.QtCore import pyqtSignal
-from PyQt4.QtGui import QFileDialog, QColor, QMessageBox, \
-                        QPalette, QTableWidgetItem, QHeaderView, qApp
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 import os
 import re
 import webbrowser
@@ -18,6 +17,7 @@ from kang.gui.reportBugDialog import ReportBugDialog
 from kang.gui.statusbar import StatusBar
 from kang.images import getIcon, getPixmap
 from kang.modules.kngfile import KngFile
+from kang.modules.myPyQtSignal import MyPyQtSignaL
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
 from kang.modules.regexprocessor import RegexProcessor
@@ -45,7 +45,8 @@ STATUS_PIXMAPS_DICT = {}
 ##############################################################################
 class MainWindow(MainWindowBA):
 
-    _signalException = pyqtSignal(str)
+    # TODO __signalException = pyqtSignal(str)
+    __signalException = MyPyQtSignaL()
 
     def __init__(self, filename=''):
         MainWindowBA.__init__(self)
@@ -70,7 +71,7 @@ class MainWindow(MainWindowBA):
         self.editstate = STATE_UNEDITED
 
         header = self.groupTable.horizontalHeader()
-        header.setResizeMode(QHeaderView.Stretch)
+        # FIXME header.setResizeMode(QHeaderView.Stretch)
         # header.setStretchLastSection(True)
 
         self.refWin = None
@@ -98,7 +99,7 @@ class MainWindow(MainWindowBA):
         if filename and self.openFile(filename):
             qApp.processEvents()
 
-        self._signalException.connect(self.showReportBugDialog)
+        # FIXME self._signalException.connect(self.showReportBugDialog)
 
         self.connect(self, SIGNAL('preferencesChanged()'), self.preferencesChanged)
         self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.pasteSymbol)
@@ -300,8 +301,8 @@ class MainWindow(MainWindowBA):
 
         row = 0
         for t in groups:
-            self.groupTable.setItem(row, 0, QTableWidgetItem(unicode(t[1])))
-            self.groupTable.setItem(row, 1, QTableWidgetItem(unicode(t[2])))
+            self.groupTable.setItem(row, 0, QTableWidgetItem(t[1]))
+            self.groupTable.setItem(row, 1, QTableWidgetItem(t[2]))
             row += 1
 
     def _populateMatchTextbrowser(self):
@@ -474,8 +475,8 @@ class MainWindow(MainWindowBA):
 
             self.editstate = STATE_UNEDITED
 
-            msg = '%s %s' % (unicode(self.filename),
-                             unicode(self.tr("successfully saved")))
+            msg = '%s %s' % (self.filename,
+                             self.tr("successfully saved"))
             self.updateStatus(msg, MATCH_NONE, 5)
             self.recentFiles.add(self.filename)
         except IOError as ex:
@@ -488,7 +489,7 @@ class MainWindow(MainWindowBA):
                                          self.filename,
                                          "*.kng\nAll (*)"
                                          )
-        filename = unicode(fn)
+        filename = fn
         if not filename:
             self.updateStatus(self.tr("No file selected to save"), MATCH_NONE, 5)
             return
@@ -530,7 +531,7 @@ class MainWindow(MainWindowBA):
 
             self._rp.unpause()
 
-            msg = '%s %s' % (filename, unicode(self.tr("loaded successfully")))
+            msg = '%s %s' % (filename, self.tr("loaded successfully"))
             self.updateStatus(msg, MATCH_NONE, 5)
             self.editstate = STATE_UNEDITED
             return True

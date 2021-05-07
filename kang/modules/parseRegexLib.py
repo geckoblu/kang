@@ -1,4 +1,4 @@
-from PyQt4.QtCore import QFile, QTextStream, QIODevice
+from PySide2.QtCore import QFile, QTextStream, QIODevice
 import os
 import re
 

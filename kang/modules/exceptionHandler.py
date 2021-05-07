@@ -1,6 +1,6 @@
 # pylint: disable=global-statement
 
-from PyQt4.QtCore import QT_VERSION_STR
+# from PySide2.QtCore import QT_VERSION_STR
 import string
 import sys
 import traceback
@@ -52,34 +52,34 @@ def _formatMessage(exmess):
     """
     msg = '==========================================================================\n'
     msg += 'Kang Version:\t %s\n' % VERSION
-    msg += 'Python Version:\t %s\n' % unicode(string.replace(sys.version, '\n', ' - '))
-    msg += 'PyQt Version:\t %s\n' % unicode(QT_VERSION_STR)
-    msg += 'Operating System: %s\n' % unicode(sys.platform)
+    msg += 'Python Version:\t %s\n' % string.replace(sys.version, '\n', ' - ')
+    msg += 'PyQt Version:\t %s\n' % QT_VERSION_STR
+    msg += 'Operating System: %s\n' % sys.platform
 
     regex = __mainWindow.regexMultiLineEdit.toPlainText()
     if regex:
         msg += '=== REGEX ============================================================\n'
-        msg += unicode(regex)
+        msg += regex
         if not msg.endswith('\n'):
             msg += '\n'
 
     rstr = __mainWindow.stringMultiLineEdit.toPlainText()
     if rstr:
         msg += '=== STRING ===========================================================\n'
-        msg += unicode(rstr)
+        msg += rstr
         if not msg.endswith('\n'):
             msg += '\n'
 
     replace = __mainWindow.replaceTextEdit.toPlainText()
     if replace:
         msg += '=== REPLACE ==========================================================\n'
-        msg += unicode(replace)
+        msg += replace
         if not msg.endswith('\n'):
             msg += '\n'
 
     if exmess:
         msg += '=== EXCEPTION ========================================================\n'
-        msg += unicode(exmess)
+        msg += exmess
         if not msg.endswith('\n'):
             msg += '\n'
 

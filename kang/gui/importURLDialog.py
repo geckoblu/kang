@@ -1,5 +1,5 @@
-from PyQt4.QtCore import SIGNAL
-from PyQt4.QtGui import QMessageBox
+from PySide2.QtCore import SIGNAL
+from PySide2.QtWidgets import QMessageBox
 import urllib
 
 from kang.gui.importURLDialogBA import ImportURLDialogBA

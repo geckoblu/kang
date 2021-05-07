@@ -1,7 +1,7 @@
-from PyQt4 import QtGui
-from PyQt4.QtCore import QCoreApplication
-from PyQt4.QtGui import QApplication
-from PyQt4.QtTest import QTest
+from PySide2 import QtGui
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtGui import QApplication
+from PySide2.QtTest import QTest
 import sys
 import unittest
 
@@ -26,5 +26,5 @@ class TestReportBugDialog(unittest.TestCase):
 
         dialog.copyToClipboard()
         dialog.close()
-        clipboard = QtGui.QApplication.clipboard()
+        clipboard = QApplication.clipboard()
         self.assertEqual(msg, clipboard.text())

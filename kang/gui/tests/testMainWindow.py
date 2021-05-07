@@ -126,14 +126,14 @@ class TestMainWindow(unittest.TestCase):
         self.assertEqual(flags, 0)
 
     def test_populateReplaceTextbrowser(self):
-        self.window._rp.setMatchString('abcdabc')
-        self.window._rp.setRegexString('b')
-        self.window._rp.setReplaceString('x')
+        self.window._regexProcessor.setMatchString('abcdabc')
+        self.window._regexProcessor.setRegexString('b')
+        self.window._regexProcessor.setReplaceString('x')
 
         self.window._populateReplaceTextbrowser()
         self.assertEqual(self.window.replaceTextBrowser.toPlainText(), 'axcdaxc')
 
-        self.window._rp.setReplaceString('\\')
+        self.window._regexProcessor.setReplaceString('\\')
         self.window._populateReplaceTextbrowser()
         self.assertEqual(self.window.replaceTextBrowser.toPlainText(), '')
 
@@ -145,7 +145,7 @@ class TestMainWindow(unittest.TestCase):
         self.window.unicodeCheckBox.setChecked(True)
         self.window.verboseCheckBox.setChecked(True)
 
-        self.window._rp.setRegexString('(?iLmsux)')
+        self.window._regexProcessor.setRegexString('(?iLmsux)')
 
         self.window._populateEmbeddedFlags()
         self.assertTrue(self.window.ignorecaseCheckBox.isChecked())
@@ -161,7 +161,7 @@ class TestMainWindow(unittest.TestCase):
         self.assertTrue(self.window.verboseCheckBox.isChecked())
         self.assertFalse(self.window.verboseCheckBox.isEnabled())
 
-        self.window._rp.setRegexString('')
+        self.window._regexProcessor.setRegexString('')
 
         self.window._populateEmbeddedFlags()
         self.assertTrue(self.window.ignorecaseCheckBox.isChecked())
@@ -254,7 +254,7 @@ class TestMainWindow(unittest.TestCase):
         self.window.replaceTextEdit.setPlainText('\\1')
 
         code1 = str(self.window.codeTextBrowser.toPlainText()).split('\n')
-        code2 = self.window._rp.getRegexCode().split('\n')
+        code2 = self.window._regexProcessor.getRegexCode().split('\n')
         for i in range(0, min(len(code1), len(code2))):
             c1 = code1[i]
             c2 = code2[i]
@@ -430,32 +430,32 @@ class TestMainWindow(unittest.TestCase):
         widget = FakeColorizeWidget()
 
         # No match
-        self.window._rp.setRegexString('X')
-        spans = self.window._rp.getAllSpans()
+        self.window._regexProcessor.setRegexString('X')
+        spans = self.window._regexProcessor.getAllSpans()
         self.window._populateText(spans, widget)
         self.assertEqual(widget.colorized, [])
 
         # One match in the middle
-        self.window._rp.setRegexString('d')
-        spans = self.window._rp.getAllSpans()
+        self.window._regexProcessor.setRegexString('d')
+        spans = self.window._regexProcessor.getAllSpans()
         self.window._populateText(spans, widget)
         self.assertEqual(widget.colorized, [(0, 'abc'), (255, 'd'), (0, 'abc')])
 
         # Two match in the middle
-        self.window._rp.setRegexString('b')
-        spans = self.window._rp.getAllSpans()
+        self.window._regexProcessor.setRegexString('b')
+        spans = self.window._regexProcessor.getAllSpans()
         self.window._populateText(spans, widget)
         self.assertEqual(widget.colorized, [(0, 'a'), (255, 'b'), (0, 'cda'), (255, 'b'), (0, 'c')])
 
         # Match in the end
-        self.window._rp.setRegexString('c')
-        spans = self.window._rp.getAllSpans()
+        self.window._regexProcessor.setRegexString('c')
+        spans = self.window._regexProcessor.getAllSpans()
         self.window._populateText(spans, widget)
         self.assertEqual(widget.colorized, [(0, 'ab'), (255, 'c'), (0, 'dab'), (255, 'c'), (0, '')])
 
         # Match in the start
-        self.window._rp.setRegexString('a')
-        spans = self.window._rp.getAllSpans()
+        self.window._regexProcessor.setRegexString('a')
+        spans = self.window._regexProcessor.getAllSpans()
         self.window._populateText(spans, widget)
         self.assertEqual(widget.colorized, [(0, ''), (255, 'a'), (0, 'bcd'), (255, 'a'), (0, 'bc')])
 

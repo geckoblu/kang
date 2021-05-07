@@ -117,4 +117,3 @@ class RegexLibraryWindowBA(QMainWindow, Ui_RegexLibraryWindowBA):
         QMainWindow.__init__(self, parent, f)
 
         self.setupUi(self)
-

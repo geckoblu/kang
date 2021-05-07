@@ -2,11 +2,11 @@
 
 # pyrcc4 resources.qrc > modules/resources.py
 
-VERSION = '4.2'
+VERSION = '5.0'
 
 KANG_WEBSITE = 'http://www.geckoblu.net/kang'
 
-PYTHON_RE_LIBRARY_URL = 'https://docs.python.org/2/library/re.html'
+PYTHON_RE_LIBRARY_URL = 'https://docs.python.org/3/library/re.html'
 
 # match status
 MATCH_NONE = -1

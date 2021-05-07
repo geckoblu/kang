@@ -192,4 +192,3 @@ class AboutDialogBA(QDialog, Ui_AboutDialogBA):
         QDialog.__init__(self, parent, f)
 
         self.setupUi(self)
-

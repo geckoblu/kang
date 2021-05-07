@@ -98,4 +98,3 @@ class PreferencesDialogBA(QDialog, Ui_PreferencesDialogBA):
         QDialog.__init__(self, parent, f)
 
         self.setupUi(self)
-

@@ -5,16 +5,13 @@ import difflib
 import re
 
 from kang import MATCH_NA, MSG_NA, MATCH_FAIL, MSG_FAIL, MSG_MATCH_FOUND, MATCH_OK, MSG_MATCHES_FOUND
-from kang.modules.myPyQtSignal import MyPyQtSignaL
-
 
 EMBEDDED_FLAGS = r'^ *\(\?(?P<flags>[iLmsux]*)\)'
 
 
 class RegexProcessor(QObject):
 
-    # TODO _statusSignal = pyqtSignal()
-    _statusSignal = MyPyQtSignaL()
+    statusChanged = Signal()
 
     def __init__(self):
         super(RegexProcessor, self).__init__()
@@ -137,9 +134,6 @@ class RegexProcessor(QObject):
         if old == True:
             self._process()
 
-    def connect(self, slot):
-        self._statusSignal.connect(slot)
-
     def getStatus(self):
         return self._status
 
@@ -175,7 +169,7 @@ class RegexProcessor(QObject):
 
         if not self._regexString or not self._matchString:
             self._status = (MATCH_NA, MSG_NA)
-            self._statusSignal.emit()
+            self.statusChanged.emit()
             return
 
         try:
@@ -183,7 +177,7 @@ class RegexProcessor(QObject):
             matches = compileObj.finditer(self._matchString)
         except re.error as ex:
             self._status = (MATCH_FAIL, str(ex))
-            self._statusSignal.emit()
+            self.statusChanged.emit()
             return
 
         # compileObj.groupindex is a dictionary mapping group name to group number
@@ -219,7 +213,7 @@ class RegexProcessor(QObject):
             msg = MSG_MATCHES_FOUND % len(self._spans)
             self._status = (MATCH_OK, msg)
 
-        self._statusSignal.emit()
+        self.statusChanged.emit()
 
     def _processEmbeddedFlags(self):
 

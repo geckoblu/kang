@@ -92,4 +92,3 @@ class RegexReferenceWindowBA(QMainWindow, Ui_RegexReferenceWindowBA):
         QMainWindow.__init__(self, parent, f)
 
         self.setupUi(self)
-

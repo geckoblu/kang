@@ -67,4 +67,3 @@ class ImportURLDialogBA(QDialog, Ui_ImportURLDialogBA):
         QDialog.__init__(self, parent, f)
 
         self.setupUi(self)
-

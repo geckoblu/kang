@@ -94,4 +94,3 @@ class ReportBugDialogBA(QDialog, Ui_ReportBugDialogBA):
         QDialog.__init__(self, parent, f)
 
         self.setupUi(self)
-

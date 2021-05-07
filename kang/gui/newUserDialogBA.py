@@ -107,4 +107,3 @@ class NewUserDialogBA(QDialog, Ui_NewUserDialogBA):
         QDialog.__init__(self, parent, f)
 
         self.setupUi(self)
-

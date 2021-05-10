@@ -1,4 +1,4 @@
-from PySide2 import QtGui
+from PySide2.QtWidgets import QApplication
 
 from kang.gui.reportBugDialogBA import ReportBugDialogBA
 from kang.images import getPixmap, getIcon

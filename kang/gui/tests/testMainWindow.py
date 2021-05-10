@@ -1,15 +1,14 @@
 # pylint: disable=protected-access
-
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtGui import QApplication
-from PySide2.QtTest import QTest
 import os
 import re
 import shutil
 import sys
-from tempfile import NamedTemporaryFile
 import tempfile
 import unittest
+
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtWidgets import QApplication
+from PySide2.QtTest import QTest
 
 from kang.gui import mainWindow
 from kang.gui.tests.fakeQFileDialog import FakeQFileDialog
@@ -34,7 +33,7 @@ class TestMainWindow(unittest.TestCase):
         self.filename1 = os.path.abspath(os.path.join(os.path.dirname(__file__), 'mwTest1.kng'))
 
         self.window = mainWindow.MainWindow()
-        QTest.qWaitForWindowShown(self.window)
+        QTest.qWaitForWindowExposed(self.window)
         self.window.preferences.askSave = False
 
     def tearDown(self):
@@ -44,7 +43,7 @@ class TestMainWindow(unittest.TestCase):
     def test_window_with_filename(self):
         self.window.close()  # Do not use the standard window
         window = mainWindow.MainWindow(self.filename1)
-        # QTest.qWaitForWindowShown(window)
+        # QTest.qWaitForWindowExposed(window)
         window.close()
 
     def test_checkForKangDir(self):
@@ -59,7 +58,7 @@ class TestMainWindow(unittest.TestCase):
         # here user configuration directory doesn't exist
         # checkForKangDir is called in the __init__ so it creates the directory
         window = mainWindow.MainWindow()
-        QTest.qWaitForWindowShown(window)
+        QTest.qWaitForWindowExposed(window)
 
         # here the user configuration directory exists
         window.checkForKangDir()
@@ -87,43 +86,6 @@ class TestMainWindow(unittest.TestCase):
     def test_replaceNumSlot(self):
         self.window.loadFile(self.filename1)
         self.window.replaceNumSlot(1)
-
-    def test_flags(self):
-        flags = self.window.getFlags()
-        self.assertEqual(flags, 0)
-
-        self.window.setFlags(re.IGNORECASE)
-        flags = self.window.getFlags()
-        self.assertEqual(flags, re.IGNORECASE)
-
-        self.window.setFlags(re.MULTILINE)
-        flags = self.window.getFlags()
-        self.assertEqual(flags, re.MULTILINE)
-
-        self.window.setFlags(re.DOTALL)
-        flags = self.window.getFlags()
-        self.assertEqual(flags, re.DOTALL)
-
-        self.window.setFlags(re.VERBOSE)
-        flags = self.window.getFlags()
-        self.assertEqual(flags, re.VERBOSE)
-
-        self.window.setFlags(re.LOCALE)
-        flags = self.window.getFlags()
-        self.assertEqual(flags, re.LOCALE)
-
-        self.window.setFlags(re.UNICODE)
-        flags = self.window.getFlags()
-        self.assertEqual(flags, re.UNICODE)
-
-        flagsAll = re.IGNORECASE | re.MULTILINE | re.DOTALL | re.VERBOSE | re.LOCALE | re.UNICODE
-        self.window.setFlags(flagsAll)
-        flags = self.window.getFlags()
-        self.assertEqual(flags, flagsAll)
-
-        self.window.setFlags(0)
-        flags = self.window.getFlags()
-        self.assertEqual(flags, 0)
 
     def test_populateReplaceTextbrowser(self):
         self.window._regexProcessor.setMatchString('abcdabc')
@@ -213,13 +175,13 @@ class TestMainWindow(unittest.TestCase):
 
         qfd = mainWindow.QFileDialog
 
-        mainWindow.QFileDialog = FakeQFileDialog(empty=True)
+        mainWindow.QFileDialog = FakeQFileDialog(None)
         self.window.importFile()
 
         mainWindow.QFileDialog = FakeQFileDialog(filename='not_existent_file')
         self.window.importFile()
 
-        ntf = NamedTemporaryFile()
+        ntf = tempfile.NamedTemporaryFile(mode='w')
         ntf.write('abcdef')
         ntf.flush()
         mainWindow.QFileDialog = FakeQFileDialog(filename=ntf.name)
@@ -235,6 +197,7 @@ class TestMainWindow(unittest.TestCase):
 
     def test_fileOpen(self):
 
+        # TODO check better the opening of the file (also for other methods)
         qfd = mainWindow.QFileDialog
 
         mainWindow.QFileDialog = FakeQFileDialog(filename=self.filename1)
@@ -461,6 +424,7 @@ class TestMainWindow(unittest.TestCase):
 
 
 class FakeColorizeWidget():
+
     def __init__(self):
         self._currentColor = None
         self.colorized = []

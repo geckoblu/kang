@@ -1,5 +1,4 @@
 import os
-import string
 import sys
 
 from kang.modules.util import getConfigDirectory
@@ -38,8 +37,8 @@ class Preferences:
 
         for pref in prefsList:
             if ':' in pref:
-                name, value = string.split(pref, ":", 1)
-                value = string.strip(value)
+                name, value = str.split(pref, ":", 1)
+                value = str.strip(value)
                 if value:
                     if name == 'Recent Files':
                         try:

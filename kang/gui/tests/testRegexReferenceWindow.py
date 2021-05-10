@@ -1,10 +1,11 @@
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtGui import QApplication
-from PySide2.QtTest import QTest
 import os
 import sys
 import tempfile
 import unittest
+
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtWidgets import QApplication
+from PySide2.QtTest import QTest
 
 from kang.gui import regexReferenceWindow
 from kang.gui.tests.fakeparent import FakeParent
@@ -29,7 +30,7 @@ class TestRegexReferenceWindow(unittest.TestCase):
         parent = FakeParent()
         window = regexReferenceWindow.RegexReferenceWindow(parent)
         window.show()
-        QTest.qWaitForWindowShown(window)
+        QTest.qWaitForWindowExposed(window)
 
         item = window.referenceTreeWidget.topLevelItem(0)
         window.referenceTreeWidget.setItemSelected(item, True)

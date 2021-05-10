@@ -1,17 +1,16 @@
+import os
+
 class FakeQFileDialog:
 
-    def __init__(self, empty=False, filename=''):
-        self._empty = empty
+    def __init__(self, filename):
         self._filename = filename
 
     def getOpenFileName(self, *args):
-        return self
+        if self._filename:
+            (__, ext) = os.path.splitext(self._filename)
+            return (self._filename, '*' + ext)
+        else:
+            return ('', '')
 
     def getSaveFileName(self, *args):
-        return self
-
-    def isEmpty(self):
-        return self._empty
-
-    def __str__(self):
-        return self._filename
+        return self.getOpenFileName(self, *args)

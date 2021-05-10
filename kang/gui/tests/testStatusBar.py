@@ -1,10 +1,11 @@
 # pylint: disable=protected-access
 
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtGui import QApplication
-from PySide2.QtTest import QTest
 import sys
 import unittest
+
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtWidgets import QApplication
+from PySide2.QtTest import QTest
 
 from kang.gui.statusbar import StatusBar
 from kang.gui.tests.fakeparent import FakeParent

@@ -1,7 +1,8 @@
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtGui import QApplication
 import sys
 import unittest
+
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtWidgets import QApplication
 
 from kang import images
 

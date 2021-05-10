@@ -1,9 +1,8 @@
 # pylint: disable=global-statement
-
-# from PySide2.QtCore import QT_VERSION_STR
-import string
 import sys
 import traceback
+
+from PySide2 import QtCore
 
 from kang import VERSION
 
@@ -52,8 +51,8 @@ def _formatMessage(exmess):
     """
     msg = '==========================================================================\n'
     msg += 'Kang Version:\t %s\n' % VERSION
-    msg += 'Python Version:\t %s\n' % string.replace(sys.version, '\n', ' - ')
-    msg += 'PyQt Version:\t %s\n' % QT_VERSION_STR
+    msg += 'Python Version:\t %s\n' % str.replace(sys.version, '\n', ' - ')
+    msg += 'PyQt Version:\t %s\n' % QtCore.__version__
     msg += 'Operating System: %s\n' % sys.platform
 
     regex = __mainWindow.regexMultiLineEdit.toPlainText()

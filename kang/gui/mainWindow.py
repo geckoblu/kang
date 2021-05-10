@@ -23,7 +23,6 @@ from kang.modules.regexprocessor import RegexProcessor
 from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
     getConfigDirectory
 
-
 STATE_UNEDITED = 0
 STATE_EDITED = 1
 
@@ -44,8 +43,8 @@ STATUS_PIXMAPS_DICT = {}
 ##############################################################################
 class MainWindow(MainWindowUI):
 
-    # TODO __signalException = pyqtSignal(str)
-    __signalException = Signal(str)
+    # TODO _signalException = pyqtSignal(str)
+    _signalException = Signal(str)
 
     def __init__(self, filename=''):
         MainWindowUI.__init__(self)
@@ -100,7 +99,7 @@ class MainWindow(MainWindowUI):
         # FIXME self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
         # FIXME self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
-        self.checkForKangDir()    
+        self.checkForKangDir()
 
     def checkForKangDir(self):
         kdir = getConfigDirectory()
@@ -215,17 +214,6 @@ class MainWindow(MainWindowUI):
         self._regexProcessor.setLocaleFlag(self.localeCheckBox.isChecked())
         self._regexProcessor.setUnicodeFlag(self.unicodeCheckBox.isChecked())
 
-    # def setFlags(self, flags):
-        # """From the given integer value of flags, set the checkboxes.
-        # This is used when loading a saved file
-        # """
-        # self.ignorecaseCheckBox.setChecked(flags & re.IGNORECASE)
-        # self.multilineCheckBox.setChecked(flags & re.MULTILINE)
-        # self.dotallCheckBox.setChecked(flags & re.DOTALL)
-        # self.verboseCheckBox.setChecked(flags & re.VERBOSE)
-        # self.localeCheckBox.setChecked(flags & re.LOCALE)
-        # self.unicodeCheckBox.setChecked(flags & re.UNICODE)
-
     def getFlags(self):
         flags = 0
 
@@ -251,7 +239,7 @@ class MainWindow(MainWindowUI):
         self.regexMultiLineEdit.setPlainText('')
         self.stringMultiLineEdit.setPlainText('')
         self.replaceTextEdit.setPlainText('')
-        
+
         self.ignorecaseCheckBox.setChecked(False)
         self.multilineCheckBox.setChecked(False)
         self.dotallCheckBox.setChecked(False)
@@ -277,7 +265,7 @@ class MainWindow(MainWindowUI):
             self.replaceNumberSpinBox.setEnabled(True)
             self.replaceTextBrowser.setEnabled(True)
         else:
-            #self.spacerLabel.hide()
+            # self.spacerLabel.hide()
             self.replaceLabel.hide()
             self.replaceNumberSpinBox.hide()
             self.replaceTextBrowser.clear()
@@ -386,7 +374,7 @@ class MainWindow(MainWindowUI):
 
     def fileExit(self, ev):
         self.closeEvent(ev)
-        
+
     def closeEvent(self, ev):
         self.checkEditState(self.tr("&No, Just Exit Kang"))
         saveWindowSettings(self, GEO)
@@ -413,7 +401,7 @@ class MainWindow(MainWindowUI):
     def importFile(self):
         fn = QFileDialog.getOpenFileName(self, self.tr("Import File"), self.importFilename, "All (*)")
 
-        if fn.isEmpty():
+        if not fn:
             self.updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, 5)
             return
 
@@ -438,7 +426,14 @@ class MainWindow(MainWindowUI):
         self.regexMultiLineEdit.setPlainText('')
         self.stringMultiLineEdit.setPlainText('')
         self.replaceTextEdit.setPlainText('')
-        self.setFlags(0)
+
+        self.ignorecaseCheckBox.setChecked(False)
+        self.multilineCheckBox.setChecked(False)
+        self.dotallCheckBox.setChecked(False)
+        self.verboseCheckBox.setChecked(False)
+        self.localeCheckBox.setChecked(False)
+        self.unicodeCheckBox.setChecked(False)
+
         self.editstate = STATE_UNEDITED
 
     def fileOpen(self):
@@ -447,7 +442,7 @@ class MainWindow(MainWindowUI):
                                          self.filename,
                                          "*.kng\nAll (*)",
                                          )
-        if not fn.isEmpty():
+        if fn:
             filename = str(fn)
             self.loadFile(filename)
 
@@ -513,11 +508,11 @@ class MainWindow(MainWindowUI):
             self._clear()
 
             self._regexProcessor.pause()
-            
+
             self.regexMultiLineEdit.setPlainText(kngfile.regex_string)
             self.stringMultiLineEdit.setPlainText(kngfile.match_string)
             self.replaceTextEdit.setPlainText(kngfile.replace_string)
-            
+
             self.ignorecaseCheckBox.setChecked(kngfile.flag_ignorecase)
             self.multilineCheckBox.setChecked(kngfile.flag_multiline)
             self.dotallCheckBox.setChecked(kngfile.flag_dotall)

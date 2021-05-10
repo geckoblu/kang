@@ -1,7 +1,9 @@
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtGui import QApplication
 import sys
 import unittest
+
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtWidgets import QApplication
+from PySide2.QtTest import QTest
 
 from kang.gui import preferencesDialog
 from kang.gui.tests.fakeparent import FakeParent

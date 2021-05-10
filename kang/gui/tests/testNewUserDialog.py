@@ -1,8 +1,9 @@
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtGui import QApplication
-from PySide2.QtTest import QTest
 import sys
 import unittest
+
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtWidgets import QApplication
+from PySide2.QtTest import QTest
 
 from kang.gui import newUserDialog
 from kang.gui.tests.fakeparent import FakeParent
@@ -18,4 +19,4 @@ class TestNewUserDialog(unittest.TestCase):
     def test_dialog(self):
         parent = FakeParent()
         dialog = newUserDialog.NewUserDialog(parent)
-        QTest.qWaitForWindowShown(dialog)
+        QTest.qWaitForWindowExposed(dialog)

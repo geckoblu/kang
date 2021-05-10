@@ -1,9 +1,9 @@
-from PySide2 import QtGui
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtGui import QApplication
-from PySide2.QtTest import QTest
 import sys
 import unittest
+
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtWidgets import QApplication
+from PySide2.QtTest import QTest
 
 from kang.gui import reportBugDialog
 from kang.gui.tests.fakeparent import FakeParent
@@ -22,7 +22,7 @@ class TestReportBugDialog(unittest.TestCase):
         msg = 'Error message'
         dialog = reportBugDialog.ReportBugDialog(parent, msg)
         dialog.show()
-        QTest.qWaitForWindowShown(dialog)
+        QTest.qWaitForWindowExposed(dialog)
 
         dialog.copyToClipboard()
         dialog.close()

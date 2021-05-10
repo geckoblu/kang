@@ -1,10 +1,11 @@
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtGui import QApplication
-from PySide2.QtTest import QTest
 import os
 import sys
 import tempfile
 import unittest
+
+from PySide2.QtCore import QCoreApplication
+from PySide2.QtWidgets import QApplication
+from PySide2.QtTest import QTest
 
 from kang.gui import regexLibraryWindow
 from kang.gui.tests.fakeparent import FakeParent
@@ -29,7 +30,7 @@ class TestRegexLibraryWindow(unittest.TestCase):
         parent = FakeParent()
         window = regexLibraryWindow.RegexLibraryWindow(parent)
         window.show()
-        QTest.qWaitForWindowShown(window)
+        QTest.qWaitForWindowExposed(window)
 
         window.descSelectedSlot(None)
 

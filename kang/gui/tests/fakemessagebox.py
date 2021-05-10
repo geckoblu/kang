@@ -1,4 +1,4 @@
-from PySide2.Qt import QMessageBox
+from PySide2.QtWidgets import QMessageBox
 
 
 class FakeMessageBox(QMessageBox):

@@ -1,5 +1,6 @@
-from PySide2.QtGui import QPixmap, QIcon
 import os
+
+from PySide2.QtGui import QPixmap, QIcon
 
 
 def getPixmap(fileStr):

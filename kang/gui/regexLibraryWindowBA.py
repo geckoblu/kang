@@ -6,7 +6,7 @@
 #      by: PySide2 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
-
+# pylint: disable=all
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *

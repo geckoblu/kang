@@ -1,6 +1,7 @@
-from PySide2.QtCore import QSize
 import os
 import sys
+
+from PySide2.QtCore import QSize
 
 
 def getConfigDirectory():

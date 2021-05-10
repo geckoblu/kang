@@ -133,7 +133,7 @@ class MainWindowUI(QMainWindow):
         fileMenu.addSeparator()
         fileMenu.addAction(self._exitAction)
         fileMenu.addSeparator()
-        
+
         self.fileMenu = fileMenu
 
         editMenu.addAction(self.editUndoAction)
@@ -208,7 +208,7 @@ class MainWindowUI(QMainWindow):
         tabWidget = QTabWidget(self.widget)
         self.regexMultiLineEdit = QTextEdit()
         tabWidget.addTab(self.regexMultiLineEdit, "Regular Expression")
-        
+
         self.replaceTextEdit = QTextEdit()
         tabWidget.addTab(self.replaceTextEdit, "Replace String")
         gridLayout.addWidget(tabWidget, 2, 0, 1, 1)

@@ -1,11 +1,11 @@
 # pylint: disable=protected-access
-
-from PySide2.QtCore import QSize
 import os
 import shutil
 import sys
 import tempfile
 import unittest
+
+from PySide2.QtCore import QSize
 
 from kang.modules import util
 
@@ -115,7 +115,7 @@ class FakeWindow:
         self._size = QSize(size)
 
     def __eq__(self, other):
-        return (self._x == other._x and self._y == other._y and self._size == other._size)
+        return self._x == other._x and self._y == other._y and self._size == other._size
 
     def __repr__(self):
         return 'FWindow[x:%d y:%d w:%d h:%d]' % (self._x, self._y, self._size.width(), self._size.height())

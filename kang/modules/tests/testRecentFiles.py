@@ -1,11 +1,11 @@
 # pylint: disable=protected-access
-
-from PySide2.QtCore import QObject, Signal
 import os
 import shutil
 import sys
 import tempfile
 import unittest
+
+from PySide2.QtCore import QObject, Signal
 
 from kang.modules import recentfiles, util
 
@@ -135,4 +135,3 @@ class FakeMenu:
 
 class FakeAction(QObject):
     triggered = Signal()
-

@@ -1,5 +1,6 @@
 import os
 
+
 class FakeQFileDialog:
 
     def __init__(self, filename):

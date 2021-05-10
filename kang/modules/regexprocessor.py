@@ -1,8 +1,8 @@
+import re
+
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
-import difflib
-import re
 
 from kang import MATCH_NA, MSG_NA, MATCH_FAIL, MSG_FAIL, MSG_MATCH_FOUND, MATCH_OK, MSG_MATCHES_FOUND
 

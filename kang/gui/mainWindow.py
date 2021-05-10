@@ -1,9 +1,10 @@
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
 import os
 import re
 import webbrowser
+
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 
 from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
 from kang.gui.aboutDialog import AboutDialog
@@ -554,10 +555,10 @@ class MainWindow(MainWindowUI):
             message = self.tr("You have made changes. Would you like to save them before continuing")
 
             prompt = QMessageBox().warning(None,
-                                         self.tr("Save changes?"),
-                                         message,
-                                         self.tr("&Yes, Save Changes"),
-                                         noButtonStr)
+                                           self.tr("Save changes?"),
+                                           message,
+                                           self.tr("&Yes, Save Changes"),
+                                           noButtonStr)
 
             if prompt == 0:
                 self.fileSave()
@@ -585,10 +586,10 @@ class MainWindow(MainWindowUI):
         # may be applied to any widget.
         widget = qApp.focusWidget()
         if anywidget or (
-            widget == self.regexMultiLineEdit or
-            widget == self.stringMultiLineEdit or
-            widget == self.replaceTextEdit or
-            widget == self.codeTextBrowser):
+                widget == self.regexMultiLineEdit or
+                widget == self.stringMultiLineEdit or
+                widget == self.replaceTextEdit or
+                widget == self.codeTextBrowser):
             try:
                 eval('widget.%s' % methodstr)
             except:

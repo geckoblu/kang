@@ -87,7 +87,7 @@ class RecentFiles:
         for i in range(num):
             filename = self._recentFiles[i]
             action = self._parent.fileMenu.addAction(filename)
-            action.triggered.connect(lambda fn=filename: self._openFile(fn))
+            action.triggered.connect(lambda: self._openFile(filename))
             self._actions.append(action)
 
     def _openFile(self, filename):

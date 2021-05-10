@@ -1,6 +1,6 @@
 # pylint: disable=protected-access
 
-from PySide2.QtCore import QObject
+from PySide2.QtCore import QObject, Signal
 import os
 import shutil
 import sys
@@ -120,7 +120,7 @@ class FakeParent:
     def __init__(self):
         self.fileMenu = FakeMenu()
 
-    def openFile(self, filename):
+    def loadFile(self, filename):
         pass
 
 
@@ -134,4 +134,5 @@ class FakeMenu:
 
 
 class FakeAction(QObject):
-    pass
+    triggered = Signal()
+

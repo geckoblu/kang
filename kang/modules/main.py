@@ -54,8 +54,8 @@ def main():
 #             qApp.installTranslator(translator)
 #         else:
 #             sys.stderr.write("Locale for '%s' not found. Fallback to default.\n" % args.locale)
-    # TODO args.filename
-    kang = MainWindow()
+
+    kang = MainWindow(args.filename)
 
     exceptionHandler.init(kang)
 

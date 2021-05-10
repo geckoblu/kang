@@ -1,9 +1,4 @@
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-
 import os
-import string
 import sys
 
 from kang.modules.util import getConfigDirectory
@@ -28,10 +23,11 @@ class RecentFiles:
 
     def load(self):
         """Load recent file list from file and create menu"""
+        self._recentFiles = []
         if os.path.isfile(self._filename):
             try:
                 with open(self._filename, "r") as fp:
-                    self._recentFiles = map(string.strip, fp.readlines())
+                    self._recentFiles = [filename.strip() for filename in fp.readlines()]
             except IOError as ex:
                 sys.stderr.write("Could not load recent file list: %s\n" % str(ex))
 
@@ -83,17 +79,20 @@ class RecentFiles:
         if clear:
             self._clearMenu()
 
+        # TODO: create recent files menu before exit/quit menu
+        # TODO: show only filename in menu and full path as tooltip
+
         # add applicable items to menu
         num = min(self._numShown, len(self._recentFiles))
         for i in range(num):
             filename = self._recentFiles[i]
-            act = self._parent.fileMenu.addAction(filename)
-            QObject.connect(act, SIGNAL(QString.fromUtf8('triggered()')), lambda fn=filename: self._openFile(fn))
-            self._actions.append(act)
+            action = self._parent.fileMenu.addAction(filename)
+            action.triggered.connect(lambda fn=filename: self._openFile(fn))
+            self._actions.append(action)
 
     def _openFile(self, filename):
-        """Delegate openFile action to parent"""
-        self._parent.openFile(filename)
+        """Delegate loadFile action to parent"""
+        self._parent.loadFile(filename)
 
     def setNumShown(self, numShown):
         """Set maximum number of menu entry to show (update menu)"""

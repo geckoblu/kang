@@ -90,7 +90,7 @@ class MainWindow(MainWindowUI):
         self.recentFiles = RecentFiles(self, self.preferences.recentFilesNum)
         self.preferencesChanged()
 
-        if filename and self.openFile(filename):
+        if filename and self.loadFile(filename):
             qApp.processEvents()
 
         # FIXME self._signalException.connect(self.showReportBugDialog)
@@ -215,16 +215,16 @@ class MainWindow(MainWindowUI):
         self._regexProcessor.setLocaleFlag(self.localeCheckBox.isChecked())
         self._regexProcessor.setUnicodeFlag(self.unicodeCheckBox.isChecked())
 
-    def setFlags(self, flags):
-        """From the given integer value of flags, set the checkboxes.
-           This is used when loading a saved file
-        """
-        self.ignorecaseCheckBox.setChecked(flags & re.IGNORECASE)
-        self.multilineCheckBox.setChecked(flags & re.MULTILINE)
-        self.dotallCheckBox.setChecked(flags & re.DOTALL)
-        self.verboseCheckBox.setChecked(flags & re.VERBOSE)
-        self.localeCheckBox.setChecked(flags & re.LOCALE)
-        self.unicodeCheckBox.setChecked(flags & re.UNICODE)
+    # def setFlags(self, flags):
+        # """From the given integer value of flags, set the checkboxes.
+        # This is used when loading a saved file
+        # """
+        # self.ignorecaseCheckBox.setChecked(flags & re.IGNORECASE)
+        # self.multilineCheckBox.setChecked(flags & re.MULTILINE)
+        # self.dotallCheckBox.setChecked(flags & re.DOTALL)
+        # self.verboseCheckBox.setChecked(flags & re.VERBOSE)
+        # self.localeCheckBox.setChecked(flags & re.LOCALE)
+        # self.unicodeCheckBox.setChecked(flags & re.UNICODE)
 
     def getFlags(self):
         flags = 0
@@ -250,8 +250,14 @@ class MainWindow(MainWindowUI):
         self.matchNumberSpinBox.setValue(1)
         self.regexMultiLineEdit.setPlainText('')
         self.stringMultiLineEdit.setPlainText('')
-        self.setFlags(0)
         self.replaceTextEdit.setPlainText('')
+        
+        self.ignorecaseCheckBox.setChecked(False)
+        self.multilineCheckBox.setChecked(False)
+        self.dotallCheckBox.setChecked(False)
+        self.verboseCheckBox.setChecked(False)
+        self.localeCheckBox.setChecked(False)
+        self.unicodeCheckBox.setChecked(False)
 
     def _clearResults(self):
         self.groupTable.clearContents()
@@ -443,7 +449,7 @@ class MainWindow(MainWindowUI):
                                          )
         if not fn.isEmpty():
             filename = str(fn)
-            self.openFile(filename)
+            self.loadFile(filename)
 
     def fileSave(self):
         if not self.filename:
@@ -493,9 +499,9 @@ class MainWindow(MainWindowUI):
             self.updateStatus(self.tr("There is no filename to revert"), MATCH_NONE, 5)
             return
 
-        self.openFile(self.filename)
+        self.loadFile(self.filename)
 
-    def openFile(self, filename):
+    def loadFile(self, filename):
         self.checkEditState()
 
         try:
@@ -507,10 +513,17 @@ class MainWindow(MainWindowUI):
             self._clear()
 
             self._regexProcessor.pause()
-            self.regexMultiLineEdit.setPlainText(kngfile.regex)
-            self.stringMultiLineEdit.setPlainText(kngfile.matchstring)
-            self.setFlags(kngfile.flags)
-            self.replaceTextEdit.setPlainText(kngfile.replace)
+            
+            self.regexMultiLineEdit.setPlainText(kngfile.regex_string)
+            self.stringMultiLineEdit.setPlainText(kngfile.match_string)
+            self.replaceTextEdit.setPlainText(kngfile.replace_string)
+            
+            self.ignorecaseCheckBox.setChecked(kngfile.flag_ignorecase)
+            self.multilineCheckBox.setChecked(kngfile.flag_multiline)
+            self.dotallCheckBox.setChecked(kngfile.flag_dotall)
+            self.verboseCheckBox.setChecked(kngfile.flag_verbose)
+            self.localeCheckBox.setChecked(kngfile.flag_locale)
+            self.unicodeCheckBox.setChecked(kngfile.flag_unicode)
 
             self.filename = filename
             self.recentFiles.add(self.filename)

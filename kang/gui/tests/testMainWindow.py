@@ -81,11 +81,11 @@ class TestMainWindow(unittest.TestCase):
         self.window.examine()
 
     def test_matchNumSlot(self):
-        self.window.openFile(self.filename1)
+        self.window.loadFile(self.filename1)
         self.window.matchNumSlot(1)
 
     def test_replaceNumSlot(self):
-        self.window.openFile(self.filename1)
+        self.window.loadFile(self.filename1)
         self.window.replaceNumSlot(1)
 
     def test_flags(self):
@@ -229,9 +229,9 @@ class TestMainWindow(unittest.TestCase):
         mainWindow.QFileDialog = qfd
 
     def test_openFile(self):
-        self.window.openFile(self.filename1)
+        self.window.loadFile(self.filename1)
 
-        self.window.openFile('not_a_valid_filename')
+        self.window.loadFile('not_a_valid_filename')
 
     def test_fileOpen(self):
 

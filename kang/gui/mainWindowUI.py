@@ -1,7 +1,6 @@
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QMainWindow, QAction, QToolBar, QWidget, \
-    QGridLayout, QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QLabel, QSpinBox, \
-    QTableWidget
+from PySide2.QtWidgets import QMainWindow, QAction, QToolBar, QWidget, QTableWidget, QLabel, \
+                              QGridLayout, QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QSpinBox
 
 from kang.images import getIcon
 from kang.modules.regexprocessor import RegexProcessor

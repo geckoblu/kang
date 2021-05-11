@@ -15,7 +15,6 @@ from kang.gui.preferencesDialog import PreferencesDialog
 from kang.gui.regexLibraryWindow import RegexLibraryWindow
 from kang.gui.regexReferenceWindow import RegexReferenceWindow
 from kang.gui.reportBugDialog import ReportBugDialog
-from kang.gui.statusbar import StatusBar
 from kang.images import getIcon, getPixmap
 from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
@@ -33,9 +32,6 @@ GEO = 'kang_geometry'
 QCOLOR_WHITE = QColor(Qt.white)  # normal
 QCOLOR_LIGHTCYAN = QColor('#DDFFFF')  # examine
 
-# Initialized in the __init__ method because QPixmap should be loaded in the main thread
-STATUS_PIXMAPS_DICT = {}
-
 
 ##############################################################################
 #
@@ -49,12 +45,6 @@ class MainWindow(MainWindowUI):
 
     def __init__(self, filename=''):
         MainWindowUI.__init__(self)
-
-        # Initialized here because QPixmap should be loaded in the main thread
-        STATUS_PIXMAPS_DICT[MATCH_NA] = getPixmap('yellowStatusIcon.xpm')
-        STATUS_PIXMAPS_DICT[MATCH_OK] = getPixmap('greenStatusIcon.xpm')
-        STATUS_PIXMAPS_DICT[MATCH_FAIL] = getPixmap('redStatusIcon.xpm')
-        STATUS_PIXMAPS_DICT[MATCH_PAUSED] = getPixmap('pauseStatusIcon.xpm')
 
         self._regexSaved = ''
         self._isExamined = False
@@ -72,8 +62,6 @@ class MainWindow(MainWindowUI):
 
         self.refWin = None
         self.regexlibwin = None
-
-        self.statusbar = StatusBar(self)
 
         # self.loadToolbarIcons()
 
@@ -139,9 +127,7 @@ class MainWindow(MainWindowUI):
         self._populateEmbeddedFlags()
 
     def updateStatus(self, statusString, statusValue, duration=0):
-        pixmap = STATUS_PIXMAPS_DICT.get(statusValue)
-
-        self.statusbar.setMessage(statusString, duration, pixmap)
+        self.statusBar().showMessage(statusString, duration)
 
     def edited(self):
         # invoked whenever the user has edited something
@@ -441,7 +427,7 @@ class MainWindow(MainWindowUI):
                                          self.filename,
                                          "*.kng\nAll (*)",
                                          )
-        if filename:            
+        if filename:
             self.loadFile(filename)
 
     def fileSave(self):

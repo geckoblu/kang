@@ -154,7 +154,7 @@ class TestMainWindow(unittest.TestCase):
 
         qfd = mainWindow.QFileDialog
 
-        mainWindow.QFileDialog = FakeQFileDialog()
+        mainWindow.QFileDialog = FakeQFileDialog(None)
         self.window.fileSave()  # As filemname is empty this will call fileSaveAs
 
         dtmp = tempfile.mkdtemp()

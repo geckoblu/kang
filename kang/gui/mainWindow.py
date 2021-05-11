@@ -400,13 +400,11 @@ class MainWindow(MainWindowUI):
         self.stringMultiLineEdit.setPlainText(html)
 
     def importFile(self):
-        fn = QFileDialog.getOpenFileName(self, self.tr("Import File"), self.importFilename, "All (*)")
+        (filename, _filter) = QFileDialog.getOpenFileName(self, self.tr("Import File"), self.importFilename, "All (*)")
 
-        if not fn:
+        if not filename:
             self.updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, 5)
             return
-
-        filename = str(fn)
 
         try:
             fp = open(filename, 'r')
@@ -438,13 +436,12 @@ class MainWindow(MainWindowUI):
         self.editstate = STATE_UNEDITED
 
     def fileOpen(self):
-        fn = QFileDialog.getOpenFileName(self,
+        (filename, _filter) = QFileDialog.getOpenFileName(self,
                                          self.tr("Open Kang File"),
                                          self.filename,
                                          "*.kng\nAll (*)",
                                          )
-        if fn:
-            filename = str(fn)
+        if filename:            
             self.loadFile(filename)
 
     def fileSave(self):
@@ -472,12 +469,11 @@ class MainWindow(MainWindowUI):
             self.updateStatus(msg, MATCH_NONE, 5)
 
     def fileSaveAs(self):
-        fn = QFileDialog.getSaveFileName(self,
+        (filename, _filter) = QFileDialog.getSaveFileName(self,
                                          self.tr("Save Kang File"),
                                          self.filename,
                                          "*.kng\nAll (*)"
                                          )
-        filename = fn
         if not filename:
             self.updateStatus(self.tr("No file selected to save"), MATCH_NONE, 5)
             return
@@ -573,11 +569,12 @@ class MainWindow(MainWindowUI):
         self.stringMultiLineEdit.setPlainText(regexLibDict.get('text', ''))
         self.replaceTextEdit.setPlainText(regexLibDict.get('replace', ''))
 
-        try:
-            # set the current page if applicable
-            self.resultTabWidget.setCurrentPage(int(regexLibDict.get('tab', '')))
-        except ValueError:
-            pass
+        # TODO set the current page if applicable ?
+        # try:
+        #    # set the current page if applicable
+        #    self.resultTabWidget.setCurrentPage(int(regexLibDict.get('tab', '')))
+        # except ValueError:
+        #    pass
         self.editstate = STATE_UNEDITED
 
     def widgetMethod(self, methodstr, anywidget=False):

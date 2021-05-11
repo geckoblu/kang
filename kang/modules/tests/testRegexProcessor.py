@@ -14,7 +14,7 @@ class TestRegexProcessor(unittest.TestCase):
 
     def test_match(self):
         rp = RegexProcessor()
-        rp.connect(self.statusChanged)
+        rp.statusChanged.connect(self.statusChanged)
 
         rp.setMatchString('La donzelletta vien dalla campagna e vien in compagnia di rose e viole')
         status, _ = rp.getStatus()
@@ -55,7 +55,7 @@ class TestRegexProcessor(unittest.TestCase):
 
     def test_groups(self):
         rp = RegexProcessor()
-        rp.connect(self.statusChanged)
+        rp.statusChanged.connect(self.statusChanged)
 
         rp.setMatchString('La donzelletta vien dalla campagna e vien in compagnia di rose e viole')
         status, _ = rp.getStatus()
@@ -194,14 +194,14 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(status, MATCH_OK)
         status, strings = rp.replace(0)  # 0 stands for 'all'
         self.assertEqual(status, MATCH_FAIL)
-        self.assertEqual(strings, 'invalid group reference')
+        self.assertEqual(strings, 'invalid group reference 2 at position 2')
 
         rp.setReplaceString('x\\')
         status, _ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         status, strings = rp.replace(0)  # 0 stands for 'all'
         self.assertEqual(status, MATCH_FAIL)
-        self.assertEqual(strings, 'bogus escape (end of line)')
+        self.assertEqual(strings, 'bad escape (end of pattern) at position 1')
 
         # Real case - which would be the correct colorized ?
         rp.setMatchString("""<p><a class="calibre7" id="filepos48765"></a></p>
@@ -247,7 +247,7 @@ class TestRegexProcessor(unittest.TestCase):
 
     def test_getRegexCode(self):
         rp = RegexProcessor()
-        rp.connect(self.statusChanged)
+        rp.statusChanged.connect(self.statusChanged)
 
         rp.setMatchString('abcdabc')
         code = rp.getRegexCode()

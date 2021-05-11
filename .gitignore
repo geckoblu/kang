@@ -10,3 +10,4 @@ RECORD
 .project
 .pydevproject
 .settings
+/.pytest_cache/

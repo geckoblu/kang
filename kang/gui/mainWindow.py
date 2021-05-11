@@ -1,5 +1,4 @@
 import os
-import re
 import webbrowser
 
 from PySide2.QtCore import Qt, Signal, qApp

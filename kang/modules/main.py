@@ -55,9 +55,12 @@ def main():
 #         else:
 #             sys.stderr.write("Locale for '%s' not found. Fallback to default.\n" % args.locale)
 
-    kang = MainWindow(args.filename)
+    kang = MainWindow()
 
     exceptionHandler.init(kang)
+
+    if args.filename:
+        kang.loadFile(args.filename)
 
     kang.show()
 

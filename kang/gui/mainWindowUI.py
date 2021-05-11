@@ -183,34 +183,51 @@ class MainWindowUI(QMainWindow):
         gridLayout.setContentsMargins(11, 11, 11, 11)
 
         tabWidget = QTabWidget(self.widget)
+        
         self.stringMultiLineEdit = QTextEdit()
-        tabWidget.addTab(self.stringMultiLineEdit, "Match String")
-        gridLayout.addWidget(tabWidget, 0, 0, 1, 1)
         self.stringMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setMatchString(self.stringMultiLineEdit.toPlainText()))
-
+        self.stringMultiLineEdit.textChanged.connect(self.edited)
+        tabWidget.addTab(self.stringMultiLineEdit, "Match String")
+        
+        gridLayout.addWidget(tabWidget, 0, 0, 1, 1)
+        
         groupBox = QWidget(self)
         hboxLayout = QHBoxLayout(groupBox)
         hboxLayout.setSpacing(6)
+        
         self.ignorecaseCheckBox = QCheckBox("Ignore Case")
+        self.ignorecaseCheckBox.toggled.connect(self.edited)
         hboxLayout.addWidget(self.ignorecaseCheckBox)
         self.multilineCheckBox = QCheckBox("Multi Line")
+        self.multilineCheckBox.toggled.connect(self.edited)
         hboxLayout.addWidget(self.multilineCheckBox)
         self.dotallCheckBox = QCheckBox("Dot All")
+        self.dotallCheckBox.toggled.connect(self.edited)
         hboxLayout.addWidget(self.dotallCheckBox)
         self.verboseCheckBox = QCheckBox("Verbose")
+        self.verboseCheckBox.toggled.connect(self.edited)
         hboxLayout.addWidget(self.verboseCheckBox)
         self.localeCheckBox = QCheckBox("localeCheckBox")
+        self.localeCheckBox.toggled.connect(self.edited)
         hboxLayout.addWidget(self.localeCheckBox)
         self.unicodeCheckBox = QCheckBox("Unicode")
+        self.unicodeCheckBox.toggled.connect(self.edited)
         hboxLayout.addWidget(self.unicodeCheckBox)
+        
         gridLayout.addWidget(groupBox, 1, 0, 1, 1)
 
         tabWidget = QTabWidget(self.widget)
+        
         self.regexMultiLineEdit = QTextEdit()
+        self.regexMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setRegexString(self.regexMultiLineEdit.toPlainText()))
+        self.regexMultiLineEdit.textChanged.connect(self.edited)
         tabWidget.addTab(self.regexMultiLineEdit, "Regular Expression")
 
         self.replaceTextEdit = QTextEdit()
+        self.replaceTextEdit.textChanged.connect(lambda: self._regexProcessor.setReplaceString(self.replaceTextEdit.toPlainText()))
+        self.replaceTextEdit.textChanged.connect(self.edited)
         tabWidget.addTab(self.replaceTextEdit, "Replace String")
+        
         gridLayout.addWidget(tabWidget, 2, 0, 1, 1)
 
         groupBox = QWidget(self)

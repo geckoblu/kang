@@ -42,7 +42,8 @@ class TestMainWindow(unittest.TestCase):
     # Test if the window shows when loading a file
     def test_window_with_filename(self):
         self.window.close()  # Do not use the standard window
-        window = mainWindow.MainWindow(self.filename1)
+        window = mainWindow.MainWindow()
+        window.loadFile(self.filename1)
         # QTest.qWaitForWindowExposed(window)
         window.close()
 
@@ -377,7 +378,7 @@ class TestMainWindow(unittest.TestCase):
         fileSave = self.window.fileSave
         self.window.fileSave = lambda: None
         checkEditState2 = self.window.checkEditState
-        self.window.checkEditState = lambda s: None
+        self.window.checkEditState = lambda: None
         checkEditState2()
         self.window.checkEditState = checkEditState2
         self.window.fileSave = fileSave

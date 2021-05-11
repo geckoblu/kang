@@ -38,7 +38,7 @@ class Ui_ImportURLDialogBA(object):
         self.gridlayout.setObjectName(_fromUtf8("gridlayout"))
         self.buttonBox = QDialogButtonBox(ImportURLDialogBA)
         self.buttonBox.setOrientation(Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
+        #self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(False)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.gridlayout.addWidget(self.buttonBox, 1, 0, 1, 1)

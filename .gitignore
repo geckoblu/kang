@@ -1,5 +1,6 @@
 build/
 cover/
+htmlcov/
 dist/
 kang.egg-info/
 kng/

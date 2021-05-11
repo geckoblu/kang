@@ -2,9 +2,9 @@ import os
 import re
 import webbrowser
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+from PySide2.QtCore import Qt, Signal, qApp
+from PySide2.QtGui import QColor, QPalette
+from PySide2.QtWidgets import QMessageBox, QTableWidgetItem, QFileDialog
 
 from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
 from kang.gui.aboutDialog import AboutDialog
@@ -15,13 +15,10 @@ from kang.gui.preferencesDialog import PreferencesDialog
 from kang.gui.regexLibraryWindow import RegexLibraryWindow
 from kang.gui.regexReferenceWindow import RegexReferenceWindow
 from kang.gui.reportBugDialog import ReportBugDialog
-from kang.images import getIcon, getPixmap
 from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
-from kang.modules.regexprocessor import RegexProcessor
-from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, \
-    getConfigDirectory
+from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, getConfigDirectory
 
 STATE_UNEDITED = 0
 STATE_EDITED = 1
@@ -40,10 +37,9 @@ QCOLOR_LIGHTCYAN = QColor('#DDFFFF')  # examine
 ##############################################################################
 class MainWindow(MainWindowUI):
 
-    # TODO _signalException = pyqtSignal(str)
     _signalException = Signal(str)
 
-    def __init__(self, filename=''):
+    def __init__(self):
         MainWindowUI.__init__(self)
 
         self._regexSaved = ''
@@ -78,10 +74,7 @@ class MainWindow(MainWindowUI):
         self.recentFiles = RecentFiles(self, self.preferences.recentFilesNum)
         self.preferencesChanged()
 
-        if filename and self.loadFile(filename):
-            qApp.processEvents()
-
-        # FIXME self._signalException.connect(self.showReportBugDialog)
+        self._signalException.connect(self.showReportBugDialog)
 
         # FIXME self.connect(self, SIGNAL('preferencesChanged()'), self.preferencesChanged)
         # FIXME self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.pasteSymbol)
@@ -179,45 +172,6 @@ class MainWindow(MainWindowUI):
 
     def replaceNumSlot(self, num):
         self._populateReplaceTextbrowser()
-
-    def regexChangedSlot(self):
-        regexString = self.regexMultiLineEdit.toPlainText()
-        self._regexProcessor.setRegexString(regexString)
-
-    def stringChangedSlot(self):
-        matchString = self.stringMultiLineEdit.toPlainText()
-        self._regexProcessor.setMatchString(matchString)
-
-    def replaceChangedSlot(self):
-        replaceString = self.replaceTextEdit.toPlainText()
-        self._regexProcessor.setReplaceString(replaceString)
-        self._showReplaceWidgets(replaceString != '')
-
-    def checkboxSlot(self):
-        self._regexProcessor.setIgnorecaseFlag(self.ignorecaseCheckBox.isChecked())
-        self._regexProcessor.setMultilineFlag(self.multilineCheckBox.isChecked())
-        self._regexProcessor.setDotallFlag(self.dotallCheckBox.isChecked())
-        self._regexProcessor.setVerboseFlag(self.verboseCheckBox.isChecked())
-        self._regexProcessor.setLocaleFlag(self.localeCheckBox.isChecked())
-        self._regexProcessor.setUnicodeFlag(self.unicodeCheckBox.isChecked())
-
-    def getFlags(self):
-        flags = 0
-
-        if self.ignorecaseCheckBox.isChecked():
-            flags += re.IGNORECASE
-        if self.multilineCheckBox.isChecked():
-            flags += re.MULTILINE
-        if self.dotallCheckBox.isChecked():
-            flags += re.DOTALL
-        if self.verboseCheckBox.isChecked():
-            flags += re.VERBOSE
-        if self.localeCheckBox.isChecked():
-            flags += re.LOCALE
-        if self.unicodeCheckBox.isChecked():
-            flags += re.UNICODE
-
-        return flags
 
     def _clear(self):
         self._clearResults()
@@ -363,7 +317,7 @@ class MainWindow(MainWindowUI):
         self.closeEvent(ev)
 
     def closeEvent(self, ev):
-        self.checkEditState(self.tr("&No, Just Exit Kang"))
+        self.checkEditState()
         saveWindowSettings(self, GEO)
 
         try:
@@ -423,10 +377,10 @@ class MainWindow(MainWindowUI):
 
     def fileOpen(self):
         (filename, _filter) = QFileDialog.getOpenFileName(self,
-                                         self.tr("Open Kang File"),
-                                         self.filename,
-                                         "*.kng\nAll (*)",
-                                         )
+                                                          self.tr("Open Kang File"),
+                                                          self.filename,
+                                                          "*.kng\nAll (*)",
+                                                          )
         if filename:
             self.loadFile(filename)
 
@@ -438,10 +392,19 @@ class MainWindow(MainWindowUI):
         regexString = self.regexMultiLineEdit.toPlainText()
         matchString = self.stringMultiLineEdit.toPlainText()
         replaceString = self.replaceTextEdit.toPlainText()
-        flags = self.getFlags()
 
         try:
-            kngfile = KngFile(self.filename, regexString, matchString, replaceString, flags)
+            kngfile = KngFile(self.filename,
+                              regexString,
+                              matchString,
+                              replaceString,
+                              self.ignorecaseCheckBox.isChecked(),
+                              self.multilineCheckBox.isChecked(),
+                              self.dotallCheckBox.isChecked(),
+                              self.verboseCheckBox.isChecked(),
+                              self.localeCheckBox.isChecked(),
+                              self.unicodeCheckBox.isChecked()
+                              )
             kngfile.save()
 
             self.editstate = STATE_UNEDITED
@@ -456,10 +419,10 @@ class MainWindow(MainWindowUI):
 
     def fileSaveAs(self):
         (filename, _filter) = QFileDialog.getSaveFileName(self,
-                                         self.tr("Save Kang File"),
-                                         self.filename,
-                                         "*.kng\nAll (*)"
-                                         )
+                                                          self.tr("Save Kang File"),
+                                                          self.filename,
+                                                          "*.kng\nAll (*)"
+                                                          )
         if not filename:
             self.updateStatus(self.tr("No file selected to save"), MATCH_NONE, 5)
             return
@@ -522,7 +485,7 @@ class MainWindow(MainWindowUI):
     def pasteSymbol(self, symbol):
         self.regexMultiLineEdit.insertPlainText(symbol)
 
-    def checkEditState(self, noButtonStr=None):
+    def checkEditState(self):
 
         if not self.preferences.askSave:
             return
@@ -530,22 +493,19 @@ class MainWindow(MainWindowUI):
         if self.preferences.askSaveOnlyForNamedProjects and not self.filename:
             return
 
-        if not noButtonStr:
-            noButtonStr = self.tr("&No")
-
         if self.editstate == STATE_EDITED:
-            message = self.tr("You have made changes. Would you like to save them before continuing")
+            message = self.tr("You have made changes. Would you like to save them before continuing?")
 
-            prompt = QMessageBox().warning(None,
+            prompt = QMessageBox().warning(self,
                                            self.tr("Save changes?"),
                                            message,
-                                           self.tr("&Yes, Save Changes"),
-                                           noButtonStr)
+                                           QMessageBox.No,
+                                           QMessageBox.Yes)
 
             if prompt == 0:
                 self.fileSave()
                 if not self.filename:
-                    self.checkEditState(noButtonStr)
+                    self.checkEditState()
 
     def pasteFromRegexLib(self, regexLibDict):
         self.filename = ''

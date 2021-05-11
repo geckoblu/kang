@@ -23,8 +23,6 @@ class MainWindowUI(QMainWindow):
         self._setupToolBar()
         self._setupStatusBar()
         self._setupCentralWidget()
-        
-        
 
         self._regexProcessor.statusChanged.connect(self._regexStatusChanged)
 
@@ -181,7 +179,7 @@ class MainWindowUI(QMainWindow):
         permanentStatusLabel = QLabel()
         self.statusBar().addWidget(permanentStatusLabel, 1)
         self.statusBar().showPermanentMessage = lambda msg: permanentStatusLabel.setText(msg)
-        
+
     def _setupCentralWidget(self):
         self.widget = QWidget(self)
 
@@ -190,18 +188,18 @@ class MainWindowUI(QMainWindow):
         gridLayout.setContentsMargins(11, 11, 11, 11)
 
         tabWidget = QTabWidget(self.widget)
-        
+
         self.stringMultiLineEdit = QTextEdit()
         self.stringMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setMatchString(self.stringMultiLineEdit.toPlainText()))
         self.stringMultiLineEdit.textChanged.connect(self._edited)
         tabWidget.addTab(self.stringMultiLineEdit, "Match String")
-        
+
         gridLayout.addWidget(tabWidget, 0, 0, 1, 1)
-        
+
         groupBox = QWidget(self)
         hboxLayout = QHBoxLayout(groupBox)
         hboxLayout.setSpacing(6)
-        
+
         self.ignorecaseCheckBox = QCheckBox("Ignore Case")
         self.ignorecaseCheckBox.toggled.connect(self._regexProcessor.setIgnorecaseFlag)
         self.ignorecaseCheckBox.toggled.connect(self._edited)
@@ -226,11 +224,11 @@ class MainWindowUI(QMainWindow):
         self.unicodeCheckBox.toggled.connect(self._regexProcessor.setUnicodeFlag)
         self.unicodeCheckBox.toggled.connect(self._edited)
         hboxLayout.addWidget(self.unicodeCheckBox)
-        
+
         gridLayout.addWidget(groupBox, 1, 0, 1, 1)
 
         tabWidget = QTabWidget(self.widget)
-        
+
         self.regexMultiLineEdit = QTextEdit()
         self.regexMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setRegexString(self.regexMultiLineEdit.toPlainText()))
         self.regexMultiLineEdit.textChanged.connect(self._edited)
@@ -240,7 +238,7 @@ class MainWindowUI(QMainWindow):
         self.replaceTextEdit.textChanged.connect(lambda: self._regexProcessor.setReplaceString(self.replaceTextEdit.toPlainText()))
         self.replaceTextEdit.textChanged.connect(self._edited)
         tabWidget.addTab(self.replaceTextEdit, "Replace String")
-        
+
         gridLayout.addWidget(tabWidget, 2, 0, 1, 1)
 
         groupBox = QWidget(self)
@@ -265,21 +263,27 @@ class MainWindowUI(QMainWindow):
 
         tabWidget = QTabWidget(self.widget)
 
-        self.matchAllTextBrowser = QTextEdit()
-        tabWidget.addTab(self.matchAllTextBrowser, "Match All")
-
-        self.matchTextBrowser = QTextEdit()
-        tabWidget.addTab(self.matchTextBrowser, "Match")
-
         tab = QWidget()
         self.groupTable = QTableWidget(tab)
         self.groupTable.setColumnCount(2)
+        gridlayout2 = QGridLayout(tab)
+        gridlayout2.addWidget(self.groupTable, 0, 0, 1, 1)
         tabWidget.addTab(tab, "Group")
 
+        self.matchAllTextBrowser = QTextEdit()
+        self.matchAllTextBrowser.setReadOnly(True)
+        tabWidget.addTab(self.matchAllTextBrowser, "Match All")
+
+        self.matchTextBrowser = QTextEdit()
+        self.matchTextBrowser.setReadOnly(True)
+        tabWidget.addTab(self.matchTextBrowser, "Match")
+
         self.replaceTextBrowser = QTextEdit()
+        self.replaceTextBrowser.setReadOnly(True)
         tabWidget.addTab(self.replaceTextBrowser, "Replace")
 
         self.codeTextBrowser = QTextEdit()
+        self.codeTextBrowser.setReadOnly(True)
         tabWidget.addTab(self.codeTextBrowser, "Sample Code")
 
         gridLayout.addWidget(tabWidget, 4, 0, 1, 1)

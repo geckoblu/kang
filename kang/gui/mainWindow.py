@@ -65,7 +65,7 @@ class MainWindow(MainWindowUI):
 
         restoreWindowSettings(self, GEO)
 
-        self._showReplaceWidgets(False)
+        # TODO self._showReplaceWidgets(False)
 
         self.show()
 

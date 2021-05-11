@@ -21,8 +21,10 @@ class MainWindowUI(QMainWindow):
         self._createActions()
         self._setupMenuBar()
         self._setupToolBar()
-        self.statusBar()
+        self._setupStatusBar()
         self._setupCentralWidget()
+        
+        
 
         self._regexProcessor.statusChanged.connect(self._regexStatusChanged)
 
@@ -175,6 +177,11 @@ class MainWindowUI(QMainWindow):
         toolBar.addAction(self.helpRegexReferenceGuideAction)
         toolBar.addAction(self.helpRegexLibraryAction)
 
+    def _setupStatusBar(self):
+        permanentStatusLabel = QLabel()
+        self.statusBar().addWidget(permanentStatusLabel, 1)
+        self.statusBar().showPermanentMessage = lambda msg: permanentStatusLabel.setText(msg)
+        
     def _setupCentralWidget(self):
         self.widget = QWidget(self)
 
@@ -186,7 +193,7 @@ class MainWindowUI(QMainWindow):
         
         self.stringMultiLineEdit = QTextEdit()
         self.stringMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setMatchString(self.stringMultiLineEdit.toPlainText()))
-        self.stringMultiLineEdit.textChanged.connect(self.edited)
+        self.stringMultiLineEdit.textChanged.connect(self._edited)
         tabWidget.addTab(self.stringMultiLineEdit, "Match String")
         
         gridLayout.addWidget(tabWidget, 0, 0, 1, 1)
@@ -196,22 +203,28 @@ class MainWindowUI(QMainWindow):
         hboxLayout.setSpacing(6)
         
         self.ignorecaseCheckBox = QCheckBox("Ignore Case")
-        self.ignorecaseCheckBox.toggled.connect(self.edited)
+        self.ignorecaseCheckBox.toggled.connect(self._regexProcessor.setIgnorecaseFlag)
+        self.ignorecaseCheckBox.toggled.connect(self._edited)
         hboxLayout.addWidget(self.ignorecaseCheckBox)
         self.multilineCheckBox = QCheckBox("Multi Line")
-        self.multilineCheckBox.toggled.connect(self.edited)
+        self.multilineCheckBox.toggled.connect(self._regexProcessor.setMultilineFlag)
+        self.multilineCheckBox.toggled.connect(self._edited)
         hboxLayout.addWidget(self.multilineCheckBox)
         self.dotallCheckBox = QCheckBox("Dot All")
-        self.dotallCheckBox.toggled.connect(self.edited)
+        self.dotallCheckBox.toggled.connect(self._regexProcessor.setDotallFlag)
+        self.dotallCheckBox.toggled.connect(self._edited)
         hboxLayout.addWidget(self.dotallCheckBox)
         self.verboseCheckBox = QCheckBox("Verbose")
-        self.verboseCheckBox.toggled.connect(self.edited)
+        self.verboseCheckBox.toggled.connect(self._regexProcessor.setVerboseFlag)
+        self.verboseCheckBox.toggled.connect(self._edited)
         hboxLayout.addWidget(self.verboseCheckBox)
         self.localeCheckBox = QCheckBox("localeCheckBox")
-        self.localeCheckBox.toggled.connect(self.edited)
+        self.localeCheckBox.toggled.connect(self._regexProcessor.setLocaleFlag)
+        self.localeCheckBox.toggled.connect(self._edited)
         hboxLayout.addWidget(self.localeCheckBox)
         self.unicodeCheckBox = QCheckBox("Unicode")
-        self.unicodeCheckBox.toggled.connect(self.edited)
+        self.unicodeCheckBox.toggled.connect(self._regexProcessor.setUnicodeFlag)
+        self.unicodeCheckBox.toggled.connect(self._edited)
         hboxLayout.addWidget(self.unicodeCheckBox)
         
         gridLayout.addWidget(groupBox, 1, 0, 1, 1)
@@ -220,12 +233,12 @@ class MainWindowUI(QMainWindow):
         
         self.regexMultiLineEdit = QTextEdit()
         self.regexMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setRegexString(self.regexMultiLineEdit.toPlainText()))
-        self.regexMultiLineEdit.textChanged.connect(self.edited)
+        self.regexMultiLineEdit.textChanged.connect(self._edited)
         tabWidget.addTab(self.regexMultiLineEdit, "Regular Expression")
 
         self.replaceTextEdit = QTextEdit()
         self.replaceTextEdit.textChanged.connect(lambda: self._regexProcessor.setReplaceString(self.replaceTextEdit.toPlainText()))
-        self.replaceTextEdit.textChanged.connect(self.edited)
+        self.replaceTextEdit.textChanged.connect(self._edited)
         tabWidget.addTab(self.replaceTextEdit, "Replace String")
         
         gridLayout.addWidget(tabWidget, 2, 0, 1, 1)

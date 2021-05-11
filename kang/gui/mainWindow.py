@@ -119,10 +119,14 @@ class MainWindow(MainWindowUI):
         self._populateEmbeddedFlags()
 
     def updateStatus(self, statusString, statusValue, duration=0):
-        self.statusBar().showMessage(statusString, duration)
+        if duration > 0:
+            self.statusBar().showMessage(statusString, duration * 1000)
+        else:
+            self.statusBar().clearMessage()
+            self.statusBar().showPermanentMessage(statusString)
 
-    def edited(self):
-        # invoked whenever the user has edited something
+    def _edited(self):
+        # invoked whenever the user has _edited something
         self.editstate = STATE_EDITED
 
     def pause(self):

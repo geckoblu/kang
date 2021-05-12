@@ -19,7 +19,6 @@ from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
 from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, getConfigDirectory
 
-
 STATE_UNEDITED = 0
 STATE_EDITED = 1
 
@@ -218,15 +217,15 @@ class MainWindow(MainWindowUI):
 
     def _populateGroupTable(self):
         groups = self._regexProcessor.getAllGroups()
-        
+
         brush = QBrush(QCOLOR_EVIDENCE);
         evidenceMatchNumber = self.matchNumberSpinBox.value()
 
         self.groupTable.clear()
 
         for matchNumber, group in enumerate(groups, start=1):
-            #print(matchNumber, group)
-            
+            # print(matchNumber, group)
+
             child = None
             for subGroup in group:
                 if not child:
@@ -234,10 +233,10 @@ class MainWindow(MainWindowUI):
                     child.setText(0, str(matchNumber))
                     item = child
                 else:
-                    subchild = QTreeWidgetItem()                    
+                    subchild = QTreeWidgetItem()
                     child.addChild(subchild)
                     item = subchild
-                    
+
                 item.setText(1, str(subGroup[0]))
                 item.setText(2, subGroup[1])
                 item.setText(3, subGroup[2])
@@ -246,16 +245,17 @@ class MainWindow(MainWindowUI):
                     item.setBackground(1 , brush);
                     item.setBackground(2 , brush);
                     item.setBackground(3 , brush);
-                    
-        self.groupTable.expandAll()        
-        for column in range(0,self.groupTable.columnCount()):
+
+        self.groupTable.expandAll()
+        for column in range(0, self.groupTable.columnCount()):
             self.groupTable.resizeColumnToContents(column)
 
     def _populateMatchTextbrowser(self):
-        spans = []
-        span = self._regexProcessor.getSpan(self.matchNumberSpinBox.value() - 1)
-        if span:
-            spans.append(span)
+        matchNumber = self.matchNumberSpinBox.value()
+        if matchNumber > 0:
+            spans = [self._regexProcessor.getSpan(matchNumber - 1)]
+        else:
+            spans = self._regexProcessor.getAllSpans()
         self._populateText(spans, self.matchTextBrowser)
 
     def _populateMatchAllTextbrowser(self):
@@ -329,11 +329,11 @@ class MainWindow(MainWindowUI):
     def _colorizeStrings(self, strings, widget, cursorOffset=0):
         widget.clear()
 
-        colors = (QColor(Qt.black), QColor(Qt.blue))
+        colors = (QCOLOR_WHITE, QCOLOR_EVIDENCE)
         i = 0
         pos = widget.textCursor()
         for s in strings:
-            widget.setTextColor(colors[i % 2])
+            widget.setTextBackgroundColor(colors[i % 2])
             widget.insertPlainText(s)
             if i == cursorOffset:
                 pos = widget.textCursor()

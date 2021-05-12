@@ -268,6 +268,10 @@ class MainWindowUI(QMainWindow):
 
         tabWidget = QTabWidget(self.widget)
 
+        self.matchTextBrowser = QTextEdit()
+        self.matchTextBrowser.setReadOnly(True)
+        tabWidget.addTab(self.matchTextBrowser, "Match")
+
         tab = QWidget()
         self.groupTable = QTreeWidget(tab)
         self.groupTable.setHeaderLabels(["Match Number", "Idx", "Group Name", "Match"])
@@ -282,10 +286,6 @@ class MainWindowUI(QMainWindow):
         self.matchAllTextBrowser = QTextEdit()
         self.matchAllTextBrowser.setReadOnly(True)
         tabWidget.addTab(self.matchAllTextBrowser, "Match All")
-
-        self.matchTextBrowser = QTextEdit()
-        self.matchTextBrowser.setReadOnly(True)
-        tabWidget.addTab(self.matchTextBrowser, "Match")
 
         self.replaceTextBrowser = QTextEdit()
         self.replaceTextBrowser.setReadOnly(True)

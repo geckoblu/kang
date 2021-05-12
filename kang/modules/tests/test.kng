@@ -1,6 +1,6 @@
 {
     "match_string": "Isaac Newton, physicist, Albert Einstein, physicist",
-    "regex_string": "(\\w+) (?P<surname>\\w+)",
+    "regex_string": "(?P<name>\\w+) (?P<surname>\\w+)",
     "replace_string": "XXX",
     "flag_ignorecase": false,
     "flag_multiline": false,

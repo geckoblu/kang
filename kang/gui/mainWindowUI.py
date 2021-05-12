@@ -1,6 +1,7 @@
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QMainWindow, QAction, QToolBar, QWidget, QTableWidget, QLabel, \
-                              QGridLayout, QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QSpinBox
+                              QGridLayout, QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QSpinBox, \
+    QTreeWidget, QTreeView, QStyledItemDelegate, QAbstractItemView
 
 from kang.images import getIcon
 from kang.modules.regexprocessor import RegexProcessor
@@ -248,8 +249,10 @@ class MainWindowUI(QMainWindow):
         textLabel1 = QLabel("Match Number", groupBox)
         hboxLayout.addWidget(textLabel1)
         self.matchNumberSpinBox = QSpinBox(groupBox)
-        self.matchNumberSpinBox.setMinimum(1)
+        self.matchNumberSpinBox.setMinimum(0)
         self.matchNumberSpinBox.setMaximum(9999)
+        self.matchNumberSpinBox.setWrapping(True)
+        self.matchNumberSpinBox.valueChanged.connect(self._matchNumberChanged);
         hboxLayout.addWidget(self.matchNumberSpinBox)
 
         self.replaceLabel = QLabel("Replace Number", groupBox)
@@ -257,6 +260,8 @@ class MainWindowUI(QMainWindow):
         self.replaceNumberSpinBox = QSpinBox(groupBox)
         self.replaceNumberSpinBox.setMinimum(1)
         self.replaceNumberSpinBox.setMaximum(9999)
+        self.matchNumberSpinBox.setWrapping(True)
+        self.replaceNumberSpinBox.valueChanged.connect(self._replaceNumberChanged);
         hboxLayout.addWidget(self.replaceNumberSpinBox)
 
         gridLayout.addWidget(groupBox, 3, 0, Qt.AlignLeft)
@@ -264,8 +269,12 @@ class MainWindowUI(QMainWindow):
         tabWidget = QTabWidget(self.widget)
 
         tab = QWidget()
-        self.groupTable = QTableWidget(tab)
-        self.groupTable.setColumnCount(2)
+        self.groupTable = QTreeWidget(tab)
+        self.groupTable.setHeaderLabels(["Match Number", "Idx", "Group Name", "Match"])
+        self.groupTable.setItemsExpandable(False)
+        self.groupTable.setRootIsDecorated(False)
+        self.groupTable.setItemDelegate(MyQStyledItemDelegate())
+        self.groupTable.setSelectionMode(QAbstractItemView.NoSelection);
         gridlayout2 = QGridLayout(tab)
         gridlayout2.addWidget(self.groupTable, 0, 0, 1, 1)
         tabWidget.addTab(tab, "Group")
@@ -289,3 +298,15 @@ class MainWindowUI(QMainWindow):
         gridLayout.addWidget(tabWidget, 4, 0, 1, 1)
 
         self.setCentralWidget(self.widget)
+
+
+class MyQStyledItemDelegate(QStyledItemDelegate):
+
+    def paint(self, painter, option, index):
+        QStyledItemDelegate.paint(self, painter, option, index)
+
+        if index.column() > 0:  # and  not index.model().hasChildren(index):
+            painter.save()
+            painter.setPen(Qt.lightGray)
+            painter.drawRect(option.rect)
+            painter.restore();

@@ -146,11 +146,17 @@ class RegexProcessor(QObject):
         except IndexError:
             return None
 
-    def getGroups(self, index):
-        try:
-            return self._groupTuples[index]
-        except IndexError:
-            return []
+    def getAllGroups(self):
+        return self._groupTuples
+
+    # def getGroups(self, index):
+        # if index < 0:
+            # return self._groupTuples
+        # else:
+            # try:
+                # return self._groupTuples[index]
+            # except IndexError:
+                # return []
 
     def getEmbeddedFlags(self):
         return self._embeddedFlags

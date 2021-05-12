@@ -82,11 +82,11 @@ class TestMainWindow(unittest.TestCase):
 
     def test_matchNumSlot(self):
         self.window.loadFile(self.filename1)
-        self.window.matchNumSlot(1)
+        self.window._matchNumberChanged(1)
 
     def test_replaceNumSlot(self):
         self.window.loadFile(self.filename1)
-        self.window.replaceNumSlot(1)
+        self.window._replaceNumberChanged(1)
 
     def test_populateReplaceTextbrowser(self):
         self.window._regexProcessor.setMatchString('abcdabc')

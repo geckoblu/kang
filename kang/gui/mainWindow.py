@@ -1,9 +1,9 @@
+from PySide2.QtCore import Qt, Signal, qApp
+from PySide2.QtGui import QColor, QPalette, QBrush
+from PySide2.QtWidgets import QMessageBox, QTableWidgetItem, QFileDialog, \
+    QTreeWidgetItem
 import os
 import webbrowser
-
-from PySide2.QtCore import Qt, Signal, qApp
-from PySide2.QtGui import QColor, QPalette
-from PySide2.QtWidgets import QMessageBox, QTableWidgetItem, QFileDialog
 
 from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
 from kang.gui.aboutDialog import AboutDialog
@@ -19,6 +19,7 @@ from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
 from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, getConfigDirectory
 
+
 STATE_UNEDITED = 0
 STATE_EDITED = 1
 
@@ -26,7 +27,8 @@ GEO = 'kang_geometry'
 
 # colors for normal & examination mode
 QCOLOR_WHITE = QColor(Qt.white)  # normal
-QCOLOR_LIGHTCYAN = QColor('#DDFFFF')  # examine
+QCOLOR_EVIDENCE = QColor('#DDFFFF')  # Evidenced Match
+QCOLOR_EXAMINE = QColor('#DDFFFF')  # Examine status
 
 
 ##############################################################################
@@ -146,7 +148,7 @@ class MainWindow(MainWindowUI):
         self._isExamined = not self._isExamined
 
         if self._isExamined:
-            color = QCOLOR_LIGHTCYAN
+            color = QCOLOR_EXAMINE
             self.regexMultiLineEdit.setReadOnly(True)
             self.stringMultiLineEdit.setReadOnly(True)
             self.replaceTextEdit.setReadOnly(True)
@@ -169,17 +171,17 @@ class MainWindow(MainWindowUI):
         self.regexMultiLineEdit.blockSignals(0)
         self.regexMultiLineEdit.setPlainText(regex)
 
-    def matchNumSlot(self, num):
+    def _matchNumberChanged(self):
         self._populateGroupTable()
         self._populateMatchTextbrowser()
 
-    def replaceNumSlot(self, num):
+    def _replaceNumberChanged(self, num):
         self._populateReplaceTextbrowser()
 
     def _clear(self):
         self._clearResults()
 
-        self.matchNumberSpinBox.setValue(1)
+        self.matchNumberSpinBox.setValue(0)
         self.regexMultiLineEdit.setPlainText('')
         self.stringMultiLineEdit.setPlainText('')
         self.replaceTextEdit.setPlainText('')
@@ -192,8 +194,7 @@ class MainWindow(MainWindowUI):
         self.unicodeCheckBox.setChecked(False)
 
     def _clearResults(self):
-        self.groupTable.clearContents()
-        self.groupTable.setRowCount(0)
+        self.groupTable.clear()
         self.codeTextBrowser.setPlainText('')
         self.matchTextBrowser.setPlainText('')
         self.matchNumberSpinBox.setEnabled(False)
@@ -216,15 +217,39 @@ class MainWindow(MainWindowUI):
             self.replaceTextBrowser.setDisabled(True)
 
     def _populateGroupTable(self):
-        groups = self._regexProcessor.getGroups(self.matchNumberSpinBox.value() - 1)
+        groups = self._regexProcessor.getAllGroups()
+        
+        brush = QBrush(QCOLOR_EVIDENCE);
+        evidenceMatchNumber = self.matchNumberSpinBox.value()
 
-        self.groupTable.setRowCount(len(groups))
+        self.groupTable.clear()
 
-        row = 0
-        for t in groups:
-            self.groupTable.setItem(row, 0, QTableWidgetItem(t[1]))
-            self.groupTable.setItem(row, 1, QTableWidgetItem(t[2]))
-            row += 1
+        for matchNumber, group in enumerate(groups, start=1):
+            #print(matchNumber, group)
+            
+            child = None
+            for subGroup in group:
+                if not child:
+                    child = QTreeWidgetItem(self.groupTable)
+                    child.setText(0, str(matchNumber))
+                    item = child
+                else:
+                    subchild = QTreeWidgetItem()                    
+                    child.addChild(subchild)
+                    item = subchild
+                    
+                item.setText(1, str(subGroup[0]))
+                item.setText(2, subGroup[1])
+                item.setText(3, subGroup[2])
+                if (matchNumber == evidenceMatchNumber):
+                    item.setBackground(0 , brush);
+                    item.setBackground(1 , brush);
+                    item.setBackground(2 , brush);
+                    item.setBackground(3 , brush);
+                    
+        self.groupTable.expandAll()        
+        for column in range(0,self.groupTable.columnCount()):
+            self.groupTable.resizeColumnToContents(column)
 
     def _populateMatchTextbrowser(self):
         spans = []

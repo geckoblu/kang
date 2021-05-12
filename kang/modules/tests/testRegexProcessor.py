@@ -70,9 +70,9 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(len(spans), 2)
         self.assertEqual(spans, [(15, 19), (37, 41)])
         self.assertEqual(len(rp._groupTuples), 2)
-        self.assertEqual(rp.getGroups(0), [(1, '', 'vien')])
-        self.assertEqual(rp.getGroups(1), [(1, '', 'vien')])
-        self.assertEqual(rp.getGroups(2), [])  # out of index
+        groups = rp.getAllGroups()
+        self.assertEqual(groups[0], [(1, '', 'vien')])
+        self.assertEqual(groups[1], [(1, '', 'vien')])
         self.assertTrue(self._statusChanged)
 
         # Two groups, three matches
@@ -84,9 +84,10 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(len(spans), 3)
         self.assertEqual(spans, [(15, 19), (31, 34), (37, 41)])
         self.assertEqual(len(rp._groupTuples), 3)
-        self.assertEqual(rp.getGroups(0), [(1, '', 'vien'), (2, '', '')])
-        self.assertEqual(rp.getGroups(1), [(1, '', ''), (2, '', 'gna')])
-        self.assertEqual(rp.getGroups(2), [(1, '', 'vien'), (2, '', '')])
+        groups = rp.getAllGroups()
+        self.assertEqual(groups[0], [(1, '', 'vien'), (2, '', '')])
+        self.assertEqual(groups[1], [(1, '', ''), (2, '', 'gna')])
+        self.assertEqual(groups[2], [(1, '', 'vien'), (2, '', '')])
         self.assertTrue(self._statusChanged)
 
         # Two groups (one named), three matches
@@ -98,9 +99,10 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(len(spans), 3)
         self.assertEqual(spans, [(15, 19), (31, 34), (37, 41)])
         self.assertEqual(len(rp._groupTuples), 3)
-        self.assertEqual(rp.getGroups(0), [(1, 'n1', 'vien'), (2, '', '')])
-        self.assertEqual(rp.getGroups(1), [(1, 'n1', ''), (2, '', 'gna')])
-        self.assertEqual(rp.getGroups(2), [(1, 'n1', 'vien'), (2, '', '')])
+        groups = rp.getAllGroups()
+        self.assertEqual(groups[0], [(1, 'n1', 'vien'), (2, '', '')])
+        self.assertEqual(groups[1], [(1, 'n1', ''), (2, '', 'gna')])
+        self.assertEqual(groups[2], [(1, 'n1', 'vien'), (2, '', '')])
         self.assertTrue(self._statusChanged)
 
         # Two groups (both named), three matches
@@ -112,9 +114,10 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(len(spans), 3)
         self.assertEqual(spans, [(15, 19), (31, 34), (37, 41)])
         self.assertEqual(len(rp._groupTuples), 3)
-        self.assertEqual(rp.getGroups(0), [(1, 'n1', 'vien'), (2, 'n2', '')])
-        self.assertEqual(rp.getGroups(1), [(1, 'n1', ''), (2, 'n2', 'gna')])
-        self.assertEqual(rp.getGroups(2), [(1, 'n1', 'vien'), (2, 'n2', '')])
+        groups = rp.getAllGroups()
+        self.assertEqual(groups[0], [(1, 'n1', 'vien'), (2, 'n2', '')])
+        self.assertEqual(groups[1], [(1, 'n1', ''), (2, 'n2', 'gna')])
+        self.assertEqual(groups[2], [(1, 'n1', 'vien'), (2, 'n2', '')])
         self.assertTrue(self._statusChanged)
 
         # Two groups (same name)
@@ -133,8 +136,9 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(len(spans), 3)
         self.assertEqual(spans, [(15, 19), (31, 34), (37, 41)])
         self.assertEqual(len(rp._groupTuples), 3)
-        self.assertEqual(rp.getGroups(0), [(1, '', 'vien')])
-        self.assertEqual(rp.getGroups(1), [(1, '', '')])
+        groups = rp.getAllGroups()
+        self.assertEqual(groups[0], [(1, '', 'vien')])
+        self.assertEqual(groups[1], [(1, '', '')])
         self.assertTrue(self._statusChanged)
 
     def test_replace(self):

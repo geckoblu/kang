@@ -13,11 +13,9 @@ pylint -f html kang > ~/tmp/kang-pylint.html
 
 
 
-
 tests
 -----------------------
 python3 -m unittest discover
-
 
 
 
@@ -25,7 +23,6 @@ code coverage
 -----------------------
 
 python3-coverage run -m unittest discover && python3-coverage html -i
-
 
 
 

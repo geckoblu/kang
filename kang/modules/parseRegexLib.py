@@ -1,8 +1,6 @@
 import os
 import re
 
-from PySide2.QtCore import QFile, QTextStream, QIODevice
-
 _RX_ENTRY = re.compile(r"<entry>(?P<content>.*?)</entry>", re.DOTALL)
 
 _RX_DICT = {'desc': re.compile(r"<desc>(.*)</desc>", re.DOTALL),
@@ -20,13 +18,8 @@ class ParseRegexLib:
     def __init__(self):
         path = os.path.join(os.path.dirname(__file__), 'regex-lib.xml')
         if os.path.isfile(path):
-            try:
-                f = QFile(path)
-                f.open(QIODevice.ReadOnly | QIODevice.Text)
-                self.data = QTextStream(f).readAll()
-            finally:
-                if f:
-                    f.close()
+            with open(path, 'r') as regexlibrary:
+                self.data = regexlibrary.read()
 
     def parse(self, data=""):
         if not data:

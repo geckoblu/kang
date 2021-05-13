@@ -1,7 +1,11 @@
-S'(?P<n1>vien)|(gna)'
-p1
-.S'La donzelletta vien dalla campagna e vien in compagnia di rose e viole'
-p2
-.I126
-.S'1'
-.
+{
+    "match_string": "La donzelletta vien dalla campagna e vien in compagnia di rose e viole",
+    "regex_string": "(?P<n1>vien)|(gna)",
+    "replace_string": "1",
+    "flag_ignorecase": true,
+    "flag_multiline": true,
+    "flag_dotall": true,
+    "flag_verbose": true,
+    "flag_locale": true,
+    "flag_unicode": true
+}

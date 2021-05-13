@@ -110,7 +110,6 @@ class MainWindow(MainWindowUI):
 
         self._populateGroupTable()
         self._populateMatchTextbrowser()
-        self._populateMatchAllTextbrowser()
         self._populateReplaceTextbrowser()
         self._populateCodeTextBrowser()
         self._populateEmbeddedFlags()
@@ -194,7 +193,6 @@ class MainWindow(MainWindowUI):
         self.matchNumberSpinBox.setEnabled(False)
         self.replaceNumberSpinBox.setEnabled(False)
         self.replaceTextBrowser.setPlainText('')
-        self.matchAllTextBrowser.setPlainText('')
 
     def _showReplaceWidgets(self, show):
         if show:
@@ -252,10 +250,6 @@ class MainWindow(MainWindowUI):
         else:
             spans = self._regexProcessor.getAllSpans()
         self._populateText(spans, self.matchTextBrowser)
-
-    def _populateMatchAllTextbrowser(self):
-        spans = self._regexProcessor.getAllSpans()
-        self._populateText(spans, self.matchAllTextBrowser)
 
     def _populateReplaceTextbrowser(self):
 

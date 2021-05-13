@@ -280,10 +280,6 @@ class MainWindowUI(QMainWindow):
         gridlayout2.addWidget(self.groupTable, 0, 0, 1, 1)
         tabWidget.addTab(tab, "Group")
 
-        self.matchAllTextBrowser = QTextEdit()
-        self.matchAllTextBrowser.setReadOnly(True)
-        tabWidget.addTab(self.matchAllTextBrowser, "Match All")
-
         self.replaceTextBrowser = QTextEdit()
         self.replaceTextBrowser.setReadOnly(True)
         tabWidget.addTab(self.replaceTextBrowser, "Replace")

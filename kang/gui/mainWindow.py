@@ -1,9 +1,9 @@
-from PySide2.QtCore import Qt, Signal, qApp
-from PySide2.QtGui import QColor, QPalette, QBrush
-from PySide2.QtWidgets import QMessageBox, QTableWidgetItem, QFileDialog, \
-    QTreeWidgetItem
 import os
 import webbrowser
+
+from PySide2.QtCore import Qt, Signal, qApp
+from PySide2.QtGui import QColor, QPalette, QBrush
+from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
 
 from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
 from kang.gui.aboutDialog import AboutDialog
@@ -54,14 +54,8 @@ class MainWindow(MainWindowUI):
         self.url = KANG_WEBSITE
         self.editstate = STATE_UNEDITED
 
-        # FIXME header = self.groupTable.horizontalHeader()
-        # FIXME header.setResizeMode(QHeaderView.Stretch)
-        # header.setStretchLastSection(True)
-
         self.refWin = None
         self.regexlibwin = None
-
-        # self.loadToolbarIcons()
 
         self.updateStatus(MSG_NA, MATCH_NA)
         self._clearResults()
@@ -219,7 +213,7 @@ class MainWindow(MainWindowUI):
     def _populateGroupTable(self):
         groups = self._regexProcessor.getAllGroups()
 
-        brush = QBrush(QCOLOR_EVIDENCE);
+        brush = QBrush(QCOLOR_EVIDENCE)
         evidenceMatchNumber = self.matchNumberSpinBox.value()
 
         self.groupTable.clear()
@@ -241,11 +235,11 @@ class MainWindow(MainWindowUI):
                 item.setText(1, str(subGroup[0]))
                 item.setText(2, subGroup[1])
                 item.setText(3, subGroup[2])
-                if (matchNumber == evidenceMatchNumber):
-                    item.setBackground(0 , brush);
-                    item.setBackground(1 , brush);
-                    item.setBackground(2 , brush);
-                    item.setBackground(3 , brush);
+                if matchNumber == evidenceMatchNumber:
+                    item.setBackground(0, brush)
+                    item.setBackground(1, brush)
+                    item.setBackground(2, brush)
+                    item.setBackground(3, brush)
 
         self.groupTable.expandAll()
         for column in range(0, self.groupTable.columnCount()):
@@ -480,15 +474,15 @@ class MainWindow(MainWindowUI):
 
             self._regexProcessor.pause()
 
-            self.regexMultiLineEdit.setPlainText(kngfile.regex_string)
-            self.stringMultiLineEdit.setPlainText(kngfile.match_string)
-            self.replaceTextEdit.setPlainText(kngfile.replace_string)
+            self.regexMultiLineEdit.setPlainText(kngfile.regexString)
+            self.stringMultiLineEdit.setPlainText(kngfile.matchString)
+            self.replaceTextEdit.setPlainText(kngfile.replaceString)
 
-            self.ignorecaseCheckBox.setChecked(kngfile.flag_ignorecase)
-            self.multilineCheckBox.setChecked(kngfile.flag_multiline)
-            self.dotallCheckBox.setChecked(kngfile.flag_dotall)
-            self.verboseCheckBox.setChecked(kngfile.flag_verbose)
-            self.asciiCheckBox.setChecked(kngfile.flag_ascii)
+            self.ignorecaseCheckBox.setChecked(kngfile.flagIgnorecase)
+            self.multilineCheckBox.setChecked(kngfile.flagMultiline)
+            self.dotallCheckBox.setChecked(kngfile.flagDotall)
+            self.verboseCheckBox.setChecked(kngfile.flagVerbose)
+            self.asciiCheckBox.setChecked(kngfile.flagAscii)
 
             self.filename = filename
             self.recentFiles.add(self.filename)

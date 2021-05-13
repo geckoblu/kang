@@ -180,7 +180,7 @@ class MainWindowUI(QMainWindow):
     def _setupStatusBar(self):
         permanentStatusLabel = QLabel()
         self.statusBar().addWidget(permanentStatusLabel, 1)
-        self.statusBar().showPermanentMessage = lambda msg: permanentStatusLabel.setText(msg)
+        self.statusBar().showPermanentMessage = permanentStatusLabel.setText
 
     def _setupCentralWidget(self):
         self.widget = QWidget(self)
@@ -249,7 +249,7 @@ class MainWindowUI(QMainWindow):
         self.matchNumberSpinBox.setMinimum(0)
         self.matchNumberSpinBox.setMaximum(9999)
         self.matchNumberSpinBox.setWrapping(True)
-        self.matchNumberSpinBox.valueChanged.connect(self._matchNumberChanged);
+        self.matchNumberSpinBox.valueChanged.connect(self._matchNumberChanged)
         hboxLayout.addWidget(self.matchNumberSpinBox)
 
         self.replaceLabel = QLabel("Replace Number", groupBox)
@@ -258,7 +258,7 @@ class MainWindowUI(QMainWindow):
         self.replaceNumberSpinBox.setMinimum(1)
         self.replaceNumberSpinBox.setMaximum(9999)
         self.matchNumberSpinBox.setWrapping(True)
-        self.replaceNumberSpinBox.valueChanged.connect(self._replaceNumberChanged);
+        self.replaceNumberSpinBox.valueChanged.connect(self._replaceNumberChanged)
         hboxLayout.addWidget(self.replaceNumberSpinBox)
 
         gridLayout.addWidget(groupBox, 3, 0, Qt.AlignLeft)
@@ -275,7 +275,7 @@ class MainWindowUI(QMainWindow):
         self.groupTable.setItemsExpandable(False)
         self.groupTable.setRootIsDecorated(False)
         self.groupTable.setItemDelegate(MyQStyledItemDelegate())
-        self.groupTable.setSelectionMode(QAbstractItemView.NoSelection);
+        self.groupTable.setSelectionMode(QAbstractItemView.NoSelection)
         gridlayout2 = QGridLayout(tab)
         gridlayout2.addWidget(self.groupTable, 0, 0, 1, 1)
         tabWidget.addTab(tab, "Group")
@@ -306,4 +306,4 @@ class MyQStyledItemDelegate(QStyledItemDelegate):
             painter.save()
             painter.setPen(Qt.lightGray)
             painter.drawRect(option.rect)
-            painter.restore();
+            painter.restore()

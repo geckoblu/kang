@@ -1,8 +1,6 @@
 import re
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+from PySide2.QtCore import QObject, Signal
 
 from kang import MATCH_NA, MSG_NA, MATCH_FAIL, MSG_FAIL, MSG_MATCH_FOUND, MATCH_OK, MSG_MATCHES_FOUND
 
@@ -16,11 +14,10 @@ class RegexProcessor(QObject):
     def __init__(self):
         super(RegexProcessor, self).__init__()
 
-        self._regexString = ''
         self._matchString = ''
+        self._regexString = ''
         self._replaceString = ''
 
-        self._flags = 0
         self._ignorecaseFlag = False
         self._multilineFlag = False
         self._dotallFlag = False
@@ -66,64 +63,60 @@ class RegexProcessor(QObject):
         old = self._ignorecaseFlag
         self._ignorecaseFlag = flag
         if flag != old:
-            self._setFlags()
             self._process()
 
     def setMultilineFlag(self, flag):
         old = self._multilineFlag
         self._multilineFlag = flag
         if flag != old:
-            self._setFlags()
             self._process()
 
     def setDotallFlag(self, flag):
         old = self._dotallFlag
         self._dotallFlag = flag
         if flag != old:
-            self._setFlags()
             self._process()
 
     def setVerboseFlag(self, flag):
         old = self._verboseFlag
         self._verboseFlag = flag
         if flag != old:
-            self._setFlags()
             self._process()
 
     def setLocaleFlag(self, flag):
         old = self._localeFlag
         self._localeFlag = flag
         if flag != old:
-            self._setFlags()
             self._process()
 
     def setAsciiFlag(self, flag):
         old = self._asciiFlag
         self._asciiFlag = flag
         if flag != old:
-            self._setFlags()
             self._process()
 
-    def _setFlags(self):
-        self._flags = 0
+    def _flags(self):
+        flags = 0
 
         if self._ignorecaseFlag:
-            self._flags = self._flags + re.IGNORECASE
+            flags = flags + re.IGNORECASE
 
         if self._multilineFlag:
-            self._flags = self._flags + re.MULTILINE
+            flags = flags + re.MULTILINE
 
         if self._dotallFlag:
-            self._flags = self._flags + re.DOTALL
+            flags = flags + re.DOTALL
 
         if self._verboseFlag:
-            self._flags = self._flags + re.VERBOSE
+            flags = flags + re.VERBOSE
 
         if self._localeFlag:
-            self._flags = self._flags + re.LOCALE
+            flags = flags + re.LOCALE
 
         if self._asciiFlag:
-            self._flags = self._flags + re.ASCII
+            flags = flags + re.ASCII
+
+        return flags
 
     def pause(self):
         self._paused = True
@@ -179,7 +172,7 @@ class RegexProcessor(QObject):
             return
 
         try:
-            compileObj = re.compile(self._regexString, self._flags)
+            compileObj = re.compile(self._regexString, self._flags())
             matches = compileObj.finditer(self._matchString)
         except re.error as ex:
             self._status = (MATCH_FAIL, str(ex))
@@ -276,7 +269,7 @@ class RegexProcessor(QObject):
         for i in range(length, 0, -1):
             regex = regex[:i]
             try:
-                m = re.search(regex, self._matchString, self._flags)
+                m = re.search(regex, self._matchString, self._flags())
                 if m:
                     return (regexSaved, regex)
             except re.error:

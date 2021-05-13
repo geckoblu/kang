@@ -6,6 +6,5 @@
     "flag_multiline": true,
     "flag_dotall": true,
     "flag_verbose": true,
-    "flag_locale": false,
-    "flag_unicode": true
+    "flag_acii": true
 }

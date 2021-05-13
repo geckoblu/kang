@@ -7,43 +7,44 @@ class KngFile:
     """Used to handle Kang file prject"""
 
     def __init__(
-            self, filename,
-            match_string='',
-            regex_string='',
-            replace_string='',
-            flag_ignorecase=False,
-            flag_multiline=False,
-            flag_dotall=False,
-            flag_verbose=False,
-            flag_ascii=False
+            self,
+            filename,
+            matchString='',
+            regexString='',
+            replaceString='',
+            flagIgnorecase=False,
+            flagMultiline=False,
+            flagDotall=False,
+            flagVerbose=False,
+            flagAscii=False
         ):
 
         self.filename = filename
 
-        self.match_string = match_string
-        self.regex_string = regex_string
-        self.replace_string = replace_string
+        self.matchString = matchString
+        self.regexString = regexString
+        self.replaceString = replaceString
 
-        self.flag_ignorecase = flag_ignorecase
-        self.flag_multiline = flag_multiline
-        self.flag_dotall = flag_dotall
-        self.flag_verbose = flag_verbose
-        self.flag_ascii = flag_ascii
+        self.flagIgnorecase = flagIgnorecase
+        self.flagMultiline = flagMultiline
+        self.flagDotall = flagDotall
+        self.flagVerbose = flagVerbose
+        self.flagAscii = flagAscii
 
     def save(self):
         """Save Kang project to file"""
 
         jdict = {}
 
-        jdict['match_string'] = self.match_string
-        jdict['regex_string'] = self.regex_string
-        jdict['replace_string'] = self.replace_string
+        jdict['match_string'] = self.matchString
+        jdict['regex_string'] = self.regexString
+        jdict['replace_string'] = self.replaceString
 
-        jdict['flag_ignorecase'] = self.flag_ignorecase
-        jdict['flag_multiline'] = self.flag_multiline
-        jdict['flag_dotall'] = self.flag_dotall
-        jdict['flag_verbose'] = self.flag_verbose
-        jdict['flag_ascii'] = self.flag_ascii
+        jdict['flag_ignorecase'] = self.flagIgnorecase
+        jdict['flag_multiline'] = self.flagMultiline
+        jdict['flag_dotall'] = self.flagDotall
+        jdict['flag_verbose'] = self.flagVerbose
+        jdict['flag_ascii'] = self.flagAscii
 
         with open(self.filename, 'w') as jfile:
             json.dump(jdict, jfile, indent=4)
@@ -53,46 +54,43 @@ class KngFile:
             with open(self.filename, 'r') as jfile:
                 jdict = json.load(jfile)
 
-            self.match_string = jdict.get('match_string', '')
-            self.regex_string = jdict.get('regex_string', '')
-            self.replace_string = jdict.get('replace_string', '')
+            self.matchString = jdict.get('match_string', '')
+            self.regexString = jdict.get('regex_string', '')
+            self.replaceString = jdict.get('replace_string', '')
 
-            self.flag_ignorecase = jdict.get('flag_ignorecase', False)
-            self.flag_multiline = jdict.get('flag_multiline', False)
-            self.flag_dotall = jdict.get('flag_dotall', False)
-            self.flag_verbose = jdict.get('flag_verbose', False)
-            self.flag_ascii = jdict.get('flag_ascii', False)
+            self.flagIgnorecase = jdict.get('flag_ignorecase', False)
+            self.flagMultiline = jdict.get('flag_multiline', False)
+            self.flagDotall = jdict.get('flag_dotall', False)
+            self.flagVerbose = jdict.get('flag_verbose', False)
+            self.flagAscii = jdict.get('flag_ascii', False)
 
         except json.decoder.JSONDecodeError as jsonexception:
             try:
                 # Try to load an old pickler version
-                self._load_pickler()
+                self._loadPickler()
             except:
                 raise jsonexception
 
-    def _load_pickler(self):
+    def _loadPickler(self):
         """Load Kang project from file (old version using pickle)"""
         with open(self.filename, 'rb') as picklerfile:
             unpickler = pickle.Unpickler(picklerfile)
-            self.regex_string = unpickler.load()
-            self.match_string = unpickler.load()
+            self.regexString = unpickler.load()
+            self.matchString = unpickler.load()
             flags = unpickler.load()
-            self.replace_string = unpickler.load()
+            self.replaceString = unpickler.load()
 
-            self.flag_ignorecase = bool(flags & re.IGNORECASE)
-            self.flag_multiline = bool(flags & re.MULTILINE)
-            self.flag_dotall = bool(flags & re.DOTALL)
-            self.flag_verbose = bool(flags & re.VERBOSE)
-            self.flag_locale = bool(flags & re.LOCALE)
-            self.flag_ascii = bool(flags & re.UNICODE)
+            self.flagIgnorecase = bool(flags & re.IGNORECASE)
+            self.flagMultiline = bool(flags & re.MULTILINE)
+            self.flagDotall = bool(flags & re.DOTALL)
+            self.flagVerbose = bool(flags & re.VERBOSE)
 
 #    Deprecated
-#    def _save_pickler(self):
+#    def _savePickler(self):
 #        """Save Kang project to file (old version using pickle)"""
 #        with open(self.filename, 'wb') as picklerfile:
 #            pickler = pickle.Pickler(picklerfile)
-#            pickler.dump(self.regex_string)
-#            pickler.dump(self.match_string)
+#            pickler.dump(self.regexString)
+#            pickler.dump(self.matchString)
 #            pickler.dump(self.flags)
-#            pickler.dump(self.replace_string)
-
+#            pickler.dump(self.replaceString)

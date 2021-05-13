@@ -1,6 +1,5 @@
 # pylint: disable=protected-access
 
-import re
 import unittest
 
 from kang.modules.regexprocessor import RegexProcessor, MATCH_OK, MATCH_NA, MATCH_FAIL
@@ -17,13 +16,13 @@ class TestRegexProcessor(unittest.TestCase):
         rp.statusChanged.connect(self.statusChanged)
 
         rp.setMatchString('La donzelletta vien dalla campagna e vien in compagnia di rose e viole')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_NA)
 
         # Three matches
         self._statusChanged = False
         rp.setRegexString('v')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         spans = rp.getAllSpans()
         self.assertEqual(len(spans), 3)
@@ -34,7 +33,7 @@ class TestRegexProcessor(unittest.TestCase):
         # Two matches
         self._statusChanged = False
         rp.setRegexString('vien')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         spans = rp.getAllSpans()
         self.assertEqual(len(spans), 2)
@@ -45,7 +44,7 @@ class TestRegexProcessor(unittest.TestCase):
         # No matches
         self._statusChanged = False
         rp.setRegexString('xxx')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_FAIL)
         spans = rp.getAllSpans()
         self.assertEqual(len(spans), 0)
@@ -58,13 +57,13 @@ class TestRegexProcessor(unittest.TestCase):
         rp.statusChanged.connect(self.statusChanged)
 
         rp.setMatchString('La donzelletta vien dalla campagna e vien in compagnia di rose e viole')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_NA)
 
         # One group, two matches
         self._statusChanged = False
         rp.setRegexString('(vien)')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         spans = rp.getAllSpans()
         self.assertEqual(len(spans), 2)
@@ -78,7 +77,7 @@ class TestRegexProcessor(unittest.TestCase):
         # Two groups, three matches
         self._statusChanged = False
         rp.setRegexString('(vien)|(gna)')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         spans = rp.getAllSpans()
         self.assertEqual(len(spans), 3)
@@ -93,7 +92,7 @@ class TestRegexProcessor(unittest.TestCase):
         # Two groups (one named), three matches
         self._statusChanged = False
         rp.setRegexString('(?P<n1>vien)|(gna)')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         spans = rp.getAllSpans()
         self.assertEqual(len(spans), 3)
@@ -108,7 +107,7 @@ class TestRegexProcessor(unittest.TestCase):
         # Two groups (both named), three matches
         self._statusChanged = False
         rp.setRegexString('(?P<n1>vien)|(?P<n2>gna)')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         spans = rp.getAllSpans()
         self.assertEqual(len(spans), 3)
@@ -123,14 +122,14 @@ class TestRegexProcessor(unittest.TestCase):
         # Two groups (same name)
         self._statusChanged = False
         rp.setRegexString('(?P<n1>vien)|(?P<n1>gna)')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_FAIL)
         self.assertTrue(self._statusChanged)
 
         # One group plus one match
         self._statusChanged = False
         rp.setRegexString('(vien)|gna')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         spans = rp.getAllSpans()
         self.assertEqual(len(spans), 3)
@@ -147,10 +146,10 @@ class TestRegexProcessor(unittest.TestCase):
 
         # Normal match (2)
         rp.setRegexString('b')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         rp.setReplaceString('x')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 
         status, strings = rp.replace(1)
@@ -175,10 +174,10 @@ class TestRegexProcessor(unittest.TestCase):
 
         # Group match (2)
         rp.setRegexString('(b)')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         rp.setReplaceString('x')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 
         status, strings = rp.replace(0)  # 0 stands for 'all'
@@ -186,7 +185,7 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(strings, ['axcdaxcxc'])
 
         rp.setReplaceString(r'x\1')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 
         status, strings = rp.replace(0)  # 0 stands for 'all'
@@ -194,14 +193,14 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(strings, ['axbcdaxbcxbc'])
 
         rp.setReplaceString(r'x\2')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         status, strings = rp.replace(0)  # 0 stands for 'all'
         self.assertEqual(status, MATCH_FAIL)
         self.assertEqual(strings, 'invalid group reference 2 at position 2')
 
         rp.setReplaceString('x\\')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         status, strings = rp.replace(0)  # 0 stands for 'all'
         self.assertEqual(status, MATCH_FAIL)
@@ -217,7 +216,7 @@ class TestRegexProcessor(unittest.TestCase):
     <a class="calibre8" href="(.*?)"><span class="calibre9 underline">(.*?)</span></a>
   </blockquote>""")
         rp.setReplaceString('<a class="noteref" id="\\1" href="\\2">\\3</a>')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         status, strings = rp.replace(0)  # 0 stands for 'all'
         self.assertEqual(status, MATCH_OK)
@@ -228,25 +227,23 @@ class TestRegexProcessor(unittest.TestCase):
         rp.setMatchString('V')
 
         rp.setRegexString('v')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_FAIL)
 
         rp.setIgnorecaseFlag(True)
-        self.assertEqual(rp._flags, re.IGNORECASE)
         rp.setRegexString('v')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 
         rp.setIgnorecaseFlag(False)
-        self.assertEqual(rp._flags, 0)
         rp.setRegexString('v')
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_FAIL)
 
         rp.setIgnorecaseFlag(False)
         rp.setRegexString('(?i)v')
         self.assertTrue(rp._ignorecaseFlagEmbedded)
-        status, _ = rp.getStatus()
+        status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 
     def test_getRegexCode(self):

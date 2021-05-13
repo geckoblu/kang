@@ -29,7 +29,7 @@ QCOLOR_WHITE = QColor(Qt.white)  # normal
 QCOLOR_EVIDENCE = QColor('#DDFFFF')  # Evidenced Match
 QCOLOR_EXAMINE = QColor('#DDFFFF')  # Examine status
 
-SHORTMESSAGE_DURATION = 5 # seconds
+SHORTMESSAGE_DURATION = 5  # seconds
 
 
 ##############################################################################
@@ -191,7 +191,7 @@ class MainWindow(MainWindowUI):
         self.multilineCheckBox.setChecked(False)
         self.dotallCheckBox.setChecked(False)
         self.verboseCheckBox.setChecked(False)
-        self.unicodeCheckBox.setChecked(False)
+        self.asciiCheckBox.setChecked(False)
 
     def _clearResults(self):
         self.groupTable.clear()
@@ -281,7 +281,7 @@ class MainWindow(MainWindowUI):
         self.ignorecaseCheckBox.setEnabled(True)
         self.multilineCheckBox.setEnabled(True)
         self.dotallCheckBox.setEnabled(True)
-        self.unicodeCheckBox.setEnabled(True)
+        self.asciiCheckBox.setEnabled(True)
         self.verboseCheckBox.setEnabled(True)
 
         flags = self._regexProcessor.getEmbeddedFlags()
@@ -298,8 +298,8 @@ class MainWindow(MainWindowUI):
                 self.dotallCheckBox.setEnabled(False)
                 self.dotallCheckBox.setChecked(True)
             elif flag == 'u':
-                self.unicodeCheckBox.setEnabled(False)
-                self.unicodeCheckBox.setChecked(True)
+                self.asciiCheckBox.setEnabled(False)
+                self.asciiCheckBox.setChecked(True)
             elif flag == 'x':
                 self.verboseCheckBox.setEnabled(False)
                 self.verboseCheckBox.setChecked(True)
@@ -397,7 +397,7 @@ class MainWindow(MainWindowUI):
         self.multilineCheckBox.setChecked(False)
         self.dotallCheckBox.setChecked(False)
         self.verboseCheckBox.setChecked(False)
-        self.unicodeCheckBox.setChecked(False)
+        self.asciiCheckBox.setChecked(False)
 
         self.editstate = STATE_UNEDITED
 
@@ -427,8 +427,8 @@ class MainWindow(MainWindowUI):
                               self.ignorecaseCheckBox.isChecked(),
                               self.multilineCheckBox.isChecked(),
                               self.dotallCheckBox.isChecked(),
-                              self.verboseCheckBox.isChecked(),                              
-                              self.unicodeCheckBox.isChecked()
+                              self.verboseCheckBox.isChecked(),
+                              self.asciiCheckBox.isChecked()
                               )
             kngfile.save()
 
@@ -488,7 +488,7 @@ class MainWindow(MainWindowUI):
             self.multilineCheckBox.setChecked(kngfile.flag_multiline)
             self.dotallCheckBox.setChecked(kngfile.flag_dotall)
             self.verboseCheckBox.setChecked(kngfile.flag_verbose)
-            self.unicodeCheckBox.setChecked(kngfile.flag_unicode)
+            self.asciiCheckBox.setChecked(kngfile.flag_ascii)
 
             self.filename = filename
             self.recentFiles.add(self.filename)

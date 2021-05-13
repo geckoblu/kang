@@ -15,7 +15,7 @@ class KngFile:
             flag_multiline=False,
             flag_dotall=False,
             flag_verbose=False,
-            flag_unicode=False
+            flag_ascii=False
         ):
 
         self.filename = filename
@@ -28,7 +28,7 @@ class KngFile:
         self.flag_multiline = flag_multiline
         self.flag_dotall = flag_dotall
         self.flag_verbose = flag_verbose
-        self.flag_unicode = flag_unicode
+        self.flag_ascii = flag_ascii
 
     def save(self):
         """Save Kang project to file"""
@@ -43,7 +43,7 @@ class KngFile:
         jdict['flag_multiline'] = self.flag_multiline
         jdict['flag_dotall'] = self.flag_dotall
         jdict['flag_verbose'] = self.flag_verbose
-        jdict['flag_unicode'] = self.flag_unicode
+        jdict['flag_ascii'] = self.flag_ascii
 
         with open(self.filename, 'w') as jfile:
             json.dump(jdict, jfile, indent=4)
@@ -61,7 +61,7 @@ class KngFile:
             self.flag_multiline = jdict.get('flag_multiline', False)
             self.flag_dotall = jdict.get('flag_dotall', False)
             self.flag_verbose = jdict.get('flag_verbose', False)
-            self.flag_unicode = jdict.get('flag_unicode', False)
+            self.flag_ascii = jdict.get('flag_ascii', False)
 
         except json.decoder.JSONDecodeError as jsonexception:
             try:
@@ -84,7 +84,7 @@ class KngFile:
             self.flag_dotall = bool(flags & re.DOTALL)
             self.flag_verbose = bool(flags & re.VERBOSE)
             self.flag_locale = bool(flags & re.LOCALE)
-            self.flag_unicode = bool(flags & re.UNICODE)
+            self.flag_ascii = bool(flags & re.UNICODE)
 
 #    Deprecated
 #    def _save_pickler(self):
@@ -96,13 +96,3 @@ class KngFile:
 #            pickler.dump(self.flags)
 #            pickler.dump(self.replace_string)
 
-
-if __name__ == "__main__":
-    import sys
-    print(sys.argv)
-
-    filename = sys.argv[1]
-
-    kng = KngFile(filename)
-    kng._load_pickler()
-    kng.save()

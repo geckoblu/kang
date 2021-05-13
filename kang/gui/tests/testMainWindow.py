@@ -104,7 +104,7 @@ class TestMainWindow(unittest.TestCase):
         self.window.ignorecaseCheckBox.setChecked(True)
         self.window.multilineCheckBox.setChecked(True)
         self.window.dotallCheckBox.setChecked(True)
-        self.window.unicodeCheckBox.setChecked(True)
+        self.window.asciiCheckBox.setChecked(True)
         self.window.verboseCheckBox.setChecked(True)
 
         self.window._regexProcessor.setRegexString('(?iLmsux)')
@@ -116,8 +116,8 @@ class TestMainWindow(unittest.TestCase):
         self.assertFalse(self.window.multilineCheckBox.isEnabled())
         self.assertTrue(self.window.dotallCheckBox.isChecked())
         self.assertFalse(self.window.dotallCheckBox.isEnabled())
-        self.assertTrue(self.window.unicodeCheckBox.isChecked())
-        self.assertFalse(self.window.unicodeCheckBox.isEnabled())
+        self.assertTrue(self.window.asciiCheckBox.isChecked())
+        self.assertFalse(self.window.asciiCheckBox.isEnabled())
         self.assertTrue(self.window.verboseCheckBox.isChecked())
         self.assertFalse(self.window.verboseCheckBox.isEnabled())
 
@@ -130,8 +130,8 @@ class TestMainWindow(unittest.TestCase):
         self.assertTrue(self.window.multilineCheckBox.isEnabled())
         self.assertTrue(self.window.dotallCheckBox.isChecked())
         self.assertTrue(self.window.dotallCheckBox.isEnabled())
-        self.assertTrue(self.window.unicodeCheckBox.isChecked())
-        self.assertTrue(self.window.unicodeCheckBox.isEnabled())
+        self.assertTrue(self.window.asciiCheckBox.isChecked())
+        self.assertTrue(self.window.asciiCheckBox.isEnabled())
         self.assertTrue(self.window.verboseCheckBox.isChecked())
         self.assertTrue(self.window.verboseCheckBox.isEnabled())
 
@@ -434,7 +434,7 @@ class FakeColorizeWidget():
 
     def setTextBackgroundColor(self, color):
         self._currentColor = color
-        
+
     def insertPlainText(self, text):
         self.colorized.append((self._currentColor, str(text)))
 

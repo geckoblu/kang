@@ -26,7 +26,7 @@ class RegexProcessor(QObject):
         self._dotallFlag = False
         self._verboseFlag = False
         self._localeFlag = False
-        self._unicodeFlag = False
+        self._asciiFlag = False
 
         self._status = (MATCH_NA, MSG_NA)
 
@@ -97,9 +97,9 @@ class RegexProcessor(QObject):
             self._setFlags()
             self._process()
 
-    def setUnicodeFlag(self, flag):
-        old = self._unicodeFlag
-        self._unicodeFlag = flag
+    def setAsciiFlag(self, flag):
+        old = self._asciiFlag
+        self._asciiFlag = flag
         if flag != old:
             self._setFlags()
             self._process()
@@ -122,8 +122,8 @@ class RegexProcessor(QObject):
         if self._localeFlag:
             self._flags = self._flags + re.LOCALE
 
-        if self._unicodeFlag:
-            self._flags = self._flags + re.UNICODE
+        if self._asciiFlag:
+            self._flags = self._flags + re.ASCII
 
     def pause(self):
         self._paused = True
@@ -302,8 +302,8 @@ class RegexProcessor(QObject):
         if self._localeFlag:
             flagsStr += '| re.LOCALE '
 
-        if self._unicodeFlag:
-            flagsStr += '| re.UNICODE'
+        if self._asciiFlag:
+            flagsStr += '| re.ASCII'
 
         if flagsStr:
             flagsStr = ', ' + flagsStr[1:]
@@ -328,8 +328,8 @@ class RegexProcessor(QObject):
         if self._localeFlag:
             flags += 'L'
 
-        if self._unicodeFlag:
-            flags += 'u'
+        if self._asciiFlag:
+            flags += 'a'
 
         if flags:
             flagsStr = '(?' + flags + ')'

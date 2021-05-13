@@ -217,11 +217,11 @@ class MainWindowUI(QMainWindow):
         self.verboseCheckBox = QCheckBox("Verbose")
         self.verboseCheckBox.toggled.connect(self._regexProcessor.setVerboseFlag)
         self.verboseCheckBox.toggled.connect(self._edited)
-        hboxLayout.addWidget(self.verboseCheckBox)        
-        self.unicodeCheckBox = QCheckBox("Unicode")
-        self.unicodeCheckBox.toggled.connect(self._regexProcessor.setUnicodeFlag)
-        self.unicodeCheckBox.toggled.connect(self._edited)
-        hboxLayout.addWidget(self.unicodeCheckBox)
+        hboxLayout.addWidget(self.verboseCheckBox)
+        self.asciiCheckBox = QCheckBox("Ascii")
+        self.asciiCheckBox.toggled.connect(self._regexProcessor.setAsciiFlag)
+        self.asciiCheckBox.toggled.connect(self._edited)
+        hboxLayout.addWidget(self.asciiCheckBox)
 
         gridLayout.addWidget(groupBox, 1, 0, 1, 1)
 

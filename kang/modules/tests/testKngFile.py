@@ -33,7 +33,7 @@ class TestKngFile(unittest.TestCase):
         self.assertEqual(kng.flag_dotall, True)
         self.assertEqual(kng.flag_verbose, True)
         self.assertEqual(kng.flag_locale, False)
-        self.assertEqual(kng.flag_unicode, False)
+        self.assertEqual(kng.flag_ascii, False)
 
         kng = kngfile.KngFile(picklerfilename)
         kng.load()
@@ -46,7 +46,7 @@ class TestKngFile(unittest.TestCase):
         self.assertEqual(kng.flag_dotall, True)
         self.assertEqual(kng.flag_verbose, True)
         self.assertEqual(kng.flag_locale, False)
-        self.assertEqual(kng.flag_unicode, False)
+        self.assertEqual(kng.flag_ascii, False)
 
     def test_load_with_exception(self):
         path = os.path.dirname(__file__)
@@ -63,7 +63,7 @@ class TestKngFile(unittest.TestCase):
         matchstring = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
         replace = 'Replace string \1'
 
-        kf1 = kngfile.KngFile(kngfilename, regex, matchstring, replace, True, True, True, True, True, True)
+        kf1 = kngfile.KngFile(kngfilename, regex, matchstring, replace, True, True, True, True, True)
         kf1.save()
 
         kf2 = kngfile.KngFile(kngfilename)
@@ -77,5 +77,4 @@ class TestKngFile(unittest.TestCase):
         self.assertEqual(kf1.flag_multiline, kf2.flag_multiline)
         self.assertEqual(kf1.flag_dotall, kf2.flag_dotall)
         self.assertEqual(kf1.flag_verbose, kf2.flag_verbose)
-        self.assertEqual(kf1.flag_locale, kf2.flag_locale)
-        self.assertEqual(kf1.flag_unicode, kf2.flag_unicode)
+        self.assertEqual(kf1.flag_ascii, kf2.flag_ascii)

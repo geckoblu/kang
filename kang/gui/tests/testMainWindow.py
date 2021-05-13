@@ -102,7 +102,6 @@ class TestMainWindow(unittest.TestCase):
 
     def test_populateEmbeddedFlags(self):
         self.window.ignorecaseCheckBox.setChecked(True)
-        self.window.localeCheckBox.setChecked(True)
         self.window.multilineCheckBox.setChecked(True)
         self.window.dotallCheckBox.setChecked(True)
         self.window.unicodeCheckBox.setChecked(True)
@@ -113,8 +112,6 @@ class TestMainWindow(unittest.TestCase):
         self.window._populateEmbeddedFlags()
         self.assertTrue(self.window.ignorecaseCheckBox.isChecked())
         self.assertFalse(self.window.ignorecaseCheckBox.isEnabled())
-        self.assertTrue(self.window.localeCheckBox.isChecked())
-        self.assertFalse(self.window.localeCheckBox.isEnabled())
         self.assertTrue(self.window.multilineCheckBox.isChecked())
         self.assertFalse(self.window.multilineCheckBox.isEnabled())
         self.assertTrue(self.window.dotallCheckBox.isChecked())
@@ -129,8 +126,6 @@ class TestMainWindow(unittest.TestCase):
         self.window._populateEmbeddedFlags()
         self.assertTrue(self.window.ignorecaseCheckBox.isChecked())
         self.assertTrue(self.window.ignorecaseCheckBox.isEnabled())
-        self.assertTrue(self.window.localeCheckBox.isChecked())
-        self.assertTrue(self.window.localeCheckBox.isEnabled())
         self.assertTrue(self.window.multilineCheckBox.isChecked())
         self.assertTrue(self.window.multilineCheckBox.isEnabled())
         self.assertTrue(self.window.dotallCheckBox.isChecked())

@@ -29,6 +29,8 @@ QCOLOR_WHITE = QColor(Qt.white)  # normal
 QCOLOR_EVIDENCE = QColor('#DDFFFF')  # Evidenced Match
 QCOLOR_EXAMINE = QColor('#DDFFFF')  # Examine status
 
+SHORTMESSAGE_DURATION = 5 # seconds
+
 
 ##############################################################################
 #
@@ -189,7 +191,6 @@ class MainWindow(MainWindowUI):
         self.multilineCheckBox.setChecked(False)
         self.dotallCheckBox.setChecked(False)
         self.verboseCheckBox.setChecked(False)
-        self.localeCheckBox.setChecked(False)
         self.unicodeCheckBox.setChecked(False)
 
     def _clearResults(self):
@@ -270,7 +271,7 @@ class MainWindow(MainWindowUI):
             self._colorizeStrings(strings, self.replaceTextBrowser)
         else:
             self.replaceTextBrowser.clear()
-            self.updateStatus("Error in replace string: %s" % strings, statusValue, 5)
+            self.updateStatus("Error in replace string: %s" % strings, statusValue, SHORTMESSAGE_DURATION)
 
     def _populateCodeTextBrowser(self):
         self.codeTextBrowser.setPlainText(self._regexProcessor.getRegexCode())
@@ -278,7 +279,6 @@ class MainWindow(MainWindowUI):
     def _populateEmbeddedFlags(self):
 
         self.ignorecaseCheckBox.setEnabled(True)
-        self.localeCheckBox.setEnabled(True)
         self.multilineCheckBox.setEnabled(True)
         self.dotallCheckBox.setEnabled(True)
         self.unicodeCheckBox.setEnabled(True)
@@ -290,8 +290,7 @@ class MainWindow(MainWindowUI):
                 self.ignorecaseCheckBox.setEnabled(False)
                 self.ignorecaseCheckBox.setChecked(True)
             elif flag == 'L':
-                self.localeCheckBox.setEnabled(False)
-                self.localeCheckBox.setChecked(True)
+                self.updateStatus(self.tr("Locale Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
             elif flag == 'm':
                 self.multilineCheckBox.setEnabled(False)
                 self.multilineCheckBox.setChecked(True)
@@ -371,14 +370,14 @@ class MainWindow(MainWindowUI):
         (filename, _filter) = QFileDialog.getOpenFileName(self, self.tr("Import File"), self.importFilename, "All (*)")
 
         if not filename:
-            self.updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, 5)
+            self.updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, SHORTMESSAGE_DURATION)
             return
 
         try:
             fp = open(filename, 'r')
         except:
             msg = self.tr("Could not open file for reading: ") + filename
-            self.updateStatus(msg, MATCH_NONE, 5)
+            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             return
 
         self.importFilename = filename
@@ -398,7 +397,6 @@ class MainWindow(MainWindowUI):
         self.multilineCheckBox.setChecked(False)
         self.dotallCheckBox.setChecked(False)
         self.verboseCheckBox.setChecked(False)
-        self.localeCheckBox.setChecked(False)
         self.unicodeCheckBox.setChecked(False)
 
         self.editstate = STATE_UNEDITED
@@ -429,8 +427,7 @@ class MainWindow(MainWindowUI):
                               self.ignorecaseCheckBox.isChecked(),
                               self.multilineCheckBox.isChecked(),
                               self.dotallCheckBox.isChecked(),
-                              self.verboseCheckBox.isChecked(),
-                              self.localeCheckBox.isChecked(),
+                              self.verboseCheckBox.isChecked(),                              
                               self.unicodeCheckBox.isChecked()
                               )
             kngfile.save()
@@ -439,11 +436,11 @@ class MainWindow(MainWindowUI):
 
             msg = '%s %s' % (self.filename,
                              self.tr("successfully saved"))
-            self.updateStatus(msg, MATCH_NONE, 5)
+            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             self.recentFiles.add(self.filename)
         except IOError as ex:
             msg = str(ex)
-            self.updateStatus(msg, MATCH_NONE, 5)
+            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
 
     def fileSaveAs(self):
         (filename, _filter) = QFileDialog.getSaveFileName(self,
@@ -452,7 +449,7 @@ class MainWindow(MainWindowUI):
                                                           "*.kng\nAll (*)"
                                                           )
         if not filename:
-            self.updateStatus(self.tr("No file selected to save"), MATCH_NONE, 5)
+            self.updateStatus(self.tr("No file selected to save"), MATCH_NONE, SHORTMESSAGE_DURATION)
             return
         filename = os.path.normcase(filename)
 
@@ -465,7 +462,7 @@ class MainWindow(MainWindowUI):
 
     def fileRevert(self):
         if not self.filename:
-            self.updateStatus(self.tr("There is no filename to revert"), MATCH_NONE, 5)
+            self.updateStatus(self.tr("There is no filename to revert"), MATCH_NONE, SHORTMESSAGE_DURATION)
             return
 
         self.loadFile(self.filename)
@@ -491,7 +488,6 @@ class MainWindow(MainWindowUI):
             self.multilineCheckBox.setChecked(kngfile.flag_multiline)
             self.dotallCheckBox.setChecked(kngfile.flag_dotall)
             self.verboseCheckBox.setChecked(kngfile.flag_verbose)
-            self.localeCheckBox.setChecked(kngfile.flag_locale)
             self.unicodeCheckBox.setChecked(kngfile.flag_unicode)
 
             self.filename = filename
@@ -500,13 +496,13 @@ class MainWindow(MainWindowUI):
             self._regexProcessor.unpause()
 
             msg = '%s %s' % (filename, self.tr("loaded successfully"))
-            self.updateStatus(msg, MATCH_NONE, 5)
+            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             self.editstate = STATE_UNEDITED
             return True
 
         except IOError as ex:
             msg = str(ex)
-            self.updateStatus(msg, MATCH_NONE, 5)
+            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             self.recentFiles.remove(filename)
             return False
 

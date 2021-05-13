@@ -1,7 +1,8 @@
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QMainWindow, QAction, QToolBar, QWidget, QTableWidget, QLabel, \
-                              QGridLayout, QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QSpinBox, \
-    QTreeWidget, QTreeView, QStyledItemDelegate, QAbstractItemView
+from PySide2.QtWidgets import \
+    QMainWindow, QAction, QToolBar, QWidget, QLabel, \
+    QGridLayout, QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QSpinBox, \
+    QTreeWidget, QStyledItemDelegate, QAbstractItemView
 
 from kang.images import getIcon
 from kang.modules.regexprocessor import RegexProcessor
@@ -216,11 +217,7 @@ class MainWindowUI(QMainWindow):
         self.verboseCheckBox = QCheckBox("Verbose")
         self.verboseCheckBox.toggled.connect(self._regexProcessor.setVerboseFlag)
         self.verboseCheckBox.toggled.connect(self._edited)
-        hboxLayout.addWidget(self.verboseCheckBox)
-        self.localeCheckBox = QCheckBox("Locale")
-        self.localeCheckBox.toggled.connect(self._regexProcessor.setLocaleFlag)
-        self.localeCheckBox.toggled.connect(self._edited)
-        hboxLayout.addWidget(self.localeCheckBox)
+        hboxLayout.addWidget(self.verboseCheckBox)        
         self.unicodeCheckBox = QCheckBox("Unicode")
         self.unicodeCheckBox.toggled.connect(self._regexProcessor.setUnicodeFlag)
         self.unicodeCheckBox.toggled.connect(self._edited)

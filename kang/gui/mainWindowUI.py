@@ -217,7 +217,7 @@ class MainWindowUI(QMainWindow):
         self.verboseCheckBox.toggled.connect(self._regexProcessor.setVerboseFlag)
         self.verboseCheckBox.toggled.connect(self._edited)
         hboxLayout.addWidget(self.verboseCheckBox)
-        self.localeCheckBox = QCheckBox("localeCheckBox")
+        self.localeCheckBox = QCheckBox("Locale")
         self.localeCheckBox.toggled.connect(self._regexProcessor.setLocaleFlag)
         self.localeCheckBox.toggled.connect(self._edited)
         hboxLayout.addWidget(self.localeCheckBox)

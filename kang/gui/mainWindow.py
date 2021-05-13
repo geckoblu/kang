@@ -423,8 +423,8 @@ class MainWindow(MainWindowUI):
 
         try:
             kngfile = KngFile(self.filename,
-                              regexString,
                               matchString,
+                              regexString,
                               replaceString,
                               self.ignorecaseCheckBox.isChecked(),
                               self.multilineCheckBox.isChecked(),

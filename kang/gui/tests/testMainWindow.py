@@ -1,6 +1,5 @@
 # pylint: disable=protected-access
 import os
-import re
 import shutil
 import sys
 import tempfile
@@ -445,3 +444,7 @@ class FakeColorizeWidget():
 
     def setTextCursor(self, pos):
         pass
+
+
+if __name__ == "__main__":
+    unittest.main()

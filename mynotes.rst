@@ -17,6 +17,8 @@ tests
 -----------------------
 python3 -m unittest discover
 
+python3 kang/gui/tests/testMainWindow.py TestMainWindow.test_populateText
+
 
 
 code coverage

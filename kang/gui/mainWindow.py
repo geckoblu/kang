@@ -174,7 +174,7 @@ class MainWindow(MainWindowUI):
         self._populateGroupTable()
         self._populateMatchTextbrowser()
 
-    def _replaceNumberChanged(self, num):
+    def _replaceNumberChanged(self):
         self._populateReplaceTextbrowser()
 
     def _clear(self):

@@ -193,7 +193,7 @@ class MainWindowUI(QMainWindow):
 
         self.stringMultiLineEdit = QTextEdit()
         self.stringMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setMatchString(self.stringMultiLineEdit.toPlainText()))
-        self.stringMultiLineEdit.textChanged.connect(self._edited)
+        self.stringMultiLineEdit.textChanged.connect(self._setModified)
         tabWidget.addTab(self.stringMultiLineEdit, "Match String")
 
         gridLayout.addWidget(tabWidget, 0, 0, 1, 1)
@@ -204,23 +204,23 @@ class MainWindowUI(QMainWindow):
 
         self.ignorecaseCheckBox = QCheckBox("Ignore Case")
         self.ignorecaseCheckBox.toggled.connect(self._regexProcessor.setIgnorecaseFlag)
-        self.ignorecaseCheckBox.toggled.connect(self._edited)
+        self.ignorecaseCheckBox.toggled.connect(self._setModified)
         hboxLayout.addWidget(self.ignorecaseCheckBox)
         self.multilineCheckBox = QCheckBox("Multi Line")
         self.multilineCheckBox.toggled.connect(self._regexProcessor.setMultilineFlag)
-        self.multilineCheckBox.toggled.connect(self._edited)
+        self.multilineCheckBox.toggled.connect(self._setModified)
         hboxLayout.addWidget(self.multilineCheckBox)
         self.dotallCheckBox = QCheckBox("Dot All")
         self.dotallCheckBox.toggled.connect(self._regexProcessor.setDotallFlag)
-        self.dotallCheckBox.toggled.connect(self._edited)
+        self.dotallCheckBox.toggled.connect(self._setModified)
         hboxLayout.addWidget(self.dotallCheckBox)
         self.verboseCheckBox = QCheckBox("Verbose")
         self.verboseCheckBox.toggled.connect(self._regexProcessor.setVerboseFlag)
-        self.verboseCheckBox.toggled.connect(self._edited)
+        self.verboseCheckBox.toggled.connect(self._setModified)
         hboxLayout.addWidget(self.verboseCheckBox)
         self.asciiCheckBox = QCheckBox("Ascii")
         self.asciiCheckBox.toggled.connect(self._regexProcessor.setAsciiFlag)
-        self.asciiCheckBox.toggled.connect(self._edited)
+        self.asciiCheckBox.toggled.connect(self._setModified)
         hboxLayout.addWidget(self.asciiCheckBox)
 
         gridLayout.addWidget(groupBox, 1, 0, 1, 1)
@@ -229,12 +229,12 @@ class MainWindowUI(QMainWindow):
 
         self.regexMultiLineEdit = QTextEdit()
         self.regexMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setRegexString(self.regexMultiLineEdit.toPlainText()))
-        self.regexMultiLineEdit.textChanged.connect(self._edited)
+        self.regexMultiLineEdit.textChanged.connect(self._setModified)
         tabWidget.addTab(self.regexMultiLineEdit, "Regular Expression")
 
         self.replaceTextEdit = QTextEdit()
         self.replaceTextEdit.textChanged.connect(lambda: self._regexProcessor.setReplaceString(self.replaceTextEdit.toPlainText()))
-        self.replaceTextEdit.textChanged.connect(self._edited)
+        self.replaceTextEdit.textChanged.connect(self._setModified)
         tabWidget.addTab(self.replaceTextEdit, "Replace String")
 
         gridLayout.addWidget(tabWidget, 2, 0, 1, 1)

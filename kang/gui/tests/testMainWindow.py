@@ -345,37 +345,37 @@ class TestMainWindow(unittest.TestCase):
     def test_checkEditState(self):
 
         self.window.preferences.askSave = False
-        self.window.checkEditState()
+        self.window._checkModified()
 
         self.window.preferences.askSave = True
         self.window.preferences.askSaveOnlyForNamedProjects = True
-        self.window.checkEditState()
+        self.window._checkModified()
 
         self.window.preferences.askSave = True
         self.window.preferences.askSaveOnlyForNamedProjects = False
-        self.window.checkEditState()
+        self.window._checkModified()
 
         self.window.preferences.askSave = True
         self.window.preferences.askSaveOnlyForNamedProjects = False
-        self.window.editstate = mainWindow.STATE_EDITED
+        self.window._modified = True
 
         old = mainWindow.QMessageBox
         mainWindow.QMessageBox = FakeMessageBox
         self.window.filename = os.path.join(util.getConfigDirectory(), 't.kng')
-        self.window.checkEditState()
+        self.window._checkModified()
         mainWindow.QMessageBox = old
 
         # an unavoidable trick to reach the 100% code coverage
         self.window.filename = ''
-        self.window.editstate = mainWindow.STATE_EDITED
+        self.window._modified = True
         old = mainWindow.QMessageBox
         mainWindow.QMessageBox = FakeMessageBox
         fileSave = self.window.fileSave
         self.window.fileSave = lambda: None
-        checkEditState2 = self.window.checkEditState
-        self.window.checkEditState = lambda: None
-        checkEditState2()
-        self.window.checkEditState = checkEditState2
+        checkModified = self.window._checkModified
+        self.window._checkModified = lambda: None
+        checkModified()
+        self.window._checkModified = checkModified
         self.window.fileSave = fileSave
         mainWindow.QMessageBox = old
 

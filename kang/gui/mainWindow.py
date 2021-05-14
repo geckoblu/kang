@@ -1,11 +1,12 @@
 import os
 import webbrowser
 
-from PySide2.QtCore import Qt, Signal, qApp
-from PySide2.QtGui import QColor, QPalette, QBrush
+from PySide2.QtCore import Signal, qApp
+from PySide2.QtGui import QPalette, QBrush
 from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
 
 from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
+from kang.gui import GEO, QCOLOR_EXAMINE, QCOLOR_WHITE, QCOLOR_EVIDENCE, SHORTMESSAGE_DURATION
 from kang.gui.aboutDialog import AboutDialog
 from kang.gui.importURLDialog import ImportURLDialog
 from kang.gui.mainWindowUI import MainWindowUI
@@ -18,18 +19,6 @@ from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
 from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, getConfigDirectory
-
-STATE_UNEDITED = 0
-STATE_EDITED = 1
-
-GEO = 'kang_geometry'
-
-# colors for normal & examination mode
-QCOLOR_WHITE = QColor(Qt.white)  # normal
-QCOLOR_EVIDENCE = QColor('#729FCF')  # Evidenced Match
-QCOLOR_EXAMINE = QColor('#DDFFFF')  # Examine status
-
-SHORTMESSAGE_DURATION = 3  # seconds
 
 
 ##############################################################################
@@ -52,7 +41,9 @@ class MainWindow(MainWindowUI):
         self.filename = ''
 
         self.url = KANG_WEBSITE
-        self.editstate = STATE_UNEDITED
+
+        # This property holds whether the document shown in the window has unsaved changes
+        self._modified = False
 
         self.refWin = None
         self.regexlibwin = None
@@ -121,9 +112,9 @@ class MainWindow(MainWindowUI):
             self.statusBar().clearMessage()
             self.statusBar().showPermanentMessage(statusString)
 
-    def _edited(self):
-        # invoked whenever the user has _edited something
-        self.editstate = STATE_EDITED
+    def _setModified(self):
+        # invoked whenever the user has _modified something
+        self._modified = True
 
     def pause(self):
         self._isPaused = not self._isPaused
@@ -332,7 +323,7 @@ class MainWindow(MainWindowUI):
         self.closeEvent(ev)
 
     def closeEvent(self, ev):
-        self.checkEditState()
+        self._checkModified()
         saveWindowSettings(self, GEO)
 
         try:
@@ -374,7 +365,7 @@ class MainWindow(MainWindowUI):
         self.stringMultiLineEdit.setPlainText(data)
 
     def fileNew(self):
-        self.checkEditState()
+        self._checkModified()
         self.filename = ''
 
         self.regexMultiLineEdit.setPlainText('')
@@ -387,7 +378,7 @@ class MainWindow(MainWindowUI):
         self.verboseCheckBox.setChecked(False)
         self.asciiCheckBox.setChecked(False)
 
-        self.editstate = STATE_UNEDITED
+        self._modified = False
 
     def fileOpen(self):
         (filename, _filter) = QFileDialog.getOpenFileName(self,
@@ -420,7 +411,7 @@ class MainWindow(MainWindowUI):
                               )
             kngfile.save()
 
-            self.editstate = STATE_UNEDITED
+            self._modified = False
 
             msg = '%s %s' % (self.filename,
                              self.tr("successfully saved"))
@@ -456,7 +447,7 @@ class MainWindow(MainWindowUI):
         self.loadFile(self.filename)
 
     def loadFile(self, filename):
-        self.checkEditState()
+        self._checkModified()
 
         try:
             self.filename = ''
@@ -486,7 +477,7 @@ class MainWindow(MainWindowUI):
             basename = os.path.basename(filename)
             msg = '%s %s' % (basename, self.tr("loaded successfully"))
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
-            self.editstate = STATE_UNEDITED
+            self._modified = False
             return True
 
         except IOError as ex:
@@ -498,7 +489,7 @@ class MainWindow(MainWindowUI):
     def pasteSymbol(self, symbol):
         self.regexMultiLineEdit.insertPlainText(symbol)
 
-    def checkEditState(self):
+    def _checkModified(self):
 
         if not self.preferences.askSave:
             return
@@ -506,7 +497,7 @@ class MainWindow(MainWindowUI):
         if self.preferences.askSaveOnlyForNamedProjects and not self.filename:
             return
 
-        if self.editstate == STATE_EDITED:
+        if self._modified:
             message = self.tr("You have made changes. Would you like to save them before continuing?")
 
             prompt = QMessageBox().warning(self,
@@ -518,11 +509,11 @@ class MainWindow(MainWindowUI):
             if prompt == 0:
                 self.fileSave()
                 if not self.filename:
-                    self.checkEditState()
+                    self._checkModified()
 
     def pasteFromRegexLib(self, regexLibDict):
         self.filename = ''
-        self.checkEditState()
+        self._checkModified()
 
         self.regexMultiLineEdit.setPlainText(regexLibDict.get('regex', ''))
         self.stringMultiLineEdit.setPlainText(regexLibDict.get('text', ''))
@@ -534,7 +525,7 @@ class MainWindow(MainWindowUI):
         #    self.resultTabWidget.setCurrentPage(int(regexLibDict.get('tab', '')))
         # except ValueError:
         #    pass
-        self.editstate = STATE_UNEDITED
+        self._modified = False
 
     def widgetMethod(self, methodstr, anywidget=False):
         # execute the methodstr of widget only if widget

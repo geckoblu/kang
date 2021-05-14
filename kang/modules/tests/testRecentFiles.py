@@ -32,11 +32,11 @@ class TestRecentFiles(unittest.TestCase):
 
         # Test save/load
         r1._recentFiles = ['/home/goofy/kng/pippo1.kng', '/home/goofy/kng/pippo2.kng', '/home/goofy/kng/pippo3.kng']
-        r1.save()
-        r1.load()
+        r1._save()
+        r1._load()
 
         r2 = recentfiles.RecentFiles(parent)
-        r2.load()
+        r2._load()
         self.assertEqual(r1._recentFiles, r2._recentFiles)
 
         # Test add
@@ -61,8 +61,8 @@ class TestRecentFiles(unittest.TestCase):
         r1._openFile('/home/goofy/kng/pippo.kng')
 
         # Test clearMenu
-        r1.save()
-        r1.load()
+        r1._save()
+        r1._load()
         r1._clearMenu()
 
     def test_load_IOError(self):
@@ -72,7 +72,7 @@ class TestRecentFiles(unittest.TestCase):
         rf._filename = '/etc/shadow'  # something we could surely not read
         stderr = sys.stderr
         sys.stderr = self
-        rf.load()
+        rf._load()
         sys.stderr = stderr
         self.assertTrue(self._writeMsg, 'IOError was not raised')
 
@@ -83,7 +83,7 @@ class TestRecentFiles(unittest.TestCase):
         rf._filename = '/Not_a_valid_path'
         stderr = sys.stderr
         sys.stderr = self
-        rf.save()
+        rf._save()
         sys.stderr = stderr
         self.assertTrue(self._writeMsg, 'IOError was not raised')
 
@@ -95,8 +95,8 @@ class TestRecentFiles(unittest.TestCase):
         fn2 = '/home/goofy/kng/pippo2.kng'
         fn3 = '/home/goofy/kng/pippo3.kng'
         rf._recentFiles = [fn1, fn2]
-        rf.save()
-        rf.load()
+        rf._save()
+        rf._load()
 
         # Remove a file in the list
         an = len(rf._actions)
@@ -119,6 +119,7 @@ class FakeParent:
 
     def __init__(self):
         self.fileMenu = FakeMenu()
+        self.placeholderAction = FakeAction()
 
     def loadFile(self, filename):
         pass
@@ -126,8 +127,8 @@ class FakeParent:
 
 class FakeMenu:
 
-    def addAction(self, filename):
-        return FakeAction()
+    def insertAction(self, before, action):
+        return action
 
     def removeAction(self, action):
         pass

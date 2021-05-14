@@ -12,6 +12,7 @@ disable=
     too-many-statements,
     too-many-arguments,
     too-few-public-methods,
+    too-many-public-methods,
     undefined-variable, # Problems with PySide2 imports
     no-name-in-module, # Problems with PySide2 imports
     duplicate-code # Remove at the end of porting

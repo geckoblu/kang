@@ -133,8 +133,8 @@ class MainWindowUI(QMainWindow):
         fileMenu.addAction(self.fileImportFileAction)
         fileMenu.addAction(self.fileImportURLAction)
         fileMenu.addSeparator()
+        self.placeholderAction = fileMenu.addSeparator()
         fileMenu.addAction(self._exitAction)
-        fileMenu.addSeparator()
 
         self.fileMenu = fileMenu
 

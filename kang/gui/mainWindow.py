@@ -29,7 +29,7 @@ QCOLOR_WHITE = QColor(Qt.white)  # normal
 QCOLOR_EVIDENCE = QColor('#729FCF')  # Evidenced Match
 QCOLOR_EXAMINE = QColor('#DDFFFF')  # Examine status
 
-SHORTMESSAGE_DURATION = 5  # seconds
+SHORTMESSAGE_DURATION = 3  # seconds
 
 
 ##############################################################################
@@ -483,7 +483,8 @@ class MainWindow(MainWindowUI):
 
             self._regexProcessor.unpause()
 
-            msg = '%s %s' % (filename, self.tr("loaded successfully"))
+            basename = os.path.basename(filename)
+            msg = '%s %s' % (basename, self.tr("loaded successfully"))
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             self.editstate = STATE_UNEDITED
             return True

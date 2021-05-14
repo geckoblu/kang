@@ -1,6 +1,8 @@
 import os
 import sys
 
+from PySide2.QtWidgets import QAction
+
 from kang.modules.util import getConfigDirectory
 
 
@@ -19,9 +21,9 @@ class RecentFiles:
         self._filename = os.path.join(getConfigDirectory(), 'recent_files')
         self._recentFiles = []
         self._actions = []
-        self.load()
+        self._load()
 
-    def load(self):
+    def _load(self):
         """Load recent file list from file and create menu"""
         self._recentFiles = []
         if os.path.isfile(self._filename):
@@ -33,7 +35,7 @@ class RecentFiles:
 
         self._createMenu()
 
-    def save(self):
+    def _save(self):
         """Save recent file list to file"""
         # truncate list if necessary
         self._recentFiles = self._recentFiles[:self._MAX_SIZE]
@@ -52,7 +54,7 @@ class RecentFiles:
             pass
 
         self._recentFiles.insert(0, filename)
-        self.save()
+        self._save()
         self._createMenu()
 
     def remove(self, filename):
@@ -62,7 +64,7 @@ class RecentFiles:
         except:
             pass
 
-        self.save()
+        self._save()
         self._createMenu()
 
     def _clearMenu(self):
@@ -79,16 +81,19 @@ class RecentFiles:
         if clear:
             self._clearMenu()
 
-        # TODO: create recent files menu before exit/quit menu
-        # TODO: show only filename in menu and full path as tooltip
-
         # add applicable items to menu
         num = min(self._numShown, len(self._recentFiles))
         for i in range(num):
-            filename = self._recentFiles[i]
-            action = self._parent.fileMenu.addAction(filename)
-            action.triggered.connect(lambda: self._openFile(filename))
+            filepath = self._recentFiles[i]
+            basename = os.path.basename(filepath)
+            action = QAction(basename)
+            action.triggered.connect(lambda _checked=True, fp=filepath: self._openFile(fp))
+            action.setStatusTip("Open: " + filepath)
+            self._parent.fileMenu.insertAction(self._parent.placeholderAction, action)
             self._actions.append(action)
+
+    def _test(self, *args):
+        pass
 
     def _openFile(self, filename):
         """Delegate loadFile action to parent"""

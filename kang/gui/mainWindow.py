@@ -35,7 +35,6 @@ class MainWindow(MainWindowUI):
 
         self._regexSaved = ''
         self._isExamined = False
-        self._isPaused = False
 
         self.importFilename = ''
         self.filename = ''
@@ -116,15 +115,25 @@ class MainWindow(MainWindowUI):
         # invoked whenever the user has _modified something
         self._modified = True
 
-    def pause(self):
-        self._isPaused = not self._isPaused
-
-        if self._isPaused:
+    def pause(self, paused):
+        if paused:
             self._regexProcessor.pause()
             self.updateStatus(MSG_PAUSED, MATCH_PAUSED)
-            self.matchNumberSpinBox.setDisabled(True)
-            self.replaceNumberSpinBox.setDisabled(True)
+            self.matchTextBrowser.setDisabled(True)
+            self.matchTextBrowser.setPlainText('')
+            self.groupTable.setDisabled(True)
+            self.groupTable.clear()
+            self.replaceTextBrowser.setDisabled(True)
+            self.replaceTextBrowser.setPlainText('')
+            self.codeTextBrowser.setDisabled(True)
+            self.codeTextBrowser.setPlainText('')
+            self.matchNumberSpinBox.setEnabled(False)
+            self.replaceNumberSpinBox.setEnabled(False)
         else:
+            self.matchTextBrowser.setEnabled(True)
+            self.groupTable.setEnabled(True)
+            self.replaceTextBrowser.setEnabled(True)
+            self.codeTextBrowser.setEnabled(True)
             self.matchNumberSpinBox.setEnabled(True)
             self.replaceNumberSpinBox.setEnabled(True)
             self._regexProcessor.unpause()
@@ -472,6 +481,8 @@ class MainWindow(MainWindowUI):
             self.filename = filename
             self.recentFiles.add(self.filename)
 
+            self.editPauseAction.setChecked(False)
+            self.pause(False)
             self._regexProcessor.unpause()
 
             basename = os.path.basename(filename)

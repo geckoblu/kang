@@ -1,4 +1,5 @@
 from PySide2.QtCore import Qt
+from PySide2.QtGui import QPalette
 from PySide2.QtWidgets import \
     QMainWindow, QAction, QToolBar, QWidget, QLabel, \
     QGridLayout, QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QSpinBox, \
@@ -27,6 +28,14 @@ class MainWindowUI(QMainWindow):
         self._setupCentralWidget()
 
         self._regexProcessor.statusChanged.connect(self._regexStatusChanged)
+
+        palette = self.stringMultiLineEdit.palette()
+
+        self.normalTextColor = palette.color(QPalette.ColorGroup.Active, QPalette.ColorRole.Text)
+        self.normalForegroundColor = palette.color(QPalette.ColorGroup.Active, QPalette.ColorRole.Base)
+        self.disabledTextColor = palette.color(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text)
+        self.highlightTextColor = palette.color(QPalette.ColorGroup.Active, QPalette.ColorRole.HighlightedText)
+        self.highlightForegroundColor = palette.color(QPalette.ColorGroup.Active, QPalette.ColorRole.Highlight)
 
     def _createActions(self):
 
@@ -85,7 +94,7 @@ class MainWindowUI(QMainWindow):
         self.editPauseAction.setShortcut("Ctrl+P")
         self.editPauseAction.triggered.connect(self.pause)
 
-        self.editExamineAction = QAction(getIcon('edit-find'), "&Examine Regex", self)
+        self.editExamineAction = QAction(getIcon('edit-find'), "&Examine Regex", self, checkable=True)
         self.editExamineAction.setShortcut("Ctrl+E")
         self.editExamineAction.triggered.connect(self.examine)
 

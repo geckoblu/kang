@@ -262,8 +262,8 @@ class RegexProcessor(QObject):
         return (MATCH_OK, strings)
 
     def examine(self):
+
         regex = self._regexString
-        regexSaved = self._regexString
         length = len(regex)
 
         for i in range(length, 0, -1):
@@ -271,11 +271,11 @@ class RegexProcessor(QObject):
             try:
                 m = re.search(regex, self._matchString, self._flags())
                 if m:
-                    return (regexSaved, regex)
+                    return (regex, self._regexString[len(regex):])
             except re.error:
                 pass
 
-        return (regexSaved, '')
+        return ('', self._regexString)
 
     def _getFlagsStr(self):
         flagsStr = ''

@@ -1,12 +1,11 @@
 import os
 import webbrowser
 
-from PySide2.QtCore import Signal, qApp
-from PySide2.QtGui import QPalette, QBrush
+from PySide2.QtCore import Signal, qApp, QItemSelectionModel
+from PySide2.QtGui import QBrush
 from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
 
 from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
-from kang.gui import GEO, QCOLOR_EXAMINE, QCOLOR_WHITE, QCOLOR_EVIDENCE, SHORTMESSAGE_DURATION
 from kang.gui.aboutDialog import AboutDialog
 from kang.gui.importURLDialog import ImportURLDialog
 from kang.gui.mainWindowUI import MainWindowUI
@@ -19,6 +18,10 @@ from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
 from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, getConfigDirectory
+
+GEO = 'kang_geometry'
+
+SHORTMESSAGE_DURATION = 3  # seconds
 
 
 ##############################################################################
@@ -34,7 +37,6 @@ class MainWindow(MainWindowUI):
         MainWindowUI.__init__(self)
 
         self._regexSaved = ''
-        self._isExamined = False
 
         self.importFilename = ''
         self.filename = ''
@@ -138,32 +140,44 @@ class MainWindow(MainWindowUI):
             self.replaceNumberSpinBox.setEnabled(True)
             self._regexProcessor.unpause()
 
-    def examine(self):
-        self._isExamined = not self._isExamined
+    def examine(self, examine):
+        if examine:
+            self._regexSaved = self.regexMultiLineEdit.toPlainText()
 
-        if self._isExamined:
-            color = QCOLOR_EXAMINE
-            self.regexMultiLineEdit.setReadOnly(True)
             self.stringMultiLineEdit.setReadOnly(True)
+            self.regexMultiLineEdit.setReadOnly(True)
             self.replaceTextEdit.setReadOnly(True)
-            self._regexSaved, new = self._regexProcessor.examine()
-            self._refreshRegexWidget(color, new)
+            self.stringMultiLineEdit.setEnabled(False)
+            self.regexMultiLineEdit.setEnabled(False)
+            self.replaceTextEdit.setEnabled(False)
+            self.stringMultiLineEdit.setTextColor(self.normalTextColor)
+            self.stringMultiLineEdit.setText(self.stringMultiLineEdit.toPlainText())
+            self.replaceTextEdit.setTextColor(self.normalTextColor)
+            self.replaceTextEdit.setText(self.replaceTextEdit.toPlainText())
+
+            matching, dontmatching = self._regexProcessor.examine()
+            self._refreshRegexWidget(matching, dontmatching)
         else:
-            color = QCOLOR_WHITE
             self.regexMultiLineEdit.setReadOnly(False)
             self.stringMultiLineEdit.setReadOnly(False)
             self.replaceTextEdit.setReadOnly(False)
-            self._refreshRegexWidget(color, self._regexSaved)
+            self.stringMultiLineEdit.setEnabled(True)
+            self.regexMultiLineEdit.setEnabled(True)
+            self.replaceTextEdit.setEnabled(True)
+            self.regexMultiLineEdit.setTextColor(self.normalTextColor)
 
-    def _refreshRegexWidget(self, color, regex):
-        p = self.regexMultiLineEdit.palette()
-        p.setColor(QPalette.Base, color)
-        self.regexMultiLineEdit.setPalette(p)
+            self.regexMultiLineEdit.setPlainText(self._regexSaved)
 
-        self.regexMultiLineEdit.blockSignals(1)
+    def _refreshRegexWidget(self, matching, dontmatching):
         self.regexMultiLineEdit.clear()
-        self.regexMultiLineEdit.blockSignals(0)
-        self.regexMultiLineEdit.setPlainText(regex)
+
+        self.regexMultiLineEdit.blockSignals(True)
+        self.regexMultiLineEdit.insertPlainText(matching)
+        self.regexMultiLineEdit.setTextColor(self.disabledTextColor)
+        self.regexMultiLineEdit.insertPlainText(dontmatching)
+        self.regexMultiLineEdit.blockSignals(False)
+
+        self._regexProcessor.setRegexString(matching)
 
     def _matchNumberChanged(self):
         self._populateGroupTable()
@@ -211,9 +225,6 @@ class MainWindow(MainWindowUI):
     def _populateGroupTable(self):
         groups = self._regexProcessor.getAllGroups()
 
-        brush = QBrush(QCOLOR_EVIDENCE)
-        evidenceMatchNumber = self.matchNumberSpinBox.value()
-
         self.groupTable.clear()
 
         for matchNumber, group in enumerate(groups, start=1):
@@ -233,15 +244,23 @@ class MainWindow(MainWindowUI):
                 item.setText(1, str(subGroup[0]))
                 item.setText(2, subGroup[1])
                 item.setText(3, subGroup[2])
-                if matchNumber == evidenceMatchNumber:
-                    item.setBackground(0, brush)
-                    item.setBackground(1, brush)
-                    item.setBackground(2, brush)
-                    item.setBackground(3, brush)
 
         self.groupTable.expandAll()
         for column in range(0, self.groupTable.columnCount()):
             self.groupTable.resizeColumnToContents(column)
+
+        model = self.groupTable.model()
+        selectionModel = self.groupTable.selectionModel()
+
+        evidenceMatchNumber = self.matchNumberSpinBox.value()
+
+        if evidenceMatchNumber > 0:
+            row = evidenceMatchNumber - 1
+            index = model.index(row, 0)
+            selectionModel.select(index, QItemSelectionModel.Select | QItemSelectionModel.Rows)
+            for i in range(0, model.rowCount(index)):
+                childIndex = model.index(i, 0, index)
+                selectionModel.select(childIndex, QItemSelectionModel.Select | QItemSelectionModel.Rows)
 
     def _populateMatchTextbrowser(self):
         matchNumber = self.matchNumberSpinBox.value()
@@ -316,11 +335,16 @@ class MainWindow(MainWindowUI):
     def _colorizeStrings(self, strings, widget, cursorOffset=0):
         widget.clear()
 
-        colors = (QCOLOR_WHITE, QCOLOR_EVIDENCE)
+        textColors = [self.normalTextColor, self.highlightTextColor]
+        foregroundColors = [self.normalForegroundColor, self.highlightForegroundColor]
+
+        widget.setTextColor(self.normalTextColor)
+
         i = 0
         pos = widget.textCursor()
         for s in strings:
-            widget.setTextBackgroundColor(colors[i % 2])
+            widget.setTextColor(textColors[i % 2])
+            widget.setTextBackgroundColor(foregroundColors[i % 2])
             widget.insertPlainText(s)
             if i == cursorOffset:
                 pos = widget.textCursor()
@@ -481,14 +505,19 @@ class MainWindow(MainWindowUI):
             self.filename = filename
             self.recentFiles.add(self.filename)
 
+            # Reset Pause and Examine status
             self.editPauseAction.setChecked(False)
             self.pause(False)
+            self.editExamineAction.setChecked(False)
+            self._regexSaved = kngfile.regexString
+            self.examine(False)
             self._regexProcessor.unpause()
 
             basename = os.path.basename(filename)
             msg = '%s %s' % (basename, self.tr("loaded successfully"))
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             self._modified = False
+
             return True
 
         except IOError as ex:

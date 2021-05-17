@@ -44,11 +44,11 @@ class MainWindowUI(QMainWindow):
         self.fileSaveAction.setShortcut("Ctrl+S")
         self.fileSaveAction.triggered.connect(self.fileSave)
 
-        self.fileSaveAsAction = QAction("Save &As", self)
+        self.fileSaveAsAction = QAction(getIcon('document-save-as'), "Save &As", self)
         self.fileSaveAsAction.triggered.connect(self.fileSaveAs)
 
-        self.fileRevertFileAction = QAction("&Revert Kang File", self)
-        self.fileRevertFileAction.triggered.connect(self.fileRevert)
+        self.fileRevertAction = QAction(getIcon('document-revert'), "&Revert", self)
+        self.fileRevertAction.triggered.connect(self.fileRevert)
 
         self.fileImportFileAction = QAction("Import &File", self)
         self.fileImportFileAction.triggered.connect(self.importFile)
@@ -61,11 +61,11 @@ class MainWindowUI(QMainWindow):
 
         # Edit Actions
 
-        self.editUndoAction = QAction("&Undo", self)
+        self.editUndoAction = QAction(getIcon('edit-undo'), "&Undo", self)
         self.editUndoAction.setShortcut("Ctrl+Z")
         self.editUndoAction.triggered.connect(self.editUndo)
 
-        self.editRedoAction = QAction("&Redo", self)
+        self.editRedoAction = QAction(getIcon('edit-redo'), "&Redo", self)
         self.editRedoAction.setShortcut("Ctrl+Y")
         self.editRedoAction.triggered.connect(self.editRedo)
 
@@ -89,7 +89,7 @@ class MainWindowUI(QMainWindow):
         self.editExamineAction.setShortcut("Ctrl+E")
         self.editExamineAction.triggered.connect(self.examine)
 
-        self.editPreferencesAction = QAction(getIcon('edit-preferences'), "Preferences", self)
+        self.editPreferencesAction = QAction("Preferences", self)
         self.editPreferencesAction.setShortcut("Ctrl+P")
         self.editPreferencesAction.triggered.connect(self.editPreferences)
 
@@ -127,8 +127,7 @@ class MainWindowUI(QMainWindow):
         fileMenu.addAction(self.fileOpenAction)
         fileMenu.addAction(self.fileSaveAction)
         fileMenu.addAction(self.fileSaveAsAction)
-        fileMenu.addSeparator()
-        fileMenu.addAction(self.fileRevertFileAction)
+        fileMenu.addAction(self.fileRevertAction)
         fileMenu.addSeparator()
         fileMenu.addAction(self.fileImportFileAction)
         fileMenu.addAction(self.fileImportURLAction)

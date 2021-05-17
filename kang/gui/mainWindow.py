@@ -413,8 +413,8 @@ class MainWindow(MainWindowUI):
 
             self._modified = False
 
-            msg = '%s %s' % (self.filename,
-                             self.tr("successfully saved"))
+            basename = os.path.basename(self.filename)
+            msg = '%s %s' % (basename, self.tr("successfully saved"))
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             self.recentFiles.add(self.filename)
         except IOError as ex:

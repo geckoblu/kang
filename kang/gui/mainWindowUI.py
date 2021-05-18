@@ -236,12 +236,13 @@ class MainWindowUI(QMainWindow):
         tabWidget = QTabWidget(self.widget)
 
         self.regexMultiLineEdit = QTextEdit()
-        self.regexMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setRegexString(self.regexMultiLineEdit.toPlainText()))
+        self.regexMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setRegexString(self.regexMultiLineEdit.toPlainText()))        
         self.regexMultiLineEdit.textChanged.connect(self._setModified)
         tabWidget.addTab(self.regexMultiLineEdit, "Regular Expression")
 
         self.replaceTextEdit = QTextEdit()
         self.replaceTextEdit.textChanged.connect(lambda: self._regexProcessor.setReplaceString(self.replaceTextEdit.toPlainText()))
+        self.replaceTextEdit.textChanged.connect(lambda: self._showReplaceWidgets(self.replaceTextEdit.toPlainText() != ''))
         self.replaceTextEdit.textChanged.connect(self._setModified)
         tabWidget.addTab(self.replaceTextEdit, "Replace String")
 
@@ -252,6 +253,7 @@ class MainWindowUI(QMainWindow):
         hboxLayout.setSpacing(6)
 
         textLabel1 = QLabel("Match Number", groupBox)
+        textLabel1.setToolTip("0 stands for 'all'")
         hboxLayout.addWidget(textLabel1)
         self.matchNumberSpinBox = QSpinBox(groupBox)
         self.matchNumberSpinBox.setMinimum(0)
@@ -261,6 +263,7 @@ class MainWindowUI(QMainWindow):
         hboxLayout.addWidget(self.matchNumberSpinBox)
 
         self.replaceLabel = QLabel("Replace Number", groupBox)
+        self.replaceLabel.setToolTip("0 stands for 'all'")
         hboxLayout.addWidget(self.replaceLabel)
         self.replaceNumberSpinBox = QSpinBox(groupBox)
         self.replaceNumberSpinBox.setMinimum(0)

@@ -53,7 +53,7 @@ class MainWindow(MainWindowUI):
 
         restoreWindowSettings(self, GEO)
 
-        # TODO self._showReplaceWidgets(False)
+        self._showReplaceWidgets(False)
 
         self.show()
 
@@ -208,16 +208,17 @@ class MainWindow(MainWindowUI):
         self.replaceTextBrowser.setPlainText('')
 
     def _showReplaceWidgets(self, show):
+        print('_showReplaceWidgets')
         if show:
-            self.spacerLabel.show()
-            self.replaceLabel.show()
-            self.replaceNumberSpinBox.show()
+            # self.replaceLabel.show()
+            # self.replaceNumberSpinBox.show()
             self.replaceNumberSpinBox.setEnabled(True)
             self.replaceTextBrowser.setEnabled(True)
         else:
-            # self.spacerLabel.hide()
-            self.replaceLabel.hide()
-            self.replaceNumberSpinBox.hide()
+            # self.replaceLabel.hide()
+            # self.replaceNumberSpinBox.hide()
+            self.replaceNumberSpinBox.setValue(0)
+            self.replaceNumberSpinBox.setDisabled(True)
             self.replaceTextBrowser.clear()
             self.replaceTextBrowser.setDisabled(True)
 
@@ -270,14 +271,16 @@ class MainWindow(MainWindowUI):
         self._populateText(spans, self.matchTextBrowser)
 
     def _populateReplaceTextbrowser(self):
-
-        statusValue, strings = self._regexProcessor.replace(self.replaceNumberSpinBox.value())
-
-        if statusValue == MATCH_OK:
-            self._colorizeStrings(strings, self.replaceTextBrowser)
+        if (self.replaceTextEdit.toPlainText() != ''):
+            statusValue, strings = self._regexProcessor.replace(self.replaceNumberSpinBox.value())
+    
+            if statusValue == MATCH_OK:
+                self._colorizeStrings(strings, self.replaceTextBrowser)
+            else:
+                self.replaceTextBrowser.clear()
+                self.updateStatus("Error in replace string: %s" % strings, statusValue, SHORTMESSAGE_DURATION)
         else:
             self.replaceTextBrowser.clear()
-            self.updateStatus("Error in replace string: %s" % strings, statusValue, SHORTMESSAGE_DURATION)
 
     def _populateCodeTextBrowser(self):
         self.codeTextBrowser.setPlainText(self._regexProcessor.getRegexCode())

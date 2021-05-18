@@ -1,7 +1,0 @@
-S'(?P<key>.*?)=(?P<value>.*?) '
-p1
-.S'fruit=apple fruit=orange fruit=grapefruit color=red color=blue color=green vehicle=car vehicle=boat'
-p2
-.I0
-.S''
-.

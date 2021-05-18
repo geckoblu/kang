@@ -53,8 +53,6 @@ class MainWindow(MainWindowUI):
 
         restoreWindowSettings(self, GEO)
 
-        self._showReplaceWidgets(False)
-
         self.show()
 
         self.preferences = Preferences()
@@ -85,19 +83,33 @@ class MainWindow(MainWindowUI):
             message = '%s: %s' % (self.tr('Failed to create'), kdir)
             QMessageBox().critical(self, self.tr('ERROR'), message, buttons=QMessageBox.Ok)
 
-    def _regexStatusChanged(self):
+    def _regexprocessorStatusChanged(self):
         statusValue, statusMessage = self._regexProcessor.getStatus()
         self.updateStatus(statusMessage, statusValue)
 
         allmatches = self._regexProcessor.getAllSpans()
-        if allmatches and len(allmatches):
+        if allmatches:
+            self.matchTextBrowser.setEnabled(True)
+            self.groupTable.setEnabled(True)
             self.matchNumberSpinBox.setMaximum(len(allmatches))
             self.matchNumberSpinBox.setEnabled(True)
+        else:
+            # No match found
+            self.matchTextBrowser.setDisabled(True)
+            self.groupTable.setDisabled(True)
+            self.matchNumberSpinBox.setValue(0)
+            self.matchNumberSpinBox.setDisabled(True)
+
+        replaceString = self.replaceTextEdit.toPlainText()
+        if allmatches and replaceString:
+            self.replaceTextBrowser.setEnabled(True)
             self.replaceNumberSpinBox.setMaximum(len(allmatches))
             self.replaceNumberSpinBox.setEnabled(True)
         else:
-            self.matchNumberSpinBox.setEnabled(False)
-            self.replaceNumberSpinBox.setEnabled(False)
+            # No match found
+            self.replaceTextBrowser.setDisabled(True)
+            self.replaceNumberSpinBox.setValue(0)
+            self.replaceNumberSpinBox.setDisabled(True)
 
         self._populateGroupTable()
         self._populateMatchTextbrowser()
@@ -207,21 +219,6 @@ class MainWindow(MainWindowUI):
         self.replaceNumberSpinBox.setEnabled(False)
         self.replaceTextBrowser.setPlainText('')
 
-    def _showReplaceWidgets(self, show):
-        print('_showReplaceWidgets')
-        if show:
-            # self.replaceLabel.show()
-            # self.replaceNumberSpinBox.show()
-            self.replaceNumberSpinBox.setEnabled(True)
-            self.replaceTextBrowser.setEnabled(True)
-        else:
-            # self.replaceLabel.hide()
-            # self.replaceNumberSpinBox.hide()
-            self.replaceNumberSpinBox.setValue(0)
-            self.replaceNumberSpinBox.setDisabled(True)
-            self.replaceTextBrowser.clear()
-            self.replaceTextBrowser.setDisabled(True)
-
     def _populateGroupTable(self):
         groups = self._regexProcessor.getAllGroups()
 
@@ -271,9 +268,12 @@ class MainWindow(MainWindowUI):
         self._populateText(spans, self.matchTextBrowser)
 
     def _populateReplaceTextbrowser(self):
-        if (self.replaceTextEdit.toPlainText() != ''):
+        replaceString = self.replaceTextEdit.toPlainText()
+        allmatches = self._regexProcessor.getAllSpans()
+
+        if replaceString and allmatches:
             statusValue, strings = self._regexProcessor.replace(self.replaceNumberSpinBox.value())
-    
+
             if statusValue == MATCH_OK:
                 self._colorizeStrings(strings, self.replaceTextBrowser)
             else:
@@ -574,11 +574,10 @@ class MainWindow(MainWindowUI):
         # is one of the editable widgets OR if the method
         # may be applied to any widget.
         widget = qApp.focusWidget()
-        if anywidget or (
-                widget == self.regexMultiLineEdit or
-                widget == self.stringMultiLineEdit or
-                widget == self.replaceTextEdit or
-                widget == self.codeTextBrowser):
+        if anywidget or widget in (self.regexMultiLineEdit,
+                                   self.stringMultiLineEdit,
+                                   self.replaceTextEdit,
+                                   self.codeTextBrowser):
             try:
                 eval('widget.%s' % methodstr)
             except:

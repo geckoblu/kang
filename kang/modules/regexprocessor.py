@@ -253,7 +253,7 @@ class RegexProcessor(QObject):
             return (MATCH_FAIL, str(ex))
 
         strings = []
-        # I couldn't define which is the correct behavior so I disable it completely
+        # TODO: I couldn't define which is the correct behavior so I disable it completely
         # seq = difflib.SequenceMatcher(None, self._matchString, replaced, None)
         # for _, _, _, j1, j2 in seq.get_opcodes():
         #    strings.append(replaced[j1:j2])

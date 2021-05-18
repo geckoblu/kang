@@ -2,7 +2,6 @@ import os
 import webbrowser
 
 from PySide2.QtCore import Signal, qApp, QItemSelectionModel
-from PySide2.QtGui import QBrush
 from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
 
 from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE

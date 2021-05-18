@@ -263,9 +263,9 @@ class MainWindowUI(QMainWindow):
         self.replaceLabel = QLabel("Replace Number", groupBox)
         hboxLayout.addWidget(self.replaceLabel)
         self.replaceNumberSpinBox = QSpinBox(groupBox)
-        self.replaceNumberSpinBox.setMinimum(1)
+        self.replaceNumberSpinBox.setMinimum(0)
         self.replaceNumberSpinBox.setMaximum(9999)
-        self.matchNumberSpinBox.setWrapping(True)
+        self.replaceNumberSpinBox.setWrapping(True)
         self.replaceNumberSpinBox.valueChanged.connect(self._replaceNumberChanged)
         hboxLayout.addWidget(self.replaceNumberSpinBox)
 

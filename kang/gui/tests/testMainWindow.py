@@ -88,6 +88,8 @@ class TestMainWindow(unittest.TestCase):
         self.window._replaceNumberChanged()
 
     def test_populateReplaceTextbrowser(self):
+        self.window.replaceNumberSpinBox.setValue(0)
+
         self.window._regexProcessor.setMatchString('abcdabc')
         self.window._regexProcessor.setRegexString('b')
         self.window._regexProcessor.setReplaceString('x')

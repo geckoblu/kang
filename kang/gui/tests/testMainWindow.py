@@ -15,7 +15,6 @@ from kang.gui.tests.fakeWebbrowser import FakeWebbrowser
 from kang.gui.tests.fakedialog import FakeDialog
 from kang.gui.tests.fakemessagebox import FakeMessageBox
 from kang.modules import util
-from kang.gui.mainWindow import QCOLOR_WHITE, QCOLOR_EVIDENCE
 
 
 class TestMainWindow(unittest.TestCase):
@@ -72,13 +71,13 @@ class TestMainWindow(unittest.TestCase):
         window.close()
 
     def test_pause(self):
-        self.window.pause()  # pause
-        self.window.pause()  # unpause
+        self.window.pause(True)  # pause
+        self.window.pause(False)  # unpause
 
     def test_examine(self):
         self.window.regex = 'abc'
-        self.window.examine()
-        self.window.examine()
+        self.window.examine(True)
+        self.window.examine(False)
 
     def test_matchNumSlot(self):
         self.window.loadFile(self.filename1)
@@ -202,9 +201,9 @@ class TestMainWindow(unittest.TestCase):
         mainWindow.QFileDialog = qfd
 
     def test_processRegex(self):
-        self.window.pause()
+        self.window.pause(True)
         self.window.stringMultiLineEdit.setPlainText('abcdabc')
-        self.window.pause()  # unpause
+        self.window.pause(False)  # unpause
         self.window.regexMultiLineEdit.setPlainText('e')
         self.window.regexMultiLineEdit.setPlainText('d')
         self.window.regexMultiLineEdit.setPlainText('b')
@@ -394,63 +393,72 @@ class TestMainWindow(unittest.TestCase):
         self.window._populateText(spans, widget)
         self.assertEqual(widget.colorized, [])
 
+        qColorNormal = self.window.normalTextColor
+        qColorEvidence = self.window.highlightTextColor
+
         # One match in the middle
         self.window._regexProcessor.setRegexString('d')
         spans = self.window._regexProcessor.getAllSpans()
         self.window._populateText(spans, widget)
-        self.assertEqual(widget.colorized, [(QCOLOR_WHITE, 'abc'),
-                                            (QCOLOR_EVIDENCE, 'd'),
-                                            (QCOLOR_WHITE, 'abc')])
+        # self.assertEqual(widget.colorized, "[]")
+        self.assertEqual(widget.colorized, [(qColorNormal, 'abc'),
+                                            (qColorEvidence, 'd'),
+                                            (qColorNormal, 'abc')])
 
         # Two match in the middle
         self.window._regexProcessor.setRegexString('b')
         spans = self.window._regexProcessor.getAllSpans()
         self.window._populateText(spans, widget)
-        self.assertEqual(widget.colorized, [(QCOLOR_WHITE, 'a'),
-                                            (QCOLOR_EVIDENCE, 'b'),
-                                            (QCOLOR_WHITE, 'cda'),
-                                            (QCOLOR_EVIDENCE, 'b'),
-                                            (QCOLOR_WHITE, 'c')])
+        self.assertEqual(widget.colorized, [(qColorNormal, 'a'),
+                                            (qColorEvidence, 'b'),
+                                            (qColorNormal, 'cda'),
+                                            (qColorEvidence, 'b'),
+                                            (qColorNormal, 'c')])
 
         # Match in the end
         self.window._regexProcessor.setRegexString('c')
         spans = self.window._regexProcessor.getAllSpans()
         self.window._populateText(spans, widget)
-        self.assertEqual(widget.colorized, [(QCOLOR_WHITE, 'ab'),
-                                            (QCOLOR_EVIDENCE, 'c'),
-                                            (QCOLOR_WHITE, 'dab'),
-                                            (QCOLOR_EVIDENCE, 'c'),
-                                            (QCOLOR_WHITE, '')])
+        self.assertEqual(widget.colorized, [(qColorNormal, 'ab'),
+                                            (qColorEvidence, 'c'),
+                                            (qColorNormal, 'dab'),
+                                            (qColorEvidence, 'c'),
+                                            (qColorNormal, '')])
 
         # Match in the start
         self.window._regexProcessor.setRegexString('a')
         spans = self.window._regexProcessor.getAllSpans()
         self.window._populateText(spans, widget)
-        self.assertEqual(widget.colorized, [(QCOLOR_WHITE, ''),
-                                            (QCOLOR_EVIDENCE, 'a'),
-                                            (QCOLOR_WHITE, 'bcd'),
-                                            (QCOLOR_EVIDENCE, 'a'),
-                                            (QCOLOR_WHITE, 'bc')])
+        self.assertEqual(widget.colorized, [(qColorNormal, ''),
+                                            (qColorEvidence, 'a'),
+                                            (qColorNormal, 'bcd'),
+                                            (qColorEvidence, 'a'),
+                                            (qColorNormal, 'bc')])
 
 
 class FakeColorizeWidget():
 
     def __init__(self):
-        self._currentColor = None
+        self._currentTextColor = None
+        self._currentBackgroundColor = None
         self.colorized = []
 
     def clear(self):
-        self._currentColor = None
+        self._currentTextColor = None
+        self._currentBackgroundColor = None
         self.colorized = []
 
     def textCursor(self):
         return 0
 
+    def setTextColor(self, color):
+        self._currentTextColor = color
+
     def setTextBackgroundColor(self, color):
-        self._currentColor = color
+        self._currentBackgroundColor = color
 
     def insertPlainText(self, text):
-        self.colorized.append((self._currentColor, str(text)))
+        self.colorized.append((self._currentTextColor, str(text)))
 
     def setTextCursor(self, pos):
         pass

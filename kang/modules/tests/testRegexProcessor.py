@@ -268,24 +268,24 @@ class TestRegexProcessor(unittest.TestCase):
         rp.setMatchString('123456789')
 
         rp.setRegexString('1222222345')
-        old, new = rp.examine()
-        self.assertEqual(old, '1222222345')
-        self.assertEqual(new, '12')
+        matching, dontmatching = rp.examine()
+        self.assertEqual(matching, '12')
+        self.assertEqual(dontmatching, '22222345')
 
         rp.setRegexString('xxx')
-        old, new = rp.examine()
-        self.assertEqual(old, 'xxx')
-        self.assertEqual(new, '')
+        matching, dontmatching = rp.examine()
+        self.assertEqual(matching, '')
+        self.assertEqual(dontmatching, 'xxx')
 
         rp.setRegexString('')
-        old, new = rp.examine()
-        self.assertEqual(old, '')
-        self.assertEqual(new, '')
+        matching, dontmatching = rp.examine()
+        self.assertEqual(matching, '')
+        self.assertEqual(dontmatching, '')
 
         rp.setRegexString('(?P<n1>x)|(?P<n1>y)')  # invalid regex
-        old, new = rp.examine()
-        self.assertEqual(old, '(?P<n1>x)|(?P<n1>y)')
-        self.assertEqual(new, '(?P<n1>x)|')
+        matching, dontmatching = rp.examine()
+        self.assertEqual(matching, '(?P<n1>x)|')
+        self.assertEqual(dontmatching, '(?P<n1>y)')
 
     def statusChanged(self):
         self._statusChanged = True

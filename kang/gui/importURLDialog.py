@@ -1,9 +1,9 @@
-from PySide2.QtWidgets import QDialog, QApplication, QDialogButtonBox, QGridLayout, \
-                              QVBoxLayout, QLabel, QLineEdit, QMessageBox, \
-    QComboBox, QHBoxLayout
-from enum import Enum
 import sys
 import urllib.request
+from enum import Enum
+
+from PySide2.QtWidgets import QDialog, QApplication, QDialogButtonBox, QGridLayout, \
+                              QVBoxLayout, QLabel, QLineEdit, QMessageBox, QComboBox, QHBoxLayout
 
 from kang.images import getIcon
 
@@ -59,7 +59,7 @@ class ImportURLDialog(QDialog):
         self.text = ''
 
     def getURL(self):
-        self.exec()        
+        self.exec()
         return (self.result(), self.text, self.edit.text(), self.combo.currentData())
 
     def _importURL(self):
@@ -67,7 +67,7 @@ class ImportURLDialog(QDialog):
         if url:
             try:
                 with urllib.request.urlopen(url) as response:
-                    data = response.read()  # a `bytes` object
+                    data = response2.read()  # a `bytes` object
                     self.text = data.decode('utf-8')  # a `str`; this step can't be used if data is binary
             except Exception as ex:
                 QMessageBox.information(None,
@@ -78,7 +78,11 @@ class ImportURLDialog(QDialog):
         QDialog.accept(self)
 
 
-ERROR_MESSAGE = "Could not open the specified URL.\nPlease check to ensure that you have entered the correct URL.\n\n%s"
+ERROR_MESSAGE = """Could not open the specified URL.
+Please check to ensure that you have entered the correct URL.
+
+%s
+"""
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
@@ -93,7 +97,6 @@ if __name__ == '__main__':
         print('    ' + url)
         print('    ' + str(mode))
         print(text)
-        pass
     else:
         print('Rejected')
     print('End')

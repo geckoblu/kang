@@ -13,9 +13,16 @@ disable=
     too-many-arguments,
     too-few-public-methods,
     too-many-public-methods,
+    too-many-locals,
+
+    fixme,
+        
     undefined-variable, # Problems with PySide2 imports
     no-name-in-module, # Problems with PySide2 imports
-    duplicate-code # Remove at the end of porting
+    duplicate-code, # Remove at the end of porting
+    bare-except,
+    unused-argument,
+    no-self-use
 
 [BASIC]
 
@@ -53,4 +60,4 @@ good-names=i,j,k,ex,Run,_,x,y
 [FORMAT]
 
 # Maximum number of characters on a single line.
-max-line-length=150
+max-line-length=120

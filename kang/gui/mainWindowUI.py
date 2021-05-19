@@ -1,9 +1,8 @@
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QPalette
-from PySide2.QtWidgets import \
-    QMainWindow, QAction, QToolBar, QWidget, QLabel, \
-    QGridLayout, QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QSpinBox, \
-    QTreeWidget, QStyledItemDelegate, QAbstractItemView
+from PySide2.QtWidgets import QMainWindow, QAction, QToolBar, QWidget, QLabel, QGridLayout, \
+                              QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QSpinBox, \
+                              QTreeWidget, QStyledItemDelegate, QAbstractItemView
 
 from kang.images import getIcon
 from kang.modules.regexprocessor import RegexProcessor
@@ -191,7 +190,8 @@ class MainWindowUI(QMainWindow):
         tabWidget = QTabWidget(self.widget)
 
         self.stringMultiLineEdit = QTextEdit()
-        self.stringMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setMatchString(self.stringMultiLineEdit.toPlainText()))
+        self.stringMultiLineEdit.textChanged.connect(
+            lambda: self._regexProcessor.setMatchString(self.stringMultiLineEdit.toPlainText()))
         self.stringMultiLineEdit.textChanged.connect(self._setModified)
         tabWidget.addTab(self.stringMultiLineEdit, "Match String")
 
@@ -227,12 +227,14 @@ class MainWindowUI(QMainWindow):
         tabWidget = QTabWidget(self.widget)
 
         self.regexMultiLineEdit = QTextEdit()
-        self.regexMultiLineEdit.textChanged.connect(lambda: self._regexProcessor.setRegexString(self.regexMultiLineEdit.toPlainText()))
+        self.regexMultiLineEdit.textChanged.connect(
+            lambda: self._regexProcessor.setRegexString(self.regexMultiLineEdit.toPlainText()))
         self.regexMultiLineEdit.textChanged.connect(self._setModified)
         tabWidget.addTab(self.regexMultiLineEdit, "Regular Expression")
 
         self.replaceTextEdit = QTextEdit()
-        self.replaceTextEdit.textChanged.connect(lambda: self._regexProcessor.setReplaceString(self.replaceTextEdit.toPlainText()))
+        self.replaceTextEdit.textChanged.connect(
+            lambda: self._regexProcessor.setReplaceString(self.replaceTextEdit.toPlainText()))
         self.replaceTextEdit.textChanged.connect(self._setModified)
         tabWidget.addTab(self.replaceTextEdit, "Replace String")
 

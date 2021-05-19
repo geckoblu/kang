@@ -25,7 +25,9 @@ class TestKngFile(unittest.TestCase):
         kng = kngfile.KngFile(picklerfilename)
         kng._loadPickler()
 
-        self.assertEqual(kng.matchString, 'fruit=apple fruit=orange fruit=grapefruit color=red color=blue color=green vehicle=car vehicle=boat')
+        matchString = 'fruit=apple fruit=orange color=red color=green vehicle=car vehicle=boat'
+
+        self.assertEqual(kng.matchString, matchString)
         self.assertEqual(kng.regexString, '(?P<key>.*?)=(?P<value>.*?)')
         self.assertEqual(kng.replaceString, 'abc1def')
         self.assertEqual(kng.flagIgnorecase, True)
@@ -37,7 +39,7 @@ class TestKngFile(unittest.TestCase):
         kng = kngfile.KngFile(picklerfilename)
         kng.load()
 
-        self.assertEqual(kng.matchString, 'fruit=apple fruit=orange fruit=grapefruit color=red color=blue color=green vehicle=car vehicle=boat')
+        self.assertEqual(kng.matchString, matchString)
         self.assertEqual(kng.regexString, '(?P<key>.*?)=(?P<value>.*?)')
         self.assertEqual(kng.replaceString, 'abc1def')
         self.assertEqual(kng.flagIgnorecase, True)

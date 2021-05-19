@@ -1,9 +1,8 @@
 import sys
 
 from PySide2.QtGui import QPalette, QBrush, QColor, Qt, QFont
-from PySide2.QtWidgets import QDialog, QApplication, QDialogButtonBox, \
-    QGridLayout, QVBoxLayout, QHBoxLayout, QLabel, QTabWidget, QWidget, \
-    QTextBrowser
+from PySide2.QtWidgets import QDialog, QApplication, QDialogButtonBox, QGridLayout, \
+                              QVBoxLayout, QHBoxLayout, QLabel, QTabWidget, QWidget, QTextBrowser
 
 from kang import VERSION, KANG_WEBSITE
 from kang.images import getIcon, getPixmap

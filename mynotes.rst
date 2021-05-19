@@ -8,8 +8,9 @@ Build environment
 
 pylint
 ------
+pylint kang
 
-pylint -f html kang > ~/tmp/kang-pylint.html
+pylint --disable=all --enable=line-too-long kang
 
 
 

@@ -1,7 +1,8 @@
-from PySide2.QtCore import Signal, qApp, QItemSelectionModel
-from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
 import os
 import webbrowser
+
+from PySide2.QtCore import Signal, qApp, QItemSelectionModel
+from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
 
 from kang import PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
 from kang.gui.aboutDialog import AboutDialog
@@ -16,7 +17,6 @@ from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
 from kang.modules.util import restoreWindowSettings, saveWindowSettings, getConfigDirectory
-
 
 GEO = 'kang_geometry'
 
@@ -385,7 +385,9 @@ class MainWindow(MainWindowUI):
                 self.stringMultiLineEdit.setPlainText(text)
 
     def importFile(self):
-        (filename, _filter) = QFileDialog.getOpenFileName(self, self.tr("Import File"), self.importFilename, "All (*)")
+        (filename, _filter) = QFileDialog.getOpenFileName(self,
+                                                          self.tr("Import File"),
+                                                          self.importFilename, "All (*)")
 
         if not filename:
             self.updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, SHORTMESSAGE_DURATION)

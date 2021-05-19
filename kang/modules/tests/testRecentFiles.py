@@ -31,7 +31,9 @@ class TestRecentFiles(unittest.TestCase):
         r1 = recentfiles.RecentFiles(parent)
 
         # Test save/load
-        r1._recentFiles = ['/home/goofy/kng/pippo1.kng', '/home/goofy/kng/pippo2.kng', '/home/goofy/kng/pippo3.kng']
+        r1._recentFiles = ['/home/goofy/kng/pippo1.kng',
+                           '/home/goofy/kng/pippo2.kng',
+                           '/home/goofy/kng/pippo3.kng']
         r1._save()
         r1._load()
 

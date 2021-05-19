@@ -104,11 +104,8 @@ class MainWindowUI(QMainWindow):
 
         # Help Actions
 
-        self.helpHelpAction = QAction("&Help", self)
-        self.helpHelpAction.setShortcut("F1")
-        self.helpHelpAction.triggered.connect(self.helpHelp)
-
-        self.helpRegexHelpAction = QAction("&Python Regex Help", self)
+        self.helpRegexHelpAction = QAction(getIcon('help'), "&Python Regex Help", self)
+        self.helpRegexHelpAction.setShortcut("F1")
         self.helpRegexHelpAction.triggered.connect(self.helpPythonRegex)
 
         self.helpRegexReferenceGuideAction = QAction(getIcon('book'), "&Regex Reference Guide", self)
@@ -116,13 +113,10 @@ class MainWindowUI(QMainWindow):
         self.helpRegexReferenceGuideAction.triggered.connect(self.referenceGuide)
 
         self.helpRegexLibraryAction = QAction(getIcon('library'), "Regex &Library", self)
-        self.helpRegexReferenceGuideAction.setShortcut("Ctrl+L")
+        self.helpRegexLibraryAction.setShortcut("Ctrl+L")
         self.helpRegexLibraryAction.triggered.connect(self.helpRegexLib)
 
-        self.helpVisitKangWebsiteAction = QAction("&Visit Kang Website", self)
-        self.helpVisitKangWebsiteAction.triggered.connect(self.helpVisitKangWebsite)
-
-        self.helpAboutAction = QAction("&About", self)
+        self.helpAboutAction = QAction(getIcon('help-about'), "&About", self)
         self.helpAboutAction.triggered.connect(self.helpAbout)
 
     def _setupMenuBar(self):
@@ -158,13 +152,10 @@ class MainWindowUI(QMainWindow):
         editMenu.addSeparator()
         editMenu.addAction(self.editPreferencesAction)
 
-        helpMenu.addAction(self.helpHelpAction)
         helpMenu.addAction(self.helpRegexHelpAction)
         helpMenu.addSeparator()
         helpMenu.addAction(self.helpRegexReferenceGuideAction)
         helpMenu.addAction(self.helpRegexLibraryAction)
-        helpMenu.addSeparator()
-        helpMenu.addAction(self.helpVisitKangWebsiteAction)
         helpMenu.addSeparator()
         helpMenu.addAction(self.helpAboutAction)
 

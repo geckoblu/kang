@@ -92,7 +92,8 @@ class TestMainWindow(unittest.TestCase):
 
         self.window._regexProcessor.setMatchString('abcdabc')
         self.window._regexProcessor.setRegexString('b')
-        self.window._regexProcessor.setReplaceString('x')
+        self.window.replaceTextEdit.setText('x')
+        # self.window._regexProcessor.setReplaceString('x')
 
         self.window._populateReplaceTextbrowser()
         self.assertEqual(self.window.replaceTextBrowser.toPlainText(), 'axcdaxc')
@@ -237,25 +238,6 @@ class TestMainWindow(unittest.TestCase):
 
         mainWindow.PreferencesDialog = old
 
-    def test_helpHelp(self):
-        wold = mainWindow.webbrowser
-        fwb = FakeWebbrowser()
-        mainWindow.webbrowser = fwb
-
-        # Here we find the doc
-        self.window.helpHelp()
-        fwb.assertIsLocalUrl(self)
-
-        fold = mainWindow.findFile
-        mainWindow.findFile = lambda s1, s2: None
-
-        # Here we don't find the doc
-        self.window.helpHelp()
-        fwb.assertIsWebUrl(self)
-
-        mainWindow.findFile = fold
-        mainWindow.webbrowser = wold
-
     def test_helpPythonRegex(self):
         wold = mainWindow.webbrowser
         fwb = FakeWebbrowser()
@@ -281,16 +263,6 @@ class TestMainWindow(unittest.TestCase):
         self.window.helpAbout()
 
         mainWindow.AboutDialog = old
-
-    def test_helpVisitKangWebsite(self):
-        wold = mainWindow.webbrowser
-        fwb = FakeWebbrowser()
-        mainWindow.webbrowser = fwb
-
-        self.window.helpVisitKangWebsite()
-        fwb.assertIsWebUrl(self)
-
-        mainWindow.webbrowser = wold
 
     def test_referenceGuide(self):
         old = mainWindow.RegexReferenceWindow
@@ -467,4 +439,9 @@ class FakeColorizeWidget():
 
 
 if __name__ == "__main__":
-    unittest.main()
+    # unittest.main()
+
+    suite = unittest.TestSuite()
+    suite.addTest(TestMainWindow("test_populateReplaceTextbrowser"))
+    runner = unittest.TextTestRunner()
+    runner.run(suite)

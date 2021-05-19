@@ -605,13 +605,6 @@ class MainWindow(MainWindowUI):
     def preferencesChanged(self):
         self.recentFiles.setNumShown(self.preferences.recentFilesNum)
 
-    def helpHelp(self):
-        f = findFile('doc', 'index.html')
-        if f:
-            webbrowser.open('file://%s' % f)
-        else:
-            webbrowser.open('%s/doc/index.html' % KANG_WEBSITE)
-
     def helpPythonRegex(self):
         webbrowser.open(PYTHON_RE_LIBRARY_URL)
 
@@ -622,9 +615,6 @@ class MainWindow(MainWindowUI):
     def helpAbout(self):
         aboutWindow = AboutDialog(self)
         aboutWindow.show()
-
-    def helpVisitKangWebsite(self):
-        webbrowser.open(KANG_WEBSITE)
 
     def referenceGuide(self):
         self.refWin = RegexReferenceWindow(self)

@@ -4,7 +4,7 @@
 
 VERSION = '5.0'
 
-KANG_WEBSITE = 'http://www.geckoblu.net/kang'
+KANG_WEBSITE = 'https://github.com/geckoblu/kang'
 
 PYTHON_RE_LIBRARY_URL = 'https://docs.python.org/3/library/re.html'
 

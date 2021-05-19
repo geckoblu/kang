@@ -292,12 +292,9 @@ class TestMainWindow(unittest.TestCase):
         old = mainWindow.ImportURLDialog
         mainWindow.ImportURLDialog = FakeDialog
 
-        self.window.importURL()
+        self.window._importURL()
 
         mainWindow.ImportURLDialog = old
-
-    def test_urlImported(self):
-        self.window.urlImported('html', 'url')
 
     def test_pasteFromRegexLib(self):
 

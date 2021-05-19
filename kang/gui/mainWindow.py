@@ -4,7 +4,7 @@ import webbrowser
 from PySide2.QtCore import Signal, qApp, QItemSelectionModel
 from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
 
-from kang import KANG_WEBSITE, PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
+from kang import PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
 from kang.gui.aboutDialog import AboutDialog
 from kang.gui.importURLDialog import ImportURLDialog
 from kang.gui.mainWindowUI import MainWindowUI
@@ -16,7 +16,7 @@ from kang.gui.reportBugDialog import ReportBugDialog
 from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
-from kang.modules.util import findFile, restoreWindowSettings, saveWindowSettings, getConfigDirectory
+from kang.modules.util import restoreWindowSettings, saveWindowSettings, getConfigDirectory
 
 GEO = 'kang_geometry'
 
@@ -40,7 +40,8 @@ class MainWindow(MainWindowUI):
         self.importFilename = ''
         self.filename = ''
 
-        self.url = KANG_WEBSITE
+        # Temporary stores last opened URL
+        self._lastImportedURL = ''
 
         # This property holds whether the document shown in the window has unsaved changes
         self._modified = False
@@ -63,7 +64,6 @@ class MainWindow(MainWindowUI):
 
         # FIXME self.connect(self, SIGNAL('preferencesChanged()'), self.preferencesChanged)
         # FIXME self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.pasteSymbol)
-        # FIXME self.connect(self, SIGNAL('urlImported(PyQt_PyObject, PyQt_PyObject)'), self.urlImported)
         # FIXME self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
         self.checkForKangDir()
@@ -372,13 +372,12 @@ class MainWindow(MainWindowUI):
             pass
         ev.accept()
 
-    def importURL(self):
-        urldialog = ImportURLDialog(self, self.url)
-        urldialog.show()
-
-    def urlImported(self, html, url):
-        self.url = url
-        self.stringMultiLineEdit.setPlainText(html)
+    def _importURL(self):
+        dialog = ImportURLDialog(self, self._lastImportedURL)
+        (ok, text, url) = dialog.getURL()
+        if ok:
+            self._lastImportedURL = url
+            self.stringMultiLineEdit.setPlainText(text)
 
     def importFile(self):
         (filename, _filter) = QFileDialog.getOpenFileName(self, self.tr("Import File"), self.importFilename, "All (*)")

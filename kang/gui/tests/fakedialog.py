@@ -14,3 +14,6 @@ class FakeDialog():
 
     def showPrefsDialog(self):
         self.show()
+
+    def getURL(self):
+        return (1, 'Some text', 'https://example.com/')

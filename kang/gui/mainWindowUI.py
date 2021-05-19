@@ -63,7 +63,7 @@ class MainWindowUI(QMainWindow):
         self.fileImportFileAction.triggered.connect(self.importFile)
 
         self.fileImportURLAction = QAction("Import &URL", self)
-        self.fileImportURLAction.triggered.connect(self.importURL)
+        self.fileImportURLAction.triggered.connect(self._importURL)
 
         self._exitAction = QAction("E&xit", self)
         self._exitAction.triggered.connect(self.fileExit)

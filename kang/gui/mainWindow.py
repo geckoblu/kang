@@ -1,12 +1,11 @@
+from PySide2.QtCore import Signal, qApp, QItemSelectionModel
+from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
 import os
 import webbrowser
 
-from PySide2.QtCore import Signal, qApp, QItemSelectionModel
-from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
-
 from kang import PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
 from kang.gui.aboutDialog import AboutDialog
-from kang.gui.importURLDialog import ImportURLDialog
+from kang.gui.importURLDialog import ImportURLDialog, ImportURLDialogMode
 from kang.gui.mainWindowUI import MainWindowUI
 from kang.gui.newUserDialog import NewUserDialog
 from kang.gui.preferencesDialog import PreferencesDialog
@@ -17,6 +16,7 @@ from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
 from kang.modules.util import restoreWindowSettings, saveWindowSettings, getConfigDirectory
+
 
 GEO = 'kang_geometry'
 
@@ -374,10 +374,15 @@ class MainWindow(MainWindowUI):
 
     def _importURL(self):
         dialog = ImportURLDialog(self, self._lastImportedURL)
-        (ok, text, url) = dialog.getURL()
+        (ok, text, url, mode) = dialog.getURL()
         if ok:
             self._lastImportedURL = url
-            self.stringMultiLineEdit.setPlainText(text)
+            if mode == ImportURLDialogMode.HTML:
+                self.stringMultiLineEdit.setHtml(text)
+                text = self.stringMultiLineEdit.toPlainText()
+                self.stringMultiLineEdit.setPlainText(text)
+            else:
+                self.stringMultiLineEdit.setPlainText(text)
 
     def importFile(self):
         (filename, _filter) = QFileDialog.getOpenFileName(self, self.tr("Import File"), self.importFilename, "All (*)")

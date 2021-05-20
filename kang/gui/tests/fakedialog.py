@@ -1,3 +1,5 @@
+from kang.gui.importURLDialog import ImportURLDialogMode
+
 class FakeDialog():
 
     def __init__(self, parent, *args, **kargs):
@@ -16,4 +18,4 @@ class FakeDialog():
         self.show()
 
     def getURL(self):
-        return (1, 'Some text', 'https://example.com/')
+        return (1, 'Some text', 'https://example.com/', ImportURLDialogMode.TEXT)

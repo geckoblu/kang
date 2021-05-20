@@ -74,7 +74,6 @@ class MainWindow(MainWindowUI):
             return
 
         newuserdialog = NewUserDialog(self)
-        newuserdialog.setModal(True)
         newuserdialog.exec_()
 
         try:

@@ -67,7 +67,7 @@ class ImportURLDialog(QDialog):
         if url:
             try:
                 with urllib.request.urlopen(url) as response:
-                    data = response2.read()  # a `bytes` object
+                    data = response.read()  # a `bytes` object
                     self.text = data.decode('utf-8')  # a `str`; this step can't be used if data is binary
             except Exception as ex:
                 QMessageBox.information(None,

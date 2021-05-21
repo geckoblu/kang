@@ -30,7 +30,7 @@ def parseCmdline():
     #    return locale
 
     parser = argparse.ArgumentParser(description='Kang is a visual regular expression editor.')
-    parser.add_argument('_filename', metavar='FILENAME', nargs='?', help='load _filename on startup')
+    parser.add_argument('filename', metavar='FILENAME', nargs='?', help='load _filename on startup')
     # parser.add_argument('-l', '--locale', type=locale, help='2-letter locale (eg. en)')
 
     return parser.parse_args()
@@ -59,8 +59,8 @@ def main():
 
     exceptionHandler.init(kang)
 
-    if args._filename:
-        kang.loadFile(args._filename)
+    if args.filename:
+        kang.loadFile(args.filename)
 
     kang.show()
 

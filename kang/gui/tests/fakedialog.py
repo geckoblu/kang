@@ -21,6 +21,6 @@ class FakeDialog():
 
     def getURL(self):
         return (1, 'Some text', 'https://example.com/', ImportURLDialogMode.TEXT)
-    
+
     def getPreferences(self):
         return(1, Preferences())

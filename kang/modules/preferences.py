@@ -26,22 +26,23 @@ class Preferences:
             return
 
         with open(self._filename, 'r') as jfile:
-                jdict = json.load(jfile)
+            jdict = json.load(jfile)
 
         try:
             self.recentFilesNum = int(jdict.get('recent_files_num', self.recentFilesNum))
         except ValueError:
-            pass # Ignore and let to default value
-        
+            pass  # Ignore and let to default value
+
         try:
             self.askSave = strtobool(jdict.get('ask_save', self.askSave))
         except ValueError:
-            pass # Ignore and let to default value
-        
+            pass  # Ignore and let to default value
+
         try:
-            self.askSaveOnlyForNamedProjects = strtobool(jdict.get('ask_save_projects', self.askSaveOnlyForNamedProjects))
+            self.askSaveOnlyForNamedProjects = strtobool(jdict.get('ask_save_projects',
+                                                                   self.askSaveOnlyForNamedProjects))
         except ValueError:
-            pass # Ignore and let to default value
+            pass  # Ignore and let to default value
 
     def save(self):
         """Save preferences to file"""
@@ -67,13 +68,14 @@ class Preferences:
         s += ']'
         return s
 
-def strtobool (val):
+
+def strtobool(val):
     strval = str(val).lower()
-    
+
     if strval == 'true':
         return True
-    
+
     if strval == 'false':
         return False
-    
+
     raise ValueError('invalid boolean value: %r' % (val))

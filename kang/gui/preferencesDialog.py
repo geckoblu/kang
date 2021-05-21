@@ -1,8 +1,5 @@
-import sys
-import urllib.request
-
-from PySide2.QtWidgets import QDialog, QApplication, QDialogButtonBox, QGridLayout, \
-                              QVBoxLayout, QLabel, QSpinBox, QMessageBox, QCheckBox, QHBoxLayout
+from PySide2.QtWidgets import QDialog, QDialogButtonBox, QGridLayout, \
+                              QVBoxLayout, QLabel, QSpinBox, QCheckBox, QHBoxLayout
 
 from kang.images import getIcon
 from kang.modules.preferences import Preferences
@@ -70,25 +67,3 @@ class PreferencesDialog(QDialog):
         preferences.askSaveOnlyForNamedProjects = self.askSaveOnlyForNamedProjectsCheckbox.isChecked()
 
         return (self.result(), preferences)
-
-
-if __name__ == '__main__':
-    qApp = QApplication(sys.argv)
-    
-    pref = Preferences()
-    pref.save()
-    pref.load()
-
-    dialog = PreferencesDialog(None, Preferences())
-    # dialog._importURL()
-    # dialog.show()
-    (ok, preferences) = dialog.getPreferences()
-
-    if ok:
-        print('Accepted:')
-        print('    ' + str(preferences))
-    else:
-        print('Rejected')
-    print('End')
-
-    sys.exit(qApp.exec_())

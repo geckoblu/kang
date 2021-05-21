@@ -49,7 +49,7 @@ def _formatMessage(exmess):
     """
     Format the exception message
     """
-    msg = '==========================================================================\n'
+    msg = '======================================================================\n'
     msg += 'Kang Version:\t %s\n' % VERSION
     msg += 'Python Version:\t %s\n' % str.replace(sys.version, '\n', ' - ')
     msg += 'PyQt Version:\t %s\n' % QtCore.__version__

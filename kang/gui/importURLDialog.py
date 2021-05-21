@@ -1,9 +1,8 @@
-import sys
 import urllib.request
 from enum import Enum
 
-from PySide2.QtWidgets import QDialog, QApplication, QDialogButtonBox, QGridLayout, \
-                              QVBoxLayout, QLabel, QLineEdit, QMessageBox, QComboBox, QHBoxLayout
+from PySide2.QtWidgets import QDialog, QDialogButtonBox, QGridLayout, QVBoxLayout, QLabel, \
+                              QLineEdit, QMessageBox, QComboBox, QHBoxLayout
 
 from kang.images import getIcon
 
@@ -72,33 +71,14 @@ class ImportURLDialog(QDialog):
             except Exception as ex:
                 QMessageBox.information(None,
                                         "Failed to open URL",
-                                        ERROR_MESSAGE % str(ex))
+                                        _ERROR_MESSAGE % str(ex))
                 return
 
         QDialog.accept(self)
 
 
-ERROR_MESSAGE = """Could not open the specified URL.
+_ERROR_MESSAGE = """Could not open the specified URL.
 Please check to ensure that you have entered the correct URL.
 
 %s
 """
-
-if __name__ == '__main__':
-    qApp = QApplication(sys.argv)
-
-    dialog = ImportURLDialog(None, 'https://example.com/')
-    # dialog._importURL()
-    # dialog.show()
-    (ok, text, url, mode) = dialog.getPreferences()
-
-    if ok:
-        print('Accepted:')
-        print('    ' + url)
-        print('    ' + str(mode))
-        print(text)
-    else:
-        print('Rejected')
-    print('End')
-
-    sys.exit(qApp.exec_())

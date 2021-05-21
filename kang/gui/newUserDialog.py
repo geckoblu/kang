@@ -1,6 +1,4 @@
-import sys
-
-from PySide2.QtWidgets import QDialog, QApplication, QDialogButtonBox, QGridLayout, \
+from PySide2.QtWidgets import QDialog, QDialogButtonBox, QGridLayout, \
                               QVBoxLayout, QLabel
 
 from kang.images import getIcon, getPixmap
@@ -19,7 +17,7 @@ class NewUserDialog(QDialog):
 
         verticalLayout = QVBoxLayout()
 
-        label = QLabel(WELCOME_MESSAGE)
+        label = QLabel(_WELCOME_MESSAGE)
         verticalLayout.addWidget(label)
 
         gridLayout = QGridLayout()
@@ -54,24 +52,16 @@ class NewUserDialog(QDialog):
         gridLayout.addWidget(buttonBox, 1, 0, 1, 1)
 
 
-WELCOME_MESSAGE_TITLE = tr("Welcome to Kang.")
+_WELCOME_MESSAGE_TITLE = tr("Welcome to Kang.")
 
-WELCOME_MESSAGE_LINE1 = tr("""It appears that this is your first time using Kang -<br/>
+_WELCOME_MESSAGE_LINE1 = tr("""It appears that this is your first time using Kang -<br/>
 The Python Regular Expression Editor.""")
 
-WELCOME_MESSAGE_LINE2 = tr("""In order to help you familiarize yourself with Kang,<br/>
+_WELCOME_MESSAGE_LINE2 = tr("""In order to help you familiarize yourself with Kang,<br/>
 you may wish to explore the Regex Library.<br/>
 Additionally, Kang contains a Python Regex Reference Guide.<br/>
 You can access these tools by clicking on the appropriate toolbar icon.<br/>""")
 
-WELCOME_MESSAGE = """
+_WELCOME_MESSAGE = """
 <html><head/><body><p><span style=\" font-size:large; font-weight:600;\">%s</span></p><p>%s</p><p>%s</p></body></html>
-""" % (WELCOME_MESSAGE_TITLE, WELCOME_MESSAGE_LINE1, WELCOME_MESSAGE_LINE2)
-
-if __name__ == '__main__':
-    qApp = QApplication(sys.argv)
-
-    dialog = NewUserDialog(None)
-    dialog.show()
-
-    sys.exit(qApp.exec_())
+""" % (_WELCOME_MESSAGE_TITLE, _WELCOME_MESSAGE_LINE1, _WELCOME_MESSAGE_LINE2)

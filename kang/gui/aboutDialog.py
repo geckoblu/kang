@@ -1,8 +1,6 @@
-import sys
-
 from PySide2.QtGui import QPalette, QBrush, QColor, Qt, QFont
-from PySide2.QtWidgets import QDialog, QApplication, QDialogButtonBox, QGridLayout, \
-                              QVBoxLayout, QHBoxLayout, QLabel, QTabWidget, QWidget, QTextBrowser
+from PySide2.QtWidgets import QDialog, QDialogButtonBox, QGridLayout, QVBoxLayout, \
+                              QHBoxLayout, QLabel, QTabWidget, QWidget, QTextBrowser
 
 from kang import VERSION, KANG_WEBSITE
 from kang.images import getIcon, getPixmap
@@ -76,7 +74,7 @@ class AboutDialog(QDialog):
         edit.setOpenExternalLinks(True)
         edit.setOpenLinks(True)
 
-        edit.setHtml(GENERAL_HTML)
+        edit.setHtml(_GENERAL_HTML)
 
         layout = QGridLayout(tab1)
         layout.addWidget(edit, 0, 0, 1, 1)
@@ -88,7 +86,7 @@ class AboutDialog(QDialog):
         edit.setOpenExternalLinks(True)
         edit.setOpenLinks(True)
 
-        edit.setHtml(AUTHORS_HTML)
+        edit.setHtml(_AUTHORS_HTML)
 
         layout = QGridLayout(tab2)
         layout.addWidget(edit, 0, 0, 1, 1)
@@ -100,7 +98,7 @@ class AboutDialog(QDialog):
         return tabWidget
 
 
-GENERAL_HTML = """
+_GENERAL_HTML = """
 <table>
 <tr><td>&nbsp;</td><td></td></tr>
 <tr><td>%s:&nbsp;</td><td>%s</td></tr>
@@ -112,7 +110,7 @@ GENERAL_HTML = """
        tr("Homepage"), KANG_WEBSITE, KANG_WEBSITE,
        tr("License"))
 
-AUTHORS_HTML = """
+_AUTHORS_HTML = """
 <b>Maintainer / Lead Developer</b>
 <ul>
 <li>Alessio Piccoli &lt;alepic@geckoblu.net&gt;</li>
@@ -130,10 +128,10 @@ Original credits for Kodos are:
 </p>
 """
 
-if __name__ == '__main__':
-    qApp = QApplication(sys.argv)
-
-    dialog = AboutDialog(None)
-    dialog.show()
-
-    sys.exit(qApp.exec_())
+# if __name__ == '__main__':
+#     qApp = QApplication(sys.argv)
+#
+#     dialog = AboutDialog(None)
+#     dialog.show()
+#
+#     sys.exit(qApp.exec_())

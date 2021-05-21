@@ -1,40 +1,94 @@
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+import sys
+import urllib.request
 
-from kang.gui.preferencesDialogBA import PreferencesDialogBA
+from PySide2.QtWidgets import QDialog, QApplication, QDialogButtonBox, QGridLayout, \
+                              QVBoxLayout, QLabel, QSpinBox, QMessageBox, QCheckBox, QHBoxLayout
+
 from kang.images import getIcon
+from kang.modules.preferences import Preferences
+
+tr = lambda msg: msg
 
 
-class PreferencesDialog(PreferencesDialogBA):
+class PreferencesDialog(QDialog):
 
     def __init__(self, parent, preferences):
-        PreferencesDialogBA.__init__(self, parent)
-        self.parent = parent
-        self.preferences = preferences
+        QDialog.__init__(self, parent)
 
         self.setWindowIcon(getIcon('kang-icon'))
+        self.setWindowTitle(tr("Preferences"))
+        self.resize(440, 0)  # Height will be recalculated
+        self.setModal(True)
 
-    def showPrefsDialog(self):
-        self.recentFilesSpinBox.setValue(self.preferences.recentFilesNum)
-        self.askSaveCheckbox.setChecked(self.preferences.askSave)
-        self.askSaveCheckbox2.setChecked(self.preferences.askSaveOnlyForNamedProjects)
+        gridLayout = QGridLayout()
 
-        self.askSaveCheckbox2.setEnabled(self.askSaveCheckbox.isChecked())
+        label = QLabel(tr("Recent Files:"))
+        gridLayout.addWidget(label, 0, 0, 1, 1)
 
-        self.show()
+        self.recentFilesSpinBox = QSpinBox()
+        self.recentFilesSpinBox.setMinimum(0)
+        self.recentFilesSpinBox.setMaximum(10)
+        gridLayout.addWidget(self.recentFilesSpinBox, 0, 1, 1, 1)
 
-    def apply(self):
-        self.preferences.recentFilesNum = self.recentFilesSpinBox.value()
-        self.preferences.askSave = self.askSaveCheckbox.isChecked()
-        self.preferences.askSaveOnlyForNamedProjects = self.askSaveCheckbox2.isChecked()
+        label = QLabel(tr("Check for changes to save:"))
+        gridLayout.addWidget(label, 1, 0, 1, 1)
 
-        self.preferences.save()
-        self.parent.emit(SIGNAL('preferencesChanged()'))
+        self.askSaveCheckbox = QCheckBox()
+        gridLayout.addWidget(self.askSaveCheckbox, 1, 1, 1, 1)
 
-    def accept(self):
-        self.apply()
-        QDialog.accept(self)
+        self.askSaveOnlyForNamedProjectsCheckbox = QCheckBox(tr("Only for named projects"))
+        gridLayout.addWidget(self.askSaveOnlyForNamedProjectsCheckbox, 2, 1, 1, 4)
 
-    def askSaveCheckboxToogled(self):
-        self.askSaveCheckbox2.setEnabled(self.askSaveCheckbox.isChecked())
+        # Parent - child relationship
+        self.askSaveCheckbox.toggled.connect(self.askSaveOnlyForNamedProjectsCheckbox.setEnabled)
+
+        buttonBox = QDialogButtonBox(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
+        buttonBox.rejected.connect(self.close)
+        buttonBox.accepted.connect(self.accept)
+
+        hLayout = QHBoxLayout()
+        hLayout.addLayout(gridLayout)
+        hLayout.addStretch()
+
+        vLayout = QVBoxLayout(self)
+        vLayout.addLayout(hLayout)
+        vLayout.addWidget(QLabel(' '))
+        vLayout.addStretch()
+        vLayout.addWidget(buttonBox)
+
+        self.recentFilesSpinBox.setValue(preferences.recentFilesNum)
+        self.askSaveCheckbox.setChecked(preferences.askSave)
+        self.askSaveOnlyForNamedProjectsCheckbox.setChecked(preferences.askSaveOnlyForNamedProjects)
+        self.askSaveOnlyForNamedProjectsCheckbox.setEnabled(preferences.askSave)
+
+    def getPreferences(self):
+        self.exec()
+
+        preferences = Preferences()
+        preferences.recentFilesNum = self.recentFilesSpinBox.value()
+        preferences.askSave = self.askSaveCheckbox.isChecked()
+        preferences.askSaveOnlyForNamedProjects = self.askSaveOnlyForNamedProjectsCheckbox.isChecked()
+
+        return (self.result(), preferences)
+
+
+if __name__ == '__main__':
+    qApp = QApplication(sys.argv)
+    
+    pref = Preferences()
+    pref.save()
+    pref.load()
+
+    dialog = PreferencesDialog(None, Preferences())
+    # dialog._importURL()
+    # dialog.show()
+    (ok, preferences) = dialog.getPreferences()
+
+    if ok:
+        print('Accepted:')
+        print('    ' + str(preferences))
+    else:
+        print('Rejected')
+    print('End')
+
+    sys.exit(qApp.exec_())

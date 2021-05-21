@@ -141,11 +141,11 @@ class TestMainWindow(unittest.TestCase):
         self.window.fileNew()
 
     def test_fileSave(self):
-        self.window.filename = os.path.join(self.dtmp, 'filesave1.kngs')
+        self.window._filename = os.path.join(self.dtmp, 'filesave1.kngs')
         self.window.fileSave()
 
-        # This is a not validi filename
-        self.window.filename = os.path.join(self.dtmp, 'not/a_valid_filename')
+        # This is a not validi _filename
+        self.window._filename = os.path.join(self.dtmp, 'not/a_valid_filename')
         self.window.fileSave()
 
     def test_fileSaveAs(self):
@@ -166,7 +166,7 @@ class TestMainWindow(unittest.TestCase):
 
     def test_fileRevert(self):
         self.window.fileRevert()
-        self.window.filename = self.filename1
+        self.window._filename = self.filename1
         self.window.fileRevert()
 
     def test_importFile(self):
@@ -234,7 +234,7 @@ class TestMainWindow(unittest.TestCase):
         old = mainWindow.PreferencesDialog
         mainWindow.PreferencesDialog = FakeDialog
 
-        self.window.editPreferences()
+        self.window._editPreferences()
 
         mainWindow.PreferencesDialog = old
 
@@ -331,12 +331,12 @@ class TestMainWindow(unittest.TestCase):
 
         old = mainWindow.QMessageBox
         mainWindow.QMessageBox = FakeMessageBox
-        self.window.filename = os.path.join(util.getConfigDirectory(), 't.kng')
+        self.window._filename = os.path.join(util.getConfigDirectory(), 't.kng')
         self.window._checkModified()
         mainWindow.QMessageBox = old
 
         # an unavoidable trick to reach the 100% code coverage
-        self.window.filename = ''
+        self.window._filename = ''
         self.window._modified = True
         old = mainWindow.QMessageBox
         mainWindow.QMessageBox = FakeMessageBox

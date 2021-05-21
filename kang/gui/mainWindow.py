@@ -38,7 +38,7 @@ class MainWindow(MainWindowUI):
         self._regexSaved = ''
 
         self.importFilename = ''
-        self.filename = ''
+        self._filename = ''
 
         # Temporary stores last opened URL
         self._lastImportedURL = ''
@@ -57,12 +57,11 @@ class MainWindow(MainWindowUI):
         self.show()
 
         self.preferences = Preferences()
+        self.preferences.load()
         self.recentFiles = RecentFiles(self, self.preferences.recentFilesNum)
-        self.preferencesChanged()
 
         self._signalException.connect(self.showReportBugDialog)
 
-        # FIXME self.connect(self, SIGNAL('preferencesChanged()'), self.preferencesChanged)
         # FIXME self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.pasteSymbol)
         # FIXME self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
@@ -406,7 +405,7 @@ class MainWindow(MainWindowUI):
 
     def fileNew(self):
         self._checkModified()
-        self.filename = ''
+        self._filename = ''
 
         self.regexMultiLineEdit.setPlainText('')
         self.stringMultiLineEdit.setPlainText('')
@@ -423,14 +422,14 @@ class MainWindow(MainWindowUI):
     def fileOpen(self):
         (filename, _filter) = QFileDialog.getOpenFileName(self,
                                                           self.tr("Open Kang File"),
-                                                          self.filename,
+                                                          self._filename,
                                                           "*.kng\nAll (*)",
                                                           )
         if filename:
             self.loadFile(filename)
 
     def fileSave(self):
-        if not self.filename:
+        if not self._filename:
             self.fileSaveAs()
             return
 
@@ -439,7 +438,7 @@ class MainWindow(MainWindowUI):
         replaceString = self.replaceTextEdit.toPlainText()
 
         try:
-            kngfile = KngFile(self.filename,
+            kngfile = KngFile(self._filename,
                               matchString,
                               regexString,
                               replaceString,
@@ -453,10 +452,10 @@ class MainWindow(MainWindowUI):
 
             self._modified = False
 
-            basename = os.path.basename(self.filename)
+            basename = os.path.basename(self._filename)
             msg = '%s %s' % (basename, self.tr("successfully saved"))
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
-            self.recentFiles.add(self.filename)
+            self.recentFiles.add(self._filename)
         except IOError as ex:
             msg = str(ex)
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
@@ -464,7 +463,7 @@ class MainWindow(MainWindowUI):
     def fileSaveAs(self):
         (filename, _filter) = QFileDialog.getSaveFileName(self,
                                                           self.tr("Save Kang File"),
-                                                          self.filename,
+                                                          self._filename,
                                                           "*.kng\nAll (*)"
                                                           )
         if not filename:
@@ -476,21 +475,21 @@ class MainWindow(MainWindowUI):
         if basename.find('.') == -1:
             filename += '.kng'
 
-        self.filename = filename
+        self._filename = filename
         self.fileSave()
 
     def fileRevert(self):
-        if not self.filename:
-            self.updateStatus(self.tr("There is no filename to revert"), MATCH_NONE, SHORTMESSAGE_DURATION)
+        if not self._filename:
+            self.updateStatus(self.tr("There is no _filename to revert"), MATCH_NONE, SHORTMESSAGE_DURATION)
             return
 
-        self.loadFile(self.filename)
+        self.loadFile(self._filename)
 
     def loadFile(self, filename):
         self._checkModified()
 
         try:
-            self.filename = ''
+            self._filename = ''
 
             kngfile = KngFile(filename)
             kngfile.load()
@@ -509,8 +508,8 @@ class MainWindow(MainWindowUI):
             self.verboseCheckBox.setChecked(kngfile.flagVerbose)
             self.asciiCheckBox.setChecked(kngfile.flagAscii)
 
-            self.filename = filename
-            self.recentFiles.add(self.filename)
+            self._filename = filename
+            self.recentFiles.add(self._filename)
 
             # Reset Pause and Examine status
             self.editPauseAction.setChecked(False)
@@ -541,7 +540,7 @@ class MainWindow(MainWindowUI):
         if not self.preferences.askSave:
             return
 
-        if self.preferences.askSaveOnlyForNamedProjects and not self.filename:
+        if self.preferences.askSaveOnlyForNamedProjects and not self._filename:
             return
 
         if self._modified:
@@ -555,11 +554,11 @@ class MainWindow(MainWindowUI):
 
             if prompt == 0:
                 self.fileSave()
-                if not self.filename:
+                if not self._filename:
                     self._checkModified()
 
     def pasteFromRegexLib(self, regexLibDict):
-        self.filename = ''
+        self._filename = ''
         self._checkModified()
 
         self.regexMultiLineEdit.setPlainText(regexLibDict.get('regex', ''))
@@ -603,12 +602,13 @@ class MainWindow(MainWindowUI):
     def editPaste(self):
         self.widgetMethod('paste()')
 
-    def editPreferences(self):
-        sd = PreferencesDialog(self, self.preferences)
-        sd.showPrefsDialog()
-
-    def preferencesChanged(self):
-        self.recentFiles.setNumShown(self.preferences.recentFilesNum)
+    def _editPreferences(self):
+        dialog = PreferencesDialog(self, self.preferences)
+        (ok, preferences) = dialog.getPreferences()
+        if ok:
+            self.preferences = preferences
+            self.recentFiles.setNumShown(self.preferences.recentFilesNum)
+            self.preferences.save()
 
     def helpPythonRegex(self):
         webbrowser.open(PYTHON_RE_LIBRARY_URL)

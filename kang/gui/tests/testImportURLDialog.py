@@ -4,9 +4,9 @@ import unittest
 from PySide2.QtCore import QCoreApplication
 from PySide2.QtWidgets import QApplication
 
-from kang.gui import importURLDialog
-from kang.gui.tests.fakemessagebox import FakeMessageBox
-from kang.gui.tests.fakeparent import FakeParent
+# from kang.gui import importURLDialog
+# from kang.gui.tests.fakemessagebox import FakeMessageBox
+# from kang.gui.tests.fakeparent import FakeParent
 
 
 class TestImportURLDialog(unittest.TestCase):
@@ -18,13 +18,14 @@ class TestImportURLDialog(unittest.TestCase):
 
     def test_dialog(self):
         # TODO: Write a test for IportURLDialog
-        parent = FakeParent()
-        _dialog = importURLDialog.ImportURLDialog(parent, 'file://%s' % __file__)
+        pass
+        # parent = FakeParent()
+        # dialog = importURLDialog.ImportURLDialog(parent, 'file://%s' % __file__)
         # dialog.getURL()
         # QTest.qWaitForWindowExposed(dialog)
         # #dialog._lastImportedURL()
         #
-        _qmessagebox = FakeMessageBox()
+        # qmessagebox = FakeMessageBox()
         # importURLDialog.QMessageBox = qmessagebox
         # dialog.URLTextEdit.setText('fake url')
         # dialog._lastImportedURL()

@@ -90,7 +90,7 @@ if __name__ == '__main__':
     dialog = ImportURLDialog(None, 'https://example.com/')
     # dialog._importURL()
     # dialog.show()
-    (ok, text, url, mode) = dialog.getURL()
+    (ok, text, url, mode) = dialog.getPreferences()
 
     if ok:
         print('Accepted:')

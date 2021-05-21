@@ -99,7 +99,7 @@ class MainWindowUI(QMainWindow):
 
         self.editPreferencesAction = QAction("Preferences", self)
         self.editPreferencesAction.setShortcut("Ctrl+P")
-        self.editPreferencesAction.triggered.connect(self.editPreferences)
+        self.editPreferencesAction.triggered.connect(self._editPreferences)
 
         # Help Actions
 

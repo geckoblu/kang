@@ -2,11 +2,11 @@
 
 import os
 import shutil
-import sys
 import tempfile
 import unittest
 
-from kang.modules import preferences, util
+from kang.modules import util
+from kang.modules.preferences import Preferences
 
 
 class TestUtil(unittest.TestCase):
@@ -19,53 +19,38 @@ class TestUtil(unittest.TestCase):
         self.assertTrue(cdir.startswith(self.dtmp), '%s wrong config directory' % cdir)
         os.mkdir(cdir)
 
-        self._writeMsg = ''
-
     def tearDown(self):
         if self.dtmp:
             shutil.rmtree(self.dtmp)
 
     def test_preferences(self):
-        pref = preferences.Preferences()
+        pref = Preferences()
 
-        pref.recentFilesNum = pref._DEFAULTRECENTFILESNUM + 1
-        pref.askSave = not pref._ASKSAVE
-        pref.askSaveOnlyForNamedProjects = not pref._ASKSAVEONLYFORNAMEDPROJECTS
+        pref.recentFilesNum = pref.recentFilesNum + 1
+        pref.askSave = not pref.askSave
+        pref.askSaveOnlyForNamedProjects = not pref.askSaveOnlyForNamedProjects
 
         pref.save()
 
-        pref2 = preferences.Preferences()
+        pref2 = Preferences()
+        pref2.load()
 
         self.assertEqual(pref.recentFilesNum, pref2.recentFilesNum)
         self.assertEqual(pref.askSave, pref2.askSave)
         self.assertEqual(pref.askSaveOnlyForNamedProjects, pref2.askSaveOnlyForNamedProjects)
 
-    def test_save_IOError(self):
-        pref = preferences.Preferences()
-
-        pref._prefsPath = '/Not_a_valid_path'
-        stderr = sys.stderr
-        sys.stderr = self
-        pref.save()
-        sys.stderr = stderr
-        self.assertTrue(self._writeMsg, 'IOError was not raised')
-
-    def test_load_IOError(self):
-        pref = preferences.Preferences()
-
-        pref._prefsPath = '/etc/shadow'  # something we could surely not read
-        stderr = sys.stderr
-        sys.stderr = self
-        pref.load()
-        sys.stderr = stderr
-        self.assertTrue(self._writeMsg, 'IOError was not raised')
-
     def test_load_ValueError(self):
-        pref = preferences.Preferences()
+        pref = Preferences()
         pref.recentFilesNum = 'NaN'
+        pref.askSave = 'NaBool'
+        pref.askSaveOnlyForNamedProjects = 'NaBool'
         pref.save()
-        pref.load()
-        self.assertEqual(pref.recentFilesNum, pref._DEFAULTRECENTFILESNUM)
 
-    def write(self, msg):
-        self._writeMsg = msg
+        default = Preferences()
+
+        pref2 = Preferences()
+        pref2.load()
+
+        self.assertEqual(pref2.recentFilesNum, default.recentFilesNum)
+        self.assertEqual(pref2.askSave, default.askSave)
+        self.assertEqual(pref2.askSaveOnlyForNamedProjects, default.askSaveOnlyForNamedProjects)

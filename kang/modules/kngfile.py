@@ -19,7 +19,7 @@ class KngFile:
             flagAscii=False
         ):
 
-        self.filename = filename
+        self._filename = filename
 
         self.matchString = matchString
         self.regexString = regexString
@@ -46,12 +46,12 @@ class KngFile:
         jdict['flag_verbose'] = self.flagVerbose
         jdict['flag_ascii'] = self.flagAscii
 
-        with open(self.filename, 'w') as jfile:
+        with open(self._filename, 'w') as jfile:
             json.dump(jdict, jfile, indent=4)
 
     def load(self):
         try:
-            with open(self.filename, 'r') as jfile:
+            with open(self._filename, 'r') as jfile:
                 jdict = json.load(jfile)
 
             self.matchString = jdict.get('match_string', '')
@@ -73,7 +73,7 @@ class KngFile:
 
     def _loadPickler(self):
         """Load Kang project from file (old version using pickle)"""
-        with open(self.filename, 'rb') as picklerfile:
+        with open(self._filename, 'rb') as picklerfile:
             unpickler = pickle.Unpickler(picklerfile)
             self.regexString = unpickler.load()
             self.matchString = unpickler.load()
@@ -88,7 +88,7 @@ class KngFile:
 #    Deprecated
 #    def _savePickler(self):
 #        """Save Kang project to file (old version using pickle)"""
-#        with open(self.filename, 'wb') as picklerfile:
+#        with open(self._filename, 'wb') as picklerfile:
 #            pickler = pickle.Pickler(picklerfile)
 #            pickler.dump(self.regexString)
 #            pickler.dump(self.matchString)

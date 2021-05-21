@@ -1,5 +1,5 @@
 import os
-import sys
+import json
 
 from kang.modules.util import getConfigDirectory
 
@@ -9,59 +9,71 @@ class Preferences:
        Stores/load them to file.
     """
 
-    _DEFAULTRECENTFILESNUM = 5
-    _ASKSAVE = True
-    _ASKSAVEONLYFORNAMEDPROJECTS = False
+    def __init__(self, filename=None):
 
-    def __init__(self):
-        self._prefsPath = os.path.join(getConfigDirectory(), 'prefs')
+        self._filename = filename
+        if not self._filename:
+            self._filename = os.path.join(getConfigDirectory(), 'preferences.json')
 
-        # Public fields
-        self.recentFilesNum = self._DEFAULTRECENTFILESNUM
-        self.askSave = self._ASKSAVE
-        self.askSaveOnlyForNamedProjects = self._ASKSAVEONLYFORNAMEDPROJECTS
-
-        self.load()
+        # Default values
+        self.recentFilesNum = 5
+        self.askSave = True
+        self.askSaveOnlyForNamedProjects = False
 
     def load(self):
         """Load preferences from file"""
-        if not os.path.isfile(self._prefsPath):
+        if not os.path.isfile(self._filename):
             return
+
+        with open(self._filename, 'r') as jfile:
+                jdict = json.load(jfile)
 
         try:
-            with open(self._prefsPath, "r") as fp:
-                prefsList = fp.readlines()
-        except IOError as ex:
-            sys.stderr.write("Could not load preferences: %s\n" % str(ex))
-            return
-
-        for pref in prefsList:
-            if ':' in pref:
-                name, value = str.split(pref, ":", 1)
-                value = str.strip(value)
-                if value:
-                    if name == 'Recent Files':
-                        try:
-                            self.recentFilesNum = int(value)
-                        except ValueError:
-                            self.recentFilesNum = self._DEFAULTRECENTFILESNUM
-                    elif name == 'Ask save':
-                        self.askSave = (value == 'True')
-                    elif name == 'Ask save only for named projects':
-                        self.askSaveOnlyForNamedProjects = (value == 'True')
+            self.recentFilesNum = int(jdict.get('recent_files_num', self.recentFilesNum))
+        except ValueError:
+            pass # Ignore and let to default value
+        
+        try:
+            self.askSave = strtobool(jdict.get('ask_save', self.askSave))
+        except ValueError:
+            pass # Ignore and let to default value
+        
+        try:
+            self.askSaveOnlyForNamedProjects = strtobool(jdict.get('ask_save_projects', self.askSaveOnlyForNamedProjects))
+        except ValueError:
+            pass # Ignore and let to default value
 
     def save(self):
         """Save preferences to file"""
-        try:
-            with open(self._prefsPath, "w") as fp:
 
-                if self.recentFilesNum != self._DEFAULTRECENTFILESNUM:
-                    fp.write('Recent Files: %s\n' % str(self.recentFilesNum))
-                if self.askSave != self._ASKSAVE:
-                    fp.write('Ask save: %s\n' % str(self.askSave))
-                if self.askSaveOnlyForNamedProjects != self._ASKSAVEONLYFORNAMEDPROJECTS:
-                    fp.write('Ask save only for named projects: %s\n' % str(self.askSaveOnlyForNamedProjects))
+        jdict = {}
 
-        except IOError as ex:
-            sys.stderr.write("Could not save preferences: %s\n" % str(ex))
-            return
+        jdict['recent_files_num'] = self.recentFilesNum
+        jdict['ask_save'] = self.askSave
+        jdict['ask_save_projects'] = self.askSaveOnlyForNamedProjects
+
+        with open(self._filename, 'w') as jfile:
+            json.dump(jdict, jfile, indent=4)
+
+    def __str__(self):
+        """Just a basic implementation for debug"""
+        s = '['
+        s += str(self.recentFilesNum)
+        s += ', '
+        s += str(self.askSave)
+        s += ', '
+
+        s += str(self.askSaveOnlyForNamedProjects)
+        s += ']'
+        return s
+
+def strtobool (val):
+    strval = str(val).lower()
+    
+    if strval == 'true':
+        return True
+    
+    if strval == 'false':
+        return False
+    
+    raise ValueError('invalid boolean value: %r' % (val))

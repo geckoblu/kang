@@ -1,23 +1,32 @@
-from PySide2.QtWidgets import QWidget, QTreeWidget, QAbstractItemView, \
-    QTreeWidgetItem, QVBoxLayout
+from PySide2.QtCore import Signal
+from PySide2.QtWidgets import QWidget, QTreeWidget, QAbstractItemView, QTreeWidgetItem, QVBoxLayout
 
 tr = lambda msg: msg
 
 
 class RegexReferenceWidget(QWidget):
 
+    pasteSymbol = Signal(str)
+
     def __init__(self):
         QWidget.__init__(self)
 
-        refTable = QTreeWidget()
-        refTable.setHeaderLabels([tr("Symbol"), tr("Definition")])
-        refTable.setSelectionMode(QAbstractItemView.SingleSelection)
+        referencesTable = QTreeWidget()
+        referencesTable.setHeaderLabels([tr("Symbol"), tr("Definition")])
+        referencesTable.setSelectionMode(QAbstractItemView.SingleSelection)
 
         for reference in _REFERENCES:
-            QTreeWidgetItem(refTable, reference)
+            item = QTreeWidgetItem(referencesTable, reference)
+            item.setToolTip(0, reference[1])
+            item.setToolTip(1, reference[1])
+
+        referencesTable.doubleClicked.connect(self._emitSymbol)
 
         verticalLayout = QVBoxLayout(self)
-        verticalLayout.addWidget(refTable)
+        verticalLayout.addWidget(referencesTable)
+
+    def _emitSymbol(self, modelIndex):
+        self.pasteSymbol.emit(_REFERENCES[modelIndex.row()][0])
 
 
 _REFERENCES = [

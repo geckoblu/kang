@@ -61,8 +61,8 @@ class MainWindow(MainWindowUI):
         self.recentFiles = RecentFiles(self, self.preferences.recentFilesNum)
 
         self._signalException.connect(self.showReportBugDialog)
+        self.regexReferencePanel.pasteSymbol.connect(self.pasteSymbol)
 
-        # FIXME self.connect(self, SIGNAL('pasteSymbol(PyQt_PyObject)'), self.pasteSymbol)
         # FIXME self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
         self.checkForKangDir()

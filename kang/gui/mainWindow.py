@@ -10,8 +10,6 @@ from kang.gui.importURLDialog import ImportURLDialog, ImportURLDialogMode
 from kang.gui.mainWindowUI import MainWindowUI
 from kang.gui.newUserDialog import NewUserDialog
 from kang.gui.preferencesDialog import PreferencesDialog
-from kang.gui.regexLibraryWindow import RegexLibraryWindow
-from kang.gui.regexReferenceWindow import RegexReferenceWindow
 from kang.gui.reportBugDialog import ReportBugDialog
 from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
@@ -21,6 +19,8 @@ from kang.modules.util import restoreWindowSettings, saveWindowSettings, getConf
 GEO = 'kang_geometry'
 
 SHORTMESSAGE_DURATION = 3  # seconds
+
+tr = lambda msg: msg
 
 
 ##############################################################################
@@ -46,8 +46,8 @@ class MainWindow(MainWindowUI):
         # This property holds whether the document shown in the window has unsaved changes
         self._modified = False
 
-        self.refWin = None
-        self.regexlibwin = None
+        self.showRegexLibrary = False
+        self.showRegexReferenceGuide = False
 
         self.updateStatus(MSG_NA, MATCH_NA)
         self._clearResults()
@@ -613,17 +613,36 @@ class MainWindow(MainWindowUI):
     def helpPythonRegex(self):
         webbrowser.open(PYTHON_RE_LIBRARY_URL)
 
-    def helpRegexLib(self):
-        self.regexlibwin = RegexLibraryWindow(self)
-        self.regexlibwin.show()
+    def helpRegexReferenceGuide(self, showRegexReferenceGuide):
+        self.showRegexReferenceGuide = showRegexReferenceGuide
+
+        if showRegexReferenceGuide:
+            index = self.splitterTabWidget.insertTab(0, self.regexReferencePanel, tr("Regex Reference Guide"))
+            self.splitterTabWidget.setCurrentIndex(index)
+        else:
+            index = self.splitterTabWidget.indexOf(self.regexReferencePanel)
+            self.splitterTabWidget.removeTab(index)
+
+        self.splitterTabWidget.setVisible(self.showRegexReferenceGuide or self.showRegexLibrary)
+
+    def helpRegexLibrary(self, showRegexLibrary):
+        self.showRegexLibrary = showRegexLibrary
+
+        if showRegexLibrary:
+            index = self.splitterTabWidget.insertTab(1, self.regexLibraryPanel, tr("Regex Library"))
+            self.splitterTabWidget.setCurrentIndex(index)
+        else:
+            index = self.splitterTabWidget.indexOf(self.regexLibraryPanel)
+            self.splitterTabWidget.removeTab(index)
+
+        self.splitterTabWidget.setVisible(self.showRegexReferenceGuide or self.showRegexLibrary)
+
+    def _updateSplitterStatus(self):
+        pass
 
     def helpAbout(self):
         aboutWindow = AboutDialog(self)
         aboutWindow.show()
-
-    def referenceGuide(self):
-        self.refWin = RegexReferenceWindow(self)
-        self.refWin.show()
 
     def signalException(self, msg):
         self._signalException.emit(msg)

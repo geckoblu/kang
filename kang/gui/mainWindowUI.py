@@ -2,10 +2,14 @@ from PySide2.QtCore import Qt
 from PySide2.QtGui import QPalette
 from PySide2.QtWidgets import QMainWindow, QAction, QToolBar, QWidget, QLabel, QGridLayout, \
                               QTabWidget, QTextEdit, QHBoxLayout, QCheckBox, QSpinBox, \
-                              QTreeWidget, QStyledItemDelegate, QAbstractItemView
+                              QTreeWidget, QStyledItemDelegate, QAbstractItemView, QSplitter
 
+from kang.gui.regexLibraryWidget import RegexLibraryWidget
+from kang.gui.regexReferenceWidget import RegexReferenceWidget
 from kang.images import getIcon
 from kang.modules.regexprocessor import RegexProcessor
+
+tr = lambda msg: msg
 
 
 class MainWindowUI(QMainWindow):
@@ -107,13 +111,13 @@ class MainWindowUI(QMainWindow):
         self.helpRegexHelpAction.setShortcut("F1")
         self.helpRegexHelpAction.triggered.connect(self.helpPythonRegex)
 
-        self.helpRegexReferenceGuideAction = QAction(getIcon('book'), "&Regex Reference Guide", self)
+        self.helpRegexReferenceGuideAction = QAction(getIcon('book'), "&Regex Reference Guide", self, checkable=True)
         self.helpRegexReferenceGuideAction.setShortcut("Ctrl+R")
-        self.helpRegexReferenceGuideAction.triggered.connect(self.referenceGuide)
+        self.helpRegexReferenceGuideAction.triggered.connect(self.helpRegexReferenceGuide)
 
-        self.helpRegexLibraryAction = QAction(getIcon('library'), "Regex &Library", self)
+        self.helpRegexLibraryAction = QAction(getIcon('library'), "Regex &Library", self, checkable=True)
         self.helpRegexLibraryAction.setShortcut("Ctrl+L")
-        self.helpRegexLibraryAction.triggered.connect(self.helpRegexLib)
+        self.helpRegexLibraryAction.triggered.connect(self.helpRegexLibrary)
 
         self.helpAboutAction = QAction(getIcon('help-about'), "&About", self)
         self.helpAboutAction.triggered.connect(self.helpAbout)
@@ -181,13 +185,30 @@ class MainWindowUI(QMainWindow):
         self.statusBar().showPermanentMessage = permanentStatusLabel.setText
 
     def _setupCentralWidget(self):
-        self.widget = QWidget(self)
+        mainPanel = self._createMainPanel()
 
-        gridLayout = QGridLayout(self.widget)
+        self.regexReferencePanel = RegexReferenceWidget()
+        self.regexLibraryPanel = RegexLibraryWidget()
+
+        self.splitterTabWidget = QTabWidget()
+        self.splitterTabWidget.hide()
+        # self.splitterTabWidget.addTab(self.regexReferencePanel, tr("Regex Reference Guide"))
+        # self.splitterTabWidget.addTab(self.regexLibraryPanel, tr("Regex Library"))
+
+        splitter = QSplitter()
+        splitter.addWidget(mainPanel)
+        splitter.addWidget(self.splitterTabWidget)
+
+        self.setCentralWidget(splitter)
+
+    def _createMainPanel(self):
+        widget = QWidget(self)
+
+        gridLayout = QGridLayout(widget)
         gridLayout.setSpacing(6)
         gridLayout.setContentsMargins(11, 11, 11, 11)
 
-        tabWidget = QTabWidget(self.widget)
+        tabWidget = QTabWidget(widget)
 
         self.stringMultiLineEdit = QTextEdit()
         self.stringMultiLineEdit.textChanged.connect(
@@ -224,7 +245,7 @@ class MainWindowUI(QMainWindow):
 
         gridLayout.addWidget(groupBox, 1, 0, 1, 1)
 
-        tabWidget = QTabWidget(self.widget)
+        tabWidget = QTabWidget(widget)
 
         self.regexMultiLineEdit = QTextEdit()
         self.regexMultiLineEdit.textChanged.connect(
@@ -266,7 +287,7 @@ class MainWindowUI(QMainWindow):
 
         gridLayout.addWidget(groupBox, 3, 0, Qt.AlignLeft)
 
-        tabWidget = QTabWidget(self.widget)
+        tabWidget = QTabWidget(widget)
 
         self.matchTextBrowser = QTextEdit()
         self.matchTextBrowser.setReadOnly(True)
@@ -293,7 +314,7 @@ class MainWindowUI(QMainWindow):
 
         gridLayout.addWidget(tabWidget, 4, 0, 1, 1)
 
-        self.setCentralWidget(self.widget)
+        return widget
 
 
 class MyQStyledItemDelegate(QStyledItemDelegate):

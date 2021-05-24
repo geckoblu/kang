@@ -1,79 +1,75 @@
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+import sys
 
-from kang.gui.regexReferenceWindowBA import RegexReferenceWindowBA
+from PySide2.QtGui import QPalette, QBrush, QColor, Qt, QFont
+from PySide2.QtWidgets import QDialog, QDialogButtonBox, QGridLayout, QVBoxLayout, \
+                              QHBoxLayout, QLabel, QTabWidget, QWidget, QTextBrowser, QApplication, \
+    QTableWidget, QTableWidgetItem, QTreeWidgetItem, QTreeWidget, QAbstractItemView
+
 from kang.images import getIcon
-from kang.modules.util import restoreWindowSettings, saveWindowSettings
+
+tr = lambda msg: msg
 
 
-GEO = "regex-ref_geometry"
-
-
-class RegexReferenceWindow(RegexReferenceWindowBA):
+class RegexReferenceWindow(QDialog):
 
     def __init__(self, parent):
-        RegexReferenceWindowBA.__init__(self, None)
-        self.parent = parent
+        QDialog.__init__(self, parent)
 
-        restoreWindowSettings(self, GEO)
         self.setWindowIcon(getIcon('kang-icon'))
+        self.setWindowTitle(tr("Regex Reference Guide"))
 
-        self.populateTable()
+        refTable = QTreeWidget()
+        refTable.setHeaderLabels([tr("Symbol"), tr("Definition")])
+        refTable.setSelectionMode(QAbstractItemView.SingleSelection)
+        
+        for reference in _REFERENCES:
+            item = QTreeWidgetItem(refTable, reference)            
 
-    def populateTable(self):
+        verticalLayout = QVBoxLayout(self)
+        verticalLayout.addWidget(refTable)
 
-        items = []
-        for r in REFERENCES:
-            items.append(QTreeWidgetItem(r))
 
-        self.referenceTreeWidget.insertTopLevelItems(0, items)
+_REFERENCES = [
+('^', 'Matches start of string'),
+('?', 'Matches 0 or 1 repetition of preceeding RE'),
+('??', 'Non-greedy ?'),
+('.', 'Matches any character'),
+('(?<=...)', 'Matches if the current position in the string is preceded by a match for ... ' \
+             'that ends at the current position. This is called a positive lookbehind assertion.'),
+('(?<!...)', 'Matches if the current position in the string is not preceded by a match for .... ' \
+             'This is called a negative lookbehind assertion.'),
+('(?=...) ', "Matches if ... matches next, but doesn't consume any of the string. This is called a lookahead assertion."),
+('(?:)', 'Non-capturing Parenthesis'),
+('(?!...)', "Matches if ... doesn't match next. This is a negative lookahead assertion"),
+('(?#...) ', 'A comment; the contents of the parentheses are simply ignored.  '),
+('()', 'Capturing Parenthesis'),
+('[]', 'Character class'),
+('$', 'Matches the end of the string'),
+('*', 'Matches 0 or more repetition of preceeding RE'),
+('*?', 'Non-greedy *'),
+('\\', 'Matches a literal backslash'),
+('+', 'Matches 1 or more repetition of preceeding RE'),
+('+?', 'Non-greedy +'),
+('\\A', 'Matches only at the start of the string'),
+('\\b', 'Matches the empty string, but only at the beginning or end of a word'),
+('\\B', 'Matches the empty string, but only when it is not at the beginning or end of a  word'),
+('\\d', 'Matches any decimal digit'),
+('\\D', 'Matches any non-digit character'),
+('{m,n}', 'match from m to n repetitions of the preceding RE, attempting to match as many repetitions as possible. '),
+('{m,n}?', 'match from m to n repetitions of the preceding RE, attempting to match as few repetitions as possible. '),
+('\\number ', 'Matches the contents of the group of the same number. Groups are numbered starting from 1.'),
+('(?P<name>...)', 'Similar to regular parentheses, but the substring matched by the group is accessible via the symbolic group name name.'),
+('(?P=name)', 'Matches whatever text was matched by the earlier group named name. '),
+('\\s', 'Matches any whitespace character'),
+('\\S', 'Matches any non-whitespace character'),
+('\\w', 'Matches any word'),
+('\\W', 'Matches any non-word'),
+('\\z', 'Matches only at the end of the string')]
 
-    def closeEvent(self, event):
-        saveWindowSettings(self, GEO)
-        event.accept()
+if __name__ == '__main__':
+    qApp = QApplication(sys.argv)
 
-    def editPaste(self):
-        items = self.referenceTreeWidget.selectedItems()
-        if items:
-            symbol = str(items[0].text(0))
-            self.parent.emit(SIGNAL('pasteSymbol(PyQt_PyObject)'), symbol)
+    dialog = RegexReferenceWindow(None)
+    dialog.show()
 
-REFERENCES = []
-REFERENCES.append(('^', 'Matches start of string'))
-REFERENCES.append(('?', 'Matches 0 or 1 repetition of preceeding RE'))
-REFERENCES.append(('??', 'Non-greedy ?'))
-REFERENCES.append(('.', 'Matches any character'))
-REFERENCES.append(('(?<=...)',
-                   'Matches if the current position in the string is preceded by a match for ... ' \
-                   'that ends at the current position. This is called a positive lookbehind assertion.'))
-REFERENCES.append(('(?<!...)',
-                   'Matches if the current position in the string is not preceded by a match for .... ' \
-                   'This is called a negative lookbehind assertion.'))
-REFERENCES.append(('(?=...) ', "Matches if ... matches next, but doesn't consume any of the string. This is called a lookahead assertion."))
-REFERENCES.append(('(?:)', 'Non-capturing Parenthesis'))
-REFERENCES.append(('(?!...)', "Matches if ... doesn't match next. This is a negative lookahead assertion"))
-REFERENCES.append(('(?#...) ', 'A comment; the contents of the parentheses are simply ignored.  '))
-REFERENCES.append(('()', 'Capturing Parenthesis'))
-REFERENCES.append(('[]', 'Character class'))
-REFERENCES.append(('$', 'Matches the end of the string'))
-REFERENCES.append(('*', 'Matches 0 or more repetition of preceeding RE'))
-REFERENCES.append(('*?', 'Non-greedy *'))
-REFERENCES.append(('\\', 'Matches a literal backslash'))
-REFERENCES.append(('+', 'Matches 1 or more repetition of preceeding RE'))
-REFERENCES.append(('+?', 'Non-greedy +'))
-REFERENCES.append(('\\A', 'Matches only at the start of the string'))
-REFERENCES.append(('\\b', 'Matches the empty string, but only at the beginning or end of a word'))
-REFERENCES.append(('\\B', 'Matches the empty string, but only when it is not at the beginning or end of a  word'))
-REFERENCES.append(('\\d', 'Matches any decimal digit'))
-REFERENCES.append(('\\D', 'Matches any non-digit character'))
-REFERENCES.append(('{m,n}', 'match from m to n repetitions of the preceding RE, attempting to match as many repetitions as possible. '))
-REFERENCES.append(('{m,n}?', 'match from m to n repetitions of the preceding RE, attempting to match as few repetitions as possible. '))
-REFERENCES.append(('\\number ', 'Matches the contents of the group of the same number. Groups are numbered starting from 1.'))
-REFERENCES.append(('(?P<name>...)', 'Similar to regular parentheses, but the substring matched by the group is accessible via the symbolic group name name.'))
-REFERENCES.append(('(?P=name)', 'Matches whatever text was matched by the earlier group named name. '))
-REFERENCES.append(('\\s', 'Matches any whitespace character'))
-REFERENCES.append(('\\S', 'Matches any non-whitespace character'))
-REFERENCES.append(('\\w', 'Matches any word'))
-REFERENCES.append(('\\W', 'Matches any non-word'))
-REFERENCES.append(('\\z', 'Matches only at the end of the string'))
+    sys.exit(qApp.exec_())

@@ -14,7 +14,9 @@ from kang.gui.reportBugDialog import ReportBugDialog
 from kang.modules.kngfile import KngFile
 from kang.modules.preferences import Preferences
 from kang.modules.recentfiles import RecentFiles
-from kang.modules.util import restoreWindowSettings, saveWindowSettings, getConfigDirectory
+from kang.modules.util import getConfigDirectory
+from kang.modules.windowsettings import WindowSettings
+
 
 GEO = 'kang_geometry'
 
@@ -52,7 +54,8 @@ class MainWindow(MainWindowUI):
         self.updateStatus(MSG_NA, MATCH_NA)
         self._clearResults()
 
-        restoreWindowSettings(self, GEO)
+        windowSettings = WindowSettings()
+        windowSettings.restore(self)
 
         self.show()
 
@@ -357,17 +360,11 @@ class MainWindow(MainWindowUI):
 
     def closeEvent(self, ev):
         self._checkModified()
-        saveWindowSettings(self, GEO)
 
-        try:
-            self.regexlibwin.close()
-        except:
-            pass
+        # saveWindowSettings(self, GEO)
+        settings = WindowSettings()
+        settings.save(self)
 
-        try:
-            self.refWin.close()
-        except:
-            pass
         ev.accept()
 
     def _importURL(self):

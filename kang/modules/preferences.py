@@ -1,7 +1,7 @@
-import os
 import json
+import os
 
-from kang.modules.util import getConfigDirectory
+from kang.modules.util import getConfigDirectory, strtobool
 
 
 class Preferences:
@@ -67,15 +67,3 @@ class Preferences:
         s += str(self.askSaveOnlyForNamedProjects)
         s += ']'
         return s
-
-
-def strtobool(val):
-    strval = str(val).lower()
-
-    if strval == 'true':
-        return True
-
-    if strval == 'false':
-        return False
-
-    raise ValueError('invalid boolean value: %r' % (val))

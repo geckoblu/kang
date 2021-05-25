@@ -26,3 +26,15 @@ def findFile(dr, filename):
             return path
 
     return None
+
+
+def strtobool(val):
+    strval = str(val).lower()
+
+    if strval == 'true':
+        return True
+
+    if strval == 'false':
+        return False
+
+    raise ValueError('invalid boolean value: %r' % (val))

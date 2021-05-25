@@ -195,11 +195,11 @@ class MainWindowUI(QMainWindow):
         # self.splitterTabWidget.addTab(self.regexReferencePanel, tr("Regex Reference Guide"))
         # self.splitterTabWidget.addTab(self.regexLibraryPanel, tr("Regex Library"))
 
-        splitter = QSplitter()
-        splitter.addWidget(mainPanel)
-        splitter.addWidget(self.splitterTabWidget)
+        self.splitter = QSplitter()
+        self.splitter.addWidget(mainPanel)
+        self.splitter.addWidget(self.splitterTabWidget)
 
-        self.setCentralWidget(splitter)
+        self.setCentralWidget(self.splitter)
 
     def _createMainPanel(self):
         widget = QWidget(self)

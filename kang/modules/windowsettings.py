@@ -1,7 +1,7 @@
 import os
 import json
 
-from kang.modules.util import getConfigDirectory
+from kang.modules.util import getConfigDirectory, strtobool
 
 
 class WindowSettings:
@@ -24,6 +24,12 @@ class WindowSettings:
         jdict['x'] = window.x()
         jdict['y'] = window.y()
 
+        jdict['showRegexReferenceGuide'] = window.showRegexReferenceGuide
+        jdict['showRegexLibrary'] = window.showRegexLibrary
+        jdict['splitter'] = window.splitter.sizes()
+
+        # return
+
         with open(self._filename, 'w') as jfile:
             json.dump(jdict, jfile, indent=4)
 
@@ -35,10 +41,26 @@ class WindowSettings:
         with open(self._filename, 'r') as jfile:
             jdict = json.load(jfile)
 
+        # Load window properties
         x = int(jdict['x'])
         y = int(jdict['y'])
         width = int(jdict['width'])
         height = int(jdict['height'])
+        sizes = jdict['splitter']
+
+        showRegexReferenceGuide = strtobool(jdict['showRegexReferenceGuide'])
+        showRegexLibrary = strtobool(jdict['showRegexLibrary'])
+
+        # Set window properties
 
         window.move(x, y)
         window.resize(width, height)
+
+        window.helpRegexReferenceGuideAction.setChecked(showRegexReferenceGuide)
+        window.helpRegexReferenceGuide(showRegexReferenceGuide)
+
+        window.helpRegexLibraryAction.setChecked(showRegexLibrary)
+        window.helpRegexLibrary(showRegexLibrary)
+
+        if (int(sizes[0] > 0 and int(sizes[1]) > 0)):
+            window.splitter.setSizes(sizes)

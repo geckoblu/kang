@@ -17,7 +17,6 @@ from kang.modules.recentfiles import RecentFiles
 from kang.modules.util import getConfigDirectory
 from kang.modules.windowsettings import WindowSettings
 
-
 GEO = 'kang_geometry'
 
 SHORTMESSAGE_DURATION = 3  # seconds
@@ -45,11 +44,14 @@ class MainWindow(MainWindowUI):
         # Temporary stores last opened URL
         self._lastImportedURL = ''
 
-        # This property holds whether the document shown in the window has unsaved changes
+        # Holds whether the document shown in the window has unsaved changes
         self._modified = False
 
-        self.showRegexLibrary = False
+        # Holds the status (visible or not) of the Regex Reference Guide Panel
         self.showRegexReferenceGuide = False
+
+        # Holds the status (visible or not) of the Regex Reference Library Panel
+        self.showRegexLibrary = False
 
         self.updateStatus(MSG_NA, MATCH_NA)
         self._clearResults()

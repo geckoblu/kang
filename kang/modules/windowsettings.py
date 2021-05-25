@@ -18,20 +18,20 @@ class WindowSettings:
         """Save settings to file"""
         try:
             jdict = {}
-    
+
             size = window.size()
-    
+
             jdict['width'] = size.width()
             jdict['height'] = size.height()
             jdict['x'] = window.x()
             jdict['y'] = window.y()
-    
+
             jdict['showRegexReferenceGuide'] = window.showRegexReferenceGuide()
             jdict['showRegexLibrary'] = window.showRegexLibrary()
             jdict['splitter'] = window.splitter.sizes()
-    
+
             # return
-    
+
             with open(self._filename, 'w') as jfile:
                 json.dump(jdict, jfile, indent=4)
         except Exception:

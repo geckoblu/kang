@@ -67,8 +67,7 @@ class MainWindow(MainWindowUI):
 
         self._signalException.connect(self.showReportBugDialog)
         self.regexReferencePanel.pasteSymbol.connect(self.pasteSymbol)
-
-        # FIXME self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
+        self.regexLibraryPanel.emitEntry.connect(self.pasteFromRegexLibrary)
 
         self.checkForKangDir()
 
@@ -562,18 +561,19 @@ class MainWindow(MainWindowUI):
                 if not self._filename:
                     self._checkModified()
 
-    def pasteFromRegexLib(self, regexLibDict):
-        self._filename = ''
+    def pasteFromRegexLibrary(self, libraryEntry):
         self._checkModified()
 
-        self.regexMultiLineEdit.setPlainText(regexLibDict.get('regex', ''))
-        self.stringMultiLineEdit.setPlainText(regexLibDict.get('text', ''))
-        self.replaceTextEdit.setPlainText(regexLibDict.get('replace', ''))
+        self._filename = ''
+
+        self.regexMultiLineEdit.setPlainText(libraryEntry.get('regex', ''))
+        self.stringMultiLineEdit.setPlainText(libraryEntry.get('match', ''))
+        self.replaceTextEdit.setPlainText(libraryEntry.get('replace', ''))
 
         # TODO set the current page if applicable ?
         # try:
         #    # set the current page if applicable
-        #    self.resultTabWidget.setCurrentPage(int(regexLibDict.get('tab', '')))
+        #    self.resultTabWidget.setCurrentPage(int(libraryEntry.get('tab', '')))
         # except ValueError:
         #    pass
         self._modified = False

@@ -287,11 +287,11 @@ class MainWindowUI(QMainWindow):
 
         gridLayout.addWidget(groupBox, 3, 0, Qt.AlignLeft)
 
-        tabWidget = QTabWidget(widget)
+        self.resultTabWidget = QTabWidget(widget)
 
         self.matchTextBrowser = QTextEdit()
         self.matchTextBrowser.setReadOnly(True)
-        tabWidget.addTab(self.matchTextBrowser, "Match")
+        self.resultTabWidget.addTab(self.matchTextBrowser, "Match")
 
         tab = QWidget()
         self.groupTable = QTreeWidget(tab)
@@ -302,17 +302,17 @@ class MainWindowUI(QMainWindow):
         self.groupTable.setSelectionMode(QAbstractItemView.NoSelection)
         gridlayout2 = QGridLayout(tab)
         gridlayout2.addWidget(self.groupTable, 0, 0, 1, 1)
-        tabWidget.addTab(tab, "Group")
+        self.resultTabWidget.addTab(tab, "Group")
 
         self.replaceTextBrowser = QTextEdit()
         self.replaceTextBrowser.setReadOnly(True)
-        tabWidget.addTab(self.replaceTextBrowser, "Replace")
+        self.resultTabWidget.addTab(self.replaceTextBrowser, "Replace")
 
         self.codeTextBrowser = QTextEdit()
         self.codeTextBrowser.setReadOnly(True)
-        tabWidget.addTab(self.codeTextBrowser, "Sample Code")
+        self.resultTabWidget.addTab(self.codeTextBrowser, "Sample Code")
 
-        gridLayout.addWidget(tabWidget, 4, 0, 1, 1)
+        gridLayout.addWidget(self.resultTabWidget, 4, 0, 1, 1)
 
         return widget
 

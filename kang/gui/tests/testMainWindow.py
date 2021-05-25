@@ -304,13 +304,13 @@ class TestMainWindow(unittest.TestCase):
              'tab': '1'
             }
 
-        self.window.pasteFromRegexLib(d)
+        self.window.pasteFromRegexLibrary(d)
 
         d['tab'] = 'tab'  # Not a numeric tab
-        self.window.pasteFromRegexLib(d)
+        self.window.pasteFromRegexLibrary(d)
 
         del d['tab']  # tab not defined
-        self.window.pasteFromRegexLib(d)
+        self.window.pasteFromRegexLibrary(d)
 
     def test_checkEditState(self):
 

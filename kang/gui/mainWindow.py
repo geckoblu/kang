@@ -570,12 +570,12 @@ class MainWindow(MainWindowUI):
         self.stringMultiLineEdit.setPlainText(libraryEntry.get('match', ''))
         self.replaceTextEdit.setPlainText(libraryEntry.get('replace', ''))
 
-        # TODO set the current page if applicable ?
-        # try:
-        #    # set the current page if applicable
-        #    self.resultTabWidget.setCurrentPage(int(libraryEntry.get('tab', '')))
-        # except ValueError:
-        #    pass
+        try:
+            # set the current page if applicable
+            self.resultTabWidget.setCurrentIndex(int(libraryEntry.get('tab', 0)))
+        except ValueError:
+            pass  # Ignore the error
+
         self._modified = False
 
     def widgetMethod(self, methodstr, anywidget=False):
@@ -641,9 +641,6 @@ class MainWindow(MainWindowUI):
             self.splitterTabWidget.removeTab(index)
 
         self.splitterTabWidget.setVisible(self._showRegexReferenceGuide or self._showRegexLibrary)
-
-    def _updateSplitterStatus(self):
-        pass
 
     def helpAbout(self):
         aboutWindow = AboutDialog(self)

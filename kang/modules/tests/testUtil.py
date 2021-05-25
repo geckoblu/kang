@@ -41,55 +41,6 @@ class TestUtil(unittest.TestCase):
         self.assertTrue(os.path.isdir(cdir), '%s is not a directory' % cdir)
         self.assertTrue(os.access(cdir, os.W_OK), '%s is not a user writable directory' % cdir)
 
-    def test_windowSettings(self):
-        try:
-            # Set config directory
-            dtmp = tempfile.mkdtemp()
-            os.environ['XDG_CONFIG_HOME'] = dtmp
-            cdir = util.getConfigDirectory()
-            self.assertTrue(cdir.startswith(dtmp), '%s wrong config directory' % cdir)
-
-            # Here config dir doesn't exist so saveWindowSettings and restoreWindowSettings should fail
-            w = FakeWindow(3, 5, 23, 25)
-            util.restoreWindowSettings(w, 'ws')
-
-            _stderr = sys.stderr
-            sys.stderr = self
-            util.saveWindowSettings(w, 'ws')
-            sys.stderr = _stderr
-
-            # Create config dir
-            os.mkdir(cdir)
-
-            # Here config dir exist so saveWindowSettings and restoreWindowSettings should suceed
-            w1 = FakeWindow(3, 5, 23, 25)
-            util.saveWindowSettings(w1, 'ws1')
-
-            w2 = FakeWindow()
-            util.restoreWindowSettings(w2, 'ws1')
-
-            self.assertEqual(w1, w2)
-        finally:
-            if dtmp:
-                shutil.rmtree(dtmp)
-
-    def test_load_IOError(self):
-        w = FakeWindow(3, 5, 23, 25)
-
-        # create a not readable file
-        util.saveWindowSettings(w, 'shadow')
-        path = os.path.join(util.getConfigDirectory(), 'shadow')
-        os.chmod(path, 0)
-
-        stderr = sys.stderr
-        sys.stderr = self
-        util.restoreWindowSettings(w, 'shadow')  # something we could surely not read
-        sys.stderr = stderr
-        self.assertTrue(self._writeMsg, 'IOError was not raised')
-
-    def write(self, msg):
-        self._writeMsg = msg
-
 
 class FakeWindow:
 

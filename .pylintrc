@@ -21,6 +21,7 @@ disable=
     no-name-in-module, # Problems with PySide2 imports
     duplicate-code, # Remove at the end of porting
     bare-except,
+    broad-except,
     unused-argument,
     no-self-use
 

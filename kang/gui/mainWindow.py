@@ -48,10 +48,10 @@ class MainWindow(MainWindowUI):
         self._modified = False
 
         # Holds the status (visible or not) of the Regex Reference Guide Panel
-        self.showRegexReferenceGuide = False
+        self._showRegexReferenceGuide = False
 
         # Holds the status (visible or not) of the Regex Reference Library Panel
-        self.showRegexLibrary = False
+        self._showRegexLibrary = False
 
         self.updateStatus(MSG_NA, MATCH_NA)
         self._clearResults()
@@ -71,6 +71,12 @@ class MainWindow(MainWindowUI):
         # FIXME self.connect(self, SIGNAL('pasteRegexLib(PyQt_PyObject)'), self.pasteFromRegexLib)
 
         self.checkForKangDir()
+
+    def showRegexReferenceGuide(self):
+        return self._showRegexReferenceGuide
+
+    def showRegexLibrary(self):
+        return self._showRegexLibrary
 
     def checkForKangDir(self):
         kdir = getConfigDirectory()
@@ -613,7 +619,7 @@ class MainWindow(MainWindowUI):
         webbrowser.open(PYTHON_RE_LIBRARY_URL)
 
     def helpRegexReferenceGuide(self, showRegexReferenceGuide):
-        self.showRegexReferenceGuide = showRegexReferenceGuide
+        self._showRegexReferenceGuide = showRegexReferenceGuide
 
         if showRegexReferenceGuide:
             index = self.splitterTabWidget.insertTab(0, self.regexReferencePanel, tr("Regex Reference Guide"))
@@ -622,10 +628,10 @@ class MainWindow(MainWindowUI):
             index = self.splitterTabWidget.indexOf(self.regexReferencePanel)
             self.splitterTabWidget.removeTab(index)
 
-        self.splitterTabWidget.setVisible(self.showRegexReferenceGuide or self.showRegexLibrary)
+        self.splitterTabWidget.setVisible(self._showRegexReferenceGuide or self._showRegexLibrary)
 
     def helpRegexLibrary(self, showRegexLibrary):
-        self.showRegexLibrary = showRegexLibrary
+        self._showRegexLibrary = showRegexLibrary
 
         if showRegexLibrary:
             index = self.splitterTabWidget.insertTab(1, self.regexLibraryPanel, tr("Regex Library"))
@@ -634,7 +640,7 @@ class MainWindow(MainWindowUI):
             index = self.splitterTabWidget.indexOf(self.regexLibraryPanel)
             self.splitterTabWidget.removeTab(index)
 
-        self.splitterTabWidget.setVisible(self.showRegexReferenceGuide or self.showRegexLibrary)
+        self.splitterTabWidget.setVisible(self._showRegexReferenceGuide or self._showRegexLibrary)
 
     def _updateSplitterStatus(self):
         pass

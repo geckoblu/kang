@@ -1,5 +1,6 @@
 import os
 import json
+import traceback
 
 from kang.modules.util import getConfigDirectory, strtobool
 
@@ -15,52 +16,59 @@ class WindowSettings:
 
     def save(self, window):
         """Save settings to file"""
-        jdict = {}
-
-        size = window.size()
-
-        jdict['width'] = size.width()
-        jdict['height'] = size.height()
-        jdict['x'] = window.x()
-        jdict['y'] = window.y()
-
-        jdict['showRegexReferenceGuide'] = window.showRegexReferenceGuide
-        jdict['showRegexLibrary'] = window.showRegexLibrary
-        jdict['splitter'] = window.splitter.sizes()
-
-        # return
-
-        with open(self._filename, 'w') as jfile:
-            json.dump(jdict, jfile, indent=4)
+        try:
+            jdict = {}
+    
+            size = window.size()
+    
+            jdict['width'] = size.width()
+            jdict['height'] = size.height()
+            jdict['x'] = window.x()
+            jdict['y'] = window.y()
+    
+            jdict['showRegexReferenceGuide'] = window.showRegexReferenceGuide()
+            jdict['showRegexLibrary'] = window.showRegexLibrary()
+            jdict['splitter'] = window.splitter.sizes()
+    
+            # return
+    
+            with open(self._filename, 'w') as jfile:
+                json.dump(jdict, jfile, indent=4)
+        except Exception:
+            traceback.print_exc()
 
     def restore(self, window):
         """Load preferences from file"""
         if not os.path.isfile(self._filename):
             return
 
-        with open(self._filename, 'r') as jfile:
-            jdict = json.load(jfile)
+        try:
 
-        # Load window properties
-        x = int(jdict['x'])
-        y = int(jdict['y'])
-        width = int(jdict['width'])
-        height = int(jdict['height'])
-        sizes = jdict['splitter']
+            with open(self._filename, 'r') as jfile:
+                jdict = json.load(jfile)
 
-        showRegexReferenceGuide = strtobool(jdict['showRegexReferenceGuide'])
-        showRegexLibrary = strtobool(jdict['showRegexLibrary'])
+            # Load window properties
+            x = int(jdict['x'])
+            y = int(jdict['y'])
+            width = int(jdict['width'])
+            height = int(jdict['height'])
+            sizes = jdict['splitter']
 
-        # Set window properties
+            showRegexReferenceGuide = strtobool(jdict['showRegexReferenceGuide'])
+            showRegexLibrary = strtobool(jdict['showRegexLibrary'])
 
-        window.move(x, y)
-        window.resize(width, height)
+            # Set window properties
 
-        window.helpRegexReferenceGuideAction.setChecked(showRegexReferenceGuide)
-        window.helpRegexReferenceGuide(showRegexReferenceGuide)
+            window.move(x, y)
+            window.resize(width, height)
 
-        window.helpRegexLibraryAction.setChecked(showRegexLibrary)
-        window.helpRegexLibrary(showRegexLibrary)
+            window.helpRegexReferenceGuideAction.setChecked(showRegexReferenceGuide)
+            window.helpRegexReferenceGuide(showRegexReferenceGuide)
 
-        if (int(sizes[0] > 0 and int(sizes[1]) > 0)):
-            window.splitter.setSizes(sizes)
+            window.helpRegexLibraryAction.setChecked(showRegexLibrary)
+            window.helpRegexLibrary(showRegexLibrary)
+
+            if int(sizes[0] > 0 and int(sizes[1]) > 0):
+                window.splitter.setSizes(sizes)
+        except Exception:
+            traceback.print_exc()

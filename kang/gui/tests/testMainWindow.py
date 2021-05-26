@@ -103,39 +103,23 @@ class TestMainWindow(unittest.TestCase):
         self.assertEqual(self.window.replaceTextBrowser.toPlainText(), '')
 
     def testPopulateEmbeddedFlags(self):
-        self.window.ignorecaseCheckBox.setChecked(True)
-        self.window.multilineCheckBox.setChecked(True)
-        self.window.dotallCheckBox.setChecked(True)
-        self.window.asciiCheckBox.setChecked(True)
-        self.window.verboseCheckBox.setChecked(True)
-
-        self.window._regexProcessor.setRegexString('(?iLmsux)')
+        self.window._regexProcessor.setRegexString('(?imsax)')
 
         self.window._populateEmbeddedFlags()
-        self.assertTrue(self.window.ignorecaseCheckBox.isChecked())
         self.assertFalse(self.window.ignorecaseCheckBox.isEnabled())
-        self.assertTrue(self.window.multilineCheckBox.isChecked())
         self.assertFalse(self.window.multilineCheckBox.isEnabled())
-        self.assertTrue(self.window.dotallCheckBox.isChecked())
         self.assertFalse(self.window.dotallCheckBox.isEnabled())
-        self.assertTrue(self.window.asciiCheckBox.isChecked())
-        self.assertFalse(self.window.asciiCheckBox.isEnabled())
-        self.assertTrue(self.window.verboseCheckBox.isChecked())
         self.assertFalse(self.window.verboseCheckBox.isEnabled())
+        self.assertFalse(self.window.asciiCheckBox.isEnabled())
 
         self.window._regexProcessor.setRegexString('')
 
         self.window._populateEmbeddedFlags()
-        self.assertTrue(self.window.ignorecaseCheckBox.isChecked())
         self.assertTrue(self.window.ignorecaseCheckBox.isEnabled())
-        self.assertTrue(self.window.multilineCheckBox.isChecked())
         self.assertTrue(self.window.multilineCheckBox.isEnabled())
-        self.assertTrue(self.window.dotallCheckBox.isChecked())
         self.assertTrue(self.window.dotallCheckBox.isEnabled())
-        self.assertTrue(self.window.asciiCheckBox.isChecked())
-        self.assertTrue(self.window.asciiCheckBox.isEnabled())
-        self.assertTrue(self.window.verboseCheckBox.isChecked())
         self.assertTrue(self.window.verboseCheckBox.isEnabled())
+        self.assertTrue(self.window.asciiCheckBox.isEnabled())
 
     def testFileNew(self):
         self.window.fileNew()

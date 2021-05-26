@@ -4,7 +4,7 @@ from PySide2.QtCore import QObject, Signal
 
 from kang import MATCH_NA, MSG_NA, MATCH_FAIL, MSG_FAIL, MSG_MATCH_FOUND, MATCH_OK, MSG_MATCHES_FOUND
 
-EMBEDDED_FLAGS = r'^ *\(\?(?P<flags>[iLmsux]*)\)'
+EMBEDDED_FLAGS = r'^ *\(\?(?P<flags>[imsaxLu]*)\)'
 
 
 class RegexProcessor(QObject):
@@ -22,22 +22,21 @@ class RegexProcessor(QObject):
         self._multilineFlag = False
         self._dotallFlag = False
         self._verboseFlag = False
-        self._localeFlag = False
         self._asciiFlag = False
 
         self._status = (MATCH_NA, MSG_NA)
 
         self._groupTuples = []
         self._spans = []
+
         self._embeddedFlagsObj = re.compile(EMBEDDED_FLAGS)
         self._embeddedFlags = ''
-        self._regexEmbeddedFlagsRemoved = ''
+        self._regexStringEFR = ''
         self._ignorecaseFlagEmbedded = False
         self._multilineFlagEmbedded = False
         self._dotallFlagEmbedded = False
         self._verboseFlagEmbedded = False
-        self._localeFlagEmbedded = False
-        self._unicodeFlagEmbedded = False
+        self._asciiFlagEmbedded = False
 
         self._paused = False
 
@@ -83,40 +82,11 @@ class RegexProcessor(QObject):
         if flag != old:
             self._process()
 
-    def setLocaleFlag(self, flag):
-        old = self._localeFlag
-        self._localeFlag = flag
-        if flag != old:
-            self._process()
-
     def setAsciiFlag(self, flag):
         old = self._asciiFlag
         self._asciiFlag = flag
         if flag != old:
             self._process()
-
-    def _flags(self):
-        flags = 0
-
-        if self._ignorecaseFlag:
-            flags = flags + re.IGNORECASE
-
-        if self._multilineFlag:
-            flags = flags + re.MULTILINE
-
-        if self._dotallFlag:
-            flags = flags + re.DOTALL
-
-        if self._verboseFlag:
-            flags = flags + re.VERBOSE
-
-        if self._localeFlag:
-            flags = flags + re.LOCALE
-
-        if self._asciiFlag:
-            flags = flags + re.ASCII
-
-        return flags
 
     def pause(self):
         self._paused = True
@@ -142,15 +112,6 @@ class RegexProcessor(QObject):
     def getAllGroups(self):
         return self._groupTuples
 
-    # def getGroups(self, index):
-        # if index < 0:
-            # return self._groupTuples
-        # else:
-            # try:
-                # return self._groupTuples[index]
-            # except IndexError:
-                # return []
-
     def getEmbeddedFlags(self):
         return self._embeddedFlags
 
@@ -172,7 +133,7 @@ class RegexProcessor(QObject):
             return
 
         try:
-            compileObj = re.compile(self._regexString, self._flags())
+            compileObj = re.compile(self._regexStringEFR, self._flags())
             matches = compileObj.finditer(self._matchString)
         except re.error as ex:
             self._status = (MATCH_FAIL, str(ex))
@@ -214,37 +175,54 @@ class RegexProcessor(QObject):
 
         self.statusChanged.emit()
 
+    def _flags(self):
+        flags = 0
+
+        if self._ignorecaseFlag or self._ignorecaseFlagEmbedded:
+            flags = flags + re.IGNORECASE
+
+        if self._multilineFlag or self._multilineFlagEmbedded:
+            flags = flags + re.MULTILINE
+
+        if self._dotallFlag or self._dotallFlagEmbedded:
+            flags = flags + re.DOTALL
+
+        if self._verboseFlag or self._verboseFlagEmbedded:
+            flags = flags + re.VERBOSE
+
+        if self._asciiFlag or self._asciiFlagEmbedded:
+            flags = flags + re.ASCII
+
+        return flags
+
     def _processEmbeddedFlags(self):
 
         self._ignorecaseFlagEmbedded = False
         self._multilineFlagEmbedded = False
         self._dotallFlagEmbedded = False
         self._verboseFlagEmbedded = False
-        self._localeFlagEmbedded = False
-        self._unicodeFlagEmbedded = False
+        self._asciiFlagEmbedded = False
 
         match = self._embeddedFlagsObj.match(self._regexString)
         if not match:
             self._embeddedFlags = ''
-            self._regexEmbeddedFlagsRemoved = self._regexString
+            self._regexStringEFR = self._regexString
             return
 
         self._embeddedFlags = match.group('flags')
-        self._regexEmbeddedFlagsRemoved = self._embeddedFlagsObj.sub('', self._regexString, 1)
+        self._regexStringEFR = self._embeddedFlagsObj.sub('', self._regexString, 1)
 
         for flag in self._embeddedFlags:
             if flag == 'i':
                 self._ignorecaseFlagEmbedded = True
-            elif flag == 'L':
-                self._localeFlagEmbedded = True
             elif flag == 'm':
                 self._multilineFlagEmbedded = True
             elif flag == 's':
                 self._dotallFlagEmbedded = True
-            elif flag == 'u':
-                self._unicodeFlagEmbedded = True
             elif flag == 'x':
                 self._verboseFlagEmbedded = True
+            elif flag == 'a':
+                self._asciiFlagEmbedded = True
 
     def replace(self, count):
         try:
@@ -263,7 +241,7 @@ class RegexProcessor(QObject):
 
     def examine(self):
 
-        regex = self._regexString
+        regex = self._regexStringEFR
         length = len(regex)
 
         for i in range(length, 0, -1):
@@ -277,68 +255,14 @@ class RegexProcessor(QObject):
 
         return ('', self._regexString)
 
-    def _getFlagsStr(self):
-        flagsStr = ''
-
-        if self._ignorecaseFlag:
-            flagsStr += '| re.IGNORECASE '
-
-        if self._multilineFlag:
-            flagsStr += '| re.MULTILINE '
-
-        if self._dotallFlag:
-            flagsStr += '| re.DOTALL '
-
-        if self._verboseFlag:
-            flagsStr += '| re.VERBOSE '
-
-        if self._localeFlag:
-            flagsStr += '| re.LOCALE '
-
-        if self._asciiFlag:
-            flagsStr += '| re.ASCII'
-
-        if flagsStr:
-            flagsStr = ', ' + flagsStr[1:]
-
-        return flagsStr
-
-    def _getEmbeddedFlagsStr(self):
-        flags = ''
-
-        if self._ignorecaseFlag:
-            flags += 'i'
-
-        if self._multilineFlag:
-            flags += 'm'
-
-        if self._dotallFlag:
-            flags += 's'
-
-        if self._verboseFlag:
-            flags += 'x'
-
-        if self._localeFlag:
-            flags += 'L'
-
-        if self._asciiFlag:
-            flags += 'a'
-
-        if flags:
-            flagsStr = '(?' + flags + ')'
-        else:
-            flagsStr = ''
-
-        return flagsStr
-
     def getRegexCode(self):
 
         code = 'import re\n\n'
 
         code += '# common variables\n\n'
-        code += 'rawstr = r"""' + self._regexEmbeddedFlagsRemoved + '"""\n\n'
+        code += 'rawstr = r"""' + self._regexStringEFR + '"""\n\n'
         code += 'embedded_rawstr = r"""' + self._getEmbeddedFlagsStr() + \
-                self._regexEmbeddedFlagsRemoved + '"""\n\n'
+                self._regexStringEFR + '"""\n\n'
         code += 'matchstr = """' + self._matchString + '"""\n\n'
         if self._replaceString:
             code += 'replacestr = r"""' + self._replaceString + '"""\n\n'
@@ -383,3 +307,51 @@ class RegexProcessor(QObject):
             code += 'newstr = compile_obj.subn(replacestr, matchstr)\n'
 
         return code
+
+    def _getFlagsStr(self):
+        flagsStr = ''
+
+        if self._ignorecaseFlag or self._ignorecaseFlagEmbedded:
+            flagsStr += '| re.IGNORECASE '
+
+        if self._multilineFlag or self._multilineFlagEmbedded:
+            flagsStr += '| re.MULTILINE '
+
+        if self._dotallFlag or self._dotallFlagEmbedded:
+            flagsStr += '| re.DOTALL '
+
+        if self._verboseFlag or self._verboseFlagEmbedded:
+            flagsStr += '| re.VERBOSE '
+
+        if self._asciiFlag or self._asciiFlagEmbedded:
+            flagsStr += '| re.ASCII'
+
+        if flagsStr:
+            flagsStr = ', ' + flagsStr[1:]
+
+        return flagsStr
+
+    def _getEmbeddedFlagsStr(self):
+        flags = ''
+
+        if self._ignorecaseFlag or self._ignorecaseFlagEmbedded:
+            flags += 'i'
+
+        if self._multilineFlag or self._multilineFlagEmbedded:
+            flags += 'm'
+
+        if self._dotallFlag or self._dotallFlagEmbedded:
+            flags += 's'
+
+        if self._verboseFlag or self._verboseFlagEmbedded:
+            flags += 'x'
+
+        if self._asciiFlag or self._asciiFlag:
+            flags += 'a'
+
+        if flags:
+            flagsStr = '(?' + flags + ')'
+        else:
+            flagsStr = ''
+
+        return flagsStr

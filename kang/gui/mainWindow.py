@@ -305,21 +305,23 @@ class MainWindow(MainWindowUI):
         for flag in flags:
             if flag == 'i':
                 self.ignorecaseCheckBox.setEnabled(False)
-                self.ignorecaseCheckBox.setChecked(True)
-            elif flag == 'L':
-                self.updateStatus(self.tr("Locale Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
+                # self.ignorecaseCheckBox.setChecked(True)
             elif flag == 'm':
                 self.multilineCheckBox.setEnabled(False)
-                self.multilineCheckBox.setChecked(True)
+                # self.multilineCheckBox.setChecked(True)
             elif flag == 's':
                 self.dotallCheckBox.setEnabled(False)
-                self.dotallCheckBox.setChecked(True)
-            elif flag == 'u':
+                # self.dotallCheckBox.setChecked(True)
+            elif flag == 'a':
                 self.asciiCheckBox.setEnabled(False)
-                self.asciiCheckBox.setChecked(True)
+                # self.asciiCheckBox.setChecked(True)
             elif flag == 'x':
                 self.verboseCheckBox.setEnabled(False)
-                self.verboseCheckBox.setChecked(True)
+                # self.verboseCheckBox.setChecked(True)
+            elif flag == 'L':
+                self.updateStatus(self.tr("Locale Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
+            elif flag == 'u':
+                self.updateStatus(self.tr("Unicode Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
 
     def _populateText(self, spans, widget):
         widget.clear()

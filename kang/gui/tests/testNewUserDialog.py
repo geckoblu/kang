@@ -16,7 +16,7 @@ class TestNewUserDialog(unittest.TestCase):
         if not self.qApp:
             self.qApp = QApplication(sys.argv)
 
-    def test_dialog(self):
+    def testDialog(self):
         parent = FakeParent()
         dialog = newUserDialog.NewUserDialog(parent)
         QTest.qWaitForWindowExposed(dialog)

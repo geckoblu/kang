@@ -14,7 +14,7 @@ class TestImages(unittest.TestCase):
         if not self.qApp:
             self.qApp = QApplication(sys.argv)
 
-    def test_getPixmap(self):
+    def testGetPixmap(self):
         ibug = images.getPixmap('bug')
         self.assertFalse(ibug.isNull())
 
@@ -22,7 +22,7 @@ class TestImages(unittest.TestCase):
         ibug2 = images.getPixmap('bug2')
         self.assertTrue(ibug2.isNull())
 
-    def test_getIcon(self):
+    def testGetIcon(self):
         iopen = images.getIcon('document-open')
         self.assertFalse(iopen.isNull())
 

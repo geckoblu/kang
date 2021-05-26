@@ -39,14 +39,14 @@ class TestMainWindow(unittest.TestCase):
         self.window.close()
 
     # Test if the window shows when loading a file
-    def test_window_with_filename(self):
+    def testWindowWithFilename(self):
         self.window.close()  # Do not use the standard window
         window = mainWindow.MainWindow()
         window.loadFile(self.filename1)
         # QTest.qWaitForWindowExposed(window)
         window.close()
 
-    def test_checkForKangDir(self):
+    def testCheckForKangDir(self):
         self.window.close()  # Do not use the standard window
 
         mainWindow.NewUserDialog = FakeDialog
@@ -70,7 +70,7 @@ class TestMainWindow(unittest.TestCase):
         os.environ['XDG_CONFIG_HOME'] = self.dtmp
         window.close()
 
-    def test_pause(self):
+    def testPause(self):
         self.window.pause(True)  # pause
         self.window.pause(False)  # unpause
 
@@ -79,15 +79,15 @@ class TestMainWindow(unittest.TestCase):
         self.window.examine(True)
         self.window.examine(False)
 
-    def test_matchNumSlot(self):
+    def testMatchNumSlot(self):
         self.window.loadFile(self.filename1)
         self.window._matchNumberChanged()
 
-    def test_replaceNumSlot(self):
+    def testReplaceNumSlot(self):
         self.window.loadFile(self.filename1)
         self.window._replaceNumberChanged()
 
-    def test_populateReplaceTextbrowser(self):
+    def testPopulateReplaceTextbrowser(self):
         self.window.replaceNumberSpinBox.setValue(0)
 
         self.window._regexProcessor.setMatchString('abcdabc')
@@ -102,7 +102,7 @@ class TestMainWindow(unittest.TestCase):
         self.window._populateReplaceTextbrowser()
         self.assertEqual(self.window.replaceTextBrowser.toPlainText(), '')
 
-    def test_populateEmbeddedFlags(self):
+    def testPopulateEmbeddedFlags(self):
         self.window.ignorecaseCheckBox.setChecked(True)
         self.window.multilineCheckBox.setChecked(True)
         self.window.dotallCheckBox.setChecked(True)
@@ -137,10 +137,10 @@ class TestMainWindow(unittest.TestCase):
         self.assertTrue(self.window.verboseCheckBox.isChecked())
         self.assertTrue(self.window.verboseCheckBox.isEnabled())
 
-    def test_fileNew(self):
+    def testFileNew(self):
         self.window.fileNew()
 
-    def test_fileSave(self):
+    def testFileSave(self):
         self.window._filename = os.path.join(self.dtmp, 'filesave1.kngs')
         self.window.fileSave()
 
@@ -148,7 +148,7 @@ class TestMainWindow(unittest.TestCase):
         self.window._filename = os.path.join(self.dtmp, 'not/a_valid_filename')
         self.window.fileSave()
 
-    def test_fileSaveAs(self):
+    def testFileSaveAs(self):
 
         qfd = mainWindow.QFileDialog
 
@@ -164,12 +164,12 @@ class TestMainWindow(unittest.TestCase):
 
         mainWindow.QFileDialog = qfd
 
-    def test_fileRevert(self):
+    def testFileRevert(self):
         self.window.fileRevert()
         self.window._filename = self.filename1
         self.window.fileRevert()
 
-    def test_importFile(self):
+    def testImportFile(self):
 
         qfd = mainWindow.QFileDialog
 
@@ -188,12 +188,12 @@ class TestMainWindow(unittest.TestCase):
 
         mainWindow.QFileDialog = qfd
 
-    def test_openFile(self):
+    def testOpenFile(self):
         self.window.loadFile(self.filename1)
 
         self.window.loadFile('not_a_valid_filename')
 
-    def test_fileOpen(self):
+    def testFileOpen(self):
 
         # TODO check better the opening of the file (also for other methods)
         qfd = mainWindow.QFileDialog
@@ -203,7 +203,7 @@ class TestMainWindow(unittest.TestCase):
 
         mainWindow.QFileDialog = qfd
 
-    def test_processRegex(self):
+    def testProcessRegex(self):
         self.window.pause(True)
         self.window.stringMultiLineEdit.setPlainText('abcdabc')
         self.window.pause(False)  # unpause
@@ -221,7 +221,7 @@ class TestMainWindow(unittest.TestCase):
             c2 = code2[i]
             self.assertEqual(c1, c2)
 
-    def test_actionsSlot(self):
+    def testActionsSlot(self):
         self.window.editCopy()
         self.window.editPaste()
         self.window.editCut()
@@ -230,7 +230,7 @@ class TestMainWindow(unittest.TestCase):
 
         self.window.widgetMethod('xxx', True)
 
-    def test_editPreferences(self):
+    def testEditPreferences(self):
         old = mainWindow.PreferencesDialog
         mainWindow.PreferencesDialog = FakeDialog
 
@@ -238,7 +238,7 @@ class TestMainWindow(unittest.TestCase):
 
         mainWindow.PreferencesDialog = old
 
-    def test_helpPythonRegex(self):
+    def testHelpPythonRegex(self):
         wold = mainWindow.webbrowser
         fwb = FakeWebbrowser()
         mainWindow.webbrowser = fwb
@@ -256,7 +256,7 @@ class TestMainWindow(unittest.TestCase):
     #
     #    mainWindow.RegexLibraryWindow = old
 
-    def test_helpAbout(self):
+    def testHelpAbout(self):
         old = mainWindow.AboutDialog
         mainWindow.AboutDialog = FakeDialog
 
@@ -272,7 +272,7 @@ class TestMainWindow(unittest.TestCase):
     #
     #    mainWindow.RegexReferenceWindow = old
 
-    def test_showReportBugDialog(self):
+    def testShowReportBugDialog(self):
         old = mainWindow.ReportBugDialog
         mainWindow.ReportBugDialog = FakeDialog
 
@@ -280,7 +280,7 @@ class TestMainWindow(unittest.TestCase):
 
         mainWindow.ReportBugDialog = old
 
-    def test_signalException(self):
+    def testSignalException(self):
         old = mainWindow.ReportBugDialog
         mainWindow.ReportBugDialog = FakeDialog
 
@@ -288,7 +288,7 @@ class TestMainWindow(unittest.TestCase):
 
         mainWindow.ReportBugDialog = old
 
-    def test_importURL(self):
+    def testImportURL(self):
         old = mainWindow.ImportURLDialog
         mainWindow.ImportURLDialog = FakeDialog
 
@@ -296,7 +296,7 @@ class TestMainWindow(unittest.TestCase):
 
         mainWindow.ImportURLDialog = old
 
-    def test_pasteFromRegexLib(self):
+    def testPasteFromRegexLib(self):
 
         d = {'regex': 'regex',
              'text': 'text',
@@ -312,7 +312,7 @@ class TestMainWindow(unittest.TestCase):
         del d['tab']  # tab not defined
         self.window.pasteFromRegexLibrary(d)
 
-    def test_checkEditState(self):
+    def testCheckEditState(self):
 
         self.window.preferences.askSave = False
         self.window._checkModified()
@@ -351,10 +351,10 @@ class TestMainWindow(unittest.TestCase):
 
         self.window.preferences.askSave = False
 
-    def test_pasteSymbol(self):
+    def testPasteSymbol(self):
         self.window.pasteSymbol('symbol')
 
-    def test_populateText(self):
+    def testPopulateText(self):
         self.window.stringMultiLineEdit.setPlainText('abcdabc')
         widget = FakeColorizeWidget()
 
@@ -439,6 +439,6 @@ if __name__ == "__main__":
     # unittest.main()
 
     suite = unittest.TestSuite()
-    suite.addTest(TestMainWindow("test_populateReplaceTextbrowser"))
+    suite.addTest(TestMainWindow("testPopulateReplaceTextbrowser"))
     runner = unittest.TextTestRunner()
     runner.run(suite)

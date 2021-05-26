@@ -16,7 +16,7 @@ class TestImportURLDialog(unittest.TestCase):
         if not self.qApp:
             self.qApp = QApplication(sys.argv)
 
-    def test_dialog(self):
+    def testDialog(self):
         # TODO: Write a test for IportURLDialog
         pass
         # parent = FakeParent()

@@ -23,7 +23,7 @@ class TestUtil(unittest.TestCase):
         if self.dtmp:
             shutil.rmtree(self.dtmp)
 
-    def test_preferences(self):
+    def testPreferences(self):
         pref = Preferences()
 
         pref.recentFilesNum = pref.recentFilesNum + 1
@@ -39,7 +39,7 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(pref.askSave, pref2.askSave)
         self.assertEqual(pref.askSaveOnlyForNamedProjects, pref2.askSaveOnlyForNamedProjects)
 
-    def test_load_ValueError(self):
+    def testLoadValueError(self):
         pref = Preferences()
         pref.recentFilesNum = 'NaN'
         pref.askSave = 'NaBool'

@@ -18,7 +18,7 @@ class TestKngFile(unittest.TestCase):
         if self.dtmp:
             shutil.rmtree(self.dtmp)
 
-    def test_load_pickler(self):
+    def testLoadPickler(self):
         path = os.path.dirname(__file__)
         picklerfilename = os.path.join(path, 'pickler.kng')
 
@@ -48,14 +48,14 @@ class TestKngFile(unittest.TestCase):
         self.assertEqual(kng.flagVerbose, True)
         self.assertEqual(kng.flagAscii, False)
 
-    def test_load_with_exception(self):
+    def testLoadWithException(self):
         path = os.path.dirname(__file__)
         picklerfilename = os.path.join(path, 'badjson.kng')
 
         kng = kngfile.KngFile(picklerfilename)
         self.assertRaises(json.decoder.JSONDecodeError, kng.load)
 
-    def test_kngfile(self):
+    def testKngfile(self):
 
         kngfilename = os.path.join(self.dtmp, 'test.kng')
 

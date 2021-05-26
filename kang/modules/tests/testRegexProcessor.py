@@ -11,7 +11,7 @@ class TestRegexProcessor(unittest.TestCase):
         super(TestRegexProcessor, self).__init__(*args, **kwargs)
         self._statusChanged = False
 
-    def test_match(self):
+    def testMatch(self):
         rp = RegexProcessor()
         rp.statusChanged.connect(self.statusChanged)
 
@@ -52,7 +52,7 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(len(rp._groupTuples), 0)
         self.assertTrue(self._statusChanged)
 
-    def test_groups(self):
+    def testGroups(self):
         rp = RegexProcessor()
         rp.statusChanged.connect(self.statusChanged)
 
@@ -140,7 +140,7 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(groups[1], [(1, '', '')])
         self.assertTrue(self._statusChanged)
 
-    def test_replace(self):
+    def testReplace(self):
         rp = RegexProcessor()
         rp.setMatchString('abcdabcbc')
 
@@ -222,7 +222,7 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(status, MATCH_OK)
         self.assertEqual(strings, ['<a class="noteref" id="filepos48765" href="#filepos20421">1</a>'])
 
-    def test_ignorecase(self):
+    def testIgnorecase(self):
         rp = RegexProcessor()
         rp.setMatchString('V')
 
@@ -246,7 +246,7 @@ class TestRegexProcessor(unittest.TestCase):
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 
-    def test_getRegexCode(self):
+    def testGetRegexCode(self):
         rp = RegexProcessor()
         rp.statusChanged.connect(self.statusChanged)
 
@@ -257,13 +257,13 @@ class TestRegexProcessor(unittest.TestCase):
         code = rp.getRegexCode()
         self.assertTrue(code.index('(b)') > -1)
 
-    def test_embeddedFlags(self):
+    def testEmbeddedFlags(self):
         rp = RegexProcessor()
 
         rp.setMatchString('abcdabc')
         rp.setRegexString('(?iLmsux)')
 
-    def test_examine(self):
+    def testExamine(self):
         rp = RegexProcessor()
         rp.setMatchString('123456789')
 

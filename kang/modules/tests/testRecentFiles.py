@@ -67,7 +67,7 @@ class TestRecentFiles(unittest.TestCase):
         r1._load()
         r1._clearMenu()
 
-    def test_load_IOError(self):
+    def testLoadIOError(self):
         parent = FakeParent()
         rf = recentfiles.RecentFiles(parent)
 
@@ -78,7 +78,7 @@ class TestRecentFiles(unittest.TestCase):
         sys.stderr = stderr
         self.assertTrue(self._writeMsg, 'IOError was not raised')
 
-    def test_save_IOError(self):
+    def testSaveIOError(self):
         parent = FakeParent()
         rf = recentfiles.RecentFiles(parent)
 
@@ -89,7 +89,7 @@ class TestRecentFiles(unittest.TestCase):
         sys.stderr = stderr
         self.assertTrue(self._writeMsg, 'IOError was not raised')
 
-    def test_remove(self):
+    def testRemove(self):
         parent = FakeParent()
         rf = recentfiles.RecentFiles(parent)
 

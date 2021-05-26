@@ -26,7 +26,7 @@ class TestUtil(unittest.TestCase):
         if self.dtmp:
             shutil.rmtree(self.dtmp)
 
-    def test_findFile(self):
+    def testFindFile(self):
         ntfile = tempfile.NamedTemporaryFile()
         dr, filename = os.path.split(ntfile.name)
         fname = util.findFile(dr, filename)
@@ -35,7 +35,7 @@ class TestUtil(unittest.TestCase):
         fname = util.findFile(dr, 'not an existing filename')
         self.assertTrue(fname == None)
 
-    def test_getConfigDirectory(self):
+    def testGetConfigDirectory(self):
         os.environ['XDG_CONFIG_HOME'] = ''
         cdir = util.getConfigDirectory()
         self.assertTrue(os.path.isdir(cdir), '%s is not a directory' % cdir)

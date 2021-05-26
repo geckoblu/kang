@@ -74,7 +74,7 @@ class TestMainWindow(unittest.TestCase):
         self.window.pause(True)  # pause
         self.window.pause(False)  # unpause
 
-    def test_examine(self):
+    def testExamine(self):
         self.window.regex = 'abc'
         self.window.examine(True)
         self.window.examine(False)

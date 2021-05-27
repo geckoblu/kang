@@ -14,12 +14,6 @@ you have installed PySide2 for the version of Python that you are running.\n""")
 from kang.gui.mainWindow import MainWindow
 from kang.modules import exceptionHandler
 
-# QT_VERS = int(QT_VERSION_STR[0])
-#
-# if QT_VERS < 4:
-#    sys.stderr.write("Qt versions prior to 4.0 are no longer supported\n")
-#    sys.exit(0)
-
 
 def parseCmdline():
 

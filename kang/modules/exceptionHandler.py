@@ -1,11 +1,10 @@
-# pylint: disable=global-statement
+# pylint: disable=global-statement,invalid-name,c-extension-no-member,superfluous-parens
 import sys
 import traceback
 
 from PySide2 import QtCore
 
 from kang import VERSION
-
 
 __mainWindow = None
 __showedexmess = set()
@@ -23,17 +22,17 @@ def init(mainWindow, debug=False):
     sys.excepthook = _excepthook
 
 
-def _excepthook(excType, excValue, tracebackobj):
+def _excepthook(excType, excValue, tracebackObj):
     """
     Global function to catch unhandled exceptions.
 
     @param excType exception type
     @param excValue exception value
-    @param tracebackobj traceback object
+    @param tracebackObj traceback object
     """
 
     try:
-        tb = traceback.format_exception(excType, excValue, tracebackobj)
+        tb = traceback.format_exception(excType, excValue, tracebackObj)
         exmess = ''.join(tb)
         sys.stderr.write(exmess)
         if __mainWindow and not (exmess in __showedexmess):

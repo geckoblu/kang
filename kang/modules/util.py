@@ -13,9 +13,9 @@ def getConfigDirectory():
     return config_dir
 
 
-def findFile(dr, filename):
+def findFile(dirname, filename):
     """Find application resources"""
-    filename = os.path.join(dr, filename)
+    filename = os.path.join(dirname, filename)
 
     apppath = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
     dirs = [apppath]

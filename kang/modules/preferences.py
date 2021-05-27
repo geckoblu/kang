@@ -58,12 +58,6 @@ class Preferences:
 
     def __str__(self):
         """Just a basic implementation for debug"""
-        s = '['
-        s += str(self.recentFilesNum)
-        s += ', '
-        s += str(self.askSave)
-        s += ', '
-
-        s += str(self.askSaveOnlyForNamedProjects)
-        s += ']'
-        return s
+        return '[%s, %s, %s]' % (self.recentFilesNum,
+                                 self.askSave,
+                                 self.askSaveOnlyForNamedProjects)

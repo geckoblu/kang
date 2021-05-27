@@ -364,17 +364,17 @@ class MainWindow(MainWindowUI):
 
         widget.setTextCursor(pos)
 
-    def fileExit(self, ev):
-        self.closeEvent(ev)
+    def fileExit(self, event):
+        self.closeEvent(event)
 
-    def closeEvent(self, ev):
+    def closeEvent(self, event):
         self._checkModified()
 
         # saveWindowSettings(self, GEO)
         settings = WindowSettings()
         settings.save(self)
 
-        ev.accept()
+        event.accept()
 
     def _importURL(self):
         dialog = ImportURLDialog(self, self._lastImportedURL)

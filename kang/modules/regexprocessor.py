@@ -92,9 +92,9 @@ class RegexProcessor(QObject):
         self._paused = True
 
     def unpause(self):
-        old = self._paused
+        waspaused = self._paused
         self._paused = False
-        if old == True:
+        if waspaused:
             self._process()
 
     def getStatus(self):
@@ -156,9 +156,8 @@ class RegexProcessor(QObject):
             self._spans.append(span)
 
             gs = []
-            g = match.groups('')
-            for i in range(len(g)):
-                gt = (i + 1, groupname.get(i + 1, ''), g[i])
+            for i, g in enumerate(match.groups(''), 1):
+                gt = (i, groupname.get(i, ''), g)
                 gs.append(gt)
             if gs:
                 self._groupTuples.append(gs)

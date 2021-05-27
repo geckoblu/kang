@@ -28,7 +28,9 @@ class MainWindowUI(QMainWindow):
         self._setupMenuBar()
         self._setupToolBar()
         self._setupStatusBar()
-        self._setupCentralWidget()
+
+        mainPanel = self._createMainPanel()
+        self._setupCentralWidget(mainPanel)
 
         self._regexProcessor.statusChanged.connect(self._regexprocessorStatusChanged)
 
@@ -184,9 +186,7 @@ class MainWindowUI(QMainWindow):
         self.statusBar().addWidget(permanentStatusLabel, 1)
         self.statusBar().showPermanentMessage = permanentStatusLabel.setText
 
-    def _setupCentralWidget(self):
-        mainPanel = self._createMainPanel()
-
+    def _setupCentralWidget(self, mainPanel):
         self.regexReferencePanel = RegexReferenceWidget()
         self.regexLibraryPanel = RegexLibraryWidget()
 

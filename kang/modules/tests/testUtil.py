@@ -32,7 +32,7 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(ntfile.name, fname)
 
         fname = util.findFile(dr, 'not an existing filename')
-        self.assertTrue(fname == None)
+        self.assertTrue(fname is None)
 
     def testGetConfigDirectory(self):
         os.environ['XDG_CONFIG_HOME'] = ''

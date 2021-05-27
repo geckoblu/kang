@@ -26,7 +26,7 @@ class TestRecentFiles(unittest.TestCase):
         if self.dtmp:
             shutil.rmtree(self.dtmp)
 
-    def test_recentfiles(self):
+    def testRecentfiles(self):
         parent = FakeParent()
         r1 = recentfiles.RecentFiles(parent)
 

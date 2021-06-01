@@ -92,9 +92,6 @@ class RecentFiles:
             self._parent.fileMenu.insertAction(self._parent.placeholderAction, action)
             self._actions.append(action)
 
-    def _test(self, *args):
-        pass
-
     def _openFile(self, filename):
         """Delegate loadFile action to parent"""
         self._parent.loadFile(filename)

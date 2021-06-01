@@ -18,6 +18,30 @@ class TestKngFile(unittest.TestCase):
         if self.dtmp:
             shutil.rmtree(self.dtmp)
 
+    def testKngfile(self):
+
+        kngfilename = os.path.join(self.dtmp, 'test.kng')
+
+        regex = 'A regular espression (.*?)'
+        matchstring = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+        replace = 'Replace string \1'
+
+        kf1 = kngfile.KngFile(kngfilename, regex, matchstring, replace, True, True, True, True, True)
+        kf1.save()
+
+        kf2 = kngfile.KngFile(kngfilename)
+        kf2.load()
+
+        self.assertEqual(kf1.matchString, kf2.matchString)
+        self.assertEqual(kf1.regexString, kf2.regexString)
+        self.assertEqual(kf1.replaceString, kf2.replaceString)
+
+        self.assertEqual(kf1.flagIgnorecase, kf2.flagIgnorecase)
+        self.assertEqual(kf1.flagMultiline, kf2.flagMultiline)
+        self.assertEqual(kf1.flagDotall, kf2.flagDotall)
+        self.assertEqual(kf1.flagVerbose, kf2.flagVerbose)
+        self.assertEqual(kf1.flagAscii, kf2.flagAscii)
+
     def testLoadPickler(self):
         path = os.path.dirname(__file__)
         picklerfilename = os.path.join(path, 'pickler.kng')
@@ -54,27 +78,3 @@ class TestKngFile(unittest.TestCase):
 
         kng = kngfile.KngFile(picklerfilename)
         self.assertRaises(json.decoder.JSONDecodeError, kng.load)
-
-    def testKngfile(self):
-
-        kngfilename = os.path.join(self.dtmp, 'test.kng')
-
-        regex = 'A regular espression (.*?)'
-        matchstring = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
-        replace = 'Replace string \1'
-
-        kf1 = kngfile.KngFile(kngfilename, regex, matchstring, replace, True, True, True, True, True)
-        kf1.save()
-
-        kf2 = kngfile.KngFile(kngfilename)
-        kf2.load()
-
-        self.assertEqual(kf1.matchString, kf2.matchString)
-        self.assertEqual(kf1.regexString, kf2.regexString)
-        self.assertEqual(kf1.replaceString, kf2.replaceString)
-
-        self.assertEqual(kf1.flagIgnorecase, kf2.flagIgnorecase)
-        self.assertEqual(kf1.flagMultiline, kf2.flagMultiline)
-        self.assertEqual(kf1.flagDotall, kf2.flagDotall)
-        self.assertEqual(kf1.flagVerbose, kf2.flagVerbose)
-        self.assertEqual(kf1.flagAscii, kf2.flagAscii)

@@ -20,18 +20,19 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(status, MATCH_NA)
 
         # Three matches
-        self._statusChanged = False
+        self.resetStatusChanged()
         rp.setRegexString('v')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         spans = rp.getAllSpans()
         self.assertEqual(len(spans), 3)
         self.assertEqual(spans, [(15, 16), (37, 38), (65, 66)])
+        self.assertEqual(rp.getSpan(1), (37, 38))
         self.assertEqual(len(rp._groupTuples), 0)
-        self.assertTrue(self._statusChanged)
+        self.assertStatusChanged()
 
         # Two matches
-        self._statusChanged = False
+        self.resetStatusChanged()
         rp.setRegexString('vien')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
@@ -39,10 +40,10 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(len(spans), 2)
         self.assertEqual(spans, [(15, 19), (37, 41)])
         self.assertEqual(len(rp._groupTuples), 0)
-        self.assertTrue(self._statusChanged)
+        self.assertStatusChanged()
 
         # No matches
-        self._statusChanged = False
+        self.resetStatusChanged()
         rp.setRegexString('xxx')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_FAIL)
@@ -50,7 +51,7 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(len(spans), 0)
         self.assertEqual(spans, [])
         self.assertEqual(len(rp._groupTuples), 0)
-        self.assertTrue(self._statusChanged)
+        self.assertStatusChanged()
 
     def testGroups(self):
         rp = RegexProcessor()
@@ -61,7 +62,7 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(status, MATCH_NA)
 
         # One group, two matches
-        self._statusChanged = False
+        self.resetStatusChanged()
         rp.setRegexString('(vien)')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
@@ -72,10 +73,10 @@ class TestRegexProcessor(unittest.TestCase):
         groups = rp.getAllGroups()
         self.assertEqual(groups[0], [(1, '', 'vien')])
         self.assertEqual(groups[1], [(1, '', 'vien')])
-        self.assertTrue(self._statusChanged)
+        self.assertStatusChanged()
 
         # Two groups, three matches
-        self._statusChanged = False
+        self.resetStatusChanged()
         rp.setRegexString('(vien)|(gna)')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
@@ -87,10 +88,10 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(groups[0], [(1, '', 'vien'), (2, '', '')])
         self.assertEqual(groups[1], [(1, '', ''), (2, '', 'gna')])
         self.assertEqual(groups[2], [(1, '', 'vien'), (2, '', '')])
-        self.assertTrue(self._statusChanged)
+        self.assertStatusChanged()
 
         # Two groups (one named), three matches
-        self._statusChanged = False
+        self.resetStatusChanged()
         rp.setRegexString('(?P<n1>vien)|(gna)')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
@@ -102,10 +103,10 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(groups[0], [(1, 'n1', 'vien'), (2, '', '')])
         self.assertEqual(groups[1], [(1, 'n1', ''), (2, '', 'gna')])
         self.assertEqual(groups[2], [(1, 'n1', 'vien'), (2, '', '')])
-        self.assertTrue(self._statusChanged)
+        self.assertStatusChanged()
 
         # Two groups (both named), three matches
-        self._statusChanged = False
+        self.resetStatusChanged()
         rp.setRegexString('(?P<n1>vien)|(?P<n2>gna)')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
@@ -117,17 +118,17 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(groups[0], [(1, 'n1', 'vien'), (2, 'n2', '')])
         self.assertEqual(groups[1], [(1, 'n1', ''), (2, 'n2', 'gna')])
         self.assertEqual(groups[2], [(1, 'n1', 'vien'), (2, 'n2', '')])
-        self.assertTrue(self._statusChanged)
+        self.assertStatusChanged()
 
         # Two groups (same name)
-        self._statusChanged = False
+        self.resetStatusChanged()
         rp.setRegexString('(?P<n1>vien)|(?P<n1>gna)')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_FAIL)
-        self.assertTrue(self._statusChanged)
+        self.assertStatusChanged()
 
         # One group plus one match
-        self._statusChanged = False
+        self.resetStatusChanged()
         rp.setRegexString('(vien)|gna')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
@@ -138,7 +139,7 @@ class TestRegexProcessor(unittest.TestCase):
         groups = rp.getAllGroups()
         self.assertEqual(groups[0], [(1, '', 'vien')])
         self.assertEqual(groups[1], [(1, '', '')])
-        self.assertTrue(self._statusChanged)
+        self.assertStatusChanged()
 
     def testReplace(self):
         rp = RegexProcessor()
@@ -208,14 +209,14 @@ class TestRegexProcessor(unittest.TestCase):
 
         # Real case - which would be the correct colorized ?
         rp.setMatchString("""<p><a class="calibre7" id="filepos48765"></a></p>
-  <blockquote class="calibre19">
+    <blockquote class="calibre19">
     <a class="calibre8" href="#filepos20421"><span class="calibre9 underline">1</span></a>
-  </blockquote>""")
+    </blockquote>""")
         rp.setRegexString("""<p><a class="calibre7" id="(.*?)"></a></p>
-  <blockquote class="calibre19">
+    <blockquote class="calibre19">
     <a class="calibre8" href="(.*?)"><span class="calibre9 underline">(.*?)</span></a>
-  </blockquote>""")
-        rp.setReplaceString('<a class="noteref" id="\\1" href="\\2">\\3</a>')
+    </blockquote>""")
+        rp.setReplaceString(r'<a class="noteref" id="\1" href="\2">\3</a>')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
         status, strings = rp.replace(0)  # 0 stands for 'all'
@@ -224,44 +225,140 @@ class TestRegexProcessor(unittest.TestCase):
 
     def testIgnorecase(self):
         rp = RegexProcessor()
-        rp.setMatchString('V')
+        rp.setMatchString('Newton')
 
-        rp.setRegexString('v')
+        rp.setIgnorecaseFlag(False)
+        rp.setRegexString('newton')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_FAIL)
 
         rp.setIgnorecaseFlag(True)
-        rp.setRegexString('v')
+        rp.setRegexString('newton')
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 
         rp.setIgnorecaseFlag(False)
-        rp.setRegexString('v')
-        status, __ = rp.getStatus()
-        self.assertEqual(status, MATCH_FAIL)
-
-        rp.setIgnorecaseFlag(False)
-        rp.setRegexString('(?i)v')
+        rp.setRegexString('(?i)newton')
         self.assertTrue(rp._ignorecaseFlagEmbedded)
         status, __ = rp.getStatus()
         self.assertEqual(status, MATCH_OK)
 
-    def testGetRegexCode(self):
+    def testMultiline(self):
+        rp = RegexProcessor()
+        rp.setMatchString("""one
+two""")
+
+        rp.setMultilineFlag(False)
+        rp.setRegexString('^two')
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_FAIL)
+
+        rp.setMultilineFlag(True)
+        rp.setRegexString('^two')
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+
+        rp.setMultilineFlag(False)
+        rp.setRegexString('(?m)^two')
+        self.assertTrue(rp._multilineFlagEmbedded)
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+
+    def testDotall(self):
+        rp = RegexProcessor()
+        rp.setMatchString("""one
+two""")
+
+        rp.setDotallFlag(False)
+        rp.setRegexString('one.')
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_FAIL)
+
+        rp.setDotallFlag(True)
+        rp.setRegexString('one.')
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+
+        rp.setDotallFlag(False)
+        rp.setRegexString('(?s)one.')
+        self.assertTrue(rp._dotallFlagEmbedded)
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+
+    def testVerbose(self):
+        rp = RegexProcessor()
+        rp.setMatchString('10.3')
+
+        rp.setVerboseFlag(False)
+        rp.setRegexString(r'\d+\.\d*')
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+
+        rp.setVerboseFlag(False)
+        rp.setRegexString(r"""
+                   \d +  # the integral part
+                   \.    # the decimal point
+                   \d *  # some fractional digits""")
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_FAIL)
+
+        rp.setVerboseFlag(True)
+        rp.setRegexString(r"""
+                   \d +  # the integral part
+                   \.    # the decimal point
+                   \d *  # some fractional digits""")
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+
+        rp.setVerboseFlag(False)
+        rp.setRegexString(r"""(?x)
+                   \d +  # the integral part
+                   \.    # the decimal point
+                   \d *  # some fractional digits""")
+        self.assertTrue(rp._verboseFlagEmbedded)
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+
+    def testAscii(self):
+        rp = RegexProcessor()
+        rp.setMatchString('fox:αλεπού')
+
+        rp.setAsciiFlag(False)
+        rp.setRegexString(r'\w+')
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+        spans = rp.getAllSpans()
+        self.assertEqual(len(spans), 2)  # find ['fox', 'αλεπού']
+
+        rp.setAsciiFlag(True)
+        rp.setRegexString(r'\w+')
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+        spans = rp.getAllSpans()
+        self.assertEqual(len(spans), 1)  # find ['fox'] only
+
+        rp.setAsciiFlag(False)
+        rp.setRegexString(r'(?a)\w+')
+        self.assertTrue(rp._asciiFlagEmbedded)
+        status, __ = rp.getStatus()
+        self.assertEqual(status, MATCH_OK)
+        spans = rp.getAllSpans()
+        self.assertEqual(len(spans), 1)  # find ['fox'] only
+
+    def testPause(self):
         rp = RegexProcessor()
         rp.statusChanged.connect(self.statusChanged)
 
-        rp.setMatchString('abcdabc')
-        code = rp.getRegexCode()
-        self.assertTrue(code.index('abcdabc') > -1)
-        rp.setRegexString('(b)')
-        code = rp.getRegexCode()
-        self.assertTrue(code.index('(b)') > -1)
+        self.resetStatusChanged()
+        rp.setMatchString('matchString')
+        self.assertStatusChanged()
 
-    def testEmbeddedFlags(self):
-        rp = RegexProcessor()
-
-        rp.setMatchString('abcdabc')
-        rp.setRegexString('(?iLmsux)')
+        self.resetStatusChanged()
+        rp.pause()
+        rp.setMatchString('anotherMatchString')
+        self.assertStatusNotChanged()
+        rp.unpause()
+        self.assertStatusChanged()
 
     def testExamine(self):
         rp = RegexProcessor()
@@ -287,5 +384,76 @@ class TestRegexProcessor(unittest.TestCase):
         self.assertEqual(matching, '(?P<n1>x)|')
         self.assertEqual(dontmatching, '(?P<n1>y)')
 
+    def testEmbeddedFlags(self):
+        rp = RegexProcessor()
+
+        rp.setMatchString('abcdabc')
+        rp.setRegexString('(?imsxa)')
+
+        self.assertEqual('(?imsxa)', rp._getEmbeddedFlagsStr())
+
+        self.assertEqual('imsxa', rp.getEmbeddedFlags())
+
+        flagStr = ',  re.IGNORECASE | re.MULTILINE | re.DOTALL | re.VERBOSE | re.ASCII'
+        self.assertEqual(flagStr, rp._getFlagsStr())
+
+    def testGetRegexCode(self):
+        rp = RegexProcessor()
+        rp.statusChanged.connect(self.statusChanged)
+
+        rp.setMatchString('Isaac Newton, physicist, Albert Einstein, physicist')
+        rp.setRegexString(r'(?P<name>\w+) (?P<surname>\w+)')
+        rp.setReplaceString('XXX')
+        code = rp.getRegexCode()
+        # Just a basic test
+        self.assertTrue(code.index('Isaac Newton') > -1)
+        self.assertTrue(code.index(r'(?P<name>\w+)') > -1)
+        self.assertTrue(code.index('XXX') > -1)
+
+    def testSet(self):
+        rp = RegexProcessor()
+        rp.statusChanged.connect(self.statusChanged)
+
+        self.resetStatusChanged()
+        rp.setRegexString('regexString')
+        self.assertStatusChanged()
+
+        self.resetStatusChanged()
+        rp.setMatchString('matchString')
+        self.assertStatusChanged()
+
+        self.resetStatusChanged()
+        rp.setReplaceString('replaceString')
+        self.assertStatusChanged()
+
+        self.resetStatusChanged()
+        rp.setIgnorecaseFlag(True)
+        self.assertStatusChanged()
+
+        self.resetStatusChanged()
+        rp.setMultilineFlag(True)
+        self.assertStatusChanged()
+
+        self.resetStatusChanged()
+        rp.setDotallFlag(True)
+        self.assertStatusChanged()
+
+        self.resetStatusChanged()
+        rp.setVerboseFlag(True)
+        self.assertStatusChanged()
+
+        self.resetStatusChanged()
+        rp.setAsciiFlag(True)
+        self.assertStatusChanged()
+
     def statusChanged(self):
         self._statusChanged = True
+
+    def resetStatusChanged(self):
+        self._statusChanged = False
+
+    def assertStatusChanged(self):
+        self.assertTrue(self._statusChanged, "Status didn't change as expected.")
+
+    def assertStatusNotChanged(self):
+        self.assertFalse(self._statusChanged, "Status unexpectedly changed.")

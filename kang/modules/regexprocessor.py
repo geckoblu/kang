@@ -104,10 +104,7 @@ class RegexProcessor(QObject):
         return self._spans
 
     def getSpan(self, index):
-        try:
-            return self._spans[index]
-        except IndexError:
-            return None
+        return self._spans[index]
 
     def getAllGroups(self):
         return self._groupTuples
@@ -345,7 +342,7 @@ class RegexProcessor(QObject):
         if self._verboseFlag or self._verboseFlagEmbedded:
             flags += 'x'
 
-        if self._asciiFlag or self._asciiFlag:
+        if self._asciiFlag or self._asciiFlagEmbedded:
             flags += 'a'
 
         if flags:

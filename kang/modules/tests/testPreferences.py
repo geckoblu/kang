@@ -54,3 +54,14 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(pref2.recentFilesNum, default.recentFilesNum)
         self.assertEqual(pref2.askSave, default.askSave)
         self.assertEqual(pref2.askSaveOnlyForNamedProjects, default.askSaveOnlyForNamedProjects)
+        
+    def testToStr(self):
+        pref = Preferences()
+        
+        _prefStr = str(pref)
+        # Nothing to check? Only code execution
+        
+    def testBadFilename(self):
+        pref = Preferences('thisisnotafilename')
+        pref.load()
+        # Nothing to check? Only code execution

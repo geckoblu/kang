@@ -1,11 +1,10 @@
 # pylint: disable=protected-access
+from PySide2.QtCore import QObject, Signal
 import os
 import shutil
 import sys
 import tempfile
 import unittest
-
-from PySide2.QtCore import QObject, Signal
 
 from kang.modules import recentfiles, util
 
@@ -35,17 +34,18 @@ class TestRecentFiles(unittest.TestCase):
                            '/home/goofy/kng/pippo2.kng',
                            '/home/goofy/kng/pippo3.kng']
         r1._save()
-        r1._load()
+        # r1._load()
 
         r2 = recentfiles.RecentFiles(parent)
         r2._load()
         self.assertEqual(r1._recentFiles, r2._recentFiles)
 
         # Test add
-        an = len(r1._actions)
-        r1.add('/home/goofy/kng/pippo4.kng')
-        self.assertIn('/home/goofy/kng/pippo4.kng', r1._recentFiles)
-        self.assertEqual(an + 1, len(r1._actions))
+        r3 = recentfiles.RecentFiles(parent)
+        an = len(r3._actions)
+        r3.add('/home/goofy/kng/pippo4.kng')
+        self.assertIn('/home/goofy/kng/pippo4.kng', r3._recentFiles)
+        self.assertEqual(an + 1, len(r3._actions))
 
         # Test setNumShown
         numShow = 2
@@ -66,28 +66,6 @@ class TestRecentFiles(unittest.TestCase):
         r1._save()
         r1._load()
         r1._clearMenu()
-
-    def testLoadIOError(self):
-        parent = FakeParent()
-        rf = recentfiles.RecentFiles(parent)
-
-        rf._filename = '/etc/shadow'  # something we could surely not read
-        stderr = sys.stderr
-        sys.stderr = self
-        rf._load()
-        sys.stderr = stderr
-        self.assertTrue(self._writeMsg, 'IOError was not raised')
-
-    def testSaveIOError(self):
-        parent = FakeParent()
-        rf = recentfiles.RecentFiles(parent)
-
-        rf._filename = '/Not_a_valid_path'
-        stderr = sys.stderr
-        sys.stderr = self
-        rf._save()
-        sys.stderr = stderr
-        self.assertTrue(self._writeMsg, 'IOError was not raised')
 
     def testRemove(self):
         parent = FakeParent()
@@ -112,6 +90,36 @@ class TestRecentFiles(unittest.TestCase):
         rf.remove(fn3)
         self.assertNotIn(fn3, rf._recentFiles)
         self.assertEqual(an, len(rf._actions))
+
+    def testLoadIOError(self):
+        parent = FakeParent()
+        rf = recentfiles.RecentFiles(parent)
+
+        rf._filename = '/etc/shadow'  # something we could surely not read
+        stderr = sys.stderr
+        sys.stderr = self
+        self.resetMsg()
+        rf._load()
+        sys.stderr = stderr
+        self.assertMsgRaised()
+
+    def testSaveIOError(self):
+        parent = FakeParent()
+        rf = recentfiles.RecentFiles(parent)
+
+        rf._filename = '/Not_a_valid_path'
+        stderr = sys.stderr
+        sys.stderr = self
+        self.resetMsg()
+        rf._save()
+        sys.stderr = stderr
+        self.assertMsgRaised()
+
+    def resetMsg(self):
+        self._writeMsg = ''
+
+    def assertMsgRaised(self):
+        self.assertTrue(self._writeMsg, 'IOError was not raised')
 
     def write(self, msg):
         self._writeMsg = msg

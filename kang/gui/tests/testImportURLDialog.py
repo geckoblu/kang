@@ -1,13 +1,13 @@
+# pylint: disable=protected-access
+
 import sys
 import unittest
 
 from PySide2.QtCore import QCoreApplication
 from PySide2.QtWidgets import QApplication
+from PySide2.QtTest import QTest
 
-# from kang.gui import importURLDialog
-# from kang.gui.tests.fakemessagebox import FakeMessageBox
-# from kang.gui.tests.fakeparent import FakeParent
-
+from kang.gui import importURLDialog
 
 class TestImportURLDialog(unittest.TestCase):
 
@@ -17,16 +17,28 @@ class TestImportURLDialog(unittest.TestCase):
             self.qApp = QApplication(sys.argv)
 
     def testDialog(self):
-        # TODO: Write a test for IportURLDialog
-        pass
-        # parent = FakeParent()
-        # dialog = importURLDialog.ImportURLDialog(parent, 'file://%s' % __file__)
-        # dialog.getURL()
-        # QTest.qWaitForWindowExposed(dialog)
-        # #dialog._lastImportedURL()
-        #
-        # qmessagebox = FakeMessageBox()
-        # importURLDialog.QMessageBox = qmessagebox
-        # dialog.URLTextEdit.setText('fake url')
-        # dialog._lastImportedURL()
-        # self.assertTrue(qmessagebox.informationCalled)
+        localURL = 'file://%s' % __file__
+        dialog = importURLDialog.ImportURLDialog(None, localURL)
+        QTest.qWaitForWindowExposed(dialog)
+
+        # Avoid modal input
+        dialog.exec = lambda: True
+        dialog._importURL()
+
+        (ok, text, url, mode) = dialog.getURL()
+
+        self.assertEqual(ok, True)
+        self.assertEqual(url, localURL)
+        self.assertEqual(mode, importURLDialog.ImportURLDialogMode.TEXT)
+        self.assertEqual(text[0:34], '# pylint: disable=protected-access')
+
+#    def testDialogException(self):
+#        localURL = 'fake url'
+#        dialog = importURLDialog.ImportURLDialog(None, localURL)
+#        QTest.qWaitForWindowExposed(dialog)
+#
+#        # Avoid modal input
+#        dialog.exec = lambda: True
+#        dialog._importURL()
+#
+#        dialog.getURL()

@@ -56,6 +56,11 @@ class Preferences:
         with open(self._filename, 'w') as jfile:
             json.dump(jdict, jfile, indent=4)
 
+    def __eq__(self, other):
+        return self.recentFilesNum == other.recentFilesNum and \
+               self.askSave == other.askSave and \
+               self.askSaveOnlyForNamedProjects == other.askSaveOnlyForNamedProjects
+
     def __str__(self):
         """Just a basic implementation for debug"""
         return '[%s, %s, %s]' % (self.recentFilesNum,

@@ -1,12 +1,14 @@
+# pylint: disable=protected-access
+
 import sys
 import unittest
 
 from PySide2.QtCore import QCoreApplication
 from PySide2.QtWidgets import QApplication
 
-# from kang.gui import preferencesDialog
+from kang.gui import preferencesDialog
 # from kang.gui.tests.fakeparent import FakeParent
-# from kang.modules import preferences
+from kang.modules import preferences
 
 
 class TestPreferencesDialog(unittest.TestCase):
@@ -17,12 +19,14 @@ class TestPreferencesDialog(unittest.TestCase):
             self.qApp = QApplication(sys.argv)
 
     def testDialog(self):
-        # TODO: Write a test for PreferencesDialog
-        pass
         # arent = FakeParent()
-        # prefs = preferences.Preferences()
-        # form = preferencesDialog.PreferencesDialog(parent, prefs)
-        # form.showPrefsDialog()
-        # form.apply()
-        # form.accept()
-        # form.askSaveCheckboxToogled()
+        prefs = preferences.Preferences()
+        dialog = preferencesDialog.PreferencesDialog(None, prefs)
+
+        # Avoid modal input
+        dialog.exec = lambda: True
+
+        (ok, prefs2) = dialog.getPreferences()
+
+        self.assertEqual(ok, False)
+        self.assertEqual(prefs2, prefs)

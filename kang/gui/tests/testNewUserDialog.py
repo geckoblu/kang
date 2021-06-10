@@ -1,3 +1,5 @@
+# pylint: disable=protected-access
+
 import sys
 import unittest
 
@@ -6,7 +8,6 @@ from PySide2.QtWidgets import QApplication
 from PySide2.QtTest import QTest
 
 from kang.gui import newUserDialog
-from kang.gui.tests.fakeparent import FakeParent
 
 
 class TestNewUserDialog(unittest.TestCase):
@@ -17,6 +18,5 @@ class TestNewUserDialog(unittest.TestCase):
             self.qApp = QApplication(sys.argv)
 
     def testDialog(self):
-        parent = FakeParent()
-        dialog = newUserDialog.NewUserDialog(parent)
+        dialog = newUserDialog.NewUserDialog(None)
         QTest.qWaitForWindowExposed(dialog)

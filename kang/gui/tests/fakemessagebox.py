@@ -1,32 +1,23 @@
 from PySide2.QtWidgets import QMessageBox
 
 
-class FakeMessageBox(QMessageBox):
+class FakeMessageBox():
+
+    Ok = QMessageBox.Ok
+    Yes = QMessageBox.Yes
+    No = QMessageBox.No
 
     def __init__(self, *args, **kwargs):
         super(FakeMessageBox, self).__init__(*args, **kwargs)
-        self.parent = None
-        self.title = ''
-        self.text = ''
-        self.informationCalled = False
-        self.criticalCalled = False
-        self.warningCalled = False
 
-    def information(self, parent, title, text, *args, **kargs):
-        self.informationCalled = True
-        self.parent = parent
-        self.title = title
-        self.text = text
+    @staticmethod
+    def information(parent, title, text, *args, **kargs):
+        pass
 
-    def critical(self, parent, title, text, *args, **kargs):
-        self.criticalCalled = True
-        self.parent = parent
-        self.title = title
-        self.text = text
+    @staticmethod
+    def critical(parent, title, text, *args, **kargs):
+        pass
 
-    def warning(self, parent, title, text, *args, **kargs):
-        self.warningCalled = True
-        self.parent = parent
-        self.title = title
-        self.text = text
-        return 0
+    @staticmethod
+    def warning(parent, title, text, *args, **kargs):
+        pass

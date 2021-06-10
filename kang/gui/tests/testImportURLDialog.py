@@ -8,6 +8,7 @@ from PySide2.QtWidgets import QApplication
 from PySide2.QtTest import QTest
 
 from kang.gui import importURLDialog
+from kang.gui.tests.fakemessagebox import FakeMessageBox
 
 class TestImportURLDialog(unittest.TestCase):
 
@@ -32,13 +33,15 @@ class TestImportURLDialog(unittest.TestCase):
         self.assertEqual(mode, importURLDialog.ImportURLDialogMode.TEXT)
         self.assertEqual(text[0:34], '# pylint: disable=protected-access')
 
-#    def testDialogException(self):
-#        localURL = 'fake url'
-#        dialog = importURLDialog.ImportURLDialog(None, localURL)
-#        QTest.qWaitForWindowExposed(dialog)
-#
-#        # Avoid modal input
-#        dialog.exec = lambda: True
-#        dialog._importURL()
-#
-#        dialog.getURL()
+    def testDialogException(self):
+        importURLDialog.QMessageBox = FakeMessageBox
+        
+        localURL = 'fake url'
+        dialog = importURLDialog.ImportURLDialog(None, localURL)
+        QTest.qWaitForWindowExposed(dialog)
+
+        # Avoid modal input
+        dialog.exec = lambda: True
+        dialog._importURL()
+
+        dialog.getURL()

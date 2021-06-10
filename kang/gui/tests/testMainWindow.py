@@ -10,11 +10,11 @@ from PySide2.QtWidgets import QApplication
 from PySide2.QtTest import QTest
 
 from kang.gui import mainWindow
+from kang.modules import util
 from kang.gui.tests.fakeQFileDialog import FakeQFileDialog
 from kang.gui.tests.fakeWebbrowser import FakeWebbrowser
 from kang.gui.tests.fakedialog import FakeDialog
 from kang.gui.tests.fakemessagebox import FakeMessageBox
-from kang.modules import util
 
 
 class TestMainWindow(unittest.TestCase):
@@ -418,11 +418,10 @@ class FakeColorizeWidget():
     def setTextCursor(self, pos):
         pass
 
-
-if __name__ == "__main__":
-    # unittest.main()
-
-    suite = unittest.TestSuite()
-    suite.addTest(TestMainWindow("testPopulateReplaceTextbrowser"))
-    runner = unittest.TextTestRunner()
-    runner.run(suite)
+# if __name__ == "__main__":
+#    # unittest.main()
+#
+#    suite = unittest.TestSuite()
+#    suite.addTest(TestMainWindow("testPopulateReplaceTextbrowser"))
+#    runner = unittest.TextTestRunner()
+#    runner.run(suite)

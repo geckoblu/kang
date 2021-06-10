@@ -18,6 +18,8 @@ class ImportURLDialog(QDialog):
 
     def __init__(self, parent=None, url=''):
         QDialog.__init__(self, parent)
+        
+        self.parent = parent
 
         self.setWindowIcon(getIcon('kang-icon'))
         self.setWindowTitle(tr("Import URL"))
@@ -69,7 +71,7 @@ class ImportURLDialog(QDialog):
                     data = response.read()  # a `bytes` object
                     self.text = data.decode('utf-8')  # a `str`; this step can't be used if data is binary
             except Exception as ex:
-                QMessageBox.information(None,
+                QMessageBox.information(self.parent,
                                         "Failed to open URL",
                                         _ERROR_MESSAGE % str(ex))
                 return

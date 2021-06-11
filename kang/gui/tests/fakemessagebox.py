@@ -7,9 +7,6 @@ class FakeMessageBox():
     Yes = QMessageBox.Yes
     No = QMessageBox.No
 
-    def __init__(self, *args, **kwargs):
-        super(FakeMessageBox, self).__init__(*args, **kwargs)
-
     @staticmethod
     def information(parent, title, text, *args, **kargs):
         pass

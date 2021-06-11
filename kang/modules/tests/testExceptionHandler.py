@@ -42,9 +42,9 @@ class FakeMainWindow:
         self.message = ''
         self.wok = False
         self.wmessage = ''
-        self.regexMultiLineEdit = FakeLineEdit('regexMultiLineEdit')
-        self.stringMultiLineEdit = FakeLineEdit('stringMultiLineEdit')
-        self.replaceTextEdit = FakeLineEdit('replaceTextEdit')
+        self._regexMultiLineEdit = FakeLineEdit('_regexMultiLineEdit')
+        self._stringMultiLineEdit = FakeLineEdit('_stringMultiLineEdit')
+        self._replaceTextEdit = FakeLineEdit('_replaceTextEdit')
 
     def write(self, message):
         self.wmessage = message
@@ -53,9 +53,9 @@ class FakeMainWindow:
     def signalException(self, message):
         self.message = message
         self.ok = (message.find('ValueError: A very specific bad thing happened') > 0)
-        self.ok = self.ok and (message.find('regexMultiLineEdit') > 0)
-        self.ok = self.ok and (message.find('stringMultiLineEdit') > 0)
-        self.ok = self.ok and (message.find('replaceTextEdit') > 0)
+        self.ok = self.ok and (message.find('_regexMultiLineEdit') > 0)
+        self.ok = self.ok and (message.find('_stringMultiLineEdit') > 0)
+        self.ok = self.ok and (message.find('_replaceTextEdit') > 0)
 
 
 class FakeLineEdit():

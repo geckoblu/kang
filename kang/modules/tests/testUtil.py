@@ -20,7 +20,7 @@ class TestUtil(unittest.TestCase):
     def tearDown(self):
         if self.dtmp:
             shutil.rmtree(self.dtmp)
-            
+
     def testGetConfigDirectory(self):
         # os.environ['XDG_CONFIG_HOME'] = ''
         configdir = util.getConfigDirectory()
@@ -40,4 +40,3 @@ class TestUtil(unittest.TestCase):
 
         fname = util.findFile(dr, 'not an existing filename')
         self.assertTrue(fname is None)
-

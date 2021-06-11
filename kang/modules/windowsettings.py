@@ -28,7 +28,7 @@ class WindowSettings:
 
             jdict['showRegexReferenceGuide'] = window.showRegexReferenceGuide()
             jdict['showRegexLibrary'] = window.showRegexLibrary()
-            jdict['splitter'] = window.splitter.sizes()
+            jdict['_splitter'] = window._splitter.sizes()
 
             # return
 
@@ -52,7 +52,7 @@ class WindowSettings:
             y = int(jdict['y'])
             width = int(jdict['width'])
             height = int(jdict['height'])
-            sizes = jdict['splitter']
+            sizes = jdict['_splitter']
 
             showRegexReferenceGuide = strtobool(jdict['showRegexReferenceGuide'])
             showRegexLibrary = strtobool(jdict['showRegexLibrary'])
@@ -62,13 +62,13 @@ class WindowSettings:
             window.move(x, y)
             window.resize(width, height)
 
-            window.helpRegexReferenceGuideAction.setChecked(showRegexReferenceGuide)
+            window._helpRegexReferenceGuideAction.setChecked(showRegexReferenceGuide)
             window.helpRegexReferenceGuide(showRegexReferenceGuide)
 
-            window.helpRegexLibraryAction.setChecked(showRegexLibrary)
+            window._helpRegexLibraryAction.setChecked(showRegexLibrary)
             window.helpRegexLibrary(showRegexLibrary)
 
             if int(sizes[0] > 0 and int(sizes[1]) > 0):
-                window.splitter.setSizes(sizes)
+                window._splitter.setSizes(sizes)
         except Exception:
             traceback.print_exc()

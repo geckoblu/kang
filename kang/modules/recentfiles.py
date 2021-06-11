@@ -71,7 +71,7 @@ class RecentFiles:
         """Clear menu removing each entry (not from recent file list)"""
         # clear each menu entry...
         for act in self._actions:
-            self._parent.fileMenu.removeAction(act)
+            self._parent._fileMenu.removeAction(act)
 
         # clear list of menu entry
         self._actions = []
@@ -89,7 +89,7 @@ class RecentFiles:
             action = QAction(basename)
             action.triggered.connect(lambda _checked=True, fp=filepath: self._openFile(fp))
             action.setStatusTip("Open: " + filepath)
-            self._parent.fileMenu.insertAction(self._parent.placeholderAction, action)
+            self._parent._fileMenu.insertAction(self._parent._placeholderAction, action)
             self._actions.append(action)
 
     def _openFile(self, filename):

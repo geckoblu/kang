@@ -13,10 +13,10 @@ class FakeDialog():
     def exec_(self):
         pass
 
-    """Used when replace ImportURLDialog"""
     def getURL(self):
+        """Used when replace ImportURLDialog"""
         return (1, 'Some text', 'https://example.com/', ImportURLDialogMode.TEXT)
 
-    """Used when replace preferencesDialo"""
     def getPreferences(self):
+        """Used when replace preferencesDialo"""
         return(1, Preferences())

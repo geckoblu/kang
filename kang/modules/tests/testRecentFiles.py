@@ -1,10 +1,12 @@
 # pylint: disable=protected-access
-from PySide2.QtCore import QObject, Signal
+
 import os
 import shutil
 import sys
 import tempfile
 import unittest
+
+from PySide2.QtCore import QObject, Signal
 
 from kang.modules import recentfiles, util
 
@@ -128,8 +130,8 @@ class TestRecentFiles(unittest.TestCase):
 class FakeParent:
 
     def __init__(self):
-        self.fileMenu = FakeMenu()
-        self.placeholderAction = FakeAction()
+        self._fileMenu = FakeMenu()
+        self._placeholderAction = FakeAction()
 
     def loadFile(self, filename):
         pass

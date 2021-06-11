@@ -10,6 +10,7 @@ from PySide2.QtTest import QTest
 from kang.gui import importURLDialog
 from kang.gui.tests.fakemessagebox import FakeMessageBox
 
+
 class TestImportURLDialog(unittest.TestCase):
 
     def setUp(self):
@@ -35,7 +36,7 @@ class TestImportURLDialog(unittest.TestCase):
 
     def testDialogException(self):
         importURLDialog.QMessageBox = FakeMessageBox
-        
+
         localURL = 'fake url'
         dialog = importURLDialog.ImportURLDialog(None, localURL)
         QTest.qWaitForWindowExposed(dialog)

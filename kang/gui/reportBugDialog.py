@@ -32,10 +32,10 @@ class ReportBugDialog(QDialog):
 
         gLayout.addWidget(label, 0, 1, 1, 1)
 
-        self.edit = QTextBrowser()
-        self.edit.setReadOnly(True)
-        self.edit.setPlainText(msg)
-        gLayout.addWidget(self.edit, 1, 1, 1, 1)
+        self._edit = QTextBrowser()
+        self._edit.setReadOnly(True)
+        self._edit.setPlainText(msg)
+        gLayout.addWidget(self._edit, 1, 1, 1, 1)
 
         copyButton = QPushButton(tr("Copy to clipboard"))
         copyButton.clicked.connect(self.copyToClipboard)
@@ -52,7 +52,7 @@ class ReportBugDialog(QDialog):
 
     def copyToClipboard(self):
         clipboard = QApplication.clipboard()
-        clipboard.setText(self.edit.toPlainText())
+        clipboard.setText(self._edit.toPlainText())
 
 
 _MESSAGE_TEXT = """%s<br/>

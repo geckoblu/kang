@@ -33,7 +33,7 @@ class TestMainWindow(unittest.TestCase):
 
         self.window = mainWindow.MainWindow()
         QTest.qWaitForWindowExposed(self.window)
-        self.window.preferences.askSave = False
+        self.window._preferences.askSave = False
 
     def tearDown(self):
         self.window.close()
@@ -88,38 +88,38 @@ class TestMainWindow(unittest.TestCase):
         self.window._replaceNumberChanged()
 
     def testPopulateReplaceTextbrowser(self):
-        self.window.replaceNumberSpinBox.setValue(0)
+        self.window._replaceNumberSpinBox.setValue(0)
 
         self.window._regexProcessor.setMatchString('abcdabc')
         self.window._regexProcessor.setRegexString('b')
-        self.window.replaceTextEdit.setText('x')
+        self.window._replaceTextEdit.setText('x')
         # self.window._regexProcessor.setReplaceString('x')
 
         self.window._populateReplaceTextbrowser()
-        self.assertEqual(self.window.replaceTextBrowser.toPlainText(), 'axcdaxc')
+        self.assertEqual(self.window._replaceTextBrowser.toPlainText(), 'axcdaxc')
 
         self.window._regexProcessor.setReplaceString('\\')
         self.window._populateReplaceTextbrowser()
-        self.assertEqual(self.window.replaceTextBrowser.toPlainText(), '')
+        self.assertEqual(self.window._replaceTextBrowser.toPlainText(), '')
 
     def testPopulateEmbeddedFlags(self):
         self.window._regexProcessor.setRegexString('(?imsax)')
 
         self.window._populateEmbeddedFlags()
-        self.assertFalse(self.window.ignorecaseCheckBox.isEnabled())
-        self.assertFalse(self.window.multilineCheckBox.isEnabled())
-        self.assertFalse(self.window.dotallCheckBox.isEnabled())
-        self.assertFalse(self.window.verboseCheckBox.isEnabled())
-        self.assertFalse(self.window.asciiCheckBox.isEnabled())
+        self.assertFalse(self.window._ignorecaseCheckBox.isEnabled())
+        self.assertFalse(self.window._multilineCheckBox.isEnabled())
+        self.assertFalse(self.window._dotallCheckBox.isEnabled())
+        self.assertFalse(self.window._verboseCheckBox.isEnabled())
+        self.assertFalse(self.window._asciiCheckBox.isEnabled())
 
         self.window._regexProcessor.setRegexString('')
 
         self.window._populateEmbeddedFlags()
-        self.assertTrue(self.window.ignorecaseCheckBox.isEnabled())
-        self.assertTrue(self.window.multilineCheckBox.isEnabled())
-        self.assertTrue(self.window.dotallCheckBox.isEnabled())
-        self.assertTrue(self.window.verboseCheckBox.isEnabled())
-        self.assertTrue(self.window.asciiCheckBox.isEnabled())
+        self.assertTrue(self.window._ignorecaseCheckBox.isEnabled())
+        self.assertTrue(self.window._multilineCheckBox.isEnabled())
+        self.assertTrue(self.window._dotallCheckBox.isEnabled())
+        self.assertTrue(self.window._verboseCheckBox.isEnabled())
+        self.assertTrue(self.window._asciiCheckBox.isEnabled())
 
     def testFileNew(self):
         self.window.fileNew()
@@ -168,7 +168,7 @@ class TestMainWindow(unittest.TestCase):
         ntf.flush()
         mainWindow.QFileDialog = FakeQFileDialog(filename=ntf.name)
         self.window.importFile()
-        self.assertEqual(self.window.stringMultiLineEdit.toPlainText(), 'abcdef')
+        self.assertEqual(self.window._stringMultiLineEdit.toPlainText(), 'abcdef')
 
         mainWindow.QFileDialog = qfd
 
@@ -189,16 +189,16 @@ class TestMainWindow(unittest.TestCase):
 
     def testProcessRegex(self):
         self.window.pause(True)
-        self.window.stringMultiLineEdit.setPlainText('abcdabc')
+        self.window._stringMultiLineEdit.setPlainText('abcdabc')
         self.window.pause(False)  # unpause
-        self.window.regexMultiLineEdit.setPlainText('e')
-        self.window.regexMultiLineEdit.setPlainText('d')
-        self.window.regexMultiLineEdit.setPlainText('b')
-        self.window.regexMultiLineEdit.setPlainText('(b)')
-        self.window.regexMultiLineEdit.setPlainText('(?P<g1>b)')
-        self.window.replaceTextEdit.setPlainText('\\1')
+        self.window._regexMultiLineEdit.setPlainText('e')
+        self.window._regexMultiLineEdit.setPlainText('d')
+        self.window._regexMultiLineEdit.setPlainText('b')
+        self.window._regexMultiLineEdit.setPlainText('(b)')
+        self.window._regexMultiLineEdit.setPlainText('(?P<g1>b)')
+        self.window._replaceTextEdit.setPlainText('\\1')
 
-        code1 = str(self.window.codeTextBrowser.toPlainText()).split('\n')
+        code1 = str(self.window._codeTextBrowser.toPlainText()).split('\n')
         code2 = self.window._regexProcessor.getRegexCode().split('\n')
         for i in range(0, min(len(code1), len(code2))):
             c1 = code1[i]
@@ -298,19 +298,19 @@ class TestMainWindow(unittest.TestCase):
 
     def testCheckEditState(self):
 
-        self.window.preferences.askSave = False
+        self.window._preferences.askSave = False
         self.window._checkModified()
 
-        self.window.preferences.askSave = True
-        self.window.preferences.askSaveOnlyForNamedProjects = True
+        self.window._preferences.askSave = True
+        self.window._preferences.askSaveOnlyForNamedProjects = True
         self.window._checkModified()
 
-        self.window.preferences.askSave = True
-        self.window.preferences.askSaveOnlyForNamedProjects = False
+        self.window._preferences.askSave = True
+        self.window._preferences.askSaveOnlyForNamedProjects = False
         self.window._checkModified()
 
-        self.window.preferences.askSave = True
-        self.window.preferences.askSaveOnlyForNamedProjects = False
+        self.window._preferences.askSave = True
+        self.window._preferences.askSaveOnlyForNamedProjects = False
         self.window._modified = True
 
         old = mainWindow.QMessageBox
@@ -333,13 +333,13 @@ class TestMainWindow(unittest.TestCase):
         self.window.fileSave = fileSave
         mainWindow.QMessageBox = old
 
-        self.window.preferences.askSave = False
+        self.window._preferences.askSave = False
 
     def testPasteSymbol(self):
         self.window.pasteSymbol('symbol')
 
     def testPopulateText(self):
-        self.window.stringMultiLineEdit.setPlainText('abcdabc')
+        self.window._stringMultiLineEdit.setPlainText('abcdabc')
         widget = FakeColorizeWidget()
 
         # No match
@@ -348,8 +348,8 @@ class TestMainWindow(unittest.TestCase):
         self.window._populateText(spans, widget)
         self.assertEqual(widget.colorized, [])
 
-        qColorNormal = self.window.normalTextColor
-        qColorEvidence = self.window.highlightTextColor
+        qColorNormal = self.window._normalTextColor
+        qColorEvidence = self.window._highlightTextColor
 
         # One match in the middle
         self.window._regexProcessor.setRegexString('d')

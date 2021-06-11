@@ -36,22 +36,26 @@ class MainWindow(MainWindowUI):
     def __init__(self):
         MainWindowUI.__init__(self)
 
-        self._regexSaved = ''
-
-        self.importFilename = ''
-        self._filename = ''
-
-        # Temporary stores last opened URL
-        self._lastImportedURL = ''
-
         # Holds whether the document shown in the window has unsaved changes
         self._modified = False
+
+        # Stores the path of the opened kng file (if any)
+        self._filename = ''
 
         # Holds the status (visible or not) of the Regex Reference Guide Panel
         self._showRegexReferenceGuide = False
 
         # Holds the status (visible or not) of the Regex Reference Library Panel
         self._showRegexLibrary = False
+
+        # Temporary stores the current regex (when in 'examine'mode)
+        self._regexStringSaved = ''
+
+        # Temporary stores last imported File
+        self._lastImportedFilename = ''
+
+        # Temporary stores last opened URL
+        self._lastImportedURL = ''
 
         self.updateStatus(MSG_NA, MATCH_NA)
         self._clearResults()
@@ -61,13 +65,13 @@ class MainWindow(MainWindowUI):
 
         self.show()
 
-        self.preferences = Preferences()
-        self.preferences.load()
-        self.recentFiles = RecentFiles(self, self.preferences.recentFilesNum)
+        self._preferences = Preferences()
+        self._preferences.load()
+        self._recentFiles = RecentFiles(self, self._preferences.recentFilesNum)
 
         self._signalException.connect(self.showReportBugDialog)
-        self.regexReferencePanel.pasteSymbol.connect(self.pasteSymbol)
-        self.regexLibraryPanel.emitEntry.connect(self.pasteFromRegexLibrary)
+        self._regexReferencePanel.pasteSymbol.connect(self.pasteSymbol)
+        self._regexLibraryPanel.emitEntry.connect(self.pasteFromRegexLibrary)
 
         self.checkForKangDir()
 
@@ -97,27 +101,27 @@ class MainWindow(MainWindowUI):
 
         allmatches = self._regexProcessor.getAllSpans()
         if allmatches:
-            self.matchTextBrowser.setEnabled(True)
-            self.groupTable.setEnabled(True)
-            self.matchNumberSpinBox.setMaximum(len(allmatches))
-            self.matchNumberSpinBox.setEnabled(True)
+            self._matchTextBrowser.setEnabled(True)
+            self._groupTable.setEnabled(True)
+            self._matchNumberSpinBox.setMaximum(len(allmatches))
+            self._matchNumberSpinBox.setEnabled(True)
         else:
             # No match found
-            self.matchTextBrowser.setDisabled(True)
-            self.groupTable.setDisabled(True)
-            self.matchNumberSpinBox.setValue(0)
-            self.matchNumberSpinBox.setDisabled(True)
+            self._matchTextBrowser.setDisabled(True)
+            self._groupTable.setDisabled(True)
+            self._matchNumberSpinBox.setValue(0)
+            self._matchNumberSpinBox.setDisabled(True)
 
-        replaceString = self.replaceTextEdit.toPlainText()
+        replaceString = self._replaceTextEdit.toPlainText()
         if allmatches and replaceString:
-            self.replaceTextBrowser.setEnabled(True)
-            self.replaceNumberSpinBox.setMaximum(len(allmatches))
-            self.replaceNumberSpinBox.setEnabled(True)
+            self._replaceTextBrowser.setEnabled(True)
+            self._replaceNumberSpinBox.setMaximum(len(allmatches))
+            self._replaceNumberSpinBox.setEnabled(True)
         else:
             # No match found
-            self.replaceTextBrowser.setDisabled(True)
-            self.replaceNumberSpinBox.setValue(0)
-            self.replaceNumberSpinBox.setDisabled(True)
+            self._replaceTextBrowser.setDisabled(True)
+            self._replaceNumberSpinBox.setValue(0)
+            self._replaceNumberSpinBox.setDisabled(True)
 
         self._populateGroupTable()
         self._populateMatchTextbrowser()
@@ -140,61 +144,61 @@ class MainWindow(MainWindowUI):
         if paused:
             self._regexProcessor.pause()
             self.updateStatus(MSG_PAUSED, MATCH_PAUSED)
-            self.matchTextBrowser.setDisabled(True)
-            self.matchTextBrowser.setPlainText('')
-            self.groupTable.setDisabled(True)
-            self.groupTable.clear()
-            self.replaceTextBrowser.setDisabled(True)
-            self.replaceTextBrowser.setPlainText('')
-            self.codeTextBrowser.setDisabled(True)
-            self.codeTextBrowser.setPlainText('')
-            self.matchNumberSpinBox.setEnabled(False)
-            self.replaceNumberSpinBox.setEnabled(False)
+            self._matchTextBrowser.setDisabled(True)
+            self._matchTextBrowser.setPlainText('')
+            self._groupTable.setDisabled(True)
+            self._groupTable.clear()
+            self._replaceTextBrowser.setDisabled(True)
+            self._replaceTextBrowser.setPlainText('')
+            self._codeTextBrowser.setDisabled(True)
+            self._codeTextBrowser.setPlainText('')
+            self._matchNumberSpinBox.setEnabled(False)
+            self._replaceNumberSpinBox.setEnabled(False)
         else:
-            self.matchTextBrowser.setEnabled(True)
-            self.groupTable.setEnabled(True)
-            self.replaceTextBrowser.setEnabled(True)
-            self.codeTextBrowser.setEnabled(True)
-            self.matchNumberSpinBox.setEnabled(True)
-            self.replaceNumberSpinBox.setEnabled(True)
+            self._matchTextBrowser.setEnabled(True)
+            self._groupTable.setEnabled(True)
+            self._replaceTextBrowser.setEnabled(True)
+            self._codeTextBrowser.setEnabled(True)
+            self._matchNumberSpinBox.setEnabled(True)
+            self._replaceNumberSpinBox.setEnabled(True)
             self._regexProcessor.unpause()
 
     def examine(self, examine):
         if examine:
-            self._regexSaved = self.regexMultiLineEdit.toPlainText()
+            self._regexStringSaved = self._regexMultiLineEdit.toPlainText()
 
-            self.stringMultiLineEdit.setReadOnly(True)
-            self.regexMultiLineEdit.setReadOnly(True)
-            self.replaceTextEdit.setReadOnly(True)
-            self.stringMultiLineEdit.setEnabled(False)
-            self.regexMultiLineEdit.setEnabled(False)
-            self.replaceTextEdit.setEnabled(False)
-            self.stringMultiLineEdit.setTextColor(self.normalTextColor)
-            self.stringMultiLineEdit.setText(self.stringMultiLineEdit.toPlainText())
-            self.replaceTextEdit.setTextColor(self.normalTextColor)
-            self.replaceTextEdit.setText(self.replaceTextEdit.toPlainText())
+            self._stringMultiLineEdit.setReadOnly(True)
+            self._regexMultiLineEdit.setReadOnly(True)
+            self._replaceTextEdit.setReadOnly(True)
+            self._stringMultiLineEdit.setEnabled(False)
+            self._regexMultiLineEdit.setEnabled(False)
+            self._replaceTextEdit.setEnabled(False)
+            self._stringMultiLineEdit.setTextColor(self._normalTextColor)
+            self._stringMultiLineEdit.setText(self._stringMultiLineEdit.toPlainText())
+            self._replaceTextEdit.setTextColor(self._normalTextColor)
+            self._replaceTextEdit.setText(self._replaceTextEdit.toPlainText())
 
             matching, dontmatching = self._regexProcessor.examine()
             self._refreshRegexWidget(matching, dontmatching)
         else:
-            self.regexMultiLineEdit.setReadOnly(False)
-            self.stringMultiLineEdit.setReadOnly(False)
-            self.replaceTextEdit.setReadOnly(False)
-            self.stringMultiLineEdit.setEnabled(True)
-            self.regexMultiLineEdit.setEnabled(True)
-            self.replaceTextEdit.setEnabled(True)
-            self.regexMultiLineEdit.setTextColor(self.normalTextColor)
+            self._regexMultiLineEdit.setReadOnly(False)
+            self._stringMultiLineEdit.setReadOnly(False)
+            self._replaceTextEdit.setReadOnly(False)
+            self._stringMultiLineEdit.setEnabled(True)
+            self._regexMultiLineEdit.setEnabled(True)
+            self._replaceTextEdit.setEnabled(True)
+            self._regexMultiLineEdit.setTextColor(self._normalTextColor)
 
-            self.regexMultiLineEdit.setPlainText(self._regexSaved)
+            self._regexMultiLineEdit.setPlainText(self._regexStringSaved)
 
     def _refreshRegexWidget(self, matching, dontmatching):
-        self.regexMultiLineEdit.clear()
+        self._regexMultiLineEdit.clear()
 
-        self.regexMultiLineEdit.blockSignals(True)
-        self.regexMultiLineEdit.insertPlainText(matching)
-        self.regexMultiLineEdit.setTextColor(self.disabledTextColor)
-        self.regexMultiLineEdit.insertPlainText(dontmatching)
-        self.regexMultiLineEdit.blockSignals(False)
+        self._regexMultiLineEdit.blockSignals(True)
+        self._regexMultiLineEdit.insertPlainText(matching)
+        self._regexMultiLineEdit.setTextColor(self._disabledTextColor)
+        self._regexMultiLineEdit.insertPlainText(dontmatching)
+        self._regexMultiLineEdit.blockSignals(False)
 
         self._regexProcessor.setRegexString(matching)
 
@@ -208,29 +212,29 @@ class MainWindow(MainWindowUI):
     def _clear(self):
         self._clearResults()
 
-        self.matchNumberSpinBox.setValue(0)
-        self.regexMultiLineEdit.setPlainText('')
-        self.stringMultiLineEdit.setPlainText('')
-        self.replaceTextEdit.setPlainText('')
+        self._matchNumberSpinBox.setValue(0)
+        self._regexMultiLineEdit.setPlainText('')
+        self._stringMultiLineEdit.setPlainText('')
+        self._replaceTextEdit.setPlainText('')
 
-        self.ignorecaseCheckBox.setChecked(False)
-        self.multilineCheckBox.setChecked(False)
-        self.dotallCheckBox.setChecked(False)
-        self.verboseCheckBox.setChecked(False)
-        self.asciiCheckBox.setChecked(False)
+        self._ignorecaseCheckBox.setChecked(False)
+        self._multilineCheckBox.setChecked(False)
+        self._dotallCheckBox.setChecked(False)
+        self._verboseCheckBox.setChecked(False)
+        self._asciiCheckBox.setChecked(False)
 
     def _clearResults(self):
-        self.groupTable.clear()
-        self.codeTextBrowser.setPlainText('')
-        self.matchTextBrowser.setPlainText('')
-        self.matchNumberSpinBox.setEnabled(False)
-        self.replaceNumberSpinBox.setEnabled(False)
-        self.replaceTextBrowser.setPlainText('')
+        self._groupTable.clear()
+        self._codeTextBrowser.setPlainText('')
+        self._matchTextBrowser.setPlainText('')
+        self._matchNumberSpinBox.setEnabled(False)
+        self._replaceNumberSpinBox.setEnabled(False)
+        self._replaceTextBrowser.setPlainText('')
 
     def _populateGroupTable(self):
         groups = self._regexProcessor.getAllGroups()
 
-        self.groupTable.clear()
+        self._groupTable.clear()
 
         for matchNumber, group in enumerate(groups, start=1):
             # print(matchNumber, group)
@@ -238,7 +242,7 @@ class MainWindow(MainWindowUI):
             child = None
             for subGroup in group:
                 if not child:
-                    child = QTreeWidgetItem(self.groupTable)
+                    child = QTreeWidgetItem(self._groupTable)
                     child.setText(0, str(matchNumber))
                     item = child
                 else:
@@ -250,14 +254,14 @@ class MainWindow(MainWindowUI):
                 item.setText(2, subGroup[1])
                 item.setText(3, subGroup[2])
 
-        self.groupTable.expandAll()
-        for column in range(0, self.groupTable.columnCount()):
-            self.groupTable.resizeColumnToContents(column)
+        self._groupTable.expandAll()
+        for column in range(0, self._groupTable.columnCount()):
+            self._groupTable.resizeColumnToContents(column)
 
-        model = self.groupTable.model()
-        selectionModel = self.groupTable.selectionModel()
+        model = self._groupTable.model()
+        selectionModel = self._groupTable.selectionModel()
 
-        evidenceMatchNumber = self.matchNumberSpinBox.value()
+        evidenceMatchNumber = self._matchNumberSpinBox.value()
 
         if evidenceMatchNumber > 0:
             row = evidenceMatchNumber - 1
@@ -268,56 +272,56 @@ class MainWindow(MainWindowUI):
                 selectionModel.select(childIndex, QItemSelectionModel.Select | QItemSelectionModel.Rows)
 
     def _populateMatchTextbrowser(self):
-        matchNumber = self.matchNumberSpinBox.value()
+        matchNumber = self._matchNumberSpinBox.value()
         if matchNumber > 0:
             spans = [self._regexProcessor.getSpan(matchNumber - 1)]
         else:
             spans = self._regexProcessor.getAllSpans()
-        self._populateText(spans, self.matchTextBrowser)
+        self._populateText(spans, self._matchTextBrowser)
 
     def _populateReplaceTextbrowser(self):
-        replaceString = self.replaceTextEdit.toPlainText()
+        replaceString = self._replaceTextEdit.toPlainText()
         allmatches = self._regexProcessor.getAllSpans()
 
         if replaceString and allmatches:
-            statusValue, strings = self._regexProcessor.replace(self.replaceNumberSpinBox.value())
+            statusValue, strings = self._regexProcessor.replace(self._replaceNumberSpinBox.value())
 
             if statusValue == MATCH_OK:
-                self._colorizeStrings(strings, self.replaceTextBrowser)
+                self._colorizeStrings(strings, self._replaceTextBrowser)
             else:
-                self.replaceTextBrowser.clear()
+                self._replaceTextBrowser.clear()
                 self.updateStatus("Error in replace string: %s" % strings, statusValue, SHORTMESSAGE_DURATION)
         else:
-            self.replaceTextBrowser.clear()
+            self._replaceTextBrowser.clear()
 
     def _populateCodeTextBrowser(self):
-        self.codeTextBrowser.setPlainText(self._regexProcessor.getRegexCode())
+        self._codeTextBrowser.setPlainText(self._regexProcessor.getRegexCode())
 
     def _populateEmbeddedFlags(self):
 
-        self.ignorecaseCheckBox.setEnabled(True)
-        self.multilineCheckBox.setEnabled(True)
-        self.dotallCheckBox.setEnabled(True)
-        self.asciiCheckBox.setEnabled(True)
-        self.verboseCheckBox.setEnabled(True)
+        self._ignorecaseCheckBox.setEnabled(True)
+        self._multilineCheckBox.setEnabled(True)
+        self._dotallCheckBox.setEnabled(True)
+        self._asciiCheckBox.setEnabled(True)
+        self._verboseCheckBox.setEnabled(True)
 
         flags = self._regexProcessor.getEmbeddedFlags()
         for flag in flags:
             if flag == 'i':
-                self.ignorecaseCheckBox.setEnabled(False)
-                # self.ignorecaseCheckBox.setChecked(True)
+                self._ignorecaseCheckBox.setEnabled(False)
+                # self._ignorecaseCheckBox.setChecked(True)
             elif flag == 'm':
-                self.multilineCheckBox.setEnabled(False)
-                # self.multilineCheckBox.setChecked(True)
+                self._multilineCheckBox.setEnabled(False)
+                # self._multilineCheckBox.setChecked(True)
             elif flag == 's':
-                self.dotallCheckBox.setEnabled(False)
-                # self.dotallCheckBox.setChecked(True)
+                self._dotallCheckBox.setEnabled(False)
+                # self._dotallCheckBox.setChecked(True)
             elif flag == 'a':
-                self.asciiCheckBox.setEnabled(False)
-                # self.asciiCheckBox.setChecked(True)
+                self._asciiCheckBox.setEnabled(False)
+                # self._asciiCheckBox.setChecked(True)
             elif flag == 'x':
-                self.verboseCheckBox.setEnabled(False)
-                # self.verboseCheckBox.setChecked(True)
+                self._verboseCheckBox.setEnabled(False)
+                # self._verboseCheckBox.setChecked(True)
             elif flag == 'L':
                 self.updateStatus(self.tr("Locale Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
             elif flag == 'u':
@@ -330,7 +334,7 @@ class MainWindow(MainWindowUI):
             return
 
         idx = 0
-        text = self.stringMultiLineEdit.toPlainText()
+        text = self._stringMultiLineEdit.toPlainText()
         strings = []
         for span in spans:
             s = text[idx:span[0]]
@@ -347,10 +351,10 @@ class MainWindow(MainWindowUI):
     def _colorizeStrings(self, strings, widget, cursorOffset=0):
         widget.clear()
 
-        textColors = [self.normalTextColor, self.highlightTextColor]
-        foregroundColors = [self.normalForegroundColor, self.highlightForegroundColor]
+        textColors = [self._normalTextColor, self._highlightTextColor]
+        foregroundColors = [self._normalForegroundColor, self._highlightForegroundColor]
 
-        widget.setTextColor(self.normalTextColor)
+        widget.setTextColor(self._normalTextColor)
 
         i = 0
         pos = widget.textCursor()
@@ -382,16 +386,16 @@ class MainWindow(MainWindowUI):
         if ok:
             self._lastImportedURL = url
             if mode == ImportURLDialogMode.HTML:
-                self.stringMultiLineEdit.setHtml(text)
-                text = self.stringMultiLineEdit.toPlainText()
-                self.stringMultiLineEdit.setPlainText(text)
+                self._stringMultiLineEdit.setHtml(text)
+                text = self._stringMultiLineEdit.toPlainText()
+                self._stringMultiLineEdit.setPlainText(text)
             else:
-                self.stringMultiLineEdit.setPlainText(text)
+                self._stringMultiLineEdit.setPlainText(text)
 
     def importFile(self):
         (filename, _filter) = QFileDialog.getOpenFileName(self,
                                                           self.tr("Import File"),
-                                                          self.importFilename, "All (*)")
+                                                          self._lastImportedFilename, "All (*)")
 
         if not filename:
             self.updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, SHORTMESSAGE_DURATION)
@@ -404,24 +408,24 @@ class MainWindow(MainWindowUI):
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             return
 
-        self.importFilename = filename
+        self._lastImportedFilename = filename
         data = fp.read()
         fp.close()
-        self.stringMultiLineEdit.setPlainText(data)
+        self._stringMultiLineEdit.setPlainText(data)
 
     def fileNew(self):
         self._checkModified()
         self._filename = ''
 
-        self.regexMultiLineEdit.setPlainText('')
-        self.stringMultiLineEdit.setPlainText('')
-        self.replaceTextEdit.setPlainText('')
+        self._regexMultiLineEdit.setPlainText('')
+        self._stringMultiLineEdit.setPlainText('')
+        self._replaceTextEdit.setPlainText('')
 
-        self.ignorecaseCheckBox.setChecked(False)
-        self.multilineCheckBox.setChecked(False)
-        self.dotallCheckBox.setChecked(False)
-        self.verboseCheckBox.setChecked(False)
-        self.asciiCheckBox.setChecked(False)
+        self._ignorecaseCheckBox.setChecked(False)
+        self._multilineCheckBox.setChecked(False)
+        self._dotallCheckBox.setChecked(False)
+        self._verboseCheckBox.setChecked(False)
+        self._asciiCheckBox.setChecked(False)
 
         self._modified = False
 
@@ -439,20 +443,20 @@ class MainWindow(MainWindowUI):
             self.fileSaveAs()
             return
 
-        regexString = self.regexMultiLineEdit.toPlainText()
-        matchString = self.stringMultiLineEdit.toPlainText()
-        replaceString = self.replaceTextEdit.toPlainText()
+        regexString = self._regexMultiLineEdit.toPlainText()
+        matchString = self._stringMultiLineEdit.toPlainText()
+        replaceString = self._replaceTextEdit.toPlainText()
 
         try:
             kngfile = KngFile(self._filename,
                               matchString,
                               regexString,
                               replaceString,
-                              self.ignorecaseCheckBox.isChecked(),
-                              self.multilineCheckBox.isChecked(),
-                              self.dotallCheckBox.isChecked(),
-                              self.verboseCheckBox.isChecked(),
-                              self.asciiCheckBox.isChecked()
+                              self._ignorecaseCheckBox.isChecked(),
+                              self._multilineCheckBox.isChecked(),
+                              self._dotallCheckBox.isChecked(),
+                              self._verboseCheckBox.isChecked(),
+                              self._asciiCheckBox.isChecked()
                               )
             kngfile.save()
 
@@ -461,7 +465,7 @@ class MainWindow(MainWindowUI):
             basename = os.path.basename(self._filename)
             msg = '%s %s' % (basename, self.tr("successfully saved"))
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
-            self.recentFiles.add(self._filename)
+            self._recentFiles.add(self._filename)
         except IOError as ex:
             msg = str(ex)
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
@@ -504,24 +508,24 @@ class MainWindow(MainWindowUI):
 
             self._regexProcessor.pause()
 
-            self.regexMultiLineEdit.setPlainText(kngfile.regexString)
-            self.stringMultiLineEdit.setPlainText(kngfile.matchString)
-            self.replaceTextEdit.setPlainText(kngfile.replaceString)
+            self._regexMultiLineEdit.setPlainText(kngfile.regexString)
+            self._stringMultiLineEdit.setPlainText(kngfile.matchString)
+            self._replaceTextEdit.setPlainText(kngfile.replaceString)
 
-            self.ignorecaseCheckBox.setChecked(kngfile.flagIgnorecase)
-            self.multilineCheckBox.setChecked(kngfile.flagMultiline)
-            self.dotallCheckBox.setChecked(kngfile.flagDotall)
-            self.verboseCheckBox.setChecked(kngfile.flagVerbose)
-            self.asciiCheckBox.setChecked(kngfile.flagAscii)
+            self._ignorecaseCheckBox.setChecked(kngfile.flagIgnorecase)
+            self._multilineCheckBox.setChecked(kngfile.flagMultiline)
+            self._dotallCheckBox.setChecked(kngfile.flagDotall)
+            self._verboseCheckBox.setChecked(kngfile.flagVerbose)
+            self._asciiCheckBox.setChecked(kngfile.flagAscii)
 
             self._filename = filename
-            self.recentFiles.add(self._filename)
+            self._recentFiles.add(self._filename)
 
             # Reset Pause and Examine status
-            self.editPauseAction.setChecked(False)
+            self._editPauseAction.setChecked(False)
             self.pause(False)
-            self.editExamineAction.setChecked(False)
-            self._regexSaved = kngfile.regexString
+            self._editExamineAction.setChecked(False)
+            self._regexStringSaved = kngfile.regexString
             self.examine(False)
             self._regexProcessor.unpause()
 
@@ -535,18 +539,18 @@ class MainWindow(MainWindowUI):
         except IOError as ex:
             msg = str(ex)
             self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
-            self.recentFiles.remove(filename)
+            self._recentFiles.remove(filename)
             return False
 
     def pasteSymbol(self, symbol):
-        self.regexMultiLineEdit.insertPlainText(symbol)
+        self._regexMultiLineEdit.insertPlainText(symbol)
 
     def _checkModified(self):
 
-        if not self.preferences.askSave:
+        if not self._preferences.askSave:
             return
 
-        if self.preferences.askSaveOnlyForNamedProjects and not self._filename:
+        if self._preferences.askSaveOnlyForNamedProjects and not self._filename:
             return
 
         if self._modified:
@@ -568,13 +572,13 @@ class MainWindow(MainWindowUI):
 
         self._filename = ''
 
-        self.regexMultiLineEdit.setPlainText(libraryEntry.get('regex', ''))
-        self.stringMultiLineEdit.setPlainText(libraryEntry.get('match', ''))
-        self.replaceTextEdit.setPlainText(libraryEntry.get('replace', ''))
+        self._regexMultiLineEdit.setPlainText(libraryEntry.get('regex', ''))
+        self._stringMultiLineEdit.setPlainText(libraryEntry.get('match', ''))
+        self._replaceTextEdit.setPlainText(libraryEntry.get('replace', ''))
 
         try:
             # set the current page if applicable
-            self.resultTabWidget.setCurrentIndex(int(libraryEntry.get('tab', 0)))
+            self._resultTabWidget.setCurrentIndex(int(libraryEntry.get('tab', 0)))
         except ValueError:
             pass  # Ignore the error
 
@@ -585,10 +589,10 @@ class MainWindow(MainWindowUI):
         # is one of the editable widgets OR if the method
         # may be applied to any widget.
         widget = qApp.focusWidget()
-        if anywidget or widget in (self.regexMultiLineEdit,
-                                   self.stringMultiLineEdit,
-                                   self.replaceTextEdit,
-                                   self.codeTextBrowser):
+        if anywidget or widget in (self._regexMultiLineEdit,
+                                   self._stringMultiLineEdit,
+                                   self._replaceTextEdit,
+                                   self._codeTextBrowser):
             try:
                 eval('widget.%s' % methodstr)
             except:
@@ -610,12 +614,12 @@ class MainWindow(MainWindowUI):
         self.widgetMethod('paste()')
 
     def _editPreferences(self):
-        dialog = PreferencesDialog(self, self.preferences)
+        dialog = PreferencesDialog(self, self._preferences)
         (ok, preferences) = dialog.getPreferences()
         if ok:
-            self.preferences = preferences
-            self.recentFiles.setNumShown(self.preferences.recentFilesNum)
-            self.preferences.save()
+            self._preferences = preferences
+            self._recentFiles.setNumShown(self._preferences.recentFilesNum)
+            self._preferences.save()
 
     def helpPythonRegex(self):
         webbrowser.open(PYTHON_RE_LIBRARY_URL)
@@ -624,25 +628,25 @@ class MainWindow(MainWindowUI):
         self._showRegexReferenceGuide = showRegexReferenceGuide
 
         if showRegexReferenceGuide:
-            index = self.splitterTabWidget.insertTab(0, self.regexReferencePanel, tr("Regex Reference Guide"))
-            self.splitterTabWidget.setCurrentIndex(index)
+            index = self._splitterTabWidget.insertTab(0, self._regexReferencePanel, tr("Regex Reference Guide"))
+            self._splitterTabWidget.setCurrentIndex(index)
         else:
-            index = self.splitterTabWidget.indexOf(self.regexReferencePanel)
-            self.splitterTabWidget.removeTab(index)
+            index = self._splitterTabWidget.indexOf(self._regexReferencePanel)
+            self._splitterTabWidget.removeTab(index)
 
-        self.splitterTabWidget.setVisible(self._showRegexReferenceGuide or self._showRegexLibrary)
+        self._splitterTabWidget.setVisible(self._showRegexReferenceGuide or self._showRegexLibrary)
 
     def helpRegexLibrary(self, showRegexLibrary):
         self._showRegexLibrary = showRegexLibrary
 
         if showRegexLibrary:
-            index = self.splitterTabWidget.insertTab(1, self.regexLibraryPanel, tr("Regex Library"))
-            self.splitterTabWidget.setCurrentIndex(index)
+            index = self._splitterTabWidget.insertTab(1, self._regexLibraryPanel, tr("Regex Library"))
+            self._splitterTabWidget.setCurrentIndex(index)
         else:
-            index = self.splitterTabWidget.indexOf(self.regexLibraryPanel)
-            self.splitterTabWidget.removeTab(index)
+            index = self._splitterTabWidget.indexOf(self._regexLibraryPanel)
+            self._splitterTabWidget.removeTab(index)
 
-        self.splitterTabWidget.setVisible(self._showRegexReferenceGuide or self._showRegexLibrary)
+        self._splitterTabWidget.setVisible(self._showRegexReferenceGuide or self._showRegexLibrary)
 
     def helpAbout(self):
         aboutWindow = AboutDialog(self)

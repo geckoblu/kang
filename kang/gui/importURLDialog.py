@@ -18,8 +18,8 @@ class ImportURLDialog(QDialog):
 
     def __init__(self, parent=None, url=''):
         QDialog.__init__(self, parent)
-        
-        self.parent = parent
+
+        self._parent = parent
 
         self.setWindowIcon(getIcon('kang-icon'))
         self.setWindowTitle(tr("Import URL"))
@@ -28,23 +28,23 @@ class ImportURLDialog(QDialog):
 
         label1 = QLabel(tr("Enter URL to import"))
 
-        self.edit = QLineEdit()
-        self.edit.setPlaceholderText('https://example.com/')
-        self.edit.setText(url)
+        self._edit = QLineEdit()
+        self._edit.setPlaceholderText('https://example.com/')
+        self._edit.setText(url)
 
         label2 = QLabel(tr("Mode"))
-        self.combo = QComboBox()
-        self.combo.addItem(tr("Text"), ImportURLDialogMode.TEXT)
-        self.combo.addItem(tr("Html"), ImportURLDialogMode.HTML)
+        self._combo = QComboBox()
+        self._combo.addItem(tr("Text"), ImportURLDialogMode.TEXT)
+        self._combo.addItem(tr("Html"), ImportURLDialogMode.HTML)
 
         hLayout = QHBoxLayout()
         hLayout.addWidget(label2)
-        hLayout.addWidget(self.combo)
+        hLayout.addWidget(self._combo)
         hLayout.addStretch()
 
         vLayout = QVBoxLayout()
         vLayout.addWidget(label1)
-        vLayout.addWidget(self.edit)
+        vLayout.addWidget(self._edit)
         vLayout.addLayout(hLayout)
         vLayout.addWidget(QLabel(' '))
         vLayout.addStretch()
@@ -57,21 +57,21 @@ class ImportURLDialog(QDialog):
         gridLayout.addLayout(vLayout, 0, 0, 1, 1)
         gridLayout.addWidget(buttonBox, 1, 0, 1, 1)
 
-        self.text = ''
+        self._text = ''
 
     def getURL(self):
         self.exec()
-        return (self.result(), self.text, self.edit.text(), self.combo.currentData())
+        return (self.result(), self._text, self._edit.text(), self._combo.currentData())
 
     def _importURL(self):
-        url = self.edit.text()
+        url = self._edit.text()
         if url:
             try:
                 with urllib.request.urlopen(url) as response:
                     data = response.read()  # a `bytes` object
-                    self.text = data.decode('utf-8')  # a `str`; this step can't be used if data is binary
+                    self._text = data.decode('utf-8')  # a `str`; this step can't be used if data is binary
             except Exception as ex:
-                QMessageBox.information(self.parent,
+                QMessageBox.information(self._parent,
                                         "Failed to open URL",
                                         _ERROR_MESSAGE % str(ex))
                 return

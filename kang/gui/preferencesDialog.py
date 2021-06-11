@@ -22,22 +22,22 @@ class PreferencesDialog(QDialog):
         label = QLabel(tr("Recent Files:"))
         gridLayout.addWidget(label, 0, 0, 1, 1)
 
-        self.recentFilesSpinBox = QSpinBox()
-        self.recentFilesSpinBox.setMinimum(0)
-        self.recentFilesSpinBox.setMaximum(10)
-        gridLayout.addWidget(self.recentFilesSpinBox, 0, 1, 1, 1)
+        self._recentFilesSpinBox = QSpinBox()
+        self._recentFilesSpinBox.setMinimum(0)
+        self._recentFilesSpinBox.setMaximum(10)
+        gridLayout.addWidget(self._recentFilesSpinBox, 0, 1, 1, 1)
 
         label = QLabel(tr("Check for changes to save:"))
         gridLayout.addWidget(label, 1, 0, 1, 1)
 
-        self.askSaveCheckbox = QCheckBox()
-        gridLayout.addWidget(self.askSaveCheckbox, 1, 1, 1, 1)
+        self._askSaveCheckbox = QCheckBox()
+        gridLayout.addWidget(self._askSaveCheckbox, 1, 1, 1, 1)
 
-        self.askSaveOnlyForNamedProjectsCheckbox = QCheckBox(tr("Only for named projects"))
-        gridLayout.addWidget(self.askSaveOnlyForNamedProjectsCheckbox, 2, 1, 1, 4)
+        self._askSaveOnlyForNamedProjectsCheckbox = QCheckBox(tr("Only for named projects"))
+        gridLayout.addWidget(self._askSaveOnlyForNamedProjectsCheckbox, 2, 1, 1, 4)
 
         # Parent - child relationship
-        self.askSaveCheckbox.toggled.connect(self.askSaveOnlyForNamedProjectsCheckbox.setEnabled)
+        self._askSaveCheckbox.toggled.connect(self._askSaveOnlyForNamedProjectsCheckbox.setEnabled)
 
         buttonBox = QDialogButtonBox(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
         buttonBox.rejected.connect(self.close)
@@ -53,17 +53,17 @@ class PreferencesDialog(QDialog):
         vLayout.addStretch()
         vLayout.addWidget(buttonBox)
 
-        self.recentFilesSpinBox.setValue(preferences.recentFilesNum)
-        self.askSaveCheckbox.setChecked(preferences.askSave)
-        self.askSaveOnlyForNamedProjectsCheckbox.setChecked(preferences.askSaveOnlyForNamedProjects)
-        self.askSaveOnlyForNamedProjectsCheckbox.setEnabled(preferences.askSave)
+        self._recentFilesSpinBox.setValue(preferences.recentFilesNum)
+        self._askSaveCheckbox.setChecked(preferences.askSave)
+        self._askSaveOnlyForNamedProjectsCheckbox.setChecked(preferences.askSaveOnlyForNamedProjects)
+        self._askSaveOnlyForNamedProjectsCheckbox.setEnabled(preferences.askSave)
 
     def getPreferences(self):
         self.exec()
 
         preferences = Preferences()
-        preferences.recentFilesNum = self.recentFilesSpinBox.value()
-        preferences.askSave = self.askSaveCheckbox.isChecked()
-        preferences.askSaveOnlyForNamedProjects = self.askSaveOnlyForNamedProjectsCheckbox.isChecked()
+        preferences.recentFilesNum = self._recentFilesSpinBox.value()
+        preferences.askSave = self._askSaveCheckbox.isChecked()
+        preferences.askSaveOnlyForNamedProjects = self._askSaveOnlyForNamedProjectsCheckbox.isChecked()
 
         return (self.result(), preferences)

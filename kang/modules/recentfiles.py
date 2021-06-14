@@ -5,7 +5,8 @@ from PySide2.QtWidgets import QAction
 
 from kang.modules.util import getConfigDirectory
 
-
+# Friend class
+# pylint: disable=protected-access
 class RecentFiles:
     """Used to handle the recent file list.
        It stores the list of recent opened projects to a file

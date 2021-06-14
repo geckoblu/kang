@@ -4,7 +4,8 @@ import traceback
 
 from kang.modules.util import getConfigDirectory, strtobool
 
-
+# Friend class
+# pylint: disable=protected-access
 class WindowSettings:
     """Store / Load window settings from file"""
 
@@ -26,8 +27,8 @@ class WindowSettings:
             jdict['x'] = window.x()
             jdict['y'] = window.y()
 
-            jdict['showRegexReferenceGuide'] = window.showRegexReferenceGuide()
-            jdict['showRegexLibrary'] = window.showRegexLibrary()
+            jdict['showRegexReferenceGuide'] = window._showRegexReferenceGuide
+            jdict['showRegexLibrary'] = window._showRegexLibrary
             jdict['_splitter'] = window._splitter.sizes()
 
             # return

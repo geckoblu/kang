@@ -43,7 +43,7 @@ def _excepthook(excType, excValue, tracebackObj):
         if __debug:
             raise
 
-
+# pylint: disable=protected-access
 def _formatMessage(exmess):
     """
     Format the exception message

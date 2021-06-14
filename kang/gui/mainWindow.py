@@ -75,12 +75,6 @@ class MainWindow(MainWindowUI):
 
         self.checkForKangDir()
 
-    def showRegexReferenceGuide(self):
-        return self._showRegexReferenceGuide
-
-    def showRegexLibrary(self):
-        return self._showRegexLibrary
-
     def checkForKangDir(self):
         kdir = getConfigDirectory()
         if os.access(kdir, os.X_OK):

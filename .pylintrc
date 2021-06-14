@@ -50,10 +50,10 @@ variable-naming-style=camelCase
 
 # Regular expression which should only match correct variable names
 # Overrides variable-naming-style.
-variable-rgx=([a-z_][a-zA-Z0-9]{0,35}|(exc_type)|(exc_value)|(exc_traceback)|(xdg_config_home)|(config_dir)|(__))$
+variable-rgx=(([a-z_][a-zA-Z0-9]{1,})|(__[a-z][a-zA-Z0-9_]+__))$
 
 # Good variable names which should always be accepted, separated by a comma.
-good-names=__,x,y,tr
+good-names=__,x,y,i,ok,tr
     
 [FORMAT]
 

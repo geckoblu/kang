@@ -4,6 +4,7 @@ import traceback
 
 from kang.modules.util import getConfigDirectory, strtobool
 
+
 # Friend class
 # pylint: disable=protected-access
 class WindowSettings:
@@ -64,10 +65,10 @@ class WindowSettings:
             window.resize(width, height)
 
             window._helpRegexReferenceGuideAction.setChecked(showRegexReferenceGuide)
-            window.helpRegexReferenceGuide(showRegexReferenceGuide)
+            window._helpRegexReferenceGuide(showRegexReferenceGuide)
 
             window._helpRegexLibraryAction.setChecked(showRegexLibrary)
-            window.helpRegexLibrary(showRegexLibrary)
+            window._helpRegexLibrary(showRegexLibrary)
 
             if int(sizes[0] > 0 and int(sizes[1]) > 0):
                 window._splitter.setSizes(sizes)

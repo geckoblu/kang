@@ -31,7 +31,7 @@ tr = lambda msg: msg
 ##############################################################################
 class MainWindow(MainWindowUI):
 
-    _signalException = Signal(str)
+    _exceptionSignal = Signal(str)
 
     def __init__(self):
         MainWindowUI.__init__(self)
@@ -48,7 +48,7 @@ class MainWindow(MainWindowUI):
         # Holds the status (visible or not) of the Regex Reference Library Panel
         self._showRegexLibrary = False
 
-        # Temporary stores the current regex (when in 'examine'mode)
+        # Temporary stores the current regex (when in '_examine'mode)
         self._regexStringSaved = ''
 
         # Temporary stores last imported File
@@ -57,7 +57,7 @@ class MainWindow(MainWindowUI):
         # Temporary stores last opened URL
         self._lastImportedURL = ''
 
-        self.updateStatus(MSG_NA, MATCH_NA)
+        self._updateStatus(MSG_NA, MATCH_NA)
         self._clearResults()
 
         windowSettings = WindowSettings()
@@ -69,13 +69,13 @@ class MainWindow(MainWindowUI):
         self._preferences.load()
         self._recentFiles = RecentFiles(self, self._preferences.recentFilesNum)
 
-        self._signalException.connect(self.showReportBugDialog)
-        self._regexReferencePanel.pasteSymbol.connect(self.pasteSymbol)
-        self._regexLibraryPanel.emitEntry.connect(self.pasteFromRegexLibrary)
+        self._exceptionSignal.connect(self._showReportBugDialog)
+        self._regexReferencePanel._pasteSymbol.connect(self._pasteSymbol)
+        self._regexLibraryPanel.emitEntry.connect(self._pasteFromRegexLibrary)
 
-        self.checkForKangDir()
+        self._checkForKangDir()
 
-    def checkForKangDir(self):
+    def _checkForKangDir(self):
         kdir = getConfigDirectory()
         if os.access(kdir, os.X_OK):
             return
@@ -91,7 +91,7 @@ class MainWindow(MainWindowUI):
 
     def _regexprocessorStatusChanged(self):
         statusValue, statusMessage = self._regexProcessor.getStatus()
-        self.updateStatus(statusMessage, statusValue)
+        self._updateStatus(statusMessage, statusValue)
 
         allmatches = self._regexProcessor.getAllSpans()
         if allmatches:
@@ -123,7 +123,7 @@ class MainWindow(MainWindowUI):
         self._populateCodeTextBrowser()
         self._populateEmbeddedFlags()
 
-    def updateStatus(self, statusString, statusValue, duration=0):
+    def _updateStatus(self, statusString, statusValue, duration=0):
         if duration > 0:
             self.statusBar().showMessage(statusString, duration * 1000)
         else:
@@ -134,10 +134,10 @@ class MainWindow(MainWindowUI):
         # invoked whenever the user has _modified something
         self._modified = True
 
-    def pause(self, paused):
+    def _pause(self, paused):
         if paused:
             self._regexProcessor.pause()
-            self.updateStatus(MSG_PAUSED, MATCH_PAUSED)
+            self._updateStatus(MSG_PAUSED, MATCH_PAUSED)
             self._matchTextBrowser.setDisabled(True)
             self._matchTextBrowser.setPlainText('')
             self._groupTable.setDisabled(True)
@@ -157,7 +157,7 @@ class MainWindow(MainWindowUI):
             self._replaceNumberSpinBox.setEnabled(True)
             self._regexProcessor.unpause()
 
-    def examine(self, examine):
+    def _examine(self, examine):
         if examine:
             self._regexStringSaved = self._regexMultiLineEdit.toPlainText()
 
@@ -284,7 +284,7 @@ class MainWindow(MainWindowUI):
                 self._colorizeStrings(strings, self._replaceTextBrowser)
             else:
                 self._replaceTextBrowser.clear()
-                self.updateStatus("Error in replace string: %s" % strings, statusValue, SHORTMESSAGE_DURATION)
+                self._updateStatus("Error in replace string: %s" % strings, statusValue, SHORTMESSAGE_DURATION)
         else:
             self._replaceTextBrowser.clear()
 
@@ -317,9 +317,9 @@ class MainWindow(MainWindowUI):
                 self._verboseCheckBox.setEnabled(False)
                 # self._verboseCheckBox.setChecked(True)
             elif flag == 'L':
-                self.updateStatus(self.tr("Locale Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
+                self._updateStatus(self.tr("Locale Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
             elif flag == 'u':
-                self.updateStatus(self.tr("Unicode Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
+                self._updateStatus(self.tr("Unicode Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
 
     def _populateText(self, spans, widget):
         widget.clear()
@@ -362,10 +362,10 @@ class MainWindow(MainWindowUI):
 
         widget.setTextCursor(pos)
 
-    def fileExit(self, event):
-        self.closeEvent(event)
+    def _fileExit(self, event):
+        self._closeEvent(event)
 
-    def closeEvent(self, event):
+    def _closeEvent(self, event):
         self._checkModified()
 
         # saveWindowSettings(self, GEO)
@@ -386,20 +386,20 @@ class MainWindow(MainWindowUI):
             else:
                 self._stringMultiLineEdit.setPlainText(text)
 
-    def importFile(self):
+    def _importFile(self):
         (filename, _filter) = QFileDialog.getOpenFileName(self,
                                                           self.tr("Import File"),
                                                           self._lastImportedFilename, "All (*)")
 
         if not filename:
-            self.updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, SHORTMESSAGE_DURATION)
             return
 
         try:
             fp = open(filename, 'r')
         except:
             msg = self.tr("Could not open file for reading: ") + filename
-            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             return
 
         self._lastImportedFilename = filename
@@ -407,7 +407,7 @@ class MainWindow(MainWindowUI):
         fp.close()
         self._stringMultiLineEdit.setPlainText(data)
 
-    def fileNew(self):
+    def _fileNew(self):
         self._checkModified()
         self._filename = ''
 
@@ -423,7 +423,7 @@ class MainWindow(MainWindowUI):
 
         self._modified = False
 
-    def fileOpen(self):
+    def _fileOpen(self):
         (filename, _filter) = QFileDialog.getOpenFileName(self,
                                                           self.tr("Open Kang File"),
                                                           self._filename,
@@ -432,9 +432,9 @@ class MainWindow(MainWindowUI):
         if filename:
             self.loadFile(filename)
 
-    def fileSave(self):
+    def _fileSave(self):
         if not self._filename:
-            self.fileSaveAs()
+            self._fileSaveAs()
             return
 
         regexString = self._regexMultiLineEdit.toPlainText()
@@ -458,20 +458,20 @@ class MainWindow(MainWindowUI):
 
             basename = os.path.basename(self._filename)
             msg = '%s %s' % (basename, self.tr("successfully saved"))
-            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             self._recentFiles.add(self._filename)
         except IOError as ex:
             msg = str(ex)
-            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
 
-    def fileSaveAs(self):
+    def _fileSaveAs(self):
         (filename, _filter) = QFileDialog.getSaveFileName(self,
                                                           self.tr("Save Kang File"),
                                                           self._filename,
                                                           "*.kng\nAll (*)"
                                                           )
         if not filename:
-            self.updateStatus(self.tr("No file selected to save"), MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(self.tr("No file selected to save"), MATCH_NONE, SHORTMESSAGE_DURATION)
             return
         filename = os.path.normcase(filename)
 
@@ -480,11 +480,11 @@ class MainWindow(MainWindowUI):
             filename += '.kng'
 
         self._filename = filename
-        self.fileSave()
+        self._fileSave()
 
-    def fileRevert(self):
+    def _fileRevert(self):
         if not self._filename:
-            self.updateStatus(self.tr("There is no _filename to revert"), MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(self.tr("There is no _filename to revert"), MATCH_NONE, SHORTMESSAGE_DURATION)
             return
 
         self.loadFile(self._filename)
@@ -517,26 +517,26 @@ class MainWindow(MainWindowUI):
 
             # Reset Pause and Examine status
             self._editPauseAction.setChecked(False)
-            self.pause(False)
+            self._pause(False)
             self._editExamineAction.setChecked(False)
             self._regexStringSaved = kngfile.regexString
-            self.examine(False)
+            self._examine(False)
             self._regexProcessor.unpause()
 
             basename = os.path.basename(filename)
             msg = '%s %s' % (basename, self.tr("loaded successfully"))
-            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             self._modified = False
 
             return True
 
         except IOError as ex:
             msg = str(ex)
-            self.updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
             self._recentFiles.remove(filename)
             return False
 
-    def pasteSymbol(self, symbol):
+    def _pasteSymbol(self, symbol):
         self._regexMultiLineEdit.insertPlainText(symbol)
 
     def _checkModified(self):
@@ -557,11 +557,11 @@ class MainWindow(MainWindowUI):
                                            QMessageBox.Yes)
 
             if prompt == 0:
-                self.fileSave()
+                self._fileSave()
                 if not self._filename:
                     self._checkModified()
 
-    def pasteFromRegexLibrary(self, libraryEntry):
+    def _pasteFromRegexLibrary(self, libraryEntry):
         self._checkModified()
 
         self._filename = ''
@@ -578,7 +578,7 @@ class MainWindow(MainWindowUI):
 
         self._modified = False
 
-    def widgetMethod(self, methodstr, anywidget=False):
+    def _widgetMethod(self, methodstr, anywidget=False):
         # execute the methodstr of widget only if widget
         # is one of the editable widgets OR if the method
         # may be applied to any widget.
@@ -592,20 +592,20 @@ class MainWindow(MainWindowUI):
             except:
                 pass
 
-    def editUndo(self):
-        self.widgetMethod('undo()')
+    def _editUndo(self):
+        self._widgetMethod('undo()')
 
-    def editRedo(self):
-        self.widgetMethod('redo()')
+    def _editRedo(self):
+        self._widgetMethod('redo()')
 
-    def editCopy(self):
-        self.widgetMethod('copy()', 1)
+    def _editCopy(self):
+        self._widgetMethod('copy()', 1)
 
-    def editCut(self):
-        self.widgetMethod('cut()')
+    def _editCut(self):
+        self._widgetMethod('cut()')
 
-    def editPaste(self):
-        self.widgetMethod('paste()')
+    def _editPaste(self):
+        self._widgetMethod('paste()')
 
     def _editPreferences(self):
         dialog = PreferencesDialog(self, self._preferences)
@@ -615,10 +615,10 @@ class MainWindow(MainWindowUI):
             self._recentFiles.setNumShown(self._preferences.recentFilesNum)
             self._preferences.save()
 
-    def helpPythonRegex(self):
+    def _helpPythonRegex(self):
         webbrowser.open(PYTHON_RE_LIBRARY_URL)
 
-    def helpRegexReferenceGuide(self, showRegexReferenceGuide):
+    def _helpRegexReferenceGuide(self, showRegexReferenceGuide):
         self._showRegexReferenceGuide = showRegexReferenceGuide
 
         if showRegexReferenceGuide:
@@ -630,7 +630,7 @@ class MainWindow(MainWindowUI):
 
         self._splitterTabWidget.setVisible(self._showRegexReferenceGuide or self._showRegexLibrary)
 
-    def helpRegexLibrary(self, showRegexLibrary):
+    def _helpRegexLibrary(self, showRegexLibrary):
         self._showRegexLibrary = showRegexLibrary
 
         if showRegexLibrary:
@@ -642,13 +642,13 @@ class MainWindow(MainWindowUI):
 
         self._splitterTabWidget.setVisible(self._showRegexReferenceGuide or self._showRegexLibrary)
 
-    def helpAbout(self):
+    def _helpAbout(self):
         aboutWindow = AboutDialog(self)
         aboutWindow.show()
 
-    def signalException(self, msg):
-        self._signalException.emit(msg)
+    def _signalException(self, msg):
+        self._exceptionSignal.emit(msg)
 
-    def showReportBugDialog(self, msg):
+    def _showReportBugDialog(self, msg):
         rbd = ReportBugDialog(self, msg)
         rbd.exec_()

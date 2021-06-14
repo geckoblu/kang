@@ -50,7 +50,7 @@ class FakeMainWindow:
         self.wmessage = message
         self.wok = message.find('ValueError: A very specific bad thing happened') > 0
 
-    def signalException(self, message):
+    def _signalException(self, message):
         self.message = message
         self.ok = (message.find('ValueError: A very specific bad thing happened') > 0)
         self.ok = self.ok and (message.find('_regexMultiLineEdit') > 0)

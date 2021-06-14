@@ -22,6 +22,7 @@ def init(mainWindow, debug=False):
     sys.excepthook = _excepthook
 
 
+# pylint: disable=protected-access
 def _excepthook(excType, excValue, tracebackObj):
     """
     Global function to catch unhandled exceptions.
@@ -38,10 +39,11 @@ def _excepthook(excType, excValue, tracebackObj):
         if __mainWindow and not (exmess in __showedexmess):
             __showedexmess.add(exmess)
             msg = _formatMessage(exmess)
-            __mainWindow.signalException(msg)
+            __mainWindow._signalException(msg)
     except:
         if __debug:
             raise
+
 
 # pylint: disable=protected-access
 def _formatMessage(exmess):

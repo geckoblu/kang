@@ -48,60 +48,60 @@ class MainWindowUI(QMainWindow):
 
         self._fileNewAction = QAction(getIcon('document-new'), "&New", self)
         self._fileNewAction.setShortcut("Ctrl+N")
-        self._fileNewAction.triggered.connect(self.fileNew)
+        self._fileNewAction.triggered.connect(self._fileNew)
 
         self._fileOpenAction = QAction(getIcon('document-open'), "&Open", self)
         self._fileOpenAction.setShortcut("Ctrl+O")
-        self._fileOpenAction.triggered.connect(self.fileOpen)
+        self._fileOpenAction.triggered.connect(self._fileOpen)
 
         self._fileSaveAction = QAction(getIcon('document-save'), "&Save", self)
         self._fileSaveAction.setShortcut("Ctrl+S")
-        self._fileSaveAction.triggered.connect(self.fileSave)
+        self._fileSaveAction.triggered.connect(self._fileSave)
 
         self._fileSaveAsAction = QAction(getIcon('document-save-as'), "Save &As", self)
-        self._fileSaveAsAction.triggered.connect(self.fileSaveAs)
+        self._fileSaveAsAction.triggered.connect(self._fileSaveAs)
 
         self._fileRevertAction = QAction(getIcon('document-revert'), "&Revert", self)
-        self._fileRevertAction.triggered.connect(self.fileRevert)
+        self._fileRevertAction.triggered.connect(self._fileRevert)
 
         self._fileImportFileAction = QAction("Import &File", self)
-        self._fileImportFileAction.triggered.connect(self.importFile)
+        self._fileImportFileAction.triggered.connect(self._importFile)
 
         self._fileImportURLAction = QAction("Import &URL", self)
         self._fileImportURLAction.triggered.connect(self._importURL)
 
         self._exitAction = QAction("E&xit", self)
-        self._exitAction.triggered.connect(self.fileExit)
+        self._exitAction.triggered.connect(self._fileExit)
 
         # Edit Actions
 
         self._editUndoAction = QAction(getIcon('edit-undo'), "&Undo", self)
         self._editUndoAction.setShortcut("Ctrl+Z")
-        self._editUndoAction.triggered.connect(self.editUndo)
+        self._editUndoAction.triggered.connect(self._editUndo)
 
         self._editRedoAction = QAction(getIcon('edit-redo'), "&Redo", self)
         self._editRedoAction.setShortcut("Ctrl+Y")
-        self._editRedoAction.triggered.connect(self.editRedo)
+        self._editRedoAction.triggered.connect(self._editRedo)
 
         self._editCutAction = QAction(getIcon('edit-cut'), "&Cut", self)
         self._editCutAction.setShortcut("Ctrl+X")
-        self._editCutAction.triggered.connect(self.editCut)
+        self._editCutAction.triggered.connect(self._editCut)
 
         self._editCopyAction = QAction(getIcon('edit-copy'), "&Copy", self)
         self._editCopyAction.setShortcut("Ctrl+C")
-        self._editCopyAction.triggered.connect(self.editCopy)
+        self._editCopyAction.triggered.connect(self._editCopy)
 
         self._editPasteAction = QAction(getIcon('edit-paste'), "&Paste", self)
         self._editPasteAction.setShortcut("Ctrl+V")
-        self._editPasteAction.triggered.connect(self.editPaste)
+        self._editPasteAction.triggered.connect(self._editPaste)
 
-        self._editPauseAction = QAction(getIcon('media-playback-pause'), "&Pause", self, checkable=True)
+        self._editPauseAction = QAction(getIcon('media-playback-_pause'), "&Pause", self, checkable=True)
         self._editPauseAction.setShortcut("Ctrl+P")
-        self._editPauseAction.triggered.connect(self.pause)
+        self._editPauseAction.triggered.connect(self._pause)
 
         self._editExamineAction = QAction(getIcon('edit-find'), "&Examine Regex", self, checkable=True)
         self._editExamineAction.setShortcut("Ctrl+E")
-        self._editExamineAction.triggered.connect(self.examine)
+        self._editExamineAction.triggered.connect(self._examine)
 
         self._editPreferencesAction = QAction("Preferences", self)
         self._editPreferencesAction.setShortcut("Ctrl+P")
@@ -111,18 +111,18 @@ class MainWindowUI(QMainWindow):
 
         self._helpRegexHelpAction = QAction(getIcon('help'), "&Python Regex Help", self)
         self._helpRegexHelpAction.setShortcut("F1")
-        self._helpRegexHelpAction.triggered.connect(self.helpPythonRegex)
+        self._helpRegexHelpAction.triggered.connect(self._helpPythonRegex)
 
         self._helpRegexReferenceGuideAction = QAction(getIcon('book'), "&Regex Reference Guide", self, checkable=True)
         self._helpRegexReferenceGuideAction.setShortcut("Ctrl+R")
-        self._helpRegexReferenceGuideAction.triggered.connect(self.helpRegexReferenceGuide)
+        self._helpRegexReferenceGuideAction.triggered.connect(self._helpRegexReferenceGuide)
 
         self._helpRegexLibraryAction = QAction(getIcon('library'), "Regex &Library", self, checkable=True)
         self._helpRegexLibraryAction.setShortcut("Ctrl+L")
-        self._helpRegexLibraryAction.triggered.connect(self.helpRegexLibrary)
+        self._helpRegexLibraryAction.triggered.connect(self._helpRegexLibrary)
 
         self._helpAboutAction = QAction(getIcon('help-about'), "&About", self)
-        self._helpAboutAction.triggered.connect(self.helpAbout)
+        self._helpAboutAction.triggered.connect(self._helpAbout)
 
     def _setupMenuBar(self):
         menubar = self.menuBar()

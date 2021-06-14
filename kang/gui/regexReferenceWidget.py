@@ -6,7 +6,7 @@ tr = lambda msg: msg
 
 class RegexReferenceWidget(QWidget):
 
-    pasteSymbol = Signal(str)
+    _pasteSymbol = Signal(str)
 
     def __init__(self):
         QWidget.__init__(self)
@@ -26,7 +26,7 @@ class RegexReferenceWidget(QWidget):
         verticalLayout.addWidget(referencesTable)
 
     def _emitSymbol(self, modelIndex):
-        self.pasteSymbol.emit(_REFERENCES[modelIndex.row()][0])
+        self._pasteSymbol.emit(_REFERENCES[modelIndex.row()][0])
 
 
 _REFERENCES = [

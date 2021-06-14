@@ -17,8 +17,8 @@ class TestExceptionHandler(unittest.TestCase):
         except ValueError:
             _stderr = sys.stderr
             sys.stderr = mainWindow
-            exc_type, exc_value, exc_traceback = sys.exc_info()
-            exceptionHandler._excepthook(exc_type, exc_value, exc_traceback)
+            excType, excValue, excTraceback = sys.exc_info()
+            exceptionHandler._excepthook(excType, excValue, excTraceback)
             sys.stderr = _stderr
 
         self.assertTrue(mainWindow.wok, 'Exception not printed to stderr')

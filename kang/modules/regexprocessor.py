@@ -243,8 +243,8 @@ class RegexProcessor(QObject):
         for i in range(length, 0, -1):
             regex = regex[:i]
             try:
-                m = re.search(regex, self._matchString, self._flags())
-                if m:
+                match = re.search(regex, self._matchString, self._flags())
+                if match:
                     return (regex, self._regexString[len(regex):])
             except re.error:
                 pass

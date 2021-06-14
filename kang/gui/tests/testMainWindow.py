@@ -282,19 +282,19 @@ class TestMainWindow(unittest.TestCase):
 
     def testPasteFromRegexLib(self):
 
-        d = {'regex': 'regex',
-             'text': 'text',
-             'replace': 'replace',
-             'tab': '1'
-            }
+        libraryEntry = {'regex': 'regex',
+                        'text': 'text',
+                        'replace': 'replace',
+                        'tab': '1'
+                        }
 
-        self.window._pasteFromRegexLibrary(d)
+        self.window._pasteFromRegexLibrary(libraryEntry)
 
-        d['tab'] = 'tab'  # Not a numeric tab
-        self.window._pasteFromRegexLibrary(d)
+        libraryEntry['tab'] = 'tab'  # Not a numeric tab
+        self.window._pasteFromRegexLibrary(libraryEntry)
 
-        del d['tab']  # tab not defined
-        self.window._pasteFromRegexLibrary(d)
+        del libraryEntry['tab']  # tab not defined
+        self.window._pasteFromRegexLibrary(libraryEntry)
 
     def testCheckEditState(self):
 

@@ -6,11 +6,11 @@ def getConfigDirectory():
         Return the user-specific configuration directory based on XDG Base Directory Specification.
     """
     home = os.path.expanduser('~')
-    xdg_config_home = os.environ.get('XDG_CONFIG_HOME') or os.path.join(home, '.config')
+    xdgConfigHhome = os.environ.get('XDG_CONFIG_HOME') or os.path.join(home, '.config')
 
-    config_dir = os.path.join(xdg_config_home, 'kang')
+    configDir = os.path.join(xdgConfigHhome, 'kang')
 
-    return config_dir
+    return configDir
 
 
 def findFile(dirname, filename):
@@ -20,8 +20,8 @@ def findFile(dirname, filename):
     apppath = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
     dirs = [apppath]
 
-    for d in dirs:
-        path = os.path.join(d, filename)
+    for dname in dirs:
+        path = os.path.join(dname, filename)
         if os.access(path, os.R_OK):
             return path
 

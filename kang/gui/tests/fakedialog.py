@@ -10,6 +10,7 @@ class FakeDialog():
     def show(self):
         pass
 
+    # pylint: disable=invalid-name
     def exec_(self):
         pass
 

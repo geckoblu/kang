@@ -42,8 +42,8 @@ class RecentFiles:
         self._recentFiles = self._recentFiles[:self._MAX_SIZE]
         try:
             with open(self._filename, "w") as fp:
-                for f in self._recentFiles:
-                    fp.write("%s\n" % f)
+                for filename in self._recentFiles:
+                    fp.write("%s\n" % filename)
         except IOError as ex:
             sys.stderr.write("Could not save recent file list %s\n" % str(ex))
 

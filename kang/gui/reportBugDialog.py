@@ -38,7 +38,7 @@ class ReportBugDialog(QDialog):
         gLayout.addWidget(self._edit, 1, 1, 1, 1)
 
         copyButton = QPushButton(tr("Copy to clipboard"))
-        copyButton.clicked.connect(self.copyToClipboard)
+        copyButton.clicked.connect(self._copyToClipboard)
         gLayout.addWidget(copyButton, 2, 1, 1, 1)
 
         gLayout.addWidget(QLabel(' '), 3, 1, 1, 1)
@@ -50,7 +50,7 @@ class ReportBugDialog(QDialog):
         gridLayout.addLayout(gLayout, 0, 0, 1, 1)
         gridLayout.addWidget(buttonBox, 1, 0, 1, 1)
 
-    def copyToClipboard(self):
+    def _copyToClipboard(self):
         clipboard = QApplication.clipboard()
         clipboard.setText(self._edit.toPlainText())
 

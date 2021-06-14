@@ -15,7 +15,7 @@ from kang.gui.mainWindow import MainWindow
 from kang.modules import exceptionHandler
 
 
-def parseCmdline():
+def _parseCmdline():
 
     # def locale(locale):
     #    if len(locale) != 2:
@@ -32,7 +32,7 @@ def parseCmdline():
 
 def main():
 
-    args = parseCmdline()
+    args = _parseCmdline()
 
     qApp = QApplication(sys.argv)
 

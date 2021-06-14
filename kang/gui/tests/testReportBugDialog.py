@@ -23,7 +23,7 @@ class TestReportBugDialog(unittest.TestCase):
         dialog.show()
         QTest.qWaitForWindowExposed(dialog)
 
-        dialog.copyToClipboard()
+        dialog._copyToClipboard()
         dialog.close()
         clipboard = QApplication.clipboard()
         self.assertEqual(msg, clipboard.text())

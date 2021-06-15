@@ -31,6 +31,7 @@ def _parseCmdline():
 
 
 def main():
+    """Main function"""
 
     args = _parseCmdline()
 

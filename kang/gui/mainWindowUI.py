@@ -316,9 +316,12 @@ class MainWindowUI(QMainWindow):
 
         return widget
 
+
 class MyQStyledItemDelegate(QStyledItemDelegate):
 
-    def paint(self, painter, option, index): # pragma: no cover - No way to test
+    def paint(self, painter, option, index):  # pragma: no cover - No way to test
+        """Reimplements: QStyledItemDelegate::paint, drawing a box around the item"""
+
         QStyledItemDelegate.paint(self, painter, option, index)
 
         if index.column() > 0:  # and  not index.model().hasChildren(index):

@@ -4,7 +4,7 @@ import re
 
 
 class KngFile:
-    """Used to handle Kang file prject"""
+    """Used to handle Kang file project"""
 
     def __init__(
             self,
@@ -32,7 +32,7 @@ class KngFile:
         self.flagAscii = flagAscii
 
     def save(self):
-        """Save Kang project to file"""
+        """Saves Kang project to file"""
 
         jdict = {}
 
@@ -50,6 +50,7 @@ class KngFile:
             json.dump(jdict, jfile, indent=4)
 
     def load(self):
+        """Loads Kang project from file"""
         try:
             with open(self._filename, 'r') as jfile:
                 jdict = json.load(jfile)
@@ -72,7 +73,7 @@ class KngFile:
                 raise jsonexception
 
     def _loadPickler(self):
-        """Load Kang project from file (old version using pickle)"""
+        """Loads Kang project from file (old version using pickle)"""
         with open(self._filename, 'rb') as picklerfile:
             unpickler = pickle.Unpickler(picklerfile)
             self.regexString = unpickler.load()

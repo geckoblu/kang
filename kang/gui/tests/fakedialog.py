@@ -1,3 +1,5 @@
+# pylint: disable=missing-function-docstring
+
 from kang.gui.importURLDialog import ImportURLDialogMode
 from kang.modules.preferences import Preferences
 

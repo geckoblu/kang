@@ -3,7 +3,7 @@ import os
 
 def getConfigDirectory():
     """
-        Return the user-specific configuration directory based on XDG Base Directory Specification.
+        Returns the user-specific configuration directory based on XDG Base Directory Specification.
     """
     home = os.path.expanduser('~')
     xdgConfigHhome = os.environ.get('XDG_CONFIG_HOME') or os.path.join(home, '.config')
@@ -14,7 +14,7 @@ def getConfigDirectory():
 
 
 def findFile(dirname, filename):
-    """Find application resources"""
+    """Finds application resources"""
     filename = os.path.join(dirname, filename)
 
     apppath = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
@@ -29,6 +29,8 @@ def findFile(dirname, filename):
 
 
 def strtobool(val):
+    """Converts a string to a boolean value.
+    Only true,false values are allowed"""
     strval = str(val).lower()
 
     if strval == 'true':

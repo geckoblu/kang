@@ -1,4 +1,4 @@
-# pylint: disable=protected-access
+# pylint: disable=protected-access,missing-function-docstring
 
 import os
 import shutil
@@ -136,7 +136,7 @@ class FakeParent:
     def loadFile(self, filename):
         pass
 
-
+# pylint: disable=unused-argument
 class FakeMenu:
 
     def insertAction(self, before, action):

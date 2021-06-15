@@ -1,4 +1,4 @@
-# pylint: disable=protected-access
+# pylint: disable=protected-access,missing-function-docstring
 
 import os
 import shutil

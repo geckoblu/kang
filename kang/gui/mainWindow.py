@@ -488,6 +488,8 @@ class MainWindow(MainWindowUI):
         self.loadFile(self._filename)
 
     def loadFile(self, filename):
+        """Loads a kng file"""
+
         self._checkModified()
 
         try:

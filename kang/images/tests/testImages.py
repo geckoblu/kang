@@ -1,3 +1,5 @@
+# pylint: disable=protected-access,missing-function-docstring
+
 import sys
 import unittest
 

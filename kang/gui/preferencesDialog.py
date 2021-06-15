@@ -59,6 +59,8 @@ class PreferencesDialog(QDialog):
         self._askSaveOnlyForNamedProjectsCheckbox.setEnabled(preferences.askSave)
 
     def getPreferences(self):
+        """Shows the dialog as a modal dialog, blocking until the user closes it.
+        The function returns a Preferences result."""
         self.exec()
 
         preferences = Preferences()

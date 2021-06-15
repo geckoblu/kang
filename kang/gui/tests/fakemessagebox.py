@@ -1,7 +1,10 @@
+# pylint: disable=missing-function-docstring
+
 from PySide2.QtWidgets import QMessageBox
 
 _ANSWER = QMessageBox.No
 
+# pylint: disable=unused-argument
 class FakeMessageBox():
 
     Ok = QMessageBox.Ok

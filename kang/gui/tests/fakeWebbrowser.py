@@ -1,3 +1,5 @@
+# pylint: disable=missing-function-docstring
+
 class FakeWebbrowser():
 
     def __init__(self):

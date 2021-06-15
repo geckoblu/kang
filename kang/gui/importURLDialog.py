@@ -60,6 +60,8 @@ class ImportURLDialog(QDialog):
         self._text = ''
 
     def getURL(self):
+        """Shows the dialog as a modal dialog, blocking until the user closes it.
+        The function returns a tuple (ok, text, url, mode) result."""
         self.exec()
         return (self.result(), self._text, self._edit.text(), self._combo.currentData())
 

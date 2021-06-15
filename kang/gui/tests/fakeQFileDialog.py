@@ -1,6 +1,8 @@
+# pylint: disable=missing-function-docstring
+
 import os
 
-
+# pylint: disable=unused-argument
 class FakeQFileDialog:
 
     def __init__(self, filename):

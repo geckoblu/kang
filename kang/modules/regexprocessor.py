@@ -41,75 +41,90 @@ class RegexProcessor(QObject):
         self._paused = False
 
     def setRegexString(self, regexString):
+        """Sets regexString string"""
         old = self._regexString
         self._regexString = regexString
         if regexString != old:
             self._process()
 
     def setMatchString(self, matchString):
+        """Sets matchString string"""
         old = self._matchString
         self._matchString = matchString
         if matchString != old:
             self._process()
 
     def setReplaceString(self, replaceString):
+        """Sets replaceString string"""
         old = self._replaceString
         self._replaceString = replaceString
         if replaceString != old:
             self._process()
 
     def setIgnorecaseFlag(self, flag):
+        """Sets ignore case flag"""
         old = self._ignorecaseFlag
         self._ignorecaseFlag = flag
         if flag != old:
             self._process()
 
     def setMultilineFlag(self, flag):
+        """Sets multi line flag"""
         old = self._multilineFlag
         self._multilineFlag = flag
         if flag != old:
             self._process()
 
     def setDotallFlag(self, flag):
+        """Sets dot all flag"""
         old = self._dotallFlag
         self._dotallFlag = flag
         if flag != old:
             self._process()
 
     def setVerboseFlag(self, flag):
+        """Sets verbose flag"""
         old = self._verboseFlag
         self._verboseFlag = flag
         if flag != old:
             self._process()
 
     def setAsciiFlag(self, flag):
+        """Sets ascii flag"""
         old = self._asciiFlag
         self._asciiFlag = flag
         if flag != old:
             self._process()
 
     def pause(self):
+        """Pauses processing"""
         self._paused = True
 
     def unpause(self):
+        """Unpauses processing"""
         waspaused = self._paused
         self._paused = False
         if waspaused:
             self._process()
 
     def getStatus(self):
+        """Returns the current status"""
         return self._status
 
     def getAllSpans(self):
+        """Returns all spans"""
         return self._spans
 
     def getSpan(self, index):
+        """Return span at index"""
         return self._spans[index]
 
     def getAllGroups(self):
+        """Returns all groups"""
         return self._groupTuples
 
     def getEmbeddedFlags(self):
+        """Returns embedded flags"""
         return self._embeddedFlags
 
     def _process(self):
@@ -252,6 +267,7 @@ class RegexProcessor(QObject):
         return ('', self._regexString)
 
     def getRegexCode(self):
+        """Returns the python code for the current regex"""
 
         code = 'import re\n\n'
 

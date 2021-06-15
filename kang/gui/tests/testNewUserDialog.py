@@ -15,7 +15,7 @@ class TestNewUserDialog(unittest.TestCase):
     def setUp(self):
         self.qApp = QCoreApplication.instance()
         if not self.qApp:
-            self.qApp = QApplication(sys.argv)
+            self.qApp = QApplication(sys.argv) # pragma: no cover - This line is executed only in single mode execution
 
     def testDialog(self):
         dialog = newUserDialog.NewUserDialog(None)

@@ -1,6 +1,8 @@
 from kang.gui.importURLDialog import ImportURLDialogMode
 from kang.modules.preferences import Preferences
 
+_IMPORTURLDIALOGMODE = ImportURLDialogMode.TEXT
+
 
 class FakeDialog():
 
@@ -16,7 +18,7 @@ class FakeDialog():
 
     def getURL(self):
         """Used when replace ImportURLDialog"""
-        return (1, 'Some text', 'https://example.com/', ImportURLDialogMode.TEXT)
+        return (1, 'Some text', 'https://example.com/', _IMPORTURLDIALOGMODE)
 
     def getPreferences(self):
         """Used when replace preferencesDialo"""

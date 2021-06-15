@@ -30,13 +30,13 @@ class WindowSettings:
 
             jdict['showRegexReferenceGuide'] = window._showRegexReferenceGuide
             jdict['showRegexLibrary'] = window._showRegexLibrary
-            jdict['_splitter'] = window._splitter.sizes()
+            jdict['splitter'] = window._splitter.sizes()
 
             # return
 
             with open(self._filename, 'w') as jfile:
                 json.dump(jdict, jfile, indent=4)
-        except Exception:
+        except Exception: # pragma: no cover - Too trivial
             traceback.print_exc()
 
     def restore(self, window):
@@ -54,7 +54,7 @@ class WindowSettings:
             y = int(jdict['y'])
             width = int(jdict['width'])
             height = int(jdict['height'])
-            sizes = jdict['_splitter']
+            sizes = jdict['splitter']
 
             showRegexReferenceGuide = strtobool(jdict['showRegexReferenceGuide'])
             showRegexLibrary = strtobool(jdict['showRegexLibrary'])
@@ -72,5 +72,5 @@ class WindowSettings:
 
             if int(sizes[0] > 0 and int(sizes[1]) > 0):
                 window._splitter.setSizes(sizes)
-        except Exception:
+        except Exception: # pragma: no cover - Too trivial
             traceback.print_exc()

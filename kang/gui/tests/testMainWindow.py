@@ -11,8 +11,11 @@ from PySide2.QtTest import QTest
 
 from kang.gui import mainWindow
 from kang.modules import util
+from kang.gui.importURLDialog import ImportURLDialogMode
 from kang.gui.tests.fakeQFileDialog import FakeQFileDialog
 from kang.gui.tests.fakeWebbrowser import FakeWebbrowser
+from kang.gui.tests import fakedialog
+from kang.gui.tests import fakemessagebox
 from kang.gui.tests.fakedialog import FakeDialog
 from kang.gui.tests.fakemessagebox import FakeMessageBox
 
@@ -22,7 +25,7 @@ class TestMainWindow(unittest.TestCase):
     def setUp(self):
         self.qApp = QCoreApplication.instance()
         if not self.qApp:
-            self.qApp = QApplication(sys.argv)
+            self.qApp = QApplication(sys.argv)  # pragma: no cover - This line is executed only in single mode execution
         # Set config directory
         self.dtmp = tempfile.mkdtemp()
         os.environ['XDG_CONFIG_HOME'] = self.dtmp
@@ -86,6 +89,7 @@ class TestMainWindow(unittest.TestCase):
     def testReplaceNumSlot(self):
         self.window.loadFile(self.filename1)
         self.window._replaceNumberChanged()
+        self.window._matchNumberSpinBox.setValue(1)
 
     def testPopulateReplaceTextbrowser(self):
         self.window._replaceNumberSpinBox.setValue(0)
@@ -121,8 +125,13 @@ class TestMainWindow(unittest.TestCase):
         self.assertTrue(self.window._verboseCheckBox.isEnabled())
         self.assertTrue(self.window._asciiCheckBox.isEnabled())
 
+        self.window._regexProcessor.setRegexString('(?Lu)')
+
     def testFileNew(self):
         self.window._fileNew()
+
+    def testFileExit(self):
+        self.window._fileExit()
 
     def testFileSave(self):
         self.window._filename = os.path.join(self.dtmp, 'filesave1.kngs')
@@ -278,6 +287,10 @@ class TestMainWindow(unittest.TestCase):
 
         self.window._importURL()
 
+        fakedialog._IMPORTURLDIALOGMODE = ImportURLDialogMode.HTML
+
+        self.window._importURL()
+
         mainWindow.ImportURLDialog = old
 
     def testPasteFromRegexLib(self):
@@ -313,24 +326,11 @@ class TestMainWindow(unittest.TestCase):
         self.window._preferences.askSaveOnlyForNamedProjects = False
         self.window._modified = True
 
-        old = mainWindow.QMessageBox
-        mainWindow.QMessageBox = FakeMessageBox
         self.window._filename = os.path.join(util.getConfigDirectory(), 't.kng')
-        self.window._checkModified()
-        mainWindow.QMessageBox = old
-
-        # an unavoidable trick to reach the 100% code coverage
-        self.window._filename = ''
-        self.window._modified = True
         old = mainWindow.QMessageBox
         mainWindow.QMessageBox = FakeMessageBox
-        _fileSave = self.window._fileSave
-        self.window._fileSave = lambda: None
-        checkModified = self.window._checkModified
-        self.window._checkModified = lambda: None
-        checkModified()
-        self.window._checkModified = checkModified
-        self.window._fileSave = _fileSave
+        fakemessagebox._ANSWER = FakeMessageBox.Yes
+        self.window._checkModified()
         mainWindow.QMessageBox = old
 
         self.window._preferences.askSave = False
@@ -389,6 +389,14 @@ class TestMainWindow(unittest.TestCase):
                                             (qColorNormal, 'bcd'),
                                             (qColorEvidence, 'a'),
                                             (qColorNormal, 'bc')])
+
+    def testShowRegexReferenceGuide(self):
+        self.window._helpRegexReferenceGuide(False)
+        self.window._helpRegexReferenceGuide(True)
+
+    def testShowRegexLibrary(self):
+        self.window._helpRegexLibrary(False)
+        self.window._helpRegexLibrary(True)
 
 
 class FakeColorizeWidget():

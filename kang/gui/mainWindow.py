@@ -17,9 +17,7 @@ from kang.modules.recentfiles import RecentFiles
 from kang.modules.util import getConfigDirectory
 from kang.modules.windowsettings import WindowSettings
 
-GEO = 'kang_geometry'
-
-SHORTMESSAGE_DURATION = 3  # seconds
+_SHORTMESSAGE_DURATION = 3  # seconds
 
 tr = lambda msg: msg
 
@@ -284,7 +282,7 @@ class MainWindow(MainWindowUI):
                 self._colorizeStrings(strings, self._replaceTextBrowser)
             else:
                 self._replaceTextBrowser.clear()
-                self._updateStatus("Error in replace string: %s" % strings, statusValue, SHORTMESSAGE_DURATION)
+                self._updateStatus("Error in replace string: %s" % strings, statusValue, _SHORTMESSAGE_DURATION)
         else:
             self._replaceTextBrowser.clear()
 
@@ -317,9 +315,9 @@ class MainWindow(MainWindowUI):
                 self._verboseCheckBox.setEnabled(False)
                 # self._verboseCheckBox.setChecked(True)
             elif flag == 'L':
-                self._updateStatus(self.tr("Locale Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
+                self._updateStatus(self.tr("Locale Flag not supported"), MATCH_NONE, _SHORTMESSAGE_DURATION)
             elif flag == 'u':
-                self._updateStatus(self.tr("Unicode Flag not supported"), MATCH_NONE, SHORTMESSAGE_DURATION)
+                self._updateStatus(self.tr("Unicode Flag not supported"), MATCH_NONE, _SHORTMESSAGE_DURATION)
 
     def _populateText(self, spans, widget):
         widget.clear()
@@ -362,13 +360,13 @@ class MainWindow(MainWindowUI):
 
         widget.setTextCursor(pos)
 
-    def _fileExit(self, event):
-        self._closeEvent(event)
+    def _fileExit(self):
+        self.close()
 
-    def _closeEvent(self, event):
+    def closeEvent(self, event):
+        """This event handler is called with the given event when Qt receives a window close request."""
         self._checkModified()
 
-        # saveWindowSettings(self, GEO)
         settings = WindowSettings()
         settings.save(self)
 
@@ -392,14 +390,14 @@ class MainWindow(MainWindowUI):
                                                           self._lastImportedFilename, "All (*)")
 
         if not filename:
-            self._updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, _SHORTMESSAGE_DURATION)
             return
 
         try:
             fp = open(filename, 'r')
         except:
             msg = self.tr("Could not open file for reading: ") + filename
-            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
             return
 
         self._lastImportedFilename = filename
@@ -458,11 +456,11 @@ class MainWindow(MainWindowUI):
 
             basename = os.path.basename(self._filename)
             msg = '%s %s' % (basename, self.tr("successfully saved"))
-            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
             self._recentFiles.add(self._filename)
         except IOError as ex:
             msg = str(ex)
-            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
 
     def _fileSaveAs(self):
         (filename, _filter) = QFileDialog.getSaveFileName(self,
@@ -471,7 +469,7 @@ class MainWindow(MainWindowUI):
                                                           "*.kng\nAll (*)"
                                                           )
         if not filename:
-            self._updateStatus(self.tr("No file selected to save"), MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(self.tr("No file selected to save"), MATCH_NONE, _SHORTMESSAGE_DURATION)
             return
         filename = os.path.normcase(filename)
 
@@ -484,7 +482,7 @@ class MainWindow(MainWindowUI):
 
     def _fileRevert(self):
         if not self._filename:
-            self._updateStatus(self.tr("There is no _filename to revert"), MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(self.tr("There is no _filename to revert"), MATCH_NONE, _SHORTMESSAGE_DURATION)
             return
 
         self.loadFile(self._filename)
@@ -525,14 +523,14 @@ class MainWindow(MainWindowUI):
 
             basename = os.path.basename(filename)
             msg = '%s %s' % (basename, self.tr("loaded successfully"))
-            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
             self._modified = False
 
             return True
 
         except IOError as ex:
             msg = str(ex)
-            self._updateStatus(msg, MATCH_NONE, SHORTMESSAGE_DURATION)
+            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
             self._recentFiles.remove(filename)
             return False
 
@@ -556,10 +554,10 @@ class MainWindow(MainWindowUI):
                                            QMessageBox.No,
                                            QMessageBox.Yes)
 
-            if prompt == 0:
+            if prompt == QMessageBox.Yes:
                 self._fileSave()
                 if not self._filename:
-                    self._checkModified()
+                    self._checkModified()  # pragma: no cover - Unusual, quite impossible to test
 
     def _pasteFromRegexLibrary(self, libraryEntry):
         self._checkModified()

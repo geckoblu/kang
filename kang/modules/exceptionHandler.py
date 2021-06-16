@@ -1,4 +1,4 @@
-# pylint: disable=global-statement,invalid-name,c-extension-no-member,superfluous-parens
+# pylint: disable=global-statement,invalid-name,c-extension-no-member,superfluous-parens,protected-access
 import sys
 import traceback
 
@@ -22,7 +22,6 @@ def init(mainWindow, debug=False):
     sys.excepthook = _excepthook
 
 
-# pylint: disable=protected-access
 def _excepthook(excType, excValue, tracebackObj):
     """
     Global function to catch unhandled exceptions.
@@ -45,7 +44,6 @@ def _excepthook(excType, excValue, tracebackObj):
             raise
 
 
-# pylint: disable=protected-access
 def _formatMessage(exmess):
     """
     Format the exception message

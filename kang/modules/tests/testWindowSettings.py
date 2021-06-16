@@ -35,10 +35,9 @@ class TestUtil(unittest.TestCase):
 
 class FakeWindow:
 
-    # pylint: disable=invalid-name
     def __init__(self):
-        self._x = 12
-        self._y = 34
+        self._x = 12 # pylint: disable=invalid-name
+        self._y = 34 # pylint: disable=invalid-name
         self._size = QSize(123, 456)
         self._showRegexReferenceGuide = True
         self._showRegexLibrary = True

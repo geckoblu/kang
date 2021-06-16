@@ -4,7 +4,7 @@ import webbrowser
 from PySide2.QtCore import Signal, qApp, QItemSelectionModel
 from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
 
-from kang import PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_FAIL, MATCH_PAUSED, MSG_NA, MSG_PAUSED, MATCH_NONE
+from kang import PYTHON_RE_LIBRARY_URL, MATCH_NA, MATCH_OK, MATCH_NONE, MATCH_PAUSED, MSG_NA, MSG_PAUSED
 from kang.gui.aboutDialog import AboutDialog
 from kang.gui.importURLDialog import ImportURLDialog, ImportURLDialogMode
 from kang.gui.mainWindowUI import MainWindowUI
@@ -55,7 +55,7 @@ class MainWindow(MainWindowUI):
         # Temporary stores last opened URL
         self._lastImportedURL = ''
 
-        self._updateStatus(MSG_NA, MATCH_NA)
+        self._updateStatus(MATCH_NA, MSG_NA)
         self._clearResults()
 
         windowSettings = WindowSettings()
@@ -89,7 +89,7 @@ class MainWindow(MainWindowUI):
 
     def _regexprocessorStatusChanged(self):
         statusValue, statusMessage = self._regexProcessor.getStatus()
-        self._updateStatus(statusMessage, statusValue)
+        self._updateStatus(statusValue, statusMessage)
 
         allmatches = self._regexProcessor.getAllSpans()
         if allmatches:
@@ -121,7 +121,8 @@ class MainWindow(MainWindowUI):
         self._populateCodeTextBrowser()
         self._populateEmbeddedFlags()
 
-    def _updateStatus(self, statusString, statusValue, duration=0):
+    # _statusValue is not used at the moment
+    def _updateStatus(self, _statusValue, statusString, duration=0):
         if duration > 0:
             self.statusBar().showMessage(statusString, duration * 1000)
         else:
@@ -135,7 +136,7 @@ class MainWindow(MainWindowUI):
     def _pause(self, paused):
         if paused:
             self._regexProcessor.pause()
-            self._updateStatus(MSG_PAUSED, MATCH_PAUSED)
+            self._updateStatus(MATCH_PAUSED, MSG_PAUSED)
             self._matchTextBrowser.setDisabled(True)
             self._matchTextBrowser.setPlainText('')
             self._groupTable.setDisabled(True)
@@ -282,7 +283,7 @@ class MainWindow(MainWindowUI):
                 self._colorizeStrings(strings, self._replaceTextBrowser)
             else:
                 self._replaceTextBrowser.clear()
-                self._updateStatus("Error in replace string: %s" % strings, statusValue, _SHORTMESSAGE_DURATION)
+                self._updateStatus(statusValue, "Error in replace string: %s" % strings, _SHORTMESSAGE_DURATION)
         else:
             self._replaceTextBrowser.clear()
 
@@ -315,9 +316,9 @@ class MainWindow(MainWindowUI):
                 self._verboseCheckBox.setEnabled(False)
                 # self._verboseCheckBox.setChecked(True)
             elif flag == 'L':
-                self._updateStatus(self.tr("Locale Flag not supported"), MATCH_NONE, _SHORTMESSAGE_DURATION)
+                self._updateStatus(MATCH_NONE, self.tr("Locale Flag not supported"), _SHORTMESSAGE_DURATION)
             elif flag == 'u':
-                self._updateStatus(self.tr("Unicode Flag not supported"), MATCH_NONE, _SHORTMESSAGE_DURATION)
+                self._updateStatus(MATCH_NONE, self.tr("Unicode Flag not supported"), _SHORTMESSAGE_DURATION)
 
     def _populateText(self, spans, widget):
         widget.clear()
@@ -391,14 +392,14 @@ class MainWindow(MainWindowUI):
                                                           self._lastImportedFilename, "All (*)")
 
         if not filename:
-            self._updateStatus(self.tr("A file was not selected for import"), MATCH_NONE, _SHORTMESSAGE_DURATION)
+            self._updateStatus(MATCH_NONE, self.tr("A file was not selected for import"), _SHORTMESSAGE_DURATION)
             return
 
         try:
             fp = open(filename, 'r')
         except:
             msg = self.tr("Could not open file for reading: ") + filename
-            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
+            self._updateStatus(MATCH_NONE, msg, _SHORTMESSAGE_DURATION)
             return
 
         self._lastImportedFilename = filename
@@ -457,11 +458,11 @@ class MainWindow(MainWindowUI):
 
             basename = os.path.basename(self._filename)
             msg = '%s %s' % (basename, self.tr("successfully saved"))
-            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
+            self._updateStatus(MATCH_NONE, msg, _SHORTMESSAGE_DURATION)
             self._recentFiles.add(self._filename)
         except IOError as ex:
             msg = str(ex)
-            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
+            self._updateStatus(MATCH_NONE, msg, _SHORTMESSAGE_DURATION)
 
     def _fileSaveAs(self):
         (filename, _filter) = QFileDialog.getSaveFileName(self,
@@ -470,7 +471,7 @@ class MainWindow(MainWindowUI):
                                                           "*.kng\nAll (*)"
                                                           )
         if not filename:
-            self._updateStatus(self.tr("No file selected to save"), MATCH_NONE, _SHORTMESSAGE_DURATION)
+            self._updateStatus(MATCH_NONE, self.tr("No file selected to save"), _SHORTMESSAGE_DURATION)
             return
         filename = os.path.normcase(filename)
 
@@ -483,7 +484,7 @@ class MainWindow(MainWindowUI):
 
     def _fileRevert(self):
         if not self._filename:
-            self._updateStatus(self.tr("There is no _filename to revert"), MATCH_NONE, _SHORTMESSAGE_DURATION)
+            self._updateStatus(MATCH_NONE, self.tr("There is no _filename to revert"), _SHORTMESSAGE_DURATION)
             return
 
         self.loadFile(self._filename)
@@ -526,14 +527,14 @@ class MainWindow(MainWindowUI):
 
             basename = os.path.basename(filename)
             msg = '%s %s' % (basename, self.tr("loaded successfully"))
-            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
+            self._updateStatus(MATCH_NONE, msg, _SHORTMESSAGE_DURATION)
             self._modified = False
 
             return True
 
         except IOError as ex:
             msg = str(ex)
-            self._updateStatus(msg, MATCH_NONE, _SHORTMESSAGE_DURATION)
+            self._updateStatus(MATCH_NONE, msg, _SHORTMESSAGE_DURATION)
             self._recentFiles.remove(filename)
             return False
 
@@ -589,7 +590,7 @@ class MainWindow(MainWindowUI):
                                    self._replaceTextEdit,
                                    self._codeTextBrowser):
             try:
-                eval('widget.%s' % methodstr)
+                eval('widget.%s' % methodstr) # # pylint: disable=eval-used
             except:
                 pass
 
@@ -600,7 +601,7 @@ class MainWindow(MainWindowUI):
         self._widgetMethod('redo()')
 
     def _editCopy(self):
-        self._widgetMethod('copy()', 1)
+        self._widgetMethod('copy()', True)
 
     def _editCut(self):
         self._widgetMethod('cut()')

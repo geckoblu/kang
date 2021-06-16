@@ -29,8 +29,8 @@ class RecentFiles:
         self._recentFiles = []
         if os.path.isfile(self._filename):
             try:
-                with open(self._filename, "r") as fp:
-                    self._recentFiles = [filename.strip() for filename in fp.readlines()]
+                with open(self._filename, "r") as inputFile:
+                    self._recentFiles = [filename.strip() for filename in inputFile.readlines()]
             except IOError as ex:
                 sys.stderr.write("Could not load recent file list: %s\n" % str(ex))
 
@@ -41,9 +41,9 @@ class RecentFiles:
         # truncate list if necessary
         self._recentFiles = self._recentFiles[:self._MAX_SIZE]
         try:
-            with open(self._filename, "w") as fp:
+            with open(self._filename, "w") as outputFile:
                 for filename in self._recentFiles:
-                    fp.write("%s\n" % filename)
+                    outputFile.write("%s\n" % filename)
         except IOError as ex:
             sys.stderr.write("Could not save recent file list %s\n" % str(ex))
 
@@ -99,11 +99,11 @@ class RecentFiles:
 
     def setNumShown(self, numShown):
         """Set maximum number of menu entry to show (update menu)"""
-        ns = int(numShown)
-        if ns == self._numShown:
+        numShown = int(numShown)
+        if numShown == self._numShown:
             return
 
         # clear menu of size X then add entries of size Y
         self._clearMenu()
-        self._numShown = ns
+        self._numShown = numShown
         self._createMenu(0)

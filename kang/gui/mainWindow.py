@@ -1,6 +1,5 @@
 import os
 import webbrowser
-import traceback
 
 from PySide2.QtCore import Signal, qApp, QItemSelectionModel
 from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
@@ -397,15 +396,15 @@ class MainWindow(MainWindowUI):
             return
 
         try:
-            fp = open(filename, 'r')
+            importFile = open(filename, 'r')
         except Exception:
             msg = self.tr("Could not open file for reading: ") + filename
             self._updateStatus(MATCH_NONE, msg, _SHORTMESSAGE_DURATION)
             return
 
         self._lastImportedFilename = filename
-        data = fp.read()
-        fp.close()
+        data = importFile.read()
+        importFile.close()
         self._stringMultiLineEdit.setPlainText(data)
 
     def _fileNew(self):
@@ -591,9 +590,10 @@ class MainWindow(MainWindowUI):
                                    self._replaceTextEdit,
                                    self._codeTextBrowser):
             try:
-                eval('widget.%s' % methodstr) # # pylint: disable=eval-used
+                eval('widget.%s' % methodstr)  # # pylint: disable=eval-used
             except Exception:
-                traceback.print_exc()
+                # TODO: Do I need to handle this?
+                pass
 
     def _editUndo(self):
         self._widgetMethod('undo()')

@@ -208,12 +208,10 @@ class TestMainWindow(unittest.TestCase):
         self.window._regexMultiLineEdit.setPlainText('(?P<g1>b)')
         self.window._replaceTextEdit.setPlainText('\\1')
 
-        code1 = str(self.window._codeTextBrowser.toPlainText()).split('\n')
+        code1 = self.window._codeTextBrowser.toPlainText().split('\n')
         code2 = self.window._regexProcessor.getRegexCode().split('\n')
         for i in range(0, min(len(code1), len(code2))):
-            c1 = code1[i]
-            c2 = code2[i]
-            self.assertEqual(c1, c2)
+            self.assertEqual(code1[i], code2[i])
 
     def testActionsSlot(self):
         self.window._editCopy()

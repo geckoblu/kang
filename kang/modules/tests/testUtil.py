@@ -35,9 +35,9 @@ class TestUtil(unittest.TestCase):
 
     def testFindFile(self):
         ntfile = tempfile.NamedTemporaryFile()
-        dr, filename = os.path.split(ntfile.name)
-        fname = util.findFile(dr, filename)
+        dirname, filename = os.path.split(ntfile.name)
+        fname = util.findFile(dirname, filename)
         self.assertEqual(ntfile.name, fname)
 
-        fname = util.findFile(dr, 'not an existing filename')
+        fname = util.findFile(dirname, 'not an existing filename')
         self.assertTrue(fname is None)

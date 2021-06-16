@@ -167,12 +167,12 @@ class RegexProcessor(QObject):
 
             self._spans.append(span)
 
-            gs = []
+            groupTuples = []
             for i, group in enumerate(match.groups(''), 1):
-                gt = (i, groupname.get(i, ''), group)
-                gs.append(gt)
-            if gs:
-                self._groupTuples.append(gs)
+                groupTuple = (i, groupname.get(i, ''), group)
+                groupTuples.append(groupTuple)
+            if groupTuples:
+                self._groupTuples.append(groupTuples)
 
         found = len(self._spans)
         if found == 0:

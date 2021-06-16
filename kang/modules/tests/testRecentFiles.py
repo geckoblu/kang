@@ -29,91 +29,94 @@ class TestRecentFiles(unittest.TestCase):
 
     def testRecentfiles(self):
         parent = FakeParent()
-        r1 = recentfiles.RecentFiles(parent)
+        recents1 = recentfiles.RecentFiles(parent)
 
         # Test save/load
-        r1._recentFiles = ['/home/goofy/kng/pippo1.kng',
-                           '/home/goofy/kng/pippo2.kng',
-                           '/home/goofy/kng/pippo3.kng']
-        r1._save()
-        # r1._load()
+        recents1._recentFiles = ['/home/goofy/kng/pippo1.kng',
+                                 '/home/goofy/kng/pippo2.kng',
+                                 '/home/goofy/kng/pippo3.kng']
+        recents1._save()
+        # recents1._load()
 
-        r2 = recentfiles.RecentFiles(parent)
-        r2._load()
-        self.assertEqual(r1._recentFiles, r2._recentFiles)
+        recents2 = recentfiles.RecentFiles(parent)
+        recents2._load()
+        self.assertEqual(recents1._recentFiles, recents2._recentFiles)
 
         # Test add
-        r3 = recentfiles.RecentFiles(parent)
-        an = len(r3._actions)
-        r3.add('/home/goofy/kng/pippo4.kng')
-        self.assertIn('/home/goofy/kng/pippo4.kng', r3._recentFiles)
-        self.assertEqual(an + 1, len(r3._actions))
+        recents3 = recentfiles.RecentFiles(parent)
+        actionsLenBefore = len(recents3._actions)
+        recents3.add('/home/goofy/kng/pippo4.kng')
+        self.assertIn('/home/goofy/kng/pippo4.kng', recents3._recentFiles)
+        actionsLenAfter = len(recents3._actions)
+        self.assertEqual(actionsLenAfter, actionsLenBefore + 1)
 
         # Test setNumShown
         numShow = 2
-        r1.setNumShown(numShow)
-        self.assertEqual(numShow, len(r1._actions))
+        recents1.setNumShown(numShow)
+        self.assertEqual(numShow, len(recents1._actions))
         # Set again with same value
-        r1.setNumShown(numShow)
-        self.assertEqual(numShow, len(r1._actions))
+        recents1.setNumShown(numShow)
+        self.assertEqual(numShow, len(recents1._actions))
         # Set again incrementing
         numShow += 1
-        r1.setNumShown(numShow)
-        self.assertEqual(numShow, len(r1._actions))
+        recents1.setNumShown(numShow)
+        self.assertEqual(numShow, len(recents1._actions))
 
         # Test openfile
-        r1._openFile('/home/goofy/kng/pippo.kng')
+        recents1._openFile('/home/goofy/kng/pippo.kng')
 
         # Test clearMenu
-        r1._save()
-        r1._load()
-        r1._clearMenu()
+        recents1._save()
+        recents1._load()
+        recents1._clearMenu()
 
     def testRemove(self):
         parent = FakeParent()
-        rf = recentfiles.RecentFiles(parent)
+        recents = recentfiles.RecentFiles(parent)
 
         fn1 = '/home/goofy/kng/pippo1.kng'
         fn2 = '/home/goofy/kng/pippo2.kng'
         fn3 = '/home/goofy/kng/pippo3.kng'
-        rf._recentFiles = [fn1, fn2]
-        rf._save()
-        rf._load()
+        recents._recentFiles = [fn1, fn2]
+        recents._save()
+        recents._load()
 
         # Remove a file in the list
-        an = len(rf._actions)
-        rf.remove(fn1)
-        self.assertNotIn(fn1, rf._recentFiles)
-        self.assertEqual(an - 1, len(rf._actions))
+        actionsLenBefore = len(recents._actions)
+        recents.remove(fn1)
+        self.assertNotIn(fn1, recents._recentFiles)
+        actionsLenAfter = len(recents._actions)
+        self.assertEqual(actionsLenAfter, actionsLenBefore - 1)
 
         # Remove a file not the list
-        an = len(rf._actions)
-        self.assertNotIn(fn3, rf._recentFiles)
-        rf.remove(fn3)
-        self.assertNotIn(fn3, rf._recentFiles)
-        self.assertEqual(an, len(rf._actions))
+        actionsLenBefore = len(recents._actions)
+        self.assertNotIn(fn3, recents._recentFiles)
+        recents.remove(fn3)
+        self.assertNotIn(fn3, recents._recentFiles)
+        actionsLenAfter = len(recents._actions)
+        self.assertEqual(actionsLenAfter, actionsLenBefore)
 
     def testLoadIOError(self):
         parent = FakeParent()
-        rf = recentfiles.RecentFiles(parent)
+        recents = recentfiles.RecentFiles(parent)
 
-        rf._filename = '/etc/shadow'  # something we could surely not read
+        recents._filename = '/etc/shadow'  # something we could surely not read
         stderr = sys.stderr
         sys.stderr = self
         self.resetMsg()
-        rf._load()
+        recents._load()
         sys.stderr = stderr
         self.assertMsgRaised()
 
     def testSaveIOError(self):
         parent = FakeParent()
-        rf = recentfiles.RecentFiles(parent)
+        recents = recentfiles.RecentFiles(parent)
 
-        rf._filename = '/Not_a_valid_path'
+        recents._filename = '/Not_a_valid_path'
         stderr = sys.stderr
         sys.stderr = self
         self.resetMsg()
-        rf._save()
+        recents._save()
         sys.stderr = stderr
         self.assertMsgRaised()
 

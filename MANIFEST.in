@@ -1,16 +1,13 @@
 global-include *.xpm
 global-include *.png
 global-include *.svg
-global-include *.ui
 
-
-recursive-include doc-rst *
 recursive-include data *
 recursive-include kang *.kng
 
 include .coveragerc
 include TODO
 include mynotes.rst
-include pylintrc
+include .pylintrc
 include setuptools_extensions.py
 include LICENSE.txt

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from setuptools import setup, find_packages
 import sys
@@ -6,16 +6,10 @@ import sys
 from kang import VERSION
 
 try:
-    from PySide2 import QtCore
+    import PySide2
 except ImportError:
-    sys.stderr.write("""Could not locate the PyQt module.  Please make sure that
-you have installed PyQt for the version of Python that you are running.\n""")
-    sys.exit(1)
-
-QT_VERS = int(QT_VERSION_STR[0])
-
-if QT_VERS < 4:
-    sys.stderr.write("Qt versions prior to 4.0 are no longer supported\n")
+    sys.stderr.write("""Could not locate the PySide2 module.  Please make sure that
+you have installed PySide2 for the version of Python that you are running.\n""")
     sys.exit(1)
 
 cmdclass = {}

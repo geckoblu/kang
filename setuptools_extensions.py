@@ -21,7 +21,7 @@ class integrate_desktop(Command):
 
     def run(self):
         """runner"""
-        d, _ = os.path.split(__file__)
+        d, __ = os.path.split(__file__)
         d = os.path.join(d, 'data')
 
         # sudo xdg-mime install --mode system data/kang-mimetype.xml

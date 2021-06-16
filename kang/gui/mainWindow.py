@@ -329,11 +329,12 @@ class MainWindow(MainWindowUI):
         text = self._stringMultiLineEdit.toPlainText()
         strings = []
         for span in spans:
-            s = text[idx:span[0]]
-
+            nonmatchingtext = text[idx:span[0]]
+            matchingtext = text[span[0]:span[1]]
             idx = span[1]
-            strings.append(s)
-            strings.append(text[span[0]:span[1]])
+
+            strings.append(nonmatchingtext)
+            strings.append(matchingtext)
 
         if 0 <= idx <= len(text):
             strings.append(text[idx:])
@@ -350,10 +351,10 @@ class MainWindow(MainWindowUI):
 
         i = 0
         pos = widget.textCursor()
-        for s in strings:
+        for string in strings:
             widget.setTextColor(textColors[i % 2])
             widget.setTextBackgroundColor(foregroundColors[i % 2])
-            widget.insertPlainText(s)
+            widget.insertPlainText(string)
             if i == cursorOffset:
                 pos = widget.textCursor()
             i += 1

@@ -31,6 +31,8 @@ python3-coverage run --source=kang -m unittest discover && python3-coverage html
 
 python3-coverage run -m unittest kang/modules/tests/testRegexProcessor.py && python3-coverage html -i
 
+python3-coverage run --branch -m unittest discover && python3-coverage html -i
+
 
 
 Mime Type Setup

@@ -168,8 +168,8 @@ class RegexProcessor(QObject):
             self._spans.append(span)
 
             gs = []
-            for i, g in enumerate(match.groups(''), 1):
-                gt = (i, groupname.get(i, ''), g)
+            for i, group in enumerate(match.groups(''), 1):
+                gt = (i, groupname.get(i, ''), group)
                 gs.append(gt)
             if gs:
                 self._groupTuples.append(gs)
@@ -236,6 +236,7 @@ class RegexProcessor(QObject):
                 self._asciiFlagEmbedded = True
 
     def replace(self, count):
+        """Returns the list of replaced strings"""
         try:
             replaced = re.sub(self._regexString, self._replaceString, self._matchString, count)
         except re.error as ex:
@@ -251,7 +252,7 @@ class RegexProcessor(QObject):
         return (MATCH_OK, strings)
 
     def examine(self):
-
+        """Returns the longest matching regex"""
         regex = self._regexStringEFR
         length = len(regex)
 

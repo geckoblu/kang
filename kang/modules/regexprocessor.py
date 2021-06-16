@@ -263,6 +263,7 @@ class RegexProcessor(QObject):
                 if match:
                     return (regex, self._regexString[len(regex):])
             except re.error:
+                # regex could be invalid but we could ignore it
                 pass
 
         return ('', self._regexString)

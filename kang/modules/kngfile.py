@@ -69,7 +69,8 @@ class KngFile:
             try:
                 # Try to load an old pickler version
                 self._loadPickler()
-            except:
+            except Exception:
+                # Even picker fail, raise the JSONDecodeError exception
                 raise jsonexception
 
     def _loadPickler(self):

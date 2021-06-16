@@ -182,7 +182,7 @@ class TestMainWindow(unittest.TestCase):
 
         mainWindow.QFileDialog = qfd
 
-    def testOpenFile(self):
+    def testLoadFile(self):
         self.window.loadFile(self.filename1)
 
         self.window.loadFile('not_a_valid_filename')

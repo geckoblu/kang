@@ -51,7 +51,7 @@ class RecentFiles:
         """Add a filename to the recent file list (automatically save and add to menu)"""
         try:
             self._recentFiles.remove(filename)
-        except:
+        except ValueError:
             pass
 
         self._recentFiles.insert(0, filename)
@@ -62,7 +62,7 @@ class RecentFiles:
         """Remove a filename from the recent file list (and from menu)"""
         try:
             self._recentFiles.remove(filename)
-        except:
+        except ValueError:
             pass
 
         self._save()

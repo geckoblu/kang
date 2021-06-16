@@ -6,7 +6,7 @@ import argparse
 import sys
 try:
     from PySide2.QtWidgets import QApplication
-except:
+except ModuleNotFoundError:
     sys.stderr.write("""Could not locate the PySide2 module.  Please make sure that
 you have installed PySide2 for the version of Python that you are running.\n""")
     sys.exit(1)

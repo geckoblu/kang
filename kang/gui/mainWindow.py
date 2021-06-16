@@ -1,5 +1,6 @@
 import os
 import webbrowser
+import traceback
 
 from PySide2.QtCore import Signal, qApp, QItemSelectionModel
 from PySide2.QtWidgets import QMessageBox, QFileDialog, QTreeWidgetItem
@@ -83,7 +84,7 @@ class MainWindow(MainWindowUI):
 
         try:
             os.mkdir(kdir, 0o755)
-        except:
+        except Exception:
             message = '%s: %s' % (self.tr('Failed to create'), kdir)
             QMessageBox().critical(self, self.tr('ERROR'), message, buttons=QMessageBox.Ok)
 
@@ -397,7 +398,7 @@ class MainWindow(MainWindowUI):
 
         try:
             fp = open(filename, 'r')
-        except:
+        except Exception:
             msg = self.tr("Could not open file for reading: ") + filename
             self._updateStatus(MATCH_NONE, msg, _SHORTMESSAGE_DURATION)
             return
@@ -591,8 +592,8 @@ class MainWindow(MainWindowUI):
                                    self._codeTextBrowser):
             try:
                 eval('widget.%s' % methodstr) # # pylint: disable=eval-used
-            except:
-                pass
+            except Exception:
+                traceback.print_exc()
 
     def _editUndo(self):
         self._widgetMethod('undo()')

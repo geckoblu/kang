@@ -39,7 +39,7 @@ def _excepthook(excType, excValue, tracebackObj):
             __showedexmess.add(exmess)
             msg = _formatMessage(exmess)
             __mainWindow._signalException(msg)
-    except:
+    except Exception:
         if __debug:
             raise
 

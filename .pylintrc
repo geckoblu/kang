@@ -1,5 +1,6 @@
 [MASTER]
 
+# doesn't work with PySide2
 # extension-pkg-whitelist=PySide2.QtCore,PySide2.QtGui,PySide2.QtWidgets
 
 [MESSAGES CONTROL]
@@ -14,15 +15,13 @@ disable=
     too-many-locals,
     too-few-public-methods,
     no-else-return,
+    duplicate-code, # Too much false positive
+    no-name-in-module, # Problems with PySide2 imports
+    no-self-use,
+    broad-except,
 
     fixme,
         
-    undefined-variable, # Problems with PySide2 imports
-    no-name-in-module, # Problems with PySide2 imports
-    duplicate-code, # Remove at the end of porting
-    bare-except,
-    broad-except,
-    no-self-use
 
 [BASIC]
 
@@ -49,7 +48,7 @@ variable-naming-style=camelCase
 
 # Regular expression which should only match correct variable names
 # Overrides variable-naming-style.
-variable-rgx=(([a-z_][a-zA-Z0-9]{1,})|(__[a-z][a-zA-Z0-9_]+__))$
+# variable-rgx=(([a-z_][a-zA-Z0-9]{1,})|(__[a-z][a-zA-Z0-9_]+__))$
 
 # Good variable names which should always be accepted, separated by a comma.
 good-names=__,x,y,i,ok,tr

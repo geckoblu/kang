@@ -104,7 +104,7 @@ _GENERAL_HTML = """
 <tr><td>%s:&nbsp;</td><td>%s</td></tr>
 <tr><td>&nbsp;</td><td></td></tr>
 <tr><td>%s:&nbsp;</td><td><a href=\"%s\">%s</a></td></tr>
-<tr><td>%s:&nbsp;</td><td><a href=\"http://www.gnu.org/licenses/gpl-3.0.txt\">GNU General Public License v3</a></td></tr>
+<tr><td>%s:&nbsp;</td><td><a href=\"http://www.gnu.org/licenses/gpl-2.0.txt\">GNU General Public License v2</a></td></tr>
 </table>
 """ % (tr("Version"), VERSION,
        tr("Homepage"), KANG_WEBSITE, KANG_WEBSITE,

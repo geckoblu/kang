@@ -34,6 +34,13 @@ python3-coverage run --branch -m unittest discover && python3-coverage html -i
 
 
 
+chekcout remote branch
+-----------------------
+
+git checkout -t origin/dev_pyside2
+
+
+
 Mime Type Setup
 ===============
 
@@ -44,3 +51,13 @@ sudo xdg-icon-resource install --mode system --size 48 application-x-kang.png
 sudo xdg-mime default kang.desktop application/x-kang
 
 xdg-mime query filetype ./kng/pippo.kng
+
+
+
+Links
+=====
+
+https://packaging.python.org/tutorials/packaging-projects/
+
+https://github.com/realpython/reader
+

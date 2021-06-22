@@ -95,7 +95,7 @@ class MainWindowUI(QMainWindow):
         self._editPasteAction.setShortcut("Ctrl+V")
         self._editPasteAction.triggered.connect(self._editPaste)
 
-        self._editPauseAction = QAction(getIcon('media-playback-_pause'), "&Pause", self, checkable=True)
+        self._editPauseAction = QAction(getIcon('media-playback-pause'), "&Pause", self, checkable=True)
         self._editPauseAction.setShortcut("Ctrl+P")
         self._editPauseAction.triggered.connect(self._pause)
 

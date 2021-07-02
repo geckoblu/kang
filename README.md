@@ -9,15 +9,18 @@ Since Python's implementation of regular expressions is based on the [PCRE](http
 
 <img src="./screenshot.png?raw=true" alt="Screenshot" width="236"/>
 
-## Build - Install
+## Install
 
-The Qt5 libraries are required.  
-PySide2 (the Python binding to Qt5) is required too.  
+Qt5 and PySide2 are required.  
 Make sure that they are installed on your system.  
 
-    ./setup.py build # to build
+    # On Debian / Ubuntu
+    sudo aptitude install python3-pyside2.qtwidgets
+    
+**From sources**
 
     sudo ./setup.py install # to install in the system
+    sudo ./setup.py integrate_desktop # desktop integration
 
 ## Credits
 

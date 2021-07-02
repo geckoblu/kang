@@ -22,7 +22,7 @@ with open(os.path.join(HERE, "README.md")) as fid:
 class integrate_desktop(Command):
     """Subcommand to integrate kang into a desktop environment"""
 
-    description = "Integrate kang into the desktop."
+    description = "Integrate Kang into the desktop."
 
     user_options = []
 
@@ -38,6 +38,11 @@ class integrate_desktop(Command):
         """runner"""
         d, __ = os.path.split(__file__)
         d = os.path.join(d, 'data')
+        
+        # sudo xdg-desktop-menu install --novendor --mode system data/kang.desktop
+        log.info('installing desktop menu')
+        desktop_filename = os.path.join(d, 'kang.desktop')
+        subprocess.call(['xdg-desktop-menu', 'install', '--novendor', desktop_filename])
 
         # sudo xdg-mime install --mode system data/kang-mimetype.xml
         log.info('installing mime type')
@@ -50,7 +55,7 @@ class integrate_desktop(Command):
         subprocess.call(['xdg-icon-resource', 'install', '--size', '48', mimeicon_filename])
         
         # sudo xdg-mime default kang.desktop application/x-kang
-        log.info('link mime type to kang')
+        log.info('link mime type to Kang')
         subprocess.call(['xdg-mime', 'default', 'kang.desktop', 'application/x-kang'])
 
 cmdclass = {}

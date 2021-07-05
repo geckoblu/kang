@@ -16,7 +16,7 @@ Make sure that they are installed on your system.
 
     # On Debian / Ubuntu
     sudo aptitude install python3-pyside2.qtwidgets
-    
+
 **From sources**
 
     sudo ./setup.py install # to install in the system

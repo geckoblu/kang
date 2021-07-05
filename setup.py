@@ -43,6 +43,11 @@ class integrate_desktop(Command):
         log.info('installing desktop menu')
         desktop_filename = os.path.join(d, 'kang.desktop')
         subprocess.call(['xdg-desktop-menu', 'install', '--novendor', desktop_filename])
+        
+        # sudo xdg-icon-resource install --mode system --size svg ./data/kang-icon.svg
+        log.info('installing file icon')
+        desktopicon_filename = os.path.join(d, 'kang-icon.svg')
+        subprocess.call(['./xdg-icon-resource', 'install', '--size', 'scalable', desktopicon_filename])
 
         # sudo xdg-mime install --mode system data/kang-mimetype.xml
         log.info('installing mime type')
@@ -50,7 +55,7 @@ class integrate_desktop(Command):
         subprocess.call(['xdg-mime', 'install', mimetype_filename])
 
         # sudo xdg-icon-resource install --mode system --size 48 application-x-kang.png
-        log.info('installing file icon')
+        log.info('installing mime file icon')
         mimeicon_filename = os.path.join(d, 'application-x-kang.png')
         subprocess.call(['xdg-icon-resource', 'install', '--size', '48', mimeicon_filename])
         
